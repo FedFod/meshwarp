@@ -1,5 +1,10 @@
 var WHITE = [1,1,1,1];
 var BLACK = [0,0,0,1];
+var RED   = [1,0,0,1];
+
+function calcDist2D(vec1, vec2) {
+    return Math.sqrt((vec1[0]-vec2[0])*(vec1[0]-vec2[0]) + (vec1[1]-vec2[1])*(vec1[1]-vec2[1]));
+}
 
 // - - -
 
@@ -38,6 +43,10 @@ function random(min, max) {
 	} else {
 		return Math.random() * min;
 	}
+}
+
+function randomColor() {
+    return [random(0, 1), random(0, 1), random(0, 1), 1];
 }
 
 // - - -  

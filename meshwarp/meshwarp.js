@@ -7,8 +7,12 @@ include("Utilities.js");
 var meshesNumber = 2; 
 declareattribute("meshesNumber", null, null, 1);
 
+var windowDim = [0,0];
+
 var windowRatio = 1; 
-declareattribute("windowRatio");
+function setWindowRatio(ratio) {
+	windowRatio = ratio;
+}
 
 // JIT_GL_NODE
 var nodeCTX = new JitterObject("jit.gl.node");
@@ -32,23 +36,30 @@ var meshes = [];
 
 var mousePosScreen = [];
 
-function initMeshes()
-{	
-	for (var i=0; i<meshesNumber; i++)
-	{
+function freeMeshes() {
+	for (var i=0; i<meshes.length; i++) {
+		meshes[i].freeMesh();
+	}
+}
+freeMeshes.local = 1;
+
+function initMeshes() {	
+	for (var i=0; i<meshesNumber; i++) {
 		meshes.push(new Mesh());
 		meshes[i].initMesh(4,4,nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
 	}
 }
+initMeshes.local = 1;
 
-function init()
-{	
+function init() {	
 	nodeCTX.drawto = drawto;
-	videoplane.drawto = drawto;
-	var windowDim = nodeCTX.dim;
-	windowRatio = windowDim[0] / windowDim[1];
-	postln(windowDim)
+	videoplane.drawto = drawto;	
+	freeMeshes();
 	initMeshes();
+}
+
+function mouseFromScreenToWorld2D(mouseScreen) {
+	//return [mouseScreen[0]]
 }
 
 
@@ -85,14 +96,21 @@ function swapcallback(event){
 		// if context is root we use swap, if jit.gl.node use draw
 		case ("swap" || "draw"):
 		// RENDER BANG
+			if (windowDim[0] != nodeCTX.dim[0] || windowDim[1] != nodeCTX.dim[1]) {
+				setWindowRatio(nodeCTX.dim[0] / nodeCTX.dim[1]);
+				windowDim = nodeCTX.dim.splice(0);
+				postln(windowDim);
+				init(); // RE INIT everything when window size is modified (temporary)
+			}
+			windowDim = nodeCTX.dim;
 			break;
 		case "mouse": // get mouse array
 			mousePosScreen = (event.args);
+			var mouse
 			postln(mousePosScreen);
 			break;
 		case "reshape":
-			init(); // RE INIT everything (temporary)
-			postln("rect")
+			
 			break;
 	}
 }

@@ -1,21 +1,38 @@
-function Mesh()
-{
-    this.mesh = new JitterObject("jit.gl.mesh");
-    this.mesh.draw_mode = "points";
-    this.mesh.color = WHITE;
-    this.mesh.point_size = 10;
-    
+function Mesh() {
     this.ID = 0; // ID of the mesh
 
+    this.meshPoints = new JitterObject("jit.gl.mesh");
+    this.meshGrid = new JitterObject("jit.gl.mesh");
     this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
 
-    this.initMesh = function(dim_x, dim_y, drawto, ID)
-    {   
+    this.initMesh = function(dim_x, dim_y, drawto, ID) {
+        this.meshPoints = new JitterObject("jit.gl.mesh");
+        this.meshPoints.draw_mode = "points";
+        this.meshPoints.depth_enable = 0;
+        this.meshPoints.layer = 10;
+        this.meshPoints.color = WHITE;
+        this.meshPoints.point_size = 10;
+    
+        this.meshGrid = new JitterObject("jit.gl.mesh");
+        this.meshGrid.draw_mode = "tri_grid";
+        this.meshGrid.depth_enable = 0;
+        this.meshGrid.layer = 9;
+        this.meshGrid.color = randomColor();
+
+        this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
+
         this.ID = ID;
-        this.mesh.drawto = drawto;
+        this.meshPoints.drawto = drawto;
+        this.meshGrid.drawto   = drawto;
         this.setMeshDim(dim_x, dim_y);
         this.initPositionMat();
-        postln("mesh draws to: " + this.mesh.drawto)
+        postln("mesh draws to: " + this.meshPoints.drawto)
+    }
+
+    this.freeMesh = function() {
+        this.positionMat.freepeer();
+        this.meshPoints.freepeer();
+        this.meshGrid.freepeer();
     }
 
     this.setMeshDim = function(dim_x, dim_y)
@@ -47,13 +64,25 @@ function Mesh()
         }   
 
         // assign vertex mat to mesh
-        this.mesh.vertex_matrix(this.positionMat.name);
+        this.meshPoints.vertex_matrix(this.positionMat.name);
+        this.meshGrid.vertex_matrix(this.positionMat.name);
     }
 
     //-------------------------------------------
 
-    this.checkIfDragged = function()
+    this.checkIfVertexDragged = function(mouseArray)
     {
+        for (var i=0; i<this.positionMat.dim[0]; i++)
+        {
+            for (var j=0; j<this.positionMat.dim[1]; j++)
+            {
+                var currVertexPos = this.positionMat.getcell(i,j);
+                var distFromMouse = calcDist2D(currVertexPos.slice(0,2), mouseArray.slice(0,2));
 
+                if (distFromMouse <= 0.2) {
+                    postln("gotcha")
+                }
+            }
+        }
     }
 }
