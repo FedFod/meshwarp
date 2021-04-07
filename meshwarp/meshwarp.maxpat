@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 817.0, 234.0, 586.0, 661.0 ],
+		"rect" : [ 877.0, 229.0, 586.0, 661.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,25 +40,13 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-10",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 117.404759526252747, 312.0, 177.0, 22.0 ],
-					"text" : "jit.gl.camera theWorld @ortho 2"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-8",
 					"maxclass" : "message",
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 182.642860054969788, 84.0, 66.0, 22.0 ],
-					"text" : "initMeshes"
+					"patching_rect" : [ 182.642860054969788, 79.0, 29.5, 22.0 ],
+					"text" : "init"
 				}
 
 			}
@@ -159,7 +147,7 @@
 						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
-									"embedstate" : [ [ "meshesNumber", 1 ] ],
+									"embedstate" : [ [ "meshesNumber", 2 ] ],
 									"id" : "obj-8",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -181,7 +169,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 334.0, 64.0, 150.0, 20.0 ],
+									"patching_rect" : [ 99.0, 36.0, 77.0, 20.0 ],
 									"text" : "from jit.world"
 								}
 
@@ -218,7 +206,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 141.0, 333.0, 150.0, 20.0 ],
+									"patching_rect" : [ 145.0, 267.0, 150.0, 20.0 ],
 									"text" : "connect to jit.world"
 								}
 
@@ -231,7 +219,7 @@
 									"maxclass" : "outlet",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 102.0, 326.0, 30.0, 30.0 ]
+									"patching_rect" : [ 106.0, 260.0, 30.0, 30.0 ]
 								}
 
 							}

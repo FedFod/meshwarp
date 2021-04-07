@@ -10,6 +10,24 @@ declareattribute("meshesNumber", null, null, 1);
 var windowRatio = 1; 
 declareattribute("windowRatio");
 
+// JIT_GL_NODE
+var nodeCTX = new JitterObject("jit.gl.node");
+nodeCTX.name = "##mesherNodeCTX##";
+nodeCTX.capture = 1;
+nodeCTX.automatic = 1;
+nodeCTX.adapt = 1;
+
+// VIDEOPLANE
+var videoplane = new JitterObject("jit.gl.videoplane");
+videoplane.transform_reset = 2;
+videoplane.color = WHITE;
+videoplane.texture = nodeCTX.out_name;
+
+// CAMERA IN NODE
+var nodeCamera = new JitterObject("jit.gl.camera");
+nodeCamera.drawto = nodeCTX.name;
+nodeCamera.ortho = 2;
+
 var meshes = [];
 
 var mousePosScreen = [];
@@ -19,8 +37,18 @@ function initMeshes()
 	for (var i=0; i<meshesNumber; i++)
 	{
 		meshes.push(new Mesh());
-		meshes[i].initMesh(4,4,drawto, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
+		meshes[i].initMesh(4,4,nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
 	}
+}
+
+function init()
+{	
+	nodeCTX.drawto = drawto;
+	videoplane.drawto = drawto;
+	var windowDim = nodeCTX.dim;
+	windowRatio = windowDim[0] / windowDim[1];
+	postln(windowDim)
+	initMeshes();
 }
 
 
@@ -53,12 +81,19 @@ function setdrawto(arg) {
 function swapcallback(event){
 	//post("callback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
 
-	// if context is root we use swap, if jit.gl.node use draw
-	if ((event.eventname=="swap" || event.eventname=="draw")) {
+	switch (event.eventname) {
+		// if context is root we use swap, if jit.gl.node use draw
+		case ("swap" || "draw"):
 		// RENDER BANG
-	} else if (event.eventname=="mouseidle")
-	{
-		mousePosScreen = (event.args);
+			break;
+		case "mouse": // get mouse array
+			mousePosScreen = (event.args);
+			postln(mousePosScreen);
+			break;
+		case "reshape":
+			init(); // RE INIT everything (temporary)
+			postln("rect")
+			break;
 	}
 }
 swapcallback.local = 1

@@ -15,8 +15,7 @@ function Mesh()
         this.mesh.drawto = drawto;
         this.setMeshDim(dim_x, dim_y);
         this.initPositionMat();
-        postln(this.mesh.drawto)
-        postln(this.mesh.vertex_matrix.dim);
+        postln("mesh draws to: " + this.mesh.drawto)
     }
 
     this.setMeshDim = function(dim_x, dim_y)
@@ -31,8 +30,7 @@ function Mesh()
 
     this.initPositionMat = function()
     {
-        postln("Initializing vertex matrix for mesh");
-        postln(this.positionMat.dim)
+        postln("Initializing vertex matrix for mesh with ID " + this.ID);
     
         // Set values for position matrix
         for(var i=0; i<this.positionMat.dim[0]; i++)
@@ -53,4 +51,9 @@ function Mesh()
     }
 
     //-------------------------------------------
+
+    this.checkIfDragged = function()
+    {
+
+    }
 }
