@@ -2,6 +2,19 @@ var WHITE = [1,1,1,1];
 var BLACK = [0,0,0,1];
 var RED   = [1,0,0,1];
 
+var BACKGROUND = 9;
+var MIDDLE = 10;
+var FRONT = 11;
+
+function transformMouseFromScreenToWorld2D(mouseScreen) {
+	var mouseXWorld = (((mouseScreen[0] / gWindowDim[0]) * 2.0) - 1.0) * gWindowRatio; 
+	var mouseYWorld = (((mouseScreen[1] / gWindowDim[1]) * 2.0) - 1.0) * -1.0;
+	
+	return [mouseXWorld, mouseYWorld];
+}
+
+// - - -
+
 function calcDist2D(vec1, vec2) {
     return Math.sqrt((vec1[0]-vec2[0])*(vec1[0]-vec2[0]) + (vec1[1]-vec2[1])*(vec1[1]-vec2[1]));
 }

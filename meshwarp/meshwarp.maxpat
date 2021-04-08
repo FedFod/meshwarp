@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 913.0, 192.0, 586.0, 661.0 ],
+		"rect" : [ 958.0, 240.0, 586.0, 661.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -48,7 +48,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 198.0, 200.738093018531799, 80.0, 36.0 ]
+					"patching_rect" : [ 223.904759526252747, 207.738093018531799, 80.0, 36.0 ]
 				}
 
 			}
@@ -160,7 +160,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"embedstate" : [ [ "meshesNumber", 2 ] ],
+									"embedstate" : [ [ "gMeshesNumber", 4 ] ],
 									"id" : "obj-8",
 									"maxclass" : "newobj",
 									"numinlets" : 1,

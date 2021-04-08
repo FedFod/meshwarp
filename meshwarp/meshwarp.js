@@ -2,17 +2,26 @@ autowatch = 1;
 
 include("Mesh.js");
 include("Utilities.js");
+include("GraphicElements.js");
 
 // number of meshes
-var meshesNumber = 2; 
-declareattribute("meshesNumber", null, null, 1);
+var gMeshesNumber = 4; 
+declareattribute("gMeshesNumber", null, null, 1);
 
-var windowDim = [0,0];
-
-var windowRatio = 1; 
+var gWindowDim = [0,0];
+var gWindowRatio = 1; 
 function setWindowRatio(ratio) {
-	windowRatio = ratio;
+	gWindowRatio = ratio;
 }
+
+// OBJECTS USED GLOBALLY 
+// jit.3m to find max and min
+var gJit3m = new JitterObject("jit.3m");
+var graphics = new GraphicElements();
+
+// GLOBAL VARIABLES
+var gMeshes = [];
+var gMousePosScreen = [];
 
 // JIT_GL_NODE
 var nodeCTX = new JitterObject("jit.gl.node");
@@ -32,21 +41,19 @@ var nodeCamera = new JitterObject("jit.gl.camera");
 nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
-var meshes = [];
 
-var mousePosScreen = [];
 
 function freeMeshes() {
-	for (var i=0; i<meshes.length; i++) {
-		meshes[i].freeMesh();
+	for (var i=0; i<gMeshes.length; i++) {
+		gMeshes[i].freeMesh();
 	}
 }
 freeMeshes.local = 1;
 
 function initMeshes() {	
-	for (var i=0; i<meshesNumber; i++) {
-		meshes.push(new Mesh());
-		meshes[i].initMesh(4,4,nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
+	for (var i=0; i<gMeshesNumber; i++) {
+		gMeshes.push(new Mesh());
+		gMeshes[i].initMesh(4,4,nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
 	}
 }
 initMeshes.local = 1;
@@ -56,11 +63,9 @@ function init() {
 	videoplane.drawto = drawto;	
 	freeMeshes();
 	initMeshes();
+	graphics.initGraphicElements();
 }
 
-function mouseFromScreenToWorld2D(mouseScreen) {
-	//return [mouseScreen[0]]
-}
 
 
 // ROB 
@@ -87,6 +92,7 @@ function setdrawto(arg) {
 	if(swaplisten)
 		swaplisten.subjectname = "";
 	swaplisten = new JitterListener(drawto,swapcallback);
+
 }
 
 function swapcallback(event){
@@ -96,21 +102,25 @@ function swapcallback(event){
 		// if context is root we use swap, if jit.gl.node use draw
 		case ("swap" || "draw"):
 		// RENDER BANG
-			if (windowDim[0] != nodeCTX.dim[0] || windowDim[1] != nodeCTX.dim[1]) {
+			if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
 				setWindowRatio(nodeCTX.dim[0] / nodeCTX.dim[1]);
-				windowDim = nodeCTX.dim.splice(0);
-				postln(windowDim);
+				gWindowDim = nodeCTX.dim.splice(0);
+				postln(gWindowDim);
 				init(); // RE INIT everything when window size is modified (temporary)
 			}
-			windowDim = nodeCTX.dim;
 			break;
 		case "mouse": // get mouse array
-			mousePosScreen = (event.args);
-			var mouse
-			postln(mousePosScreen);
+			gMousePosScreen = (event.args);
+			//postln(gMousePosScreen);
+			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
+
+			for (var i=0; i<gMeshes.length; i++) {
+				gMeshes[i].checkIfVertexDragged(mouseWorld);
+			}
+
 			break;
 		case "reshape":
-			
+			gWindowDim = nodeCTX.dim;
 			break;
 	}
 }
