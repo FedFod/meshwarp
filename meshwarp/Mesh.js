@@ -80,10 +80,8 @@ function Mesh() {
             }
         }   
 
-        // assign vertex mat to mesh
-        this.assignPositionMatToMesh();
-
-        this.getMaxMinPositionMat();
+        this.assignPositionMatToMesh(); // assign vertex mat to mesh
+        this.getMaxMinPositionMat(); // calculate what are the max and min position values in matrix
     }
 
     this.setVertexPos = function(coordsWorld, cellIndex) {
@@ -100,6 +98,7 @@ function Mesh() {
     this.moveVertex = function(coordsWorld, cellIndex) {
         this.setVertexPos(coordsWorld, cellIndex);
         this.assignPositionMatToMesh();
+        gGraphics.drawCircle(coordsWorld);
     }
 
     this.checkIfMouseInsideMesh = function(mouseWorld) {
@@ -111,7 +110,7 @@ function Mesh() {
         }
     }
 
-    this.checkIfVertexIsClicked = function(mouseWorld) {   
+    this.mouseIsCloseToVertex = function(mouseWorld) {   
         for (var i=0; i<this.positionMat.dim[0]; i++)
         {
             for (var j=0; j<this.positionMat.dim[1]; j++)
@@ -120,8 +119,7 @@ function Mesh() {
                 var distFromMouse = calcDist2D(currVertexPos.slice(0,2), mouseWorld.slice(0,2));
 
                 if (distFromMouse <= 0.1) {
-                    graphics.drawCircle(currVertexPos);
-                    postln("test")
+                    gGraphics.drawCircle(currVertexPos);
                     return [i, j].splice(0);
                 }
             }

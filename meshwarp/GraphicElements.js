@@ -3,6 +3,7 @@ function GraphicElements() {
     this.sketch.depth_enable = 0;
     this.sketch.layer = FRONT;
     this.sketch.color = RED;
+    this.sketch.line_width = 2;
 
     this.setDrawto = function(drawto) {
         this.sketch.drawto = drawto;

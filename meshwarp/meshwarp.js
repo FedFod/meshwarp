@@ -17,7 +17,7 @@ function setWindowRatio(ratio) {
 // OBJECTS USED GLOBALLY 
 // jit.3m to find max and min
 var gJit3m = new JitterObject("jit.3m");
-var graphics = new GraphicElements();
+var gGraphics = new GraphicElements();
 
 // a structure to contain infos relative to the clicked mesh and vertex
 var gSelectionStruct = {
@@ -78,7 +78,7 @@ function init() {
 	videoplane.drawto = drawto;	
 	freeMeshes();
 	initMeshes();
-	graphics.initGraphicElements();
+	gGraphics.initGraphicElements();
 }
 
 
@@ -130,6 +130,23 @@ function swapcallback(event){
 			//postln(gMousePosScreen);
 			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
 
+			if (mouseClicked) {
+				if (gSelectionStruct.cellIndex[0] != -1) {  // we are clicking on a vertex
+					gMeshes[gSelectionStruct.meshID].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+				}
+			} else {
+				if (gSelectionStruct.meshID != -1) {
+					gMeshes[gSelectionStruct.meshID].getMaxMinPositionMat(); // recalculate the new max and min position values
+					gSelectionStruct.reset(); // reset the values in the selectionStruct
+				}
+				gGraphics.reset(); // delete the circle
+			}
+			
+			break;
+		case "mouseidle":  // Check if mouse is close to vertices to highlight them
+			gMousePosScreen = (event.args);
+			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen); 
+
 			// Iterate through meshes to check in which one the mouse is in
 			for (var mesh in gMeshes) { 
 				gSelectionStruct.meshID = gMeshes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in
@@ -137,21 +154,12 @@ function swapcallback(event){
 			}
 
 			if (gSelectionStruct.meshID != -1) { // if we are in a mesh
-				gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshID].checkIfVertexIsClicked(mouseWorld); // check if one vertex in the mesh is clicked
-			}
-				
-			if (mouseClicked) {
-				if (gSelectionStruct.cellIndex[0] != -1) {  // we are clicking on a vertex
-					gMeshes[gSelectionStruct.meshID].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+				gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshID].mouseIsCloseToVertex(mouseWorld); // check if one vertex in the mesh is clicked
+				if (gSelectionStruct.cellIndex[0] == -1) {  // delete circle if mouse is far from vertex
+					gGraphics.reset();
 				}
-			} else {
-				gSelectionStruct.reset(); // reset the values in the selectionStruct
-				graphics.reset(); // delete the circle
 			}
-			
-			break;
-		case "mouseidle":
-			
+
 			break;
 		case "reshape":
 			gWindowDim = nodeCTX.dim;
