@@ -19,9 +19,20 @@ function setWindowRatio(ratio) {
 var gJit3m = new JitterObject("jit.3m");
 var graphics = new GraphicElements();
 
+var gSelectionStruct = {
+	cellIndex: [-1, -1], 
+	meshID: -1,
+	reset: function() {
+		this.cellIndex = [-1, -1];
+		this.meshID = -1;
+	}
+};
+
 // GLOBAL VARIABLES
 var gMeshes = [];
 var gMousePosScreen = [];
+
+
 
 // JIT_GL_NODE
 var nodeCTX = new JitterObject("jit.gl.node");
@@ -54,6 +65,7 @@ function initMeshes() {
 	for (var i=0; i<gMeshesNumber; i++) {
 		gMeshes.push(new Mesh());
 		gMeshes[i].initMesh(4,4,nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
+		postln(gMeshes[i].maxPos)
 	}
 }
 initMeshes.local = 1;
@@ -111,13 +123,31 @@ function swapcallback(event){
 			break;
 		case "mouse": // get mouse array
 			gMousePosScreen = (event.args);
+			var mouseClicked = gMousePosScreen[2];
 			//postln(gMousePosScreen);
 			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
 
-			for (var i=0; i<gMeshes.length; i++) {
-				gMeshes[i].checkIfVertexDragged(mouseWorld);
+			if (mouseClicked) {
+				if (gSelectionStruct.meshID == -1) {
+					// Iterate through meshes to check in which one the mouse is 
+					for (var i=0; i<gMeshes.length; i++) { 
+						gSelectionStruct.meshID = gMeshes[i].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in
+						if (gSelectionStruct.meshID != -1) {
+							break; // if we are in a mesh, then break the loop, no need to check further
+						}
+					}
+				} else { // if we are in a mesh
+					gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshID].checkIfVertexIsClicked(mouseWorld); // check if one vertex in the mesh is clicked
+					if (gSelectionStruct.cellIndex[0] != -1) {  // we are clicking on a vertex
+						gMeshes[gSelectionStruct.meshID].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2));
+						postln("test")
+					}
+				}
+			} else {
+				gSelectionStruct.reset();
+				graphics.reset();
 			}
-
+			
 			break;
 		case "reshape":
 			gWindowDim = nodeCTX.dim;

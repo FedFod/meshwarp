@@ -33,9 +33,11 @@ function Mesh() {
     }
 
     this.freeMesh = function() {
-        this.positionMat.freepeer();
-        this.meshPoints.freepeer();
-        this.meshGrid.freepeer();
+        if (this.positionMat) {
+            this.positionMat.freepeer();
+            this.meshPoints.freepeer();
+            this.meshGrid.freepeer();
+        }
     }
 
     this.getMaxMinPositionMat = function()
@@ -77,40 +79,52 @@ function Mesh() {
         }   
 
         // assign vertex mat to mesh
-        this.meshPoints.vertex_matrix(this.positionMat.name);
-        this.meshGrid.vertex_matrix(this.positionMat.name);
+        this.assignPositionMatToMesh();
 
         this.getMaxMinPositionMat();
     }
 
+    this.setVertexPos = function(coordsWorld, cellIndex) {
+        this.positionMat.setcell2d(cellIndex[0], cellIndex[1], coordsWorld[0], coordsWorld[1], 0.0);
+    }
+
+    this.assignPositionMatToMesh = function() {
+        this.meshPoints.vertex_matrix(this.positionMat.name);
+        this.meshGrid.vertex_matrix(this.positionMat.name);
+    }
+
     //-------------------------------------------
+
+    this.moveVertex = function(coordsWorld, cellIndex) {
+        this.setVertexPos(coordsWorld, cellIndex);
+        this.assignPositionMatToMesh();
+    }
 
     this.checkIfMouseInsideMesh = function(mouseWorld)
     {
         if (mouseWorld[0] >= this.minPos[0] && mouseWorld[0] <= this.maxPos[0])
         {
-            return 1;
+            return this.ID;
         } else {
-            return 0;
+            return -1;
         }
     }
 
-    this.checkIfVertexDragged = function(mouseWorld)
+    this.checkIfVertexIsClicked = function(mouseWorld)
     {   
-        if (this.checkIfMouseInsideMesh(mouseWorld))
+        for (var i=0; i<this.positionMat.dim[0]; i++)
         {
-            for (var i=0; i<this.positionMat.dim[0]; i++)
+            for (var j=0; j<this.positionMat.dim[1]; j++)
             {
-                for (var j=0; j<this.positionMat.dim[1]; j++)
-                {
-                    var currVertexPos = this.positionMat.getcell(i,j);
-                    var distFromMouse = calcDist2D(currVertexPos.slice(0,2), mouseWorld.slice(0,2));
-    
-                    if (distFromMouse <= 0.1) {
-                        graphics.drawCircle(mouseWorld);
-                    }
+                var currVertexPos = this.positionMat.getcell(i,j);
+                var distFromMouse = calcDist2D(currVertexPos.slice(0,2), mouseWorld.slice(0,2));
+
+                if (distFromMouse <= 0.1) {
+                    graphics.drawCircle(currVertexPos);
+                    return [i, j].splice(0);
                 }
             }
-        }
-    }
+        } 
+        return [-1, -1].splice(0);
+    } 
 }

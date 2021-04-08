@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 958.0, 240.0, 586.0, 661.0 ],
+		"rect" : [ 957.0, 235.0, 586.0, 661.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -130,7 +130,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 746.0, 555.0, 640.0, 483.0 ],
+						"rect" : [ 967.0, 400.0, 640.0, 483.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -158,6 +158,7 @@
 						"style" : "",
 						"subpatcher_template" : "",
 						"assistshowspatchername" : 0,
+						"visible" : 1,
 						"boxes" : [ 							{
 								"box" : 								{
 									"embedstate" : [ [ "gMeshesNumber", 4 ] ],

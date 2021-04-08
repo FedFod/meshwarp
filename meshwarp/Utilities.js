@@ -12,6 +12,7 @@ function transformMouseFromScreenToWorld2D(mouseScreen) {
 	
 	return [mouseXWorld, mouseYWorld];
 }
+transformMouseFromScreenToWorld2D.local = 1;
 
 // - - -
 

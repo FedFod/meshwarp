@@ -17,6 +17,9 @@ function GraphicElements() {
         this.sketch.reset();
         this.sketch.moveto(coordsWorld);
         this.sketch.framecircle(0.05);
-        postln("draw")
+    }
+
+    this.reset = function() {
+        this.sketch.reset();
     }
 }
