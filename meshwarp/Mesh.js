@@ -17,10 +17,12 @@ function Mesh() {
         this.meshPoints.point_size = 10;
     
         this.meshGrid = new JitterObject("jit.gl.mesh");
-        this.meshGrid.draw_mode = "tri_grid";
+        this.meshGrid.draw_mode = "quad_grid";
         this.meshGrid.depth_enable = 0;
         this.meshGrid.layer = BACKGROUND;
         this.meshGrid.color = randomColor();
+        this.meshGrid.poly_mode = [1, 1];
+        this.meshGrid.line_width = 3;
 
         this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
 
@@ -100,8 +102,7 @@ function Mesh() {
         this.assignPositionMatToMesh();
     }
 
-    this.checkIfMouseInsideMesh = function(mouseWorld)
-    {
+    this.checkIfMouseInsideMesh = function(mouseWorld) {
         if (mouseWorld[0] >= this.minPos[0] && mouseWorld[0] <= this.maxPos[0])
         {
             return this.ID;
@@ -110,8 +111,7 @@ function Mesh() {
         }
     }
 
-    this.checkIfVertexIsClicked = function(mouseWorld)
-    {   
+    this.checkIfVertexIsClicked = function(mouseWorld) {   
         for (var i=0; i<this.positionMat.dim[0]; i++)
         {
             for (var j=0; j<this.positionMat.dim[1]; j++)
@@ -121,6 +121,7 @@ function Mesh() {
 
                 if (distFromMouse <= 0.1) {
                     graphics.drawCircle(currVertexPos);
+                    postln("test")
                     return [i, j].splice(0);
                 }
             }
