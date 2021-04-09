@@ -5,6 +5,8 @@ function GraphicElements() {
     this.sketch.color = RED;
     this.sketch.line_width = 2;
 
+    this.circleRadius = 0.03;
+
     this.setDrawto = function(drawto) {
         this.sketch.drawto = drawto;
         postln(this.sketch.drawto)
@@ -17,7 +19,7 @@ function GraphicElements() {
     this.drawCircle = function(coordsWorld) {   
         this.sketch.reset();
         this.sketch.moveto(coordsWorld);
-        this.sketch.framecircle(0.05);
+        this.sketch.framecircle(this.circleRadius);
     }
 
     this.reset = function() {

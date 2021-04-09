@@ -3,12 +3,14 @@ function Mesh() {
 
     this.meshPoints = new JitterObject("jit.gl.mesh");
     this.meshGrid = new JitterObject("jit.gl.mesh");
+    this.meshFull = new JitterObject("jit.gl.mesh");
     this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
+    this.boundingMat = new JitterMatrix(3, "float32", 10);
 
     this.maxPos = [-1000, -1000];
     this.minPos = [1000, 1000];
 
-    this.initMesh = function(dim_x, dim_y, drawto, ID) {
+    this.initMesh = function(dimensions, drawto, ID) {
         this.meshPoints = new JitterObject("jit.gl.mesh");
         this.meshPoints.draw_mode = "points";
         this.meshPoints.depth_enable = 0;
@@ -19,17 +21,25 @@ function Mesh() {
         this.meshGrid = new JitterObject("jit.gl.mesh");
         this.meshGrid.draw_mode = "quad_grid";
         this.meshGrid.depth_enable = 0;
-        this.meshGrid.layer = BACKGROUND;
+        this.meshGrid.layer = MIDDLE;
         this.meshGrid.color = randomColor();
         this.meshGrid.poly_mode = [1, 1];
         this.meshGrid.line_width = 3;
 
+        this.meshFull = new JitterObject("jit.gl.mesh");
+        this.meshFull.draw_mode = "quad_grid";
+        this.meshFull.depth_enable = 0;
+        this.meshFull.layer = BACKGROUND;
+        this.meshFull.color = GREY;
+
         this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
+        this.boundingMat = new JitterMatrix(3, "float32", 10);
 
         this.ID = ID;
         this.meshPoints.drawto = drawto;
         this.meshGrid.drawto   = drawto;
-        this.setMeshDim(dim_x, dim_y);
+        this.meshFull.drawto   = drawto;
+        this.setMeshDim(dimensions);
         this.initPositionMat();
         postln("mesh draws to: " + this.meshPoints.drawto)
     }
@@ -39,6 +49,7 @@ function Mesh() {
             this.positionMat.freepeer();
             this.meshPoints.freepeer();
             this.meshGrid.freepeer();
+            this.meshFull.freepeer();
         }
     }
 
@@ -48,14 +59,15 @@ function Mesh() {
         this.minPos = gJit3m.min.slice(0, 2);
         this.maxPos = gJit3m.max.slice(0, 2);
 
-        postln("min pos values (x, y): "+this.minPos);
-        postln("max pos values (x, y): "+this.maxPos);
+        // postln("min pos values (x, y): "+this.minPos);
+        // postln("max pos values (x, y): "+this.maxPos);
     }
 
-    this.setMeshDim = function(dim_x, dim_y)
+    this.setMeshDim = function(dimensions)
     {   
-        if (dim_x && dim_y) {
-            this.positionMat.dim = [dim_x, dim_y];
+        if (dimensions[0] > 0 && dimensions[1] > 0) {
+            this.positionMat.dim = dimensions.slice();
+            this.boundingMat.dim = dimensions[0]*2 + (dimensions[1] * 2) - 4;
         } 
         else {
             this.positioMat.dim = [4,4];
@@ -82,6 +94,7 @@ function Mesh() {
 
         this.assignPositionMatToMesh(); // assign vertex mat to mesh
         this.getMaxMinPositionMat(); // calculate what are the max and min position values in matrix
+        this.calcBoundingPolygonMat();
     }
 
     this.setVertexPos = function(coordsWorld, cellIndex) {
@@ -91,6 +104,7 @@ function Mesh() {
     this.assignPositionMatToMesh = function() {
         this.meshPoints.vertex_matrix(this.positionMat.name);
         this.meshGrid.vertex_matrix(this.positionMat.name);
+        this.meshFull.vertex_matrix(this.positionMat.name);
     }
 
     //-------------------------------------------
@@ -101,13 +115,54 @@ function Mesh() {
         gGraphics.drawCircle(coordsWorld);
     }
 
-    this.checkIfMouseInsideMesh = function(mouseWorld) {
-        if (mouseWorld[0] >= this.minPos[0] && mouseWorld[0] <= this.maxPos[0])
-        {
-            return this.ID;
-        } else {
-            return -1;
+    this.calcBoundingPolygonMat = function() {
+        // Get the bounding vertices that are on the edges of the polygon in clockwise order
+        var boundingArray = [];
+
+        // TOP
+        for (var i=0; i < this.positionMat.dim[0]; i++) {
+            boundingArray.push(this.positionMat.getcell(i, 0));
         }
+        // RIGHT
+        for (var j=1; j < this.positionMat.dim[1]; j++) {
+            boundingArray.push(this.positionMat.getcell(this.positionMat.dim[0]-1, j));
+        }
+        // BOTTOM
+        for (var k=this.positionMat.dim[0]-2; k >= 0; k--) {
+            boundingArray.push(this.positionMat.getcell(k, this.positionMat.dim[1]-1));
+        }
+        // LEFT
+        for (var z=this.positionMat.dim[1]-2; z > 0; z--) {
+            boundingArray.push(this.positionMat.getcell(0, z));
+        }
+        // Transfer those vertices from the array to the boundingMat matrix
+        for (var i=0; i<boundingArray.length; i++) {
+            this.boundingMat.setcell1d(i, boundingArray[i][0], boundingArray[i][1]);
+           // postln("inside bounding "+this.boundingMat.getcell(i));
+        }
+    }
+
+    this.checkIfMouseInsideMesh = function(mouseWorld) {
+        // if (mouseWorld[0] >= this.minPos[0] && mouseWorld[0] <= this.maxPos[0])
+        // {
+        //     return this.ID;
+        // } else {
+        //     return -1;
+        // }
+        var testx = mouseWorld[0]; var testy = mouseWorld[1];
+        var nvert = this.boundingMat.dim;
+        var i, j, c = 0;
+        for (i=0, j = nvert-1; i < nvert; j = i++) {
+            var verty_i = this.boundingMat.getcell(i)[1];
+            var verty_j = this.boundingMat.getcell(j)[1];
+            var vertx_i = this.boundingMat.getcell(i)[0];
+            var vertx_j = this.boundingMat.getcell(j)[0];
+            if ( ((verty_i>testy) != (verty_j>testy)) &&
+                ((testx < ( ((vertx_j-vertx_i) * (testy-verty_i)) / (verty_j-verty_i) + vertx_i)) ) ) {
+                c = !c;
+            }
+        }
+        return c ? this.ID : -1;
     }
 
     this.mouseIsCloseToVertex = function(mouseWorld) {   
@@ -120,10 +175,10 @@ function Mesh() {
 
                 if (distFromMouse <= 0.1) {
                     gGraphics.drawCircle(currVertexPos);
-                    return [i, j].splice(0);
+                    return [i, j].slice();
                 }
             }
         } 
-        return [-1, -1].splice(0);
+        return [-1, -1].slice();
     } 
 }

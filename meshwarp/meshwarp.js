@@ -8,6 +8,13 @@ include("GraphicElements.js");
 var gMeshesNumber = 4; 
 declareattribute("gMeshesNumber", null, null, 1);
 
+var c=0;
+postln((!c ? 1 : 0))
+
+// Size of Meshes
+var gMeshSize = [4, 8];
+declareattribute("gMeshSize", null, null, 1);
+
 var gWindowDim = [0,0];
 var gWindowRatio = 1; 
 function setWindowRatio(ratio) {
@@ -65,10 +72,10 @@ function freeMeshes() {
 freeMeshes.local = 1;
 
 function initMeshes() {	
+	
 	for (var i=0; i<gMeshesNumber; i++) {
 		gMeshes.push(new Mesh());
-		gMeshes[i].initMesh(4,4,nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
-		postln(gMeshes[i].maxPos)
+		gMeshes[i].initMesh(gMeshSize.slice(0,2),nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
 	}
 }
 initMeshes.local = 1;
@@ -80,8 +87,6 @@ function init() {
 	initMeshes();
 	gGraphics.initGraphicElements();
 }
-
-
 
 // ROB 
 //--------------------------------------------
@@ -119,7 +124,7 @@ function swapcallback(event){
 		// RENDER BANG
 			if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
 				setWindowRatio(nodeCTX.dim[0] / nodeCTX.dim[1]);
-				gWindowDim = nodeCTX.dim.splice(0);
+				gWindowDim = nodeCTX.dim.slice();
 				postln(gWindowDim);
 				init(); // RE INIT everything when window size is modified (temporary)
 			}
@@ -131,12 +136,13 @@ function swapcallback(event){
 			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
 
 			if (mouseClicked) {
-				if (gSelectionStruct.cellIndex[0] != -1) {  // we are clicking on a vertex
+				if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshID != -1) {  // we are clicking on a vertex
 					gMeshes[gSelectionStruct.meshID].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
 				}
-			} else {
+			} else { // mouse is released
 				if (gSelectionStruct.meshID != -1) {
 					gMeshes[gSelectionStruct.meshID].getMaxMinPositionMat(); // recalculate the new max and min position values
+					gMeshes[gSelectionStruct.meshID].calcBoundingPolygonMat() // recalculate the bounding matrix
 					gSelectionStruct.reset(); // reset the values in the selectionStruct
 				}
 				gGraphics.reset(); // delete the circle
