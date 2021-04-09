@@ -30,11 +30,11 @@ var gGraphics = new GraphicElements();
 var gSelectionStruct = {
 	cellIndex: [-1, -1], 
 	meshIDsToCheck: new Array(),
-	meshIDClicked: -1,
+	meshIDToClick: -1,
 	reset: function() {
 		this.cellIndex = [-1, -1];
-		this.meshIDsToCheck = [];
-		this.meshIdClicked = -1;
+		this.meshIDsToCheck = [];  // we need to check multiple meshes in case they overlap
+		this.meshIDToClick = -1;   // the mesh we are going to operate on
 	}
 };
 
@@ -137,13 +137,13 @@ function swapcallback(event){
 			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
 
 			if (mouseClicked) {
-				if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDClicked != -1) {  // we are clicking on a vertex
-					gMeshes[gSelectionStruct.meshIDClicked].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+				if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex
+					gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
 				}
 			} else { // mouse is released
-				if (gSelectionStruct.meshIDClicked != -1) {
-					gMeshes[gSelectionStruct.meshIDClicked].getMaxMinPositionMat(); // recalculate the new max and min position values
-					gMeshes[gSelectionStruct.meshIDClicked].calcBoundingPolygonMat() // recalculate the bounding matrix
+				if (gSelectionStruct.meshIDToClick != -1) {
+					gMeshes[gSelectionStruct.meshIDToClick].getMaxMinPositionMat(); // recalculate the new max and min position values
+					gMeshes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat() // recalculate the bounding matrix
 					gSelectionStruct.reset(); // reset the values in the selectionStruct
 				}
 				gGraphics.reset(); // delete the circle
@@ -171,7 +171,7 @@ function swapcallback(event){
 				if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
 					gGraphics.reset();
 				} else {
-					gSelectionStruct.meshIDClicked = gSelectionStruct.meshIDsToCheck[i]; // This is the mesh we are working with
+					gSelectionStruct.meshIDToClick = gSelectionStruct.meshIDsToCheck[i]; // This is the mesh we are working with
 					break; // We just need to check a single mesh
 				}
 			}
