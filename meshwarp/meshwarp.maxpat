@@ -40,6 +40,18 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"bubble" : 1,
+					"id" : "obj-5",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 291.642860054969788, 78.0, 170.0, 24.0 ],
+					"text" : "getdrawto initializes as well"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-4",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -107,7 +119,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 233.404759526252747, 125.595236897468567, 61.0, 22.0 ],
+					"patching_rect" : [ 223.904759526252747, 79.0, 61.0, 22.0 ],
 					"text" : "getdrawto"
 				}
 
@@ -172,7 +184,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"embedstate" : [ [ "gMeshesNumber", 4 ], [ "gMeshSize", 4, 8 ] ],
+									"embedstate" : [ [ "gMeshSize", 4, 8 ], [ "gMeshesNumber", 4 ] ],
 									"id" : "obj-8",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
