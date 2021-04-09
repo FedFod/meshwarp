@@ -38,7 +38,7 @@ var gSelectionStruct = {
 // GLOBAL VARIABLES
 var gMeshes = [];
 var gMousePosScreen = [];
-
+var gMinimumSelectionDist = 0.06;
 
 // JIT_GL_NODE
 var nodeCTX = new JitterObject("jit.gl.node");

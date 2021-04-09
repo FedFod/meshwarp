@@ -182,7 +182,7 @@ function Mesh() {
                 var currVertexPos = this.positionMat.getcell(i,j);
                 var distFromMouse = calcDist2D(currVertexPos.slice(0,2), mouseWorld.slice(0,2));
 
-                if (distFromMouse <= 0.1) {
+                if (distFromMouse <= gMinimumSelectionDist) {
                     gGraphics.drawCircle(currVertexPos);
                     return [i, j].slice();
                 }
