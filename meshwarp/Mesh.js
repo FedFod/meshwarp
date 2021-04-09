@@ -118,22 +118,31 @@ function Mesh() {
     this.calcBoundingPolygonMat = function() {
         // Get the bounding vertices that are on the edges of the polygon in clockwise order
         var boundingArray = [];
+        var pad = 0.05; // pad so that the mesh is checked also when mouse is outside of it
 
         // TOP
         for (var i=0; i < this.positionMat.dim[0]; i++) {
-            boundingArray.push(this.positionMat.getcell(i, 0));
+            var xVal = this.positionMat.getcell(i, 0)[0];
+            var yVal = this.positionMat.getcell(i, 0)[1] - pad;
+            boundingArray.push([xVal, yVal]);
         }
         // RIGHT
         for (var j=1; j < this.positionMat.dim[1]; j++) {
-            boundingArray.push(this.positionMat.getcell(this.positionMat.dim[0]-1, j));
+            var xVal = this.positionMat.getcell(this.positionMat.dim[0]-1, j)[0] + pad;
+            var yVal = this.positionMat.getcell(this.positionMat.dim[0]-1, j)[1];
+            boundingArray.push([xVal, yVal]);
         }
         // BOTTOM
         for (var k=this.positionMat.dim[0]-2; k >= 0; k--) {
-            boundingArray.push(this.positionMat.getcell(k, this.positionMat.dim[1]-1));
+            var xVal = this.positionMat.getcell(k, this.positionMat.dim[1]-1)[0];
+            var yVal = this.positionMat.getcell(k, this.positionMat.dim[1]-1)[1] + pad;
+            boundingArray.push([xVal, yVal]);
         }
         // LEFT
         for (var z=this.positionMat.dim[1]-2; z > 0; z--) {
-            boundingArray.push(this.positionMat.getcell(0, z));
+            var xVal = this.positionMat.getcell(0, z)[0] - pad;
+            var yVal = this.positionMat.getcell(0, z)[1];
+            boundingArray.push([xVal, yVal]);
         }
         // Transfer those vertices from the array to the boundingMat matrix
         for (var i=0; i<boundingArray.length; i++) {

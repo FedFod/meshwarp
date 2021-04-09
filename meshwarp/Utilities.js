@@ -42,6 +42,13 @@ function print()
 	post();
 }
 print.local = 1;
+// - - -
+
+function postln(arg) {
+	//if(verbose)
+		post(arg+"\n");
+}
+postln.local = 1;
 
 // - - -
 

@@ -8,9 +8,6 @@ include("GraphicElements.js");
 var gMeshesNumber = 4; 
 declareattribute("gMeshesNumber", null, null, 1);
 
-var c=0;
-postln((!c ? 1 : 0))
-
 // Size of Meshes
 var gMeshSize = [4, 8];
 declareattribute("gMeshSize", null, null, 1);
@@ -91,12 +88,6 @@ function init() {
 
 // ROB 
 //--------------------------------------------
-
-function postln(arg) {
-	//if(verbose)
-		post(arg+"\n");
-}
-postln.local = 1;
 
 var drawto = "theWorld"; // initialized for the moment
 var swaplisten = null; // The listener for the jit.world
