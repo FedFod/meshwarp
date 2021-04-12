@@ -6,6 +6,7 @@ function Mesh() {
     this.meshFull = new JitterObject("jit.gl.mesh");
     this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
     this.boundingMat = new JitterMatrix(3, "float32", 10);
+    this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
 
     this.maxPos = [-1000, -1000];
     this.minPos = [1000, 1000];
@@ -34,12 +35,13 @@ function Mesh() {
 
         this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
         this.boundingMat = new JitterMatrix(3, "float32", 10);
+        this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
 
         this.ID = ID;
         this.meshPoints.drawto = drawto;
         this.meshGrid.drawto   = drawto;
         this.meshFull.drawto   = drawto;
-        this.setMeshDim(dimensions);
+        this.setMeshDim(dimensions);  // calculate and set matrices dimensions
         this.initPositionMat();
         postln("mesh draws to: " + this.meshPoints.drawto)
     }
@@ -47,6 +49,8 @@ function Mesh() {
     this.freeMesh = function() {
         if (this.positionMat) {
             this.positionMat.freepeer();
+            this.boundingMat.freepeer();
+            this.adjacentCellsMat.freepeer();
             this.meshPoints.freepeer();
             this.meshGrid.freepeer();
             this.meshFull.freepeer();
@@ -109,10 +113,85 @@ function Mesh() {
 
     //-------------------------------------------
 
+    this.calcAdjacentCellsMat = function(cellIndex) {
+        var cell = [];
+        var leftX = clamp(cellIndex[0]-1, 0, this.positionMat.dim[0]-1);
+        var centerX = cellIndex[0];
+        var rightX  = clamp(cellIndex[0]+1, 0, this.positionMat.dim[0]-1);
+        var topY = clamp(cellIndex[1]+1, 0, this.positionMat.dim[1]-1);
+        var centerY = cellIndex[1];
+        var bottomY = clamp(cellIndex[1]-1, 0, this.positionMat.dim[1]-1);
+
+        cell = this.positionMat.getcell(leftX, topY).slice();
+        if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+            cell[1] = 1;
+        }
+        if (cellIndex[0]-1 < 0) {
+            cell[0] = -gWindowRatio;
+        }
+        this.adjacentCellsMat.setcell1d(0, cell[0], cell[1], 0.0); // TOP LEFT
+
+        cell = this.positionMat.getcell(centerX, topY).slice();
+        if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+            cell[1] = 1;
+        }
+        if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+            cell[1] = 1;
+        }
+        this.adjacentCellsMat.setcell1d(1, cell[0], cell[1], 0.0); // TOP CENTER
+
+        cell = this.positionMat.getcell(rightX, topY).slice();
+        if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+            cell[1] = 1;
+        }
+        if (cellIndex[0]+1 > this.positionMat.dim[0]-1) {
+            cell[0] = gWindowRatio;
+        }
+        this.adjacentCellsMat.setcell1d(2, cell[0], cell[1], 0.0); // TOP RIGHT
+
+        cell = this.positionMat.getcell(rightX, centerY).slice(); 
+        if (cellIndex[0]+1 > this.positionMat.dim[0]-1) {
+            cell[0] = gWindowRatio;
+        }
+        this.adjacentCellsMat.setcell1d(3, cell[0], cell[1], 0.0); // RIGHT CENTER
+
+        cell = this.positionMat.getcell(rightX, bottomY).slice();
+        if (cellIndex[0]+1 > this.positionMat.dim[0]-1) {
+            cell[0] = gWindowRatio;
+        }
+        if (cellIndex[1]-1 < 0) {
+            cell[1] = -1;
+        }
+        this.adjacentCellsMat.setcell1d(4, cell[0], cell[1], 0.0); // BOTTOM RIGHT
+
+        cell = this.positionMat.getcell(centerX, bottomY).slice();
+        if (cellIndex[1]-1 < 0) {
+            cell[1] = -1;
+        }
+        this.adjacentCellsMat.setcell1d(5, cell[0], cell[1], 0.0); // BOTTOM CENTER
+
+        cell = this.positionMat.getcell(leftX, bottomY).slice();
+        if (cellIndex[0]-1 < 0) {
+            cell[0] = -gWindowRatio;
+        }
+        if (cellIndex[1]-1 < 0) {
+            cell[1] = -1;
+        }
+        this.adjacentCellsMat.setcell1d(6, cell[0], cell[1], 0.0); // BOTTOM LEFT
+
+        cell = this.positionMat.getcell(leftX, centerY).slice();
+        if (cellIndex[0]-1 < 0) {
+            cell[0] = -gWindowRatio;
+        }
+        this.adjacentCellsMat.setcell1d(7, cell[0], cell[1], 0.0); // LEFT CENTER
+    }
+
     this.moveVertex = function(coordsWorld, cellIndex) {
-        this.setVertexPos(coordsWorld, cellIndex);
-        this.assignPositionMatToMesh();
-        gGraphics.drawCircle(coordsWorld);
+        if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
+            this.setVertexPos(coordsWorld, cellIndex);
+            this.assignPositionMatToMesh();
+            gGraphics.drawCircle(coordsWorld);
+        }
     }
 
     this.calcBoundingPolygonMat = function() {
@@ -158,21 +237,13 @@ function Mesh() {
         // } else {
         //     return -1;
         // }
-        var testx = mouseWorld[0]; var testy = mouseWorld[1];
-        var nvert = this.boundingMat.dim;
-        var i, j, c = 0;
-        for (i=0, j = nvert-1; i < nvert; j = i++) {
-            var verty_i = this.boundingMat.getcell(i)[1];
-            var verty_j = this.boundingMat.getcell(j)[1];
-            var vertx_i = this.boundingMat.getcell(i)[0];
-            var vertx_j = this.boundingMat.getcell(j)[0];
-            if ( ((verty_i>testy) != (verty_j>testy)) &&
-                ((testx < ( ((vertx_j-vertx_i) * (testy-verty_i)) / (verty_j-verty_i) + vertx_i)) ) ) {
-                c = !c;
-            }
+        if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
+            return this.ID;
+        } else {
+            return -1;
         }
-        return c ? this.ID : -1;
     }
+
 
     this.mouseIsCloseToVertex = function(mouseWorld) {   
         for (var i=0; i<this.positionMat.dim[0]; i++)

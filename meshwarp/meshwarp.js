@@ -12,7 +12,7 @@ declareattribute("gMeshesNumber", null, null, 1);
 var gMeshSize = [4, 8];
 declareattribute("gMeshSize", null, null, 1);
 
-var gWindowDim = [0,0];
+var gWindowDim = [512,512];
 var gWindowRatio = 1; 
 function setWindowRatio(ratio) {
 	gWindowRatio = ratio;
@@ -26,11 +26,13 @@ var gGraphics = new GraphicElements();
 // a structure to contain infos relative to the clicked mesh and vertex
 var gSelectionStruct = {
 	cellIndex: [-1, -1], 
-	meshIDsToCheck: new Array(),
+	oldCellIndex: [-1, -1],
+	meshIDsToCheckArr: new Array(),
 	meshIDToClick: -1,
 	reset: function() {
 		this.cellIndex = [-1, -1];
-		this.meshIDsToCheck = [];  // we need to check multiple meshes in case they overlap
+		//this.oldCellIndex = [-1, -1];
+		this.meshIDsToCheckArr = [];  // we need to check multiple meshes in case they overlap
 		this.meshIDToClick = -1;   // the mesh we are going to operate on
 	}
 };
@@ -70,7 +72,8 @@ function freeMeshes() {
 freeMeshes.local = 1;
 
 function initMeshes() {	
-	
+	postln("init meshes")
+	gMeshes = [];
 	for (var i=0; i<gMeshesNumber; i++) {
 		gMeshes.push(new Mesh());
 		gMeshes[i].initMesh(gMeshSize.slice(0,2),nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
@@ -117,7 +120,7 @@ function swapcallback(event){
 			if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
 				setWindowRatio(nodeCTX.dim[0] / nodeCTX.dim[1]);
 				gWindowDim = nodeCTX.dim.slice();
-				postln(gWindowDim);
+				postln("window Dimensions: "+gWindowDim);
 				init(); // RE INIT everything when window size is modified (temporary)
 			}
 			break;
@@ -146,37 +149,45 @@ function swapcallback(event){
 			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen); 
 
 			gSelectionStruct.reset(); // reset all the struct values
-
 			// Iterate through meshes to check in which one the mouse is in
 			for (var mesh in gMeshes) { 
 				var meshID = gMeshes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in (if it's inside any)
 				if (meshID != -1) { 
-					gSelectionStruct.meshIDsToCheck.push(meshID); // push in this array all the IDs of the meshes the mouse is in (it could be more than one when meshes overlap)
+					
+					gSelectionStruct.meshIDsToCheckArr.push(meshID); // push in this array all the IDs of the meshes the mouse is in (it could be more than one when meshes overlap)
 				} 
 			}
 
 			// if we are on a mesh, let's check if the mouse is close to a vertex
-			for (var i=0; i<gSelectionStruct.meshIDsToCheck.length; i++) { // check all the meshes the mouse is in
-				gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshIDsToCheck[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
-				
+			for (var i=0; i<gSelectionStruct.meshIDsToCheckArr.length; i++) { // check all the meshes the mouse is in
+				gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
+
 				if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
 					gGraphics.reset();
-				} else {
-					gSelectionStruct.meshIDToClick = gSelectionStruct.meshIDsToCheck[i]; // This is the mesh we are working with
-					break; // We just need to check a single mesh
+				} else {  // mouse is close to a vertex in the mesh
+					gSelectionStruct.meshIDToClick = gSelectionStruct.meshIDsToCheckArr[i]; // This is the mesh we are working with
+
+					// check if the cell currently selected is different from the previous cell selected. 
+					// In case it is different we fill the matrix with the adjacent cells for bounding calculation
+					if (gSelectionStruct.cellIndex[0] != gSelectionStruct.oldCellIndex[0] || 
+						gSelectionStruct.cellIndex[1] != gSelectionStruct.oldCellIndex[1]) {
+							gSelectionStruct.oldCellIndex = gSelectionStruct.cellIndex.slice();
+							gMeshes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
+					}
+					break; // We just need to check a single mesh so we break the loop
 				}
 			}
 			break;
 			
 		case "reshape":
-			gWindowDim = nodeCTX.dim;
+			//gWindowDim = nodeCTX.dim;
 			break;
 	}
 }
 swapcallback.local = 1
 
 var implicit_tracker = new JitterObject("jit_gl_implicit");
-postln(implicit_tracker.name)
+postln("implicit tracker name: "+implicit_tracker.name)
 var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
 
 function implicit_callback(event) {

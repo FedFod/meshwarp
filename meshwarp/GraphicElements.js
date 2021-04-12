@@ -9,7 +9,6 @@ function GraphicElements() {
 
     this.setDrawto = function(drawto) {
         this.sketch.drawto = drawto;
-        postln(this.sketch.drawto)
     }
 
     this.initGraphicElements = function() {

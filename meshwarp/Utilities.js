@@ -8,9 +8,34 @@ var MIDDLE = 10;
 var MIDDLE_1 = 11;
 var FRONT = 12;
 
+
+
 function switchDrawModeMeshes(mode) {
 
 }
+// - - -
+
+function isPointInsidePolygon(coords, matrix) {
+	var testx = coords[0]; var testy = coords[1];
+	var i, j, c = 0;
+
+	if (!Array.isArray(matrix.dim)) {
+		var nvert = matrix.dim;
+		for (i=0, j = nvert-1; i < nvert; j = i++) {
+			var verty_i = matrix.getcell(i)[1];
+			var verty_j = matrix.getcell(j)[1];
+			var vertx_i = matrix.getcell(i)[0];
+			var vertx_j = matrix.getcell(j)[0];
+			if ( ((verty_i>testy) != (verty_j>testy)) &&
+				((testx < ( ((vertx_j-vertx_i) * (testy-verty_i)) / (verty_j-verty_i) + vertx_i)) ) ) {
+				c = !c;
+			}
+		}
+	}
+	return c ? 1 : 0;
+}
+isPointInsidePolygon.local = 1;
+// - - -
 
 function transformMouseFromScreenToWorld2D(mouseScreen) {
 	var mouseXWorld = (((mouseScreen[0] / gWindowDim[0]) * 2.0) - 1.0) * gWindowRatio; 
