@@ -9,14 +9,19 @@ var gMeshesNumber = 4;
 declareattribute("gMeshesNumber", null, null, 1);
 
 // Size of Meshes
-var gMeshSize = [8, 16];
+var gMeshSize = [4, 8];
 declareattribute("gMeshSize", null, null, 1);
 
+// GLOBAL VARIABLES
+var gMeshes = [];
+var gMousePosScreen = [];
+var gMinimumSelectionDist = 0.06;
 var gWindowDim = [512,512];
 var gWindowRatio = 1; 
 function setWindowRatio(ratio) {
 	gWindowRatio = ratio;
 }
+var gShowMeshes = 1;
 
 // OBJECTS USED GLOBALLY 
 // jit.3m to find max and min
@@ -36,11 +41,6 @@ var gSelectionStruct = {
 		this.meshIDToClick = -1;   // the mesh we are going to operate on
 	}
 };
-
-// GLOBAL VARIABLES
-var gMeshes = [];
-var gMousePosScreen = [];
-var gMinimumSelectionDist = 0.06;
 
 // JIT_GL_NODE
 var nodeCTX = new JitterObject("jit.gl.node");
@@ -89,6 +89,16 @@ function init() {
 	gGraphics.initGraphicElements();
 }
 
+function show_meshes(show) {
+	for (mesh in gMeshes) {
+		gMeshes[mesh].showMesh(show);
+	}
+	if (!show) {
+		gGraphics.reset();
+	}
+	gShowMeshes = show;
+}
+
 // ROB 
 //--------------------------------------------
 
@@ -124,57 +134,64 @@ function swapcallback(event){
 				init(); // RE INIT everything when window size is modified (temporary)
 			}
 			break;
-		case "mouse": // get mouse array when mouse is clicked or released
-			gMousePosScreen = (event.args);
-			var mouseClicked = gMousePosScreen[2];
-			//postln(gMousePosScreen);
-			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
 
-			if (mouseClicked) {
-				if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex
-					gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+		case "mouse": // get mouse array when mouse is clicked or released
+			if (gShowMeshes) {
+				gMousePosScreen = (event.args);
+				var mouseClicked = gMousePosScreen[2];
+				//postln(gMousePosScreen);
+				var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
+	
+				if (mouseClicked) {
+					//print(gSelectionStruct.cellIndex)
+					if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex
+						gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+					}
+				} else { // mouse is released
+					// if we moved some vertices
+					if (gSelectionStruct.meshIDToClick != -1) {
+						gMeshes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat() // recalculate the bounding matrix
+						gSelectionStruct.reset(); // reset the values in the selectionStruct
+					}
+					gGraphics.reset(); // delete the circle
 				}
-			} else { // mouse is released
-				// if we moved some vertices
-				if (gSelectionStruct.meshIDToClick != -1) {
-					gMeshes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat() // recalculate the bounding matrix
-					gSelectionStruct.reset(); // reset the values in the selectionStruct
-				}
-				gGraphics.reset(); // delete the circle
 			}
+		
 			break;
 
 		case "mouseidle":  // Check if mouse is close to vertices to highlight them
-			gMousePosScreen = (event.args);
-			var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen); 
+			if (gShowMeshes) {
+				gMousePosScreen = (event.args);
+				var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen); 
 
-			gSelectionStruct.reset(); // reset all the struct values
-			// Iterate through meshes to check in which one the mouse is in
-			for (var mesh in gMeshes) { 
-				var meshID = gMeshes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in (if it's inside any)
-				if (meshID != -1) { 
-					
-					gSelectionStruct.meshIDsToCheckArr.push(meshID); // push in this array all the IDs of the meshes the mouse is in (it could be more than one when meshes overlap)
-				} 
-			}
+				gSelectionStruct.reset(); // reset all the struct values
+				// Iterate through meshes to check in which one the mouse is in
+				for (var mesh in gMeshes) { 
+					var meshID = gMeshes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in (if it's inside any)
+					if (meshID != -1) { 
+						
+						gSelectionStruct.meshIDsToCheckArr.push(meshID); // push in this array all the IDs of the meshes the mouse is in (it could be more than one when meshes overlap)
+					} 
+				}
 
-			// if we are on a mesh, let's check if the mouse is close to a vertex
-			for (var i=0; i<gSelectionStruct.meshIDsToCheckArr.length; i++) { // check all the meshes the mouse is in
-				gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
+				// if we are on a mesh, let's check if the mouse is close to a vertex
+				for (var i=0; i<gSelectionStruct.meshIDsToCheckArr.length; i++) { // check all the meshes the mouse is in
+					gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
 
-				if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
-					gGraphics.reset();
-				} else {  // mouse is close to a vertex in the mesh
-					gSelectionStruct.meshIDToClick = gSelectionStruct.meshIDsToCheckArr[i]; // This is the mesh we are working with
+					if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
+						gGraphics.reset();
+					} else {  // mouse is close to a vertex in the mesh
+						gSelectionStruct.meshIDToClick = gSelectionStruct.meshIDsToCheckArr[i]; // This is the mesh we are working with
 
-					// check if the cell currently selected is different from the previous cell selected. 
-					// In case it is different we fill the matrix with the adjacent cells for bounding calculation
-					if (gSelectionStruct.cellIndex[0] != gSelectionStruct.oldCellIndex[0] || 
-						gSelectionStruct.cellIndex[1] != gSelectionStruct.oldCellIndex[1]) {
-							gSelectionStruct.oldCellIndex = gSelectionStruct.cellIndex.slice();
-							gMeshes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
+						// check if the cell currently selected is different from the previous cell selected. 
+						// In case it is different we fill the matrix with the adjacent cells for bounding calculation
+						if (gSelectionStruct.cellIndex[0] != gSelectionStruct.oldCellIndex[0] || 
+							gSelectionStruct.cellIndex[1] != gSelectionStruct.oldCellIndex[1]) {
+								gSelectionStruct.oldCellIndex = gSelectionStruct.cellIndex.slice();
+								gMeshes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
+						}
+						break; // We just need to check a single mesh so we break the loop
 					}
-					break; // We just need to check a single mesh so we break the loop
 				}
 			}
 			break;

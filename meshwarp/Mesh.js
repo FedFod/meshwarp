@@ -51,6 +51,11 @@ function Mesh() {
         postln("mesh draws to: " + this.meshPoints.drawto)
     }
 
+    this.showMesh = function(show) {
+        this.meshGrid.enable = show;
+        this.meshPoints.enable = show;
+    }
+
     this.freeMesh = function() {
         if (this.positionMat) {
             this.positionMat.freepeer();
@@ -215,7 +220,7 @@ function Mesh() {
     }
 
     this.moveVertex = function(coordsWorld, cellIndex) {
-        if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
+       if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
             this.setVertexPos(coordsWorld, cellIndex);
             this.assignPositionMatToMesh();
             gGraphics.drawCircle(coordsWorld);
@@ -225,7 +230,7 @@ function Mesh() {
     this.calcBoundingPolygonMat = function() {
         // Get the bounding vertices that are on the edges of the polygon in clockwise order
         var boundingArray = [];
-        var pad = 0.05; // pad so that the mesh is checked also when mouse is outside of it
+        var pad = 0.15; // pad so that the mesh is checked also when mouse is outside of it
 
         // TOP
         for (var i=0; i < this.positionMat.dim[0]; i++) {
