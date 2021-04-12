@@ -7,6 +7,7 @@ function Mesh() {
     this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
     this.boundingMat = new JitterMatrix(3, "float32", 10);
     this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
+    this.textureCoordMat = new JitterMatrix(2, "float32", [10, 10]);
 
     this.maxPos = [-1000, -1000];
     this.minPos = [1000, 1000];
@@ -31,18 +32,22 @@ function Mesh() {
         this.meshFull.draw_mode = "quad_grid";
         this.meshFull.depth_enable = 0;
         this.meshFull.layer = BACKGROUND;
-        this.meshFull.color = GREY;
+        this.meshFull.color = WHITE;
 
         this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
         this.boundingMat = new JitterMatrix(3, "float32", 10);
         this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
+        this.textureCoordMat = new JitterMatrix(2, "float32", [10, 10]);
 
         this.ID = ID;
         this.meshPoints.drawto = drawto;
         this.meshGrid.drawto   = drawto;
         this.meshFull.drawto   = drawto;
+
         this.setMeshDim(dimensions);  // calculate and set matrices dimensions
         this.initPositionMat();
+        this.initTextureCoordMat();
+        this.assignTexture();
         postln("mesh draws to: " + this.meshPoints.drawto)
     }
 
@@ -57,24 +62,15 @@ function Mesh() {
         }
     }
 
-    this.getMaxMinPositionMat = function()
-    {
-        gJit3m.matrixcalc(this.positionMat, this.positionMat);
-        this.minPos = gJit3m.min.slice(0, 2);
-        this.maxPos = gJit3m.max.slice(0, 2);
-
-        // postln("min pos values (x, y): "+this.minPos);
-        // postln("max pos values (x, y): "+this.maxPos);
-    }
-
     this.setMeshDim = function(dimensions)
     {   
         if (dimensions[0] > 0 && dimensions[1] > 0) {
             this.positionMat.dim = dimensions.slice();
             this.boundingMat.dim = dimensions[0]*2 + (dimensions[1] * 2) - 4;
+            this.textureCoordMat.dim = dimensions.slice();
         } 
         else {
-            this.positioMat.dim = [4,4];
+            this.positionMat.dim = [4,4];
         }
     }
 
@@ -97,18 +93,50 @@ function Mesh() {
         }   
 
         this.assignPositionMatToMesh(); // assign vertex mat to mesh
-        this.getMaxMinPositionMat(); // calculate what are the max and min position values in matrix
+        //this.getMaxMinPositionMat(); // calculate what are the max and min position values in matrix
         this.calcBoundingPolygonMat();
+    }
+
+    // Initialize Texture Coordinates
+    this.initTextureCoordMat = function() {   
+        print("Initializing Texture Coordinates: " + this.ID);      
+        var xStartingPoint = (1.0/gMeshesNumber) * this.ID;
+        var xCoordTarget = xStartingPoint + (1.0/gMeshesNumber); // 0 a 1. +0.25
+        
+        for (var i=0; i<this.textureCoordMat.dim[0]; i++)
+        {
+            for (var j=0; j<this.textureCoordMat.dim[1]; j++)
+            {   
+                var xCoord = map(i, 0, this.textureCoordMat.dim[0]-1, xStartingPoint, xCoordTarget);
+                this.textureCoordMat.setcell2d(i,j, xCoord, j/(this.textureCoordMat.dim[1]-1));
+            }
+        }
+        this.assignTextureCoordMatToMesh();
     }
 
     this.setVertexPos = function(coordsWorld, cellIndex) {
         this.positionMat.setcell2d(cellIndex[0], cellIndex[1], coordsWorld[0], coordsWorld[1], 0.0);
     }
 
+    this.getMaxMinPositionMat = function()
+    {
+        gJit3m.matrixcalc(this.positionMat, this.positionMat);
+        this.minPos = gJit3m.min.slice(0, 2);
+        this.maxPos = gJit3m.max.slice(0, 2);
+    }
+
     this.assignPositionMatToMesh = function() {
         this.meshPoints.vertex_matrix(this.positionMat.name);
         this.meshGrid.vertex_matrix(this.positionMat.name);
         this.meshFull.vertex_matrix(this.positionMat.name);
+    }
+
+    this.assignTexture = function() {
+        this.meshFull.jit_gl_texture("TEST");
+    }
+
+    this.assignTextureCoordMatToMesh = function() {
+        this.meshFull.texcoord_matrix(this.textureCoordMat.name);
     }
 
     //-------------------------------------------
@@ -231,12 +259,6 @@ function Mesh() {
     }
 
     this.checkIfMouseInsideMesh = function(mouseWorld) {
-        // if (mouseWorld[0] >= this.minPos[0] && mouseWorld[0] <= this.maxPos[0])
-        // {
-        //     return this.ID;
-        // } else {
-        //     return -1;
-        // }
         if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
             return this.ID;
         } else {

@@ -9,7 +9,7 @@ var gMeshesNumber = 4;
 declareattribute("gMeshesNumber", null, null, 1);
 
 // Size of Meshes
-var gMeshSize = [4, 8];
+var gMeshSize = [8, 16];
 declareattribute("gMeshSize", null, null, 1);
 
 var gWindowDim = [512,512];
@@ -135,8 +135,8 @@ function swapcallback(event){
 					gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
 				}
 			} else { // mouse is released
+				// if we moved some vertices
 				if (gSelectionStruct.meshIDToClick != -1) {
-					gMeshes[gSelectionStruct.meshIDToClick].getMaxMinPositionMat(); // recalculate the new max and min position values
 					gMeshes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat() // recalculate the bounding matrix
 					gSelectionStruct.reset(); // reset the values in the selectionStruct
 				}
