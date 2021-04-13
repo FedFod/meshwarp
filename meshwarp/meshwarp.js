@@ -102,21 +102,37 @@ function show_meshes(show) {
 // ROB 
 //--------------------------------------------
 
-var drawto = "theWorld"; // initialized for the moment
+var implicitdrawto = "";
+var drawto = "";
 var swaplisten = null; // The listener for the jit.world
 
-function setdrawto(arg) {
-	if(arg === drawto || !arg) {
+const is820 = (max.version >= 820);
+var proxy = null;
+if(is820) {
+	proxy = new JitterObject("jit.proxy");
+}
+
+function setdrawto(newdrawto) {
+	if(newdrawto == drawto || !newdrawto) {
 		// bounce
 		return;
 	}
 
-	postln("setdrawto " + arg);
-	drawto=arg;	
+	if(proxy) {
+		proxy.name = newdrawto;
+		//proxyattrs = proxy.send("getattributes");
+		proxydrawto = proxy.send("getdrawto");
+		if(proxydrawto !== null && proxydrawto !== undefined) {
+			// important! drawto is an array so get first element
+			return setdrawto(proxydrawto[0]);
+		}
+	}
+	postln("setdrawto " + newdrawto);
+	drawto = newdrawto;	
 	
 	if(swaplisten)
 		swaplisten.subjectname = "";
-	swaplisten = new JitterListener(drawto,swapcallback);
+	swaplisten = new JitterListener(drawto, swapcallback);
 
 }
 
@@ -208,10 +224,10 @@ postln("implicit tracker name: "+implicit_tracker.name)
 var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
 
 function implicit_callback(event) {
-	if(drawto !== implicit_tracker.drawto) {
-		setdrawto(implicit_tracker.drawto);
-		//outlet(0, "drawto", (cur_drawto.length > 0 ? cur_drawto : vg.curctx));
+	if(implicitdrawto != implicit_tracker.drawto[0]) {
+		// important! drawto is an array so get first element
+		implicitdrawto = implicit_tracker.drawto[0];
+		setdrawto(implicitdrawto);
 	}
-	postln(drawto)
 }
 implicit_callback.local = 1;

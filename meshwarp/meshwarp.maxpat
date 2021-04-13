@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1052.0, 259.0, 528.0, 613.0 ],
+		"rect" : [ 550.0, 136.0, 528.0, 613.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -88,18 +88,6 @@
 			}
 , 			{
 				"box" : 				{
-					"bubble" : 1,
-					"id" : "obj-5",
-					"maxclass" : "comment",
-					"numinlets" : 1,
-					"numoutlets" : 0,
-					"patching_rect" : [ 291.642860054969788, 78.0, 170.0, 24.0 ],
-					"text" : "getdrawto initializes as well"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-4",
 					"maxclass" : "message",
 					"numinlets" : 2,
@@ -120,7 +108,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 223.904759526252747, 207.738093018531799, 80.0, 36.0 ]
+					"patching_rect" : [ 223.904759526252747, 207.738093018531799, 80.0, 35.0 ]
 				}
 
 			}
@@ -145,30 +133,6 @@
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
 					"patching_rect" : [ 38.690475821495056, 125.595236897468567, 24.0, 24.0 ]
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-7",
-					"maxclass" : "newobj",
-					"numinlets" : 2,
-					"numoutlets" : 2,
-					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 337.642860054969788, 207.738093018531799, 155.0, 22.0 ],
-					"text" : "substitute drawto setdrawto"
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-6",
-					"maxclass" : "message",
-					"numinlets" : 2,
-					"numoutlets" : 1,
-					"outlettype" : [ "" ],
-					"patching_rect" : [ 223.904759526252747, 79.0, 61.0, 22.0 ],
-					"text" : "getdrawto"
 				}
 
 			}
@@ -388,13 +352,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"source" : [ "obj-2", 2 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-14", 0 ],
 					"source" : [ "obj-20", 0 ]
 				}
@@ -416,20 +373,6 @@
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-2", 0 ],
-					"source" : [ "obj-6", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-1", 0 ],
-					"source" : [ "obj-7", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
 					"destination" : [ "obj-1", 1 ],
 					"source" : [ "obj-8", 0 ]
 				}
@@ -445,7 +388,7 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/MaxMapper_with_Rob/meshwarp",
+				"bootpath" : "~/dev/cycling/meshwarp/meshwarp",
 				"patcherrelativepath" : ".",
 				"type" : "TEXT",
 				"implicit" : 1
