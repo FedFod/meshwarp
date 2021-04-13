@@ -81,7 +81,8 @@ function initMeshes() {
 }
 initMeshes.local = 1;
 
-function init() {	
+function init(meshSizeX, meshSizeY) {	
+	gMeshSize = [meshSizeX, meshSizeY];
 	nodeCTX.drawto = drawto;
 	videoplane.drawto = drawto;	
 	freeMeshes();
@@ -140,7 +141,7 @@ function swapcallback(event){
 				gMousePosScreen = (event.args);
 				var mouseClicked = gMousePosScreen[2];
 				//postln(gMousePosScreen);
-				var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen);
+				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); // transformMouseFromScreenToWorld2D(gMousePosScreen);
 	
 				if (mouseClicked) {
 					//print(gSelectionStruct.cellIndex)
@@ -162,8 +163,8 @@ function swapcallback(event){
 		case "mouseidle":  // Check if mouse is close to vertices to highlight them
 			if (gShowMeshes) {
 				gMousePosScreen = (event.args);
-				var mouseWorld = transformMouseFromScreenToWorld2D(gMousePosScreen); 
-
+				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
+				
 				gSelectionStruct.reset(); // reset all the struct values
 				// Iterate through meshes to check in which one the mouse is in
 				for (var mesh in gMeshes) { 

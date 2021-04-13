@@ -7,6 +7,10 @@ function GraphicElements() {
 
     this.circleRadius = 0.03;
 
+    this.transformMouseToWorld = function(screenCoord) {
+        return this.sketch.screentoworld(screenCoord);
+    }
+
     this.setDrawto = function(drawto) {
         this.sketch.drawto = drawto;
     }
