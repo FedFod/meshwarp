@@ -6,8 +6,8 @@ function Mesh() {
     this.meshFull = new JitterObject("jit.gl.mesh");
     this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
     this.boundingMat = new JitterMatrix(3, "float32", 10);
-    this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
     this.textureCoordMat = new JitterMatrix(2, "float32", [10, 10]);
+    this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
 
     this.maxPos = [-1000, -1000];
     this.minPos = [1000, 1000];
@@ -46,6 +46,7 @@ function Mesh() {
 
         this.setMeshDim(dimensions);  // calculate and set matrices dimensions
         this.initPositionMat();
+        this.calcBoundingPolygonMat();
         this.initTextureCoordMat();
         this.assignTexture();
         postln("mesh draws to: " + this.meshPoints.drawto)
@@ -79,6 +80,22 @@ function Mesh() {
         }
     }
 
+    this.resizeMesh = function(sizeX, sizeY) {
+        var tempMat = new JitterMatrix(3, "float32", [sizeX, sizeY]);
+        tempMat.interp = 1;
+
+        tempMat.frommatrix(this.positionMat);
+        
+        this.setMeshDim([sizeX, sizeY]);
+
+        this.positionMat.frommatrix(tempMat);
+        tempMat.freepeer();
+
+        this.assignPositionMatToMesh();
+        this.initTextureCoordMat();
+        this.calcBoundingPolygonMat();
+    }
+
     this.initPositionMat = function()
     {
         postln("Initializing vertex matrix for mesh with ID " + this.ID);
@@ -99,12 +116,10 @@ function Mesh() {
 
         this.assignPositionMatToMesh(); // assign vertex mat to mesh
         //this.getMaxMinPositionMat(); // calculate what are the max and min position values in matrix
-        this.calcBoundingPolygonMat();
     }
 
     // Initialize Texture Coordinates
     this.initTextureCoordMat = function() {   
-        print("Initializing Texture Coordinates: " + this.ID);      
         var xStartingPoint = (1.0/gMeshesNumber) * this.ID;
         var xCoordTarget = xStartingPoint + (1.0/gMeshesNumber); // 0 a 1. +0.25
         

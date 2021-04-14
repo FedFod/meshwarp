@@ -90,6 +90,12 @@ function init(meshSizeX, meshSizeY) {
 	gGraphics.initGraphicElements();
 }
 
+function resize_meshes(meshSizeX, meshSizeY) {
+	for (mesh in gMeshes) {
+		gMeshes[mesh].resizeMesh(meshSizeX, meshSizeY);
+	}
+}
+
 function show_meshes(show) {
 	for (mesh in gMeshes) {
 		gMeshes[mesh].showMesh(show);
@@ -148,7 +154,7 @@ function swapcallback(event){
 				setWindowRatio(nodeCTX.dim[0] / nodeCTX.dim[1]);
 				gWindowDim = nodeCTX.dim.slice();
 				postln("window Dimensions: "+gWindowDim);
-				init(); // RE INIT everything when window size is modified (temporary)
+				init(g); // RE INIT everything when window size is modified (temporary)
 			}
 			break;
 
