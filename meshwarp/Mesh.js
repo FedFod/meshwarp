@@ -1,5 +1,5 @@
 function Mesh() {
-    this.ID = 0; // ID of the mesh
+    this.ID = -1; // ID of the mesh
 
     this.meshPoints = new JitterObject("jit.gl.mesh");
     this.meshGrid = new JitterObject("jit.gl.mesh");
@@ -9,10 +9,15 @@ function Mesh() {
     this.textureCoordMat = new JitterMatrix(2, "float32", [10, 10]);
     this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
 
+    this.canvas = null;
+
     this.maxPos = [-1000, -1000];
     this.minPos = [1000, 1000];
 
     this.initMesh = function(dimensions, drawto, ID) {
+        this.canvas = new Canvas();
+        this.canvas.initCanvas(ID);
+
         this.meshPoints = new JitterObject("jit.gl.mesh");
         this.meshPoints.draw_mode = "points";
         this.meshPoints.depth_enable = 0;
@@ -46,15 +51,14 @@ function Mesh() {
 
         this.setMeshDim(dimensions);  // calculate and set matrices dimensions
         this.initPositionMat();
+        this.assignPositionMatToMesh(); // assign vertex mat to mesh
         this.calcBoundingPolygonMat();
-        this.initTextureCoordMat();
+
+        this.canvas.initTextureCoordMat(this.textureCoordMat);
+        this.assignTextureCoordMatToMesh();
+
         this.assignTexture();
         postln("mesh draws to: " + this.meshPoints.drawto)
-    }
-
-    this.showMesh = function(show) {
-        this.meshGrid.enable = show;
-        this.meshPoints.enable = show;
     }
 
     this.freeMesh = function() {
@@ -66,6 +70,11 @@ function Mesh() {
             this.meshGrid.freepeer();
             this.meshFull.freepeer();
         }
+    }
+
+    this.showMesh = function(show) {
+        this.meshGrid.enable = show;
+        this.meshPoints.enable = show;
     }
 
     this.setMeshDim = function(dimensions)
@@ -113,9 +122,6 @@ function Mesh() {
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);
             }
         }   
-
-        this.assignPositionMatToMesh(); // assign vertex mat to mesh
-        //this.getMaxMinPositionMat(); // calculate what are the max and min position values in matrix
     }
 
     // Initialize Texture Coordinates
@@ -131,7 +137,6 @@ function Mesh() {
                 this.textureCoordMat.setcell2d(i,j, xCoord, j/(this.textureCoordMat.dim[1]-1));
             }
         }
-        this.assignTextureCoordMatToMesh();
     }
 
     this.setVertexPos = function(coordsWorld, cellIndex) {

@@ -1,11 +1,15 @@
 autowatch = 1;
 
 include("Mesh.js");
+include("Nurbs.js");
 include("Utilities.js");
 include("GraphicElements.js");
+include("PrivateFunctions.js");
+include("Canvas.js");
 
 // GLOBAL VARIABLES
 var gMeshes = [];
+var gNurbs = [];
 var gMousePosScreen = [];
 var gMinimumSelectionDist = 0.06;
 var gWindowDim = [512,512];
@@ -59,47 +63,35 @@ nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
 
-
-function freeMeshes() {
-	if (gMeshes.length > 0) {
-		for (var mesh in gMeshes) {
-			gMeshes[mesh].freeMesh();
-		}
-	}
-}
-freeMeshes.local = 1;
-
-function initMeshes() {	
-	postln("init meshes")
-	gMeshes = [];
-	for (var i=0; i<gMeshesNumber; i++) {
-		gMeshes.push(new Mesh());
-		gMeshes[i].initMesh(gMeshSize.slice(0,2),nodeCTX.name, i); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
-	}
-}
-initMeshes.local = 1;
-
+//-----PUBLIC FUNCTIONS----------------
 function init(meshSizeX, meshSizeY) {	
 	gMeshSize = [meshSizeX, meshSizeY];
 	nodeCTX.drawto = drawto;
 	videoplane.drawto = drawto;	
 	freeMeshes();
 	initMeshes();
+
+	// freeNurbs();
+	// initNurbs();
+
 	gGraphics.initGraphicElements();
 }
 
+// Set number of meshes
 function meshes(numberMeshes) {
 	gMeshesNumber = numberMeshes;
 	freeMeshes();
 	initMeshes();
 }
 
+// Resize all the meshes
 function resize_meshes(meshSizeX, meshSizeY) {
 	for (mesh in gMeshes) {
 		gMeshes[mesh].resizeMesh(meshSizeX, meshSizeY);
 	}
 }
 
+// Resize single mesh
 function resize_mesh(index, meshSizeX, meshSizeY) {
 	if (index < gMeshes.length && index >= 0) {
 		gMeshes[index].resizeMesh(meshSizeX, meshSizeY);
