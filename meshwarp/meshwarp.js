@@ -68,11 +68,11 @@ function init(meshSizeX, meshSizeY) {
 	gMeshSize = [meshSizeX, meshSizeY];
 	nodeCTX.drawto = drawto;
 	videoplane.drawto = drawto;	
-	freeMeshes();
-	initMeshes();
+	// freeMeshes();
+	// initMeshes();
 
-	// freeNurbs();
-	// initNurbs();
+	freeNurbs();
+	initNurbs();
 
 	gGraphics.initGraphicElements();
 }

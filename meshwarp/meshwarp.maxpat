@@ -40,18 +40,6 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-43",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 626.5, 419.0, 63.0, 22.0 ],
-					"text" : "jit.gl.nurbs"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-42",
 					"maxclass" : "comment",
 					"numinlets" : 1,
@@ -68,7 +56,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 605.0, 46.0, 106.0, 20.0 ],
-					"presentation_linecount" : 4,
 					"text" : "Resize all meshes"
 				}
 
@@ -356,7 +343,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 48.404759526252747, 436.0, 458.0, 22.0 ],
+					"patching_rect" : [ 40.0, 376.0, 458.0, 22.0 ],
 					"text" : "jit.movie @output_texture 1 @texture_name TEST @vol 0 @moviefile chickens.mp4"
 				}
 
@@ -395,7 +382,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 247.142860054969788, 263.738093018531799, 80.0, 36.0 ]
+					"patching_rect" : [ 247.142860054969788, 262.738093018531799, 80.0, 36.0 ]
 				}
 
 			}
@@ -483,7 +470,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"embedstate" : [ [ "gMeshesNumber", 3 ], [ "gMeshSize", 4, 8 ] ],
+									"embedstate" : [ [ "gMeshesNumber", 4 ], [ "gMeshSize", 4, 8 ] ],
 									"id" : "obj-8",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -553,7 +540,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 105.642860054969788, 173.119050145149231, 93.0, 22.0 ],
+					"patching_rect" : [ 105.642860054969788, 178.857143521308899, 93.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -573,7 +560,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 35.690475821495056, 323.119050000000016, 260.0, 22.0 ]
+					"patching_rect" : [ 40.0, 316.119050000000016, 260.0, 22.0 ]
 				}
 
 			}
