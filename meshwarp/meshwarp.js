@@ -89,12 +89,20 @@ function init(meshSizeX, meshSizeY) {
 }
 
 function meshes(numberMeshes) {
-
+	gMeshesNumber = numberMeshes;
+	freeMeshes();
+	initMeshes();
 }
 
 function resize_meshes(meshSizeX, meshSizeY) {
 	for (mesh in gMeshes) {
 		gMeshes[mesh].resizeMesh(meshSizeX, meshSizeY);
+	}
+}
+
+function resize_mesh(index, meshSizeX, meshSizeY) {
+	if (index < gMeshes.length && index >= 0) {
+		gMeshes[index].resizeMesh(meshSizeX, meshSizeY);
 	}
 }
 
