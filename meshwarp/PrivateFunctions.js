@@ -34,3 +34,24 @@ function initNurbs() {
 	}
 }
 initNurbs.local = 1;
+
+function freeShapes() {
+	if (gUsingMeshesOrNurbs == "mesh") {
+		freeMeshes();
+	} else if (gUsingMeshesOrNurbs == "nurbs") {
+		freeNurbs();
+	}
+}
+freeShapes.local = 1;
+
+function initShapes() {
+	gShapes = [];
+	if (gUsingMeshesOrNurbs == "mesh") {
+		initMeshes();
+		gShapes = gMeshes; // copy by reference
+	} else if (gUsingMeshesOrNurbs == "nurbs") {
+		initNurbs();
+		gShapes = gNurbs;
+	}
+}
+initShapes.local = 1;

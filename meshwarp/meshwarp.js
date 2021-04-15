@@ -10,6 +10,7 @@ include("Canvas.js");
 // GLOBAL VARIABLES
 var gMeshes = [];
 var gNurbs = [];
+var gShapes = [];
 var gMousePosScreen = [];
 var gMinimumSelectionDist = 0.06;
 var gWindowDim = [512,512];
@@ -23,6 +24,9 @@ var gMeshesNumber = 4;
 declareattribute("gMeshesNumber", null, null, 1);
 var gMeshSize = [4, 8];
 declareattribute("gMeshSize", null, null, 1);
+var gUsingMeshesOrNurbs = "nurbs"; // USE MESHES OR NURBS
+declareattribute("gUsingMeshesOrNurbs", null, null, 1);
+
 
 
 // OBJECTS USED GLOBALLY 
@@ -68,11 +72,9 @@ function init(meshSizeX, meshSizeY) {
 	gMeshSize = [meshSizeX, meshSizeY];
 	nodeCTX.drawto = drawto;
 	videoplane.drawto = drawto;	
-	// freeMeshes();
-	// initMeshes();
 
-	freeNurbs();
-	initNurbs();
+	freeShapes();
+	initShapes();
 
 	gGraphics.initGraphicElements();
 }
@@ -86,21 +88,21 @@ function meshes(numberMeshes) {
 
 // Resize all the meshes
 function resize_meshes(meshSizeX, meshSizeY) {
-	for (mesh in gMeshes) {
-		gMeshes[mesh].resizeMesh(meshSizeX, meshSizeY);
+	for (mesh in gShapes) {
+		gShapes[mesh].resizeMesh(meshSizeX, meshSizeY);
 	}
 }
 
 // Resize single mesh
 function resize_mesh(index, meshSizeX, meshSizeY) {
-	if (index < gMeshes.length && index >= 0) {
-		gMeshes[index].resizeMesh(meshSizeX, meshSizeY);
+	if (index < gShapes.length && index >= 0) {
+		gShapes[index].resizeMesh(meshSizeX, meshSizeY);
 	}
 }
 
 function show_meshes(show) {
-	for (mesh in gMeshes) {
-		gMeshes[mesh].showMesh(show);
+	for (mesh in gShapes) {
+		gShapes[mesh].showMesh(show);
 	}
 	if (!show) {
 		gGraphics.reset();
@@ -170,12 +172,12 @@ function swapcallback(event){
 				if (mouseClicked) {
 					//print(gSelectionStruct.cellIndex)
 					if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex
-						gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+						gShapes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
 					}
 				} else { // mouse is released
 					// if we moved some vertices
 					if (gSelectionStruct.meshIDToClick != -1) {
-						gMeshes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat() // recalculate the bounding matrix
+						gShapes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat(); // recalculate the bounding matrix
 						gSelectionStruct.reset(); // reset the values in the selectionStruct
 					}
 					gGraphics.reset(); // delete the circle
@@ -192,8 +194,8 @@ function swapcallback(event){
 				gSelectionStruct.reset(); // reset all the struct values
 
 				// Iterate through meshes to check in which one the mouse is in
-				for (var mesh in gMeshes) { 
-					var meshID = gMeshes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in (if it's inside any)
+				for (var mesh in gShapes) { 
+					var meshID = gShapes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in (if it's inside any)
 					if (meshID != -1) { 
 						gSelectionStruct.meshIDsToCheckArr.push(meshID); // push in this array all the IDs of the meshes the mouse is in (it could be more than one when meshes overlap)
 					} 
@@ -204,7 +206,7 @@ function swapcallback(event){
 				} else {
 					// if we are on a mesh, let's check if the mouse is close to a vertex
 					for (var i=0; i<gSelectionStruct.meshIDsToCheckArr.length; i++) { // check all the meshes the mouse is in
-						gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
+						gSelectionStruct.cellIndex = gShapes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
 
 						if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
 							gGraphics.reset();
@@ -216,7 +218,7 @@ function swapcallback(event){
 							if (gSelectionStruct.cellIndex[0] != gSelectionStruct.oldCellIndex[0] || 
 								gSelectionStruct.cellIndex[1] != gSelectionStruct.oldCellIndex[1]) {
 									gSelectionStruct.oldCellIndex = gSelectionStruct.cellIndex.slice();
-									gMeshes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
+									gShapes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
 							}
 							break; // We just need to check a single mesh so we break the loop
 						}
