@@ -16,7 +16,7 @@ var gWindowPrevRatio = gWindowRatio;
 var gShowMeshes = 1;
 var gMeshesNumber = 4; 
 declareattribute("gMeshesNumber", null, null, 1);
-var gMeshSize = [3, 3];
+var gMeshSize = [4, 4]; // default size 4x4 because of NURBS
 declareattribute("gMeshSize", null, null, 1);
 var gUsingMeshesOrNurbs = 0; //mesh // USE MESHES OR NURBS
 declareattribute("gUsingMeshesOrNurbs", null, null, 1);

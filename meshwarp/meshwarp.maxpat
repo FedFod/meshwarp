@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 533.0, 157.0, 814.0, 749.0 ],
+		"rect" : [ 665.0, 162.0, 724.0, 744.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,34 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"cols" : 20,
+					"fontface" : 0,
+					"fontname" : "Arial",
+					"fontsize" : 12.0,
+					"id" : "obj-7",
+					"maxclass" : "jit.cellblock",
+					"numinlets" : 2,
+					"numoutlets" : 4,
+					"outlettype" : [ "list", "", "", "" ],
+					"patching_rect" : [ 154.0, 655.0, 423.0, 200.0 ],
+					"rows" : 20
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "jit_matrix", "" ],
+					"patching_rect" : [ 310.0, 618.0, 155.0, 22.0 ],
+					"text" : "jit.gl.nurbs @matrixoutput 1"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-49",
 					"maxclass" : "toggle",
@@ -310,7 +338,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 197.642860054969788, 109.0, 44.0, 22.0 ],
-					"text" : "init 3 3"
+					"text" : "init 4 4"
 				}
 
 			}
@@ -322,7 +350,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 91.642860054969788, 255.642863392829895, 33.476186752319336, 33.476186752319336 ]
+					"patching_rect" : [ 91.642860054969788, 277.642863392829895, 33.476186752319336, 33.476186752319336 ]
 				}
 
 			}
@@ -385,7 +413,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"embedstate" : [ [ "gUsingMeshesOrNurbs", 0 ], [ "gMeshesNumber", 4 ], [ "gMeshSize", 3, 3 ] ],
+									"embedstate" : [ [ "gMeshesNumber", 2 ], [ "gMeshSize", 4, 4 ], [ "gUsingMeshesOrNurbs", 0 ] ],
 									"id" : "obj-8",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -425,7 +453,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 111.690475821495056, 172.595236897468567, 93.0, 22.0 ],
+					"patching_rect" : [ 86.690475821495056, 188.0, 93.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -580,6 +608,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"source" : [ "obj-5", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-7", 0 ],
+					"source" : [ "obj-6", 0 ]
 				}
 
 			}

@@ -5,12 +5,14 @@ function Mesh() {
     this.meshGrid = null;
     this.meshFull = null;
     this.nurbs = null;
+    this.nurbsDim = [10, 10];
 
     this.useNurbs = -1;
     this.currentWindowRatio = -1;
+    this.nurbsLstnr = null;
 
     this.textureCoordMat = new JitterMatrix(2, "float32", [10, 10]);;
-    this.nurbsMat = new JitterMatrix();
+    this.nurbsMat = new JitterMatrix(3, "float32", [4, 4]);
     this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
     this.boundingMat = new JitterMatrix(3, "float32", 10);
     this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
@@ -25,16 +27,21 @@ function Mesh() {
         this.initMeshFull(drawto);
         this.initNurbs(drawto);
 
-        this.setMeshDim(dimensions);  // calculate and set matrices dimensions
-        this.initPositionMat();
-        this.assignPositionMatToMesh(); // assign vertex mat to mesh
-        this.assignControlToNurbs();
-        this.calcBoundingPolygonMat();
+        this.setMeshDim(dimensions);    // calculate and set matrices dimensions
+        this.initPositionMat();         // init vertex mat
+        if (this.useNurbs) { 
+            this.assignNurbsMatToMesh();    // assign the matrix output from the nurbs to the mesh
+        } else {
+            this.assignPositionMatToMesh(); // assign vertex mat to mesh
+        }
+        this.assignControlMatToNurbs(); // assign vertex mat to nurbs
+        
+        this.calcBoundingPolygonMat();  // calculate 
+ 
+        this.initTextureCoordMat();     // init texture coord mat
+        this.assignTextureCoordMatToMesh();  // assign texture coord mat to mesh
 
-        this.initTextureCoordMat();
-        this.assignTextureCoordMatToMesh();
-
-        this.assignTexture(this.meshFull);
+        this.assignTexture(); 
     }
 
     this.initMeshPoints = function(drawto_) {
@@ -69,14 +76,30 @@ function Mesh() {
 
     this.initNurbs = function(drawto_) {
         this.nurbs = new JitterObject("jit.gl.nurbs");
-        this.nurbs.dim = [40, 40];
+        this.nurbs.dim = this.nurbsDim.slice();
         this.nurbs.depth_enable = 0;
         this.nurbs.layer = BACKGROUND;
         this.nurbs.color = WHITE;
-        this.nurbs.ctlshow = 0;
+        this.nurbs.ctlshow = 1;
         this.nurbs.matrixoutput = 1;
-        this.nurbs.enable = this.useNurbs;
         this.nurbs.drawto = drawto_;
+        this.nurbs.enable = this.useNurbs;
+        this.nurbs.name = "nurbs_"+this.ID;
+
+        this.nurbsMat = new JitterMatrix(3, "float32", this.nurbs.dim);
+
+        var self = this;
+
+        this.nurbsLstnr = new JitterListener(this.nurbs.name, ( function(event) {
+            if (event.eventname == "matrixoutput") {
+                print(this.ID)
+                // create javascript matrix from matrixoutput event arg
+                var tempMat = new JitterMatrix(event.args[0]);
+                copy2DMatrixByValues(self.nurbsMat, tempMat);
+                tempMat.freepeer();
+                // print("thisnurbsmat "+tempMat.getcell(0,0));
+            }
+        }).bind(this) );
     }
 
     this.freeMesh = function() {
@@ -103,7 +126,11 @@ function Mesh() {
         if (dimensions[0] > 0 && dimensions[1] > 0) {
             this.positionMat.dim = dimensions.slice();
             this.boundingMat.dim = dimensions[0]*2 + (dimensions[1] * 2) - 4;
-            this.textureCoordMat.dim = dimensions.slice();
+            if (this.useNurbs) {
+                this.textureCoordMat.dim = this.nurbsDim.slice();
+            } else {
+                this.textureCoordMat.dim = dimensions.slice();
+            }
         } 
         else {
             this.positionMat.dim = [3,3];
@@ -136,20 +163,20 @@ function Mesh() {
         this.meshFull.vertex_matrix(this.positionMat.name);
     }
 
+    this.assignNurbsMatToMesh = function() {
+        this.meshPoints.vertex_matrix(this.positionMat.name);
+        this.meshGrid.vertex_matrix(this.positionMat.name);
+        this.meshFull.vertex_matrix(this.nurbsMat.name);
+    }
+
     this.assignTextureCoordMatToMesh = function() {
         this.meshFull.texcoord_matrix(this.textureCoordMat.name);
     }
 
-    this.assignControlToNurbs = function() {
+    this.assignControlMatToNurbs = function() {
         this.nurbs.ctlmatrix(this.positionMat.name);
     }
-
-    this.assignNurbsMatToMesh = function() {
-        this.meshPoints.vertex_matrix(this.positionMat.name);
-        this.meshGrid.vertex_matrix(this.positionMat.name);
-        this.meshFull.vertex_matrix(this.positionMat.name);
-    }
-
+    
     //-------------------------------------------
 
     this.initTextureCoordMat = function() {   
@@ -193,10 +220,11 @@ function Mesh() {
         }
         this.currentWindowRatio = gWindowRatio;
         this.assignPositionMatToMesh();
+        if (this.useNurbs) { this.assignControlMatToNurbs(); }
     }
 
-    this.assignTexture = function(mesh) {
-        mesh.jit_gl_texture("TEST");
+    this.assignTexture = function() {
+        this.meshFull.jit_gl_texture("TEST");
     }
 
     this.checkIfMouseInsideMesh = function(mouseWorld) {
@@ -226,17 +254,19 @@ function Mesh() {
 
     this.moveVertex = function(coordsWorld, cellIndex) {
         if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
-             this.setVertexPos(coordsWorld, cellIndex);
-             if (this.useNurbs) {
-                 this.assignControlToNurbs();
-             } else {
+            this.setVertexPosInMat(coordsWorld, cellIndex);
+            if (this.useNurbs) {
+                this.assignControlMatToNurbs();
+                // print("mat "+this.nurbsMat.getcell(0,0))
+                this.assignNurbsMatToMesh();
+            } else {
                 this.assignPositionMatToMesh();
-             }
-             gGraphics.drawCircle(coordsWorld);
+            }
+            gGraphics.drawCircle(coordsWorld);
          }
      }
 
-     this.setVertexPos = function(coordsWorld, cellIndex) {
+    this.setVertexPosInMat = function(coordsWorld, cellIndex) {
         this.positionMat.setcell2d(cellIndex[0], cellIndex[1], coordsWorld[0], coordsWorld[1], 0.0);
     }
 

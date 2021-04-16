@@ -9,9 +9,15 @@ var MIDDLE_1 = 11;
 var FRONT = 12;
 
 
+function copy2DMatrixByValues(mat1, mat2) {
+	mat1.dim = mat2.dim.slice();
 
-function switchDrawModeMeshes(mode) {
-
+	for (var i=0; i<mat2.dim[0]; i++) {
+		for (var j=0; j<mat2.dim[1]; j++) {
+			var cell2 = mat2.getcell(i,j);
+			mat1.setcell2d(i,j, cell2[0], cell2[1], 0.0);
+		}
+	}
 }
 // - - -
 
