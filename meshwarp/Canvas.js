@@ -47,7 +47,6 @@ function Canvas() {
             return -1;
         }
     }
-
     
     this.mouseIsCloseToVertex = function(mouseWorld) {   
         for (var i=0; i<this.positionMat.dim[0]; i++)
@@ -69,7 +68,11 @@ function Canvas() {
     this.moveVertex = function(coordsWorld, cellIndex) {
         if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
              this.setVertexPos(coordsWorld, cellIndex);
-             this.assignPositionMatToMesh();
+             if (this.useNurbs) {
+                 this.assignControlToNurbs();
+             } else {
+                this.assignPositionMatToMesh();
+             }
              gGraphics.drawCircle(coordsWorld);
          }
      }

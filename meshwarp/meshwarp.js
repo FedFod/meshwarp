@@ -1,7 +1,6 @@
 autowatch = 1;
 
 include("Mesh.js");
-include("Nurbs.js");
 include("Utilities.js");
 include("GraphicElements.js");
 include("PrivateFunctions.js");
@@ -9,24 +8,18 @@ include("Canvas.js");
 
 // GLOBAL VARIABLES
 var gMeshes = [];
-var gNurbs = [];
-var gShapes = [];
 var gMousePosScreen = [];
 var gMinimumSelectionDist = 0.06;
-var gWindowDim = [512,512];
+var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
-function setWindowRatio(ratio) {
-	gWindowRatio = ratio;
-} 
-setWindowRatio.local = 1;
+var gWindowPrevRatio = gWindowRatio;
 var gShowMeshes = 1;
 var gMeshesNumber = 4; 
 declareattribute("gMeshesNumber", null, null, 1);
-var gMeshSize = [4, 8];
+var gMeshSize = [3, 3];
 declareattribute("gMeshSize", null, null, 1);
-var gUsingMeshesOrNurbs = "nurbs"; // USE MESHES OR NURBS
+var gUsingMeshesOrNurbs = 0; //mesh // USE MESHES OR NURBS
 declareattribute("gUsingMeshesOrNurbs", null, null, 1);
-
 
 
 // OBJECTS USED GLOBALLY 
@@ -70,39 +63,45 @@ nodeCamera.ortho = 2;
 //-----PUBLIC FUNCTIONS----------------
 function init(meshSizeX, meshSizeY) {	
 	gMeshSize = [meshSizeX, meshSizeY];
-	nodeCTX.drawto = drawto;
-	videoplane.drawto = drawto;	
-
-	freeShapes();
-	initShapes();
-
+	freeMeshes();
+	initMeshes();
 	gGraphics.initGraphicElements();
+}
+
+function mode(mode) {
+	if (mode == 0 || mode == 1) {
+		gUsingMeshesOrNurbs = mode;
+		init(gMeshSize[0], gMeshSize[1]);
+	}
 }
 
 // Set number of meshes
 function meshes(numberMeshes) {
-	gMeshesNumber = numberMeshes;
-	freeMeshes();
-	initMeshes();
+	if (numberMeshes > 0) {
+		gMeshesNumber = numberMeshes;
+		freeMeshes();
+		initMeshes();
+	}
 }
 
 // Resize all the meshes
 function resize_meshes(meshSizeX, meshSizeY) {
-	for (mesh in gShapes) {
-		gShapes[mesh].resizeMesh(meshSizeX, meshSizeY);
+	for (mesh in gMeshes) {
+		gMeshes[mesh].resizeMesh(meshSizeX, meshSizeY);
 	}
 }
 
 // Resize single mesh
 function resize_mesh(index, meshSizeX, meshSizeY) {
-	if (index < gShapes.length && index >= 0) {
-		gShapes[index].resizeMesh(meshSizeX, meshSizeY);
+	if (index < gMeshes.length && index >= 0) {
+		print("index "+index)
+		gMeshes[index].resizeMesh(meshSizeX, meshSizeY);
 	}
 }
 
 function show_meshes(show) {
-	for (mesh in gShapes) {
-		gShapes[mesh].showMesh(show);
+	for (mesh in gMeshes) {
+		gMeshes[mesh].showMesh(show);
 	}
 	if (!show) {
 		gGraphics.reset();
@@ -141,6 +140,8 @@ function setdrawto(newdrawto) {
 	postln("setdrawto " + newdrawto);
 	drawto = newdrawto;	
 	
+	setNodeDrawto();
+	
 	if(swaplisten)
 		swaplisten.subjectname = "";
 	swaplisten = new JitterListener(drawto, swapcallback);
@@ -155,10 +156,16 @@ function swapcallback(event){
 		case ("swap" || "draw"):
 		// RENDER BANG
 			if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
-				setWindowRatio(nodeCTX.dim[0] / nodeCTX.dim[1]);
+				//print(nodeCTX.dim)
+				setWindowRatio(nodeCTX.dim);
 				gWindowDim = nodeCTX.dim.slice();
-				postln("window Dimensions: "+gWindowDim);
-				init(g); // RE INIT everything when window size is modified (temporary)
+				if (gMeshes.length < 1) {
+					gWindowPrevRatio = gWindowRatio;
+					init(gMeshSize[0], gMeshSize[1]); // RE INIT everything when window size is modified (temporary)
+				}
+				for (var mesh in gMeshes) {
+					gMeshes[mesh].scaleMesh();
+				}
 			}
 			break;
 
@@ -166,18 +173,17 @@ function swapcallback(event){
 			if (gShowMeshes) {
 				gMousePosScreen = (event.args);
 				var mouseClicked = gMousePosScreen[2];
-				//postln(gMousePosScreen);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); // transformMouseFromScreenToWorld2D(gMousePosScreen);
 				
 				if (mouseClicked) {
 					//print(gSelectionStruct.cellIndex)
 					if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex
-						gShapes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+						gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
 					}
 				} else { // mouse is released
 					// if we moved some vertices
 					if (gSelectionStruct.meshIDToClick != -1) {
-						gShapes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat(); // recalculate the bounding matrix
+						gMeshes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat(); // recalculate the bounding matrix
 						gSelectionStruct.reset(); // reset the values in the selectionStruct
 					}
 					gGraphics.reset(); // delete the circle
@@ -194,8 +200,8 @@ function swapcallback(event){
 				gSelectionStruct.reset(); // reset all the struct values
 
 				// Iterate through meshes to check in which one the mouse is in
-				for (var mesh in gShapes) { 
-					var meshID = gShapes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in (if it's inside any)
+				for (var mesh in gMeshes) { 
+					var meshID = gMeshes[mesh].checkIfMouseInsideMesh(mouseWorld); // Get the ID of the mesh in which the mouse is in (if it's inside any)
 					if (meshID != -1) { 
 						gSelectionStruct.meshIDsToCheckArr.push(meshID); // push in this array all the IDs of the meshes the mouse is in (it could be more than one when meshes overlap)
 					} 
@@ -206,7 +212,7 @@ function swapcallback(event){
 				} else {
 					// if we are on a mesh, let's check if the mouse is close to a vertex
 					for (var i=0; i<gSelectionStruct.meshIDsToCheckArr.length; i++) { // check all the meshes the mouse is in
-						gSelectionStruct.cellIndex = gShapes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
+						gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
 
 						if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
 							gGraphics.reset();
@@ -218,7 +224,7 @@ function swapcallback(event){
 							if (gSelectionStruct.cellIndex[0] != gSelectionStruct.oldCellIndex[0] || 
 								gSelectionStruct.cellIndex[1] != gSelectionStruct.oldCellIndex[1]) {
 									gSelectionStruct.oldCellIndex = gSelectionStruct.cellIndex.slice();
-									gShapes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
+									gMeshes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
 							}
 							break; // We just need to check a single mesh so we break the loop
 						}
@@ -229,6 +235,7 @@ function swapcallback(event){
 			
 		case "reshape":
 			//gWindowDim = nodeCTX.dim;
+		
 			break;
 	}
 }
