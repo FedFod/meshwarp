@@ -1,3 +1,19 @@
+function nurbscallback(event) {
+    //post("nurbscallback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
+    if (event.eventname == "matrixoutput") {
+        var mesh = nurbsmap[event.subjectname];
+        if(mesh) {
+            post("retrieved mesh " + mesh.ID + "\n");
+            // create javascript matrix from matrixoutput event arg
+            var tempMat = new JitterMatrix(event.args[0]);
+            copy2DMatrixByValues(mesh.nurbsMat, tempMat);
+            tempMat.freepeer();
+            // print("thisnurbsmat "+tempMat.getcell(0,0));
+        }
+    }
+}
+var nurbsmap = {};
+
 function Mesh() {
     this.ID = -1;
 
@@ -90,7 +106,9 @@ function Mesh() {
 
         var self = this;
 
-        this.nurbsLstnr = new JitterListener(this.nurbs.name, ( function(event) {
+        this.nurbsLstnr = new JitterListener(this.nurbs.name, nurbscallback);
+        nurbsmap[this.nurbs.name] = this;
+        /* this.nurbsLstnr = new JitterListener(this.nurbs.name, ( function(event) {
             if (event.eventname == "matrixoutput") {
                 print(this.ID)
                 // create javascript matrix from matrixoutput event arg
@@ -99,7 +117,7 @@ function Mesh() {
                 tempMat.freepeer();
                 // print("thisnurbsmat "+tempMat.getcell(0,0));
             }
-        }).bind(this) );
+        }).bind(this) ); */
     }
 
     this.freeMesh = function() {
@@ -112,6 +130,8 @@ function Mesh() {
             this.meshPoints.freepeer();
             this.meshGrid.freepeer();
             this.meshFull.freepeer();
+            this.nurbsLstnr.subjectname = "";
+            nurbsmap[this.nurbs.name] = null;
             this.nurbs.freepeer();
         }
     }
