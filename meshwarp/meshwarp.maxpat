@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 665.0, 162.0, 724.0, 744.0 ],
+		"rect" : [ 665.0, 154.0, 860.0, 752.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -40,34 +40,6 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"cols" : 20,
-					"fontface" : 0,
-					"fontname" : "Arial",
-					"fontsize" : 12.0,
-					"id" : "obj-7",
-					"maxclass" : "jit.cellblock",
-					"numinlets" : 2,
-					"numoutlets" : 4,
-					"outlettype" : [ "list", "", "", "" ],
-					"patching_rect" : [ 154.0, 655.0, 423.0, 200.0 ],
-					"rows" : 20
-				}
-
-			}
-, 			{
-				"box" : 				{
-					"id" : "obj-6",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 2,
-					"outlettype" : [ "jit_matrix", "" ],
-					"patching_rect" : [ 310.0, 618.0, 155.0, 22.0 ],
-					"text" : "jit.gl.nurbs @matrixoutput 1"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-49",
 					"maxclass" : "toggle",
 					"numinlets" : 1,
@@ -96,7 +68,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 525.0, 137.0, 113.0, 20.0 ],
+					"patching_rect" : [ 419.0, 136.0, 113.0, 20.0 ],
 					"text" : "Resize single mesh"
 				}
 
@@ -107,7 +79,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 525.0, 22.0, 106.0, 20.0 ],
+					"patching_rect" : [ 419.0, 21.0, 106.0, 20.0 ],
 					"text" : "Resize all meshes"
 				}
 
@@ -118,7 +90,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 577.0, 165.0, 37.0, 20.0 ],
+					"patching_rect" : [ 471.0, 164.0, 37.0, 20.0 ],
 					"text" : "index"
 				}
 
@@ -131,7 +103,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 687.25, 187.0, 50.0, 22.0 ]
+					"patching_rect" : [ 581.25, 186.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -143,7 +115,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 631.25, 187.0, 50.0, 22.0 ]
+					"patching_rect" : [ 525.25, 186.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -156,7 +128,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 577.0, 187.0, 50.0, 22.0 ]
+					"patching_rect" : [ 471.0, 186.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -168,7 +140,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 527.75, 187.0, 24.0, 24.0 ]
+					"patching_rect" : [ 421.75, 186.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -179,7 +151,7 @@
 					"numinlets" : 4,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 527.75, 223.0, 166.75, 22.0 ],
+					"patching_rect" : [ 421.75, 222.0, 166.75, 22.0 ],
 					"text" : "pack resize_mesh i i i"
 				}
 
@@ -216,7 +188,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 644.5, 57.0, 50.0, 22.0 ]
+					"patching_rect" : [ 538.5, 56.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -228,7 +200,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 580.5, 57.0, 50.0, 22.0 ]
+					"patching_rect" : [ 474.5, 56.0, 50.0, 22.0 ]
 				}
 
 			}
@@ -240,7 +212,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 525.0, 57.0, 24.0, 24.0 ]
+					"patching_rect" : [ 419.0, 56.0, 24.0, 24.0 ]
 				}
 
 			}
@@ -251,7 +223,7 @@
 					"numinlets" : 3,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 525.0, 93.0, 130.0, 22.0 ],
+					"patching_rect" : [ 419.0, 92.0, 130.0, 22.0 ],
 					"text" : "pack resize_meshes i i"
 				}
 
@@ -413,7 +385,7 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"embedstate" : [ [ "gMeshesNumber", 2 ], [ "gMeshSize", 4, 4 ], [ "gUsingMeshesOrNurbs", 0 ] ],
+									"embedstate" : [ [ "gUsingMeshesOrNurbs", 1 ], [ "gMeshesNumber", 4 ], [ "gMeshSize", 4, 4 ] ],
 									"id" : "obj-8",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -453,7 +425,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 86.690475821495056, 188.0, 93.0, 22.0 ],
+					"patching_rect" : [ 78.880953431129456, 182.0, 59.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -608,13 +580,6 @@
 				"patchline" : 				{
 					"destination" : [ "obj-1", 0 ],
 					"source" : [ "obj-5", 0 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-7", 0 ],
-					"source" : [ "obj-6", 0 ]
 				}
 
 			}

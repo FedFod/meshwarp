@@ -71,7 +71,10 @@ function init(meshSizeX, meshSizeY) {
 function mode(mode) {
 	if (mode == 0 || mode == 1) {
 		gUsingMeshesOrNurbs = mode;
-		init(gMeshSize[0], gMeshSize[1]);
+		for (var mesh in gMeshes) {
+			gMeshes[mesh].changeMode(mode);
+		}
+		//init(gMeshSize[0], gMeshSize[1]);
 	}
 }
 
@@ -94,7 +97,6 @@ function resize_meshes(meshSizeX, meshSizeY) {
 // Resize single mesh
 function resize_mesh(index, meshSizeX, meshSizeY) {
 	if (index < gMeshes.length && index >= 0) {
-		print("index "+index)
 		gMeshes[index].resizeMesh(meshSizeX, meshSizeY);
 	}
 }
@@ -183,7 +185,7 @@ function swapcallback(event){
 				} else { // mouse is released
 					// if we moved some vertices
 					if (gSelectionStruct.meshIDToClick != -1) {
-						gMeshes[gSelectionStruct.meshIDToClick].calcBoundingPolygonMat(); // recalculate the bounding matrix
+						gMeshes[gSelectionStruct.meshIDToClick].calcMeshBoundsMat(); // recalculate the bounding matrix only when finished dragging
 						gSelectionStruct.reset(); // reset the values in the selectionStruct
 					}
 					gGraphics.reset(); // delete the circle
