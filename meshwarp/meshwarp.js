@@ -61,11 +61,8 @@ nodeCamera.ortho = 2;
 
 
 //-----PUBLIC FUNCTIONS----------------
-function init(meshSizeX, meshSizeY) {	
-	gMeshSize = [meshSizeX, meshSizeY];
-	freeMeshes();
-	initMeshes();
-	gGraphics.initGraphicElements();
+function reset() {
+	init();
 }
 
 function mode(mode) {
@@ -74,7 +71,6 @@ function mode(mode) {
 		for (var mesh in gMeshes) {
 			gMeshes[mesh].changeMode(mode);
 		}
-		//init(gMeshSize[0], gMeshSize[1]);
 	}
 }
 

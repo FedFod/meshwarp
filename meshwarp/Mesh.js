@@ -49,7 +49,6 @@ function Mesh() {
         this.initPositionMat();         // init vertex mat
         if (this.useNurbs) { 
             this.assignControlMatToNurbs(); // assign vertex mat to nurbs
-            // this.assignNurbsMatToMesh();    // assign the matrix output from the nurbs to the mesh
             this.hasNurbsMat = 0;
         } else {
             this.assignPositionMatToMesh(); // assign vertex mat to mesh
@@ -58,6 +57,7 @@ function Mesh() {
         this.calcMeshBoundsMat();  // calculate 
  
         this.initTextureCoordMat();     // init texture coord mat
+        print(this.textureCoordMat.dim)
 
         this.assignTexture(); 
     }
@@ -121,7 +121,7 @@ function Mesh() {
         this.nurbs.enable = this.useNurbs;
         this.nurbs.name = "nurbs_"+this.ID;
 
-        this.nurbsMat = new JitterMatrix(3, "float32", this.nurbs.dim);
+        this.nurbsMat = new JitterMatrix(3, "float32", this.nurbs.dim.slice());
 
         this.nurbsLstnr = new JitterListener(this.nurbs.name, nurbscallback);
         nurbsmap[this.nurbs.name] = this;
@@ -150,19 +150,22 @@ function Mesh() {
 
     this.setMeshDim = function(dimensions)
     {   
+        print("useN "+this.useNurbs)
+        print("dimensi "+dimensions)
         if (dimensions[0] > 0 && dimensions[1] > 0) {
             this.positionMat.dim = dimensions.slice();
             this.boundingMat.dim = dimensions[0]*2 + (dimensions[1] * 2) - 4;
             if (this.useNurbs) {
                 this.textureCoordMat.dim = this.nurbsDim.slice();
+                print("texdim "+this.textureCoordMat.dim)
             } else {
                 this.textureCoordMat.dim = dimensions.slice();
             }
         } 
         else {
-            this.positionMat.dim = [3,3];
-            this.boundingMat.dim = 3*2 + (3 * 2) - 4;
-            this.textureCoordMat.dim = [3, 3];
+            this.positionMat.dim = [4,4];
+            this.boundingMat.dim = 4*2 + (4 * 2) - 4;
+            this.textureCoordMat.dim = [4, 4];
         }
     }
 

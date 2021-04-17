@@ -23,7 +23,14 @@ function initMeshes() {
 	gMeshes = [];
 	for (var i=0; i<gMeshesNumber; i++) {
 		gMeshes.push(new Mesh());
-		gMeshes[i].initMesh(gMeshSize.slice(0,2), nodeCTX.name, i, gUsingMeshesOrNurbs); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
+		gMeshes[i].initMesh(gMeshSize.slice(), nodeCTX.name, i, gUsingMeshesOrNurbs); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
 	}
 }
 initMeshes.local = 1;
+
+function init() {	
+	freeMeshes();
+	initMeshes();
+	gGraphics.initGraphicElements();
+}
+init.local = 1;
