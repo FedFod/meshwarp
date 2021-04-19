@@ -79,11 +79,20 @@ function setdrawto(newdrawto) {
 
 	if(proxy) {
 		proxy.name = newdrawto;
-		//proxyattrs = proxy.send("getattributes");
-		proxydrawto = proxy.send("getdrawto");
-		if(proxydrawto !== null && proxydrawto !== undefined) {
-			// important! drawto is an array so get first element
-			return setdrawto(proxydrawto[0]);
+		//postln("drawto class " + proxy.class);
+		if(proxy.class !== undefined) {
+			if(proxy.class != "jit_gl_context_view") {
+				proxydrawto = proxy.send("getdrawto");
+				// important! drawto is an array so get first element
+				return setdrawto(proxydrawto[0]);
+			}
+		}
+		else {
+			// remove once 8.2 is updated to support proxy.class
+			proxydrawto = proxy.send("getdrawto");
+			if(proxydrawto !== null && proxydrawto !== undefined) {
+				return setdrawto(proxydrawto[0]);
+			}
 		}
 	}
 	postln("setdrawto " + newdrawto);
