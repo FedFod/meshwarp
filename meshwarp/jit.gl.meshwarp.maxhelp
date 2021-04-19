@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 394.0, -850.0, 828.0, 529.0 ],
+		"rect" : [ 494.0, 192.0, 826.0, 527.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,19 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"bubble" : 1,
+					"id" : "obj-42",
+					"maxclass" : "comment",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 47.142860054969788, 398.0, 333.0, 24.0 ],
+					"presentation_linecount" : 4,
+					"text" : "Send your image/video as a Texture to the jit.gl.meshwarp"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"bubble" : 1,
 					"id" : "obj-39",
@@ -180,7 +193,7 @@
 					"numinlets" : 0,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 74.785720109939575, 411.0, 71.0, 22.0 ],
+					"patching_rect" : [ 80.142860054969788, 435.0, 71.0, 22.0 ],
 					"text" : "r meshwarp"
 				}
 
@@ -360,7 +373,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 33.642860054969788, 366.0, 405.0, 22.0 ],
+					"patching_rect" : [ 33.642860054969788, 360.0, 405.0, 22.0 ],
 					"text" : "jit.movie @drawto ctx @output_texture 1 @vol 0 @moviefile chickens.mp4"
 				}
 
@@ -421,7 +434,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 33.642860054969788, 448.0, 209.0, 22.0 ],
+					"patching_rect" : [ 33.642860054969788, 464.0, 209.0, 22.0 ],
 					"text" : "jit.gl.meshwarp ctx @show_meshes 1"
 				}
 
