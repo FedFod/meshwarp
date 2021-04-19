@@ -14,18 +14,6 @@ var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
 var gWindowPrevRatio = gWindowRatio;
 var gShowMeshes = 1;
-var gMeshesNumber = 4; 
-declareattribute("gMeshesNumber", null, null, 1);
-var gMeshSize = [4, 4]; // default size 4x4 because of NURBS
-declareattribute("gMeshSize", null, null, 1);
-var gUsingMeshesOrNurbs = 0; //mesh // USE MESHES OR NURBS
-declareattribute("gUsingMeshesOrNurbs", null, null, 1);
-
-
-// OBJECTS USED GLOBALLY 
-// jit.3m to find max and min
-var gJit3m = new JitterObject("jit.3m");
-var gGraphics = new GraphicElements();
 
 // a structure to contain infos relative to the clicked mesh and vertex
 var gSelectionStruct = {
@@ -41,71 +29,34 @@ var gSelectionStruct = {
 	}
 };
 
-// JIT_GL_NODE
-var nodeCTX = new JitterObject("jit.gl.node");
-nodeCTX.name = "##mesherNodeCTX##";
-nodeCTX.capture = 1;
-nodeCTX.automatic = 1;
-nodeCTX.adapt = 1;
-
-// VIDEOPLANE
-var videoplane = new JitterObject("jit.gl.videoplane");
-videoplane.transform_reset = 2;
-videoplane.color = WHITE;
-videoplane.texture = nodeCTX.out_name;
-
-// CAMERA IN NODE
-var nodeCamera = new JitterObject("jit.gl.camera");
-nodeCamera.drawto = nodeCTX.name;
-nodeCamera.ortho = 2;
-
-
 //-----PUBLIC FUNCTIONS----------------
 function reset() {
 	init();
 }
 
-function mode(mode) {
-	if (mode == 0 || mode == 1) {
-		gUsingMeshesOrNurbs = mode;
-		for (var mesh in gMeshes) {
-			gMeshes[mesh].changeMode(mode);
-		}
-	}
-}
-
-// Set number of meshes
-function meshes(numberMeshes) {
-	if (numberMeshes > 0) {
-		gMeshesNumber = numberMeshes;
-		freeMeshes();
-		initMeshes();
-	}
-}
-
-// Resize all the meshes
-function resize_meshes(meshSizeX, meshSizeY) {
+function jit_gl_texture(texName) {
 	for (mesh in gMeshes) {
-		gMeshes[mesh].resizeMesh(meshSizeX, meshSizeY);
+		gMeshes[mesh].assignTextureToMesh(texName);
 	}
 }
 
-// Resize single mesh
-function resize_mesh(index, meshSizeX, meshSizeY) {
-	if (index < gMeshes.length && index >= 0) {
-		gMeshes[index].resizeMesh(meshSizeX, meshSizeY);
-	}
-}
+// ATTRIBUTES
+var mode = 0; // default: use mesh
+declareattribute("mode", null, "setMode", 0);
 
-function show_meshes(show) {
-	for (mesh in gMeshes) {
-		gMeshes[mesh].showMesh(show);
-	}
-	if (!show) {
-		gGraphics.reset();
-	}
-	gShowMeshes = show;
-}
+var meshes = 4; 
+declareattribute("meshes", null, "setHowManyMeshes", 0);  // STRANGE BEHAVIOUR
+
+var resize_meshes = [4, 4];
+declareattribute("resize_meshes", null, "resizeAllMeshes", 0);
+
+var resize_mesh = [4, 4];
+declareattribute("resize_mesh", null, "resizeSingleMesh", 0);
+
+var show_meshes = 1;
+declareattribute("show_meshes", null, "showMeshes", 0);
+
+//--------------------------------------------
 
 // ROB 
 //--------------------------------------------
@@ -154,12 +105,11 @@ function swapcallback(event){
 		case ("swap" || "draw"):
 		// RENDER BANG
 			if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
-				//print(nodeCTX.dim)
 				setWindowRatio(nodeCTX.dim);
 				gWindowDim = nodeCTX.dim.slice();
 				if (gMeshes.length < 1) {
 					gWindowPrevRatio = gWindowRatio;
-					init(gMeshSize[0], gMeshSize[1]); // RE INIT everything when window size is modified (temporary)
+					init(); // INIT if meshes don't exist
 				}
 				for (var mesh in gMeshes) {
 					gMeshes[mesh].scaleMesh();
