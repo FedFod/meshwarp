@@ -50,8 +50,8 @@ declareattribute("meshes", null, "setHowManyMeshes", 0);  // STRANGE BEHAVIOUR
 var resize_meshes = [4, 4];
 declareattribute("resize_meshes", null, "resizeAllMeshes", 0);
 
-var resize_mesh = [4, 4];
-declareattribute("resize_mesh", null, "resizeSingleMesh", 0);
+var resize_single_mesh = [0, 4, 4];
+declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);
 
 var show_meshes = 1;
 declareattribute("show_meshes", null, "showMeshes", 0);

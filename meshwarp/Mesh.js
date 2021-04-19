@@ -24,6 +24,8 @@ function Mesh() {
     this.nurbs = null;
     this.nurbsDim = [40, 40];
 
+    this.enableMesh = gShowMeshes;
+
     this.useNurbs = 0;
     this.currentWindowRatio = -1;
     this.nurbsLstnr = null;
@@ -77,6 +79,7 @@ function Mesh() {
 
     this.initMeshPoints = function(drawto_) {
         this.meshPoints = new JitterObject("jit.gl.mesh");
+        this.meshPoints.enable = this.enableMesh;
         this.meshPoints.draw_mode = "points";
         this.meshPoints.depth_enable = 0;
         this.meshPoints.layer = FRONT;
@@ -87,6 +90,7 @@ function Mesh() {
 
     this.initMeshGrid = function(drawto_) {
         this.meshGrid = new JitterObject("jit.gl.mesh");
+        this.meshGrid.enable = this.enableMesh;
         this.meshGrid.draw_mode = "quad_grid";
         this.meshGrid.depth_enable = 0;
         this.meshGrid.layer = MIDDLE;
@@ -114,7 +118,7 @@ function Mesh() {
         this.nurbs.ctlshow = 0;
         this.nurbs.matrixoutput = 1;
         this.nurbs.drawto = drawto_;
-        this.nurbs.enable = this.useNurbs;
+        this.nurbs.enable = this.useNurbs * this.enableMesh;
         this.nurbs.name = "nurbs_"+this.ID;
 
         this.nurbsMat = new JitterMatrix(3, "float32", this.nurbs.dim.slice());
