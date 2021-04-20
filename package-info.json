@@ -1,0 +1,22 @@
+{
+	"name" : "meshwarp",
+	"version" : "0.0.1",
+	"author" : "Cycling '74",
+	"description" : "Deform visual material projected on an arbitrary number of planes",
+	"max_version_min" : "8.2.0",
+	"max_version_max" : "none",
+	"os" : 	{
+		"macintosh" : 		{
+			"min_version" : "none",
+			"platform" : [ "x64" ]
+		}
+,
+		"windows" : 		{
+			"min_version" : "none",
+			"platform" : [ "x64" ]
+		}
+
+	}
+,
+	"homepatcher" : "meshwarp-launcher.maxpat"
+}

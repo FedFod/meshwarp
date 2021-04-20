@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 494.0, 192.0, 826.0, 527.0 ],
+		"rect" : [ 34.0, 79.0, 826.0, 527.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -37,6 +37,7 @@
 		"tags" : "",
 		"style" : "",
 		"subpatcher_template" : "",
+		"helpsidebarclosed" : 1,
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
@@ -46,7 +47,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 47.142860054969788, 398.0, 333.0, 24.0 ],
-					"presentation_linecount" : 4,
 					"text" : "Send your image/video as a Texture to the jit.gl.meshwarp"
 				}
 
@@ -59,8 +59,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 428.0, 182.119050145149231, 127.0, 38.0 ],
-					"presentation_linecount" : 2,
+					"patching_rect" : [ 428.0, 182.119050145149231, 127.0, 37.0 ],
 					"text" : "Mode: 0 (mesh)\nMode: 1 (NURBS)"
 				}
 
@@ -73,7 +72,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 447.0, 113.119050145149231, 127.0, 24.0 ],
-					"presentation_linecount" : 2,
 					"text" : "Number of meshes"
 				}
 
@@ -122,7 +120,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 508.333333333333258, 319.0, 286.0, 53.0 ],
+					"patching_rect" : [ 508.333333333333258, 319.0, 286.0, 52.0 ],
 					"text" : "Resize single mesh. \nSelect a mesh by its index (0 .. meshes-1) to resize."
 				}
 
@@ -145,7 +143,6 @@
 					"numinlets" : 1,
 					"numoutlets" : 0,
 					"patching_rect" : [ 624.0, 374.0, 83.0, 20.0 ],
-					"presentation_linecount" : 2,
 					"text" : "horizontal dim"
 				}
 
@@ -168,7 +165,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 65.0, 516.0, 34.0 ],
+					"patching_rect" : [ 19.0, 65.0, 516.0, 33.0 ],
 					"text" : "The jit.gl.meshwarp allows to deform visual material projected on an arbitrary number of planes.\nIt can be used either for video-mapping or as a creative tool."
 				}
 
@@ -181,7 +178,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 14.0, 241.0, 43.0 ],
+					"patching_rect" : [ 19.0, 14.0, 241.0, 42.0 ],
 					"text" : "jit.gl.meshwarp"
 				}
 
@@ -388,7 +385,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 98.142860054969788, 247.119050145149231, 80.0, 36.0 ]
+					"patching_rect" : [ 98.142860054969788, 247.119050145149231, 80.0, 35.0 ]
 				}
 
 			}
@@ -418,6 +415,10 @@
 			}
 , 			{
 				"box" : 				{
+					"frozen_object_attributes" : 					{
+						"rect" : [ 895, 39, 1535, 519 ]
+					}
+,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -593,15 +594,15 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/MaxMapper_with_Rob/meshwarp",
-				"patcherrelativepath" : ".",
+				"bootpath" : "~/dev/cycling/meshwarp/patchers",
+				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "D:/MyData/Lavori/Cycling74/MaxMapper_with_Rob/meshwarp",
-				"patcherrelativepath" : ".",
+				"bootpath" : "~/dev/cycling/meshwarp/code",
+				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
