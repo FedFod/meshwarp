@@ -32,9 +32,9 @@ function Mesh() {
     this.hasNurbsMat = 0;
     this.textureName = "";
 
-    this.textureCoordMat = new JitterMatrix(2, "float32", [10, 10]);;
+    this.textureCoordMat = new JitterMatrix(2, "float32", [4, 4]);;
     this.nurbsMat = new JitterMatrix(3, "float32", [4, 4]);
-    this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
+    this.positionMat = new JitterMatrix(3, "float32", [4, 4]);
     this.boundingMat = new JitterMatrix(3, "float32", 10);
     this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
 
@@ -166,6 +166,12 @@ function Mesh() {
         }
     }
 
+    this.getPositionMatProperties = function(prop) {
+        prop.type = this.positionMat.type;
+        prop.dim = this.positionMat.dim;
+        prop.planes = this.positionMat.planecount;
+    }
+
     this.resizeMesh = function(dimensions) {
         var newDim = this.checkDimForNurbs(dimensions);
 
@@ -216,8 +222,6 @@ function Mesh() {
         this.meshFull.jit_gl_texture(this.textureName);
     }
     
-    //-------------------------------------------
-
     this.initTextureCoordMat = function() {   
         var xStartingPoint = (1.0/meshes) * this.ID;
         var xCoordTarget = xStartingPoint + (1.0/meshes); // 0 a 1. +0.25
@@ -230,6 +234,26 @@ function Mesh() {
             }
         }
         this.assignTextureCoordMatToMesh();  // assign texture coord mat to mesh
+    }
+
+    this.loadPositionMat = function(dict) {
+        var planecount = dict.get("positionMat"+this.ID+"[0]::planecount");
+        var type = dict.get("positionMat"+this.ID+"[0]::type");
+        var dim = dict.get("positionMat"+this.ID+"[0]::dimensions");
+
+        this.positionMat = new JitterMatrix(planecount, type, dim);
+
+        var thisPositionsArray = dict.get("positionMat"+this.ID+"[1]");
+
+        for (var i=0; i<this.positionMat.dim[0]; i++) {
+            for (var j=0; j<this.positionMat.dim[1]; j++) {
+                var thisCell = thisPositionsArray.get("positions")[j+i*dim[0]].get(i+"_"+j);
+                this.positionMat.setcell2d(i,j, thisCell);
+            }
+        }
+
+        this.scaleMesh();
+        this.initTextureCoordMat(); // init texture coord mat
     }
 
     // Set values for position matrix
@@ -427,6 +451,18 @@ function Mesh() {
             sizeY = Math.max(sizeY, 4);
         }
         return [sizeX, sizeY];
+    }
+
+    this.positionMatToArray = function() {
+        var posArrayDict = new Dict();
+        for (var i=0; i<this.positionMat.dim[0]; i++) {
+            for (var j=0; j<this.positionMat.dim[1]; j++) {
+                var thisPos = new Dict();
+                thisPos.set(i+"_"+j, this.positionMat.getcell(i,j));
+                posArrayDict.append("positions", thisPos);
+            }
+        }
+        return posArrayDict;
     }
 }
 

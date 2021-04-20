@@ -40,6 +40,14 @@ function jit_gl_texture(texName) {
 	}
 }
 
+function save() {
+	buildSaveDict();
+}
+
+function load() {
+	loadSaveDict();
+}
+
 // ATTRIBUTES
 var mode = 0; // default: use mesh
 declareattribute("mode", null, "setMode", 0);
@@ -95,7 +103,7 @@ function setdrawto(newdrawto) {
 			}
 		}
 	}
-	postln("setdrawto " + newdrawto);
+	// postln("setdrawto " + newdrawto);
 	drawto = newdrawto;	
 	
 	setNodeDrawto();
@@ -199,7 +207,7 @@ function swapcallback(event){
 swapcallback.local = 1
 
 var implicit_tracker = new JitterObject("jit_gl_implicit");
-postln("implicit tracker name: "+implicit_tracker.name)
+// postln("implicit tracker name: "+implicit_tracker.name)
 var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
 
 function implicit_callback(event) {

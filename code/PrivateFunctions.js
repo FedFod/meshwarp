@@ -19,6 +19,39 @@ var nodeCamera = new JitterObject("jit.gl.camera");
 nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
+function buildSaveDict() {
+	var saveDict = new Dict();
+
+	saveDict.replace("meshes", meshes);
+	saveDict.replace("mode", mode);
+	saveDict.replace("show_meshes", show_meshes);
+	saveDict.replace("windowRatio", gWindowRatio);
+
+	for (var mesh in gMeshes) {
+		var posMatArray = gMeshes[mesh].positionMatToArray();
+		var matProp = { planes: "", type: "", dim: "" };
+		gMeshes[mesh].getPositionMatProperties(matProp);
+		saveDict.replace("positionMat"+mesh+"::planecount", matProp.planes);
+		saveDict.append("positionMat"+mesh+"::type", matProp.type);
+		saveDict.append("positionMat"+mesh+"::dimensions", matProp.dim);
+
+		saveDict.append("positionMat"+mesh, posMatArray);
+	}
+	saveDict.export_json("./SavedMat.json");
+}
+
+function loadSaveDict() {
+	var saveDict = new Dict();
+	saveDict.import_json("./SavedMat.json");
+	meshes = saveDict.get("meshes");
+	mode = saveDict.get("mode");
+	gWindowRatio = saveDict.get("windowRatio");
+	init();
+	for(var mesh in gMeshes) {
+		gMeshes[mesh].loadPositionMat(saveDict);
+	}
+}
+
 
 function setWindowRatio(dims) {
 	gWindowRatio = dims[0] / dims[1];
