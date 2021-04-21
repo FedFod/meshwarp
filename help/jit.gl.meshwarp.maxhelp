@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 39.0, 79.0, 826.0, 518.0 ],
+		"rect" : [ 262.0, 171.0, 826.0, 518.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -107,7 +107,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 428.0, 182.119050145149231, 127.0, 37.0 ],
+					"patching_rect" : [ 428.0, 182.119050145149231, 127.0, 38.0 ],
 					"text" : "Mode: 0 (mesh)\nMode: 1 (NURBS)"
 				}
 
@@ -168,7 +168,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 508.333333333333258, 319.0, 286.0, 52.0 ],
+					"patching_rect" : [ 508.333333333333258, 319.0, 286.0, 53.0 ],
 					"text" : "Resize single mesh. \nSelect a mesh by its index (0 .. meshes-1) to resize."
 				}
 
@@ -213,7 +213,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 65.0, 516.0, 33.0 ],
+					"patching_rect" : [ 19.0, 65.0, 516.0, 34.0 ],
 					"text" : "The jit.gl.meshwarp allows to deform visual material projected on an arbitrary number of planes.\nIt can be used either for video-mapping or as a creative tool."
 				}
 
@@ -226,7 +226,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 14.0, 241.0, 42.0 ],
+					"patching_rect" : [ 19.0, 14.0, 241.0, 43.0 ],
 					"text" : "jit.gl.meshwarp"
 				}
 
@@ -433,7 +433,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 98.142860054969788, 247.119050145149231, 80.0, 35.0 ]
+					"patching_rect" : [ 98.142860054969788, 247.119050145149231, 80.0, 36.0 ]
 				}
 
 			}
@@ -479,8 +479,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 33.642860054969788, 472.0, 275.0, 22.0 ],
-					"text" : "jit.gl.meshwarp @show_meshes 1 @meshdim 5 4"
+					"patching_rect" : [ 33.642860054969788, 472.0, 359.0, 22.0 ],
+					"text" : "jit.gl.meshwarp @show_meshes 1 @meshdim 5 7 @meshcount 1"
 				}
 
 			}
@@ -668,15 +668,13 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/code",
-				"patcherrelativepath" : "../code",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}

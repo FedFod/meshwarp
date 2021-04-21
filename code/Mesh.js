@@ -26,7 +26,7 @@ function Mesh() {
 
     this.posMatPlaneCount = 3;
     this.posMatType = "float32";
-    this.posMatDim = [4,4];
+    this.posMatDim = meshdim;
 
     this.enableMesh = gShowMeshes;
 
