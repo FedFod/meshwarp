@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 262.0, 171.0, 826.0, 518.0 ],
+		"rect" : [ 34.0, 79.0, 826.0, 518.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -70,7 +70,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 250.523813486099243, 126.0, 64.0, 22.0 ],
+					"patching_rect" : [ 251.380953431129456, 123.119050145149231, 64.0, 22.0 ],
 					"text" : "load_state"
 				}
 
@@ -82,7 +82,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 316.380953431129456, 126.0, 67.0, 22.0 ],
+					"patching_rect" : [ 317.238093376159668, 123.119050145149231, 67.0, 22.0 ],
 					"text" : "save_state"
 				}
 
@@ -107,7 +107,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 428.0, 182.119050145149231, 127.0, 38.0 ],
+					"patching_rect" : [ 428.0, 182.119050145149231, 127.0, 37.0 ],
 					"text" : "Mode: 0 (mesh)\nMode: 1 (NURBS)"
 				}
 
@@ -119,7 +119,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 447.0, 113.119050145149231, 127.0, 24.0 ],
+					"patching_rect" : [ 447.0, 123.119050145149231, 127.0, 24.0 ],
 					"text" : "Number of meshes"
 				}
 
@@ -168,7 +168,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 508.333333333333258, 319.0, 286.0, 53.0 ],
+					"patching_rect" : [ 508.333333333333258, 319.0, 286.0, 52.0 ],
 					"text" : "Resize single mesh. \nSelect a mesh by its index (0 .. meshes-1) to resize."
 				}
 
@@ -213,7 +213,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 65.0, 516.0, 34.0 ],
+					"patching_rect" : [ 19.0, 65.0, 516.0, 33.0 ],
 					"text" : "The jit.gl.meshwarp allows to deform visual material projected on an arbitrary number of planes.\nIt can be used either for video-mapping or as a creative tool."
 				}
 
@@ -226,7 +226,7 @@
 					"maxclass" : "comment",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 19.0, 14.0, 241.0, 43.0 ],
+					"patching_rect" : [ 19.0, 14.0, 241.0, 42.0 ],
 					"text" : "jit.gl.meshwarp"
 				}
 
@@ -249,7 +249,7 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 271.380953431129456, 289.119050145149231, 73.0, 22.0 ],
+					"patching_rect" : [ 271.380953431129456, 306.119050145149231, 73.0, 22.0 ],
 					"text" : "s meshwarp"
 				}
 
@@ -335,7 +335,7 @@
 					"numoutlets" : 2,
 					"outlettype" : [ "", "bang" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 393.190475821495056, 113.119050145149231, 50.0, 22.0 ]
+					"patching_rect" : [ 393.190475821495056, 123.119050145149231, 50.0, 22.0 ]
 				}
 
 			}
@@ -418,7 +418,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 33.642860054969788, 360.0, 335.0, 22.0 ],
+					"patching_rect" : [ 33.642860054969788, 373.0, 335.0, 22.0 ],
 					"text" : "jit.movie @output_texture 1 @vol 0 @moviefile chickens.mp4"
 				}
 
@@ -433,7 +433,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 98.142860054969788, 247.119050145149231, 80.0, 36.0 ]
+					"patching_rect" : [ 105.142860054969788, 327.119050145149231, 80.0, 35.0 ]
 				}
 
 			}
@@ -444,7 +444,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 218.5, 223.119050145149231, 35.0, 22.0 ],
+					"patching_rect" : [ 211.142860054969788, 223.119050145149231, 35.0, 22.0 ],
 					"text" : "reset"
 				}
 
@@ -457,18 +457,22 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 17.642860054969788, 182.023820519447327, 33.476186752319336, 33.476186752319336 ]
+					"patching_rect" : [ 33.642860054969788, 261.023820519447327, 33.476186752319336, 33.476186752319336 ]
 				}
 
 			}
 , 			{
 				"box" : 				{
+					"frozen_object_attributes" : 					{
+						"rect" : [ 895, 39, 1535, 519 ]
+					}
+,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_matrix", "bang", "" ],
-					"patching_rect" : [ 17.642860054969788, 219.119050145149231, 162.0, 22.0 ],
+					"patching_rect" : [ 33.642860054969788, 298.119050145149231, 162.0, 22.0 ],
 					"text" : "jit.world @floating 1 @fsaa 1"
 				}
 
@@ -479,8 +483,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 33.642860054969788, 472.0, 359.0, 22.0 ],
-					"text" : "jit.gl.meshwarp @show_meshes 1 @meshdim 5 7 @meshcount 1"
+					"patching_rect" : [ 33.642860054969788, 472.0, 275.0, 22.0 ],
+					"text" : "jit.gl.meshwarp @show_meshes 1 @meshdim 5 4"
 				}
 
 			}
@@ -498,7 +502,7 @@
 					"numoutlets" : 3,
 					"outlettype" : [ "", "", "int" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 52.142860054969788, 188.761913895606995, 20.0, 20.0 ],
+					"patching_rect" : [ 68.142860054969788, 267.761913895606995, 20.0, 20.0 ],
 					"rounded" : 60.0,
 					"text" : "1",
 					"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ]
@@ -516,7 +520,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
-					"midpoints" : [ 325.880953431129456, 174.0, 258.0, 174.0, 258.0, 276.0, 280.880953431129456, 276.0 ],
+					"midpoints" : [ 326.738093376159668, 174.0, 260.0, 174.0, 260.0, 276.0, 280.880953431129456, 276.0 ],
 					"source" : [ "obj-11", 0 ]
 				}
 
@@ -524,7 +528,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
-					"midpoints" : [ 260.023813486099243, 276.0, 280.880953431129456, 276.0 ],
+					"midpoints" : [ 260.880953431129456, 276.0, 280.880953431129456, 276.0 ],
 					"source" : [ "obj-13", 0 ]
 				}
 
@@ -540,6 +544,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
+					"midpoints" : [ 56.642860054969788, 252.619050145149231, 280.880953431129456, 252.619050145149231 ],
 					"source" : [ "obj-15", 0 ]
 				}
 
@@ -575,7 +580,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
-					"midpoints" : [ 402.690475821495056, 171.0, 375.0, 171.0, 375.0, 276.0, 280.880953431129456, 276.0 ],
+					"midpoints" : [ 402.690475821495056, 180.0, 375.0, 180.0, 375.0, 276.0, 280.880953431129456, 276.0 ],
 					"source" : [ "obj-28", 0 ]
 				}
 
@@ -647,6 +652,7 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-3", 0 ],
+					"midpoints" : [ 56.642860054969788, 252.119050145149231, 280.880953431129456, 252.119050145149231 ],
 					"source" : [ "obj-6", 0 ]
 				}
 
@@ -668,13 +674,15 @@
  ],
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"bootpath" : "~/dev/cycling/meshwarp/patchers",
+				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/code",
+				"bootpath" : "~/dev/cycling/meshwarp/code",
+				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
