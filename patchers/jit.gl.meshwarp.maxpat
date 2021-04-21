@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 234.0, 79.0, 822.0, 394.0 ],
+		"rect" : [ 94.0, 79.0, 887.0, 408.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -107,8 +107,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 380.0, 137.0, 108.0, 22.0 ],
-					"text" : "prepend setdrawto"
+					"patching_rect" : [ 380.0, 137.0, 92.0, 22.0 ],
+					"text" : "prepend drawto"
 				}
 
 			}
@@ -116,11 +116,11 @@
 				"box" : 				{
 					"id" : "obj-15",
 					"maxclass" : "newobj",
-					"numinlets" : 6,
-					"numoutlets" : 6,
-					"outlettype" : [ "", "", "", "", "", "" ],
-					"patching_rect" : [ 468.0, 103.0, 328.0, 22.0 ],
-					"text" : "routepass show_meshes mode meshdim meshcount enable"
+					"numinlets" : 7,
+					"numoutlets" : 7,
+					"outlettype" : [ "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 468.0, 103.0, 367.0, 22.0 ],
+					"text" : "routepass show_meshes mode meshdim meshcount enable drawto"
 				}
 
 			}
@@ -229,11 +229,11 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-5",
-					"index" : 0,
+					"index" : 1,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "" ],
+					"outlettype" : [ "jit_gl_texture" ],
 					"patching_rect" : [ 76.0, 19.0, 30.0, 30.0 ]
 				}
 
@@ -334,6 +334,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"source" : [ "obj-14", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-15", 5 ]
 				}
 
 			}
@@ -477,16 +484,7 @@
 				}
 
 			}
- ],
-		"dependency_cache" : [ 			{
-				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/code",
-				"patcherrelativepath" : "../code",
-				"type" : "TEXT",
-				"implicit" : 1
-			}
- ],
-		"autosave" : 0
+ ]
 	}
 
 }

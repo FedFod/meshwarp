@@ -91,14 +91,17 @@ declareattribute("show_meshes", null, "showMeshes", 0);
 var enable = 1;
 declareattribute("enable", null, "setenable", 0);
 
+var drawto = "";
+declareattribute("drawto", null, "setdrawto", 0);
+
 //--------------------------------------------
 
 // ROB 
 //--------------------------------------------
 
 var implicitdrawto = "";
-var drawto = "";
 var swaplisten = null; // The listener for the jit.world
+var explicitdrawto = false;
 
 //const is820 = (max.version >= 820);
 var is820 = (max.version >= 820);
@@ -113,7 +116,12 @@ function setenable(val) {
 	videoplane.enable = val;
 }
 
-function setdrawto(newdrawto) {
+function setdrawto(val) {
+	explicitdrawto = true;
+	dosetdrawto(val);
+}
+
+function dosetdrawto(newdrawto) {
 	if(newdrawto == drawto || !newdrawto) {
 		// bounce
 		return;
@@ -126,14 +134,14 @@ function setdrawto(newdrawto) {
 			if(proxy.class != "jit_gl_context_view") {
 				proxydrawto = proxy.send("getdrawto");
 				// important! drawto is an array so get first element
-				return setdrawto(proxydrawto[0]);
+				return dosetdrawto(proxydrawto[0]);
 			}
 		}
 		else {
 			// remove once 8.2 is updated to support proxy.class
 			proxydrawto = proxy.send("getdrawto");
 			if(proxydrawto !== null && proxydrawto !== undefined) {
-				return setdrawto(proxydrawto[0]);
+				return dosetdrawto(proxydrawto[0]);
 			}
 		}
 	}
@@ -147,6 +155,7 @@ function setdrawto(newdrawto) {
 	swaplisten = new JitterListener(drawto, swapcallback);
 
 }
+dosetdrawto.local = 1;
 
 function swapcallback(event){
 	//post("callback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
@@ -245,10 +254,10 @@ var implicit_tracker = new JitterObject("jit_gl_implicit");
 var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
 
 function implicit_callback(event) {
-	if(implicitdrawto != implicit_tracker.drawto[0]) {
+	if(!explicitdrawto && implicitdrawto != implicit_tracker.drawto[0]) {
 		// important! drawto is an array so get first element
 		implicitdrawto = implicit_tracker.drawto[0];
-		setdrawto(implicitdrawto);
+		dosetdrawto(implicitdrawto);
 	}
 }
 implicit_callback.local = 1;

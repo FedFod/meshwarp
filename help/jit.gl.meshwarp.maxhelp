@@ -418,8 +418,8 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "jit_gl_texture", "" ],
-					"patching_rect" : [ 33.642860054969788, 360.0, 405.0, 22.0 ],
-					"text" : "jit.movie @drawto ctx @output_texture 1 @vol 0 @moviefile chickens.mp4"
+					"patching_rect" : [ 33.642860054969788, 360.0, 335.0, 22.0 ],
+					"text" : "jit.movie @output_texture 1 @vol 0 @moviefile chickens.mp4"
 				}
 
 			}
@@ -463,17 +463,13 @@
 			}
 , 			{
 				"box" : 				{
-					"frozen_object_attributes" : 					{
-						"rect" : [ 895, 39, 1535, 519 ]
-					}
-,
 					"id" : "obj-2",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 3,
 					"outlettype" : [ "jit_matrix", "bang", "" ],
-					"patching_rect" : [ 17.642860054969788, 219.119050145149231, 180.0, 22.0 ],
-					"text" : "jit.world ctx @floating 1 @fsaa 1"
+					"patching_rect" : [ 17.642860054969788, 219.119050145149231, 162.0, 22.0 ],
+					"text" : "jit.world @floating 1 @fsaa 1"
 				}
 
 			}
@@ -483,8 +479,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 33.642860054969788, 472.0, 294.0, 22.0 ],
-					"text" : "jit.gl.meshwarp ctx @show_meshes 1 @meshdim 5 4"
+					"patching_rect" : [ 33.642860054969788, 472.0, 275.0, 22.0 ],
+					"text" : "jit.gl.meshwarp @show_meshes 1 @meshdim 5 4"
 				}
 
 			}
