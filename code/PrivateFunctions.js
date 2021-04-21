@@ -3,7 +3,7 @@ var gGraphics = new GraphicElements();
 
 // JIT_GL_NODE
 var nodeCTX = new JitterObject("jit.gl.node");
-nodeCTX.name = "##mesherNodeCTX##";
+//nodeCTX.name = "##mesherNodeCTX##";
 nodeCTX.capture = 1;
 nodeCTX.automatic = 1;
 nodeCTX.adapt = 1;

@@ -119,7 +119,7 @@ function Mesh() {
         this.nurbs.matrixoutput = 1;
         this.nurbs.drawto = drawto_;
         this.nurbs.enable = this.useNurbs * this.enableMesh;
-        this.nurbs.name = "nurbs_"+this.ID;
+        //this.nurbs.name = "nurbs_"+this.ID;
 
         this.nurbsMat = new JitterMatrix(3, "float32", this.nurbs.dim.slice());
 

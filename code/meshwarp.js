@@ -48,6 +48,12 @@ function load() {
 	loadSaveDict();
 }
 
+function freebang() {
+	postln("freebang");
+	freeMeshes();
+	// what else?
+}
+
 // ATTRIBUTES
 var mode = 0; // default: use mesh
 declareattribute("mode", null, "setMode", 0);
