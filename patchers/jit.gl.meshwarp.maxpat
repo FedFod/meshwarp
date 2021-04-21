@@ -120,7 +120,7 @@
 					"numoutlets" : 5,
 					"outlettype" : [ "", "", "", "", "" ],
 					"patching_rect" : [ 468.0, 103.0, 368.0, 22.0 ],
-					"text" : "routepass show_meshes mode resize_meshes resize_single_mesh"
+					"text" : "routepass show_meshes mode meshdim resize_single_mesh"
 				}
 
 			}
@@ -264,7 +264,7 @@
 			}
 , 			{
 				"box" : 				{
-					"attr" : "resize_meshes",
+					"attr" : "meshdim",
 					"id" : "obj-4",
 					"maxclass" : "attrui",
 					"numinlets" : 1,

@@ -68,8 +68,8 @@ declareattribute("mode", null, "setMode", 0);
 var meshcount = 1; 
 declareattribute("meshcount", null, "setHowManyMeshes", 0);
 
-var resize_meshes = [4, 4];
-declareattribute("resize_meshes", null, "resizeAllMeshes", 0);
+var meshdim = [4, 4];
+declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
 var resize_single_mesh = [0, 4, 4];
 declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);

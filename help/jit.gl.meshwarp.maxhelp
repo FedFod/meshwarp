@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 334.0, 237.0, 826.0, 518.0 ],
+		"rect" : [ 39.0, 79.0, 826.0, 518.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -47,7 +47,6 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 43.0, 103.0, 169.0, 22.0 ],
-					"presentation_linecount" : 2,
 					"text" : "save Desktop:/meshwarp.json"
 				}
 
@@ -347,7 +346,7 @@
 					"numinlets" : 2,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 393.190475821495056, 146.119050145149231, 67.0, 22.0 ],
+					"patching_rect" : [ 393.190475821495056, 146.119050145149231, 84.0, 22.0 ],
 					"text" : "meshcount $1"
 				}
 
@@ -384,7 +383,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 550.666666666666515, 261.119050145149231, 171.0, 22.0 ],
-					"text" : "pak resize_meshes i i"
+					"text" : "pak meshdim i i"
 				}
 
 			}
@@ -484,8 +483,8 @@
 					"maxclass" : "newobj",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 33.642860054969788, 454.0, 209.0, 22.0 ],
-					"text" : "jit.gl.meshwarp ctx @show_meshes 1"
+					"patching_rect" : [ 33.642860054969788, 472.0, 294.0, 22.0 ],
+					"text" : "jit.gl.meshwarp ctx @show_meshes 1 @meshdim 5 4"
 				}
 
 			}

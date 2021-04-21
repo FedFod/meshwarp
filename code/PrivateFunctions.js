@@ -119,7 +119,7 @@ setHowManyMeshes.local = 1;
 function resizeAllMeshes(meshSizeX, meshSizeY) {
 	var xSize = Math.max(meshSizeX, 2);
 	var ySize = Math.max(meshSizeY, 2);
-	resize_meshes = [xSize, ySize];
+	meshdim = [xSize, ySize];
 	for (mesh in gMeshes) {
 		gMeshes[mesh].resizeMesh([xSize, ySize]);
 	}
