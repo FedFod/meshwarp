@@ -1,27 +1,3 @@
-// JIT_GL_NODE
-var nodeCTX = new JitterObject("jit.gl.node");
-//nodeCTX.name = "##mesherNodeCTX##";
-nodeCTX.capture = 1;
-nodeCTX.automatic = 1;
-nodeCTX.adapt = 1;
-nodeCTX.erase_color = [0, 0, 0, 0];
-
-// OBJECTS INSTANCES USED GLOBALLY 
-var gGraphics = new GraphicElements(nodeCTX.name);
-
-// VIDEOPLANE
-var videoplane = new JitterObject("jit.gl.videoplane");
-videoplane.transform_reset = 2;
-videoplane.color = WHITE;
-videoplane.texture = nodeCTX.out_name;
-videoplane.depth_enable = 0;
-videoplane.blend_enable = 1;
-
-// CAMERA IN NODE
-var nodeCamera = new JitterObject("jit.gl.camera");
-nodeCamera.drawto = nodeCTX.name;
-nodeCamera.ortho = 2;
-
 function buildSaveDict() {
 	var saveDict = new Dict();
 
@@ -74,6 +50,7 @@ initMeshes.local = 1;
 function init(saveDict_) {	
 	freeMeshes();
 	initMeshes(saveDict_);
+	gGraphics.initGraphicElements();
 }
 init.local = 1;
 

@@ -31,6 +31,7 @@ var gSelectionStruct = {
 
 //-----PUBLIC FUNCTIONS----------------
 function reset() {
+	show_meshes = 1;
 	init();
 }
 
