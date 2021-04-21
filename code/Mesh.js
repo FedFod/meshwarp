@@ -24,6 +24,10 @@ function Mesh() {
     this.nurbs = null;
     this.nurbsDim = [40, 40];
 
+    this.posMatPlaneCount = 3;
+    this.posMatType = "float32";
+    this.posMatDim = meshdim;
+
     this.enableMesh = gShowMeshes;
 
     this.useNurbs = 0;
@@ -32,35 +36,88 @@ function Mesh() {
     this.hasNurbsMat = 0;
     this.textureName = "";
 
-    this.textureCoordMat = new JitterMatrix(2, "float32", [10, 10]);;
-    this.nurbsMat = new JitterMatrix(3, "float32", [4, 4]);
-    this.positionMat = new JitterMatrix(3, "float32", [10, 10]);
-    this.boundingMat = new JitterMatrix(3, "float32", 10);
-    this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
+    this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
+    this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
+    this.positionMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim);
+    this.boundingMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 10);
+    this.adjacentCellsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 8);
 
-    this.initMesh = function(dimensions, drawto, ID, useNurbs) {
+    // unused for now
+    this.setenable = function(val) {
+        if(this.meshFull) {
+            this.meshPoints.enable = this.enableMesh && val;
+            this.meshGrid.enable = this.enableMesh && val;
+            this.meshFull.enable = val;
+            this.nurbs.enable = this.enableMesh && this.useNurbs && val;
+        }
+    }
+
+    this.initMesh = function(drawto, ID, useNurbs, saveDict_) {
         this.ID = ID;
+
         this.useNurbs = useNurbs;
         this.currentWindowRatio = gWindowRatio;
 
-        var newDim = this.checkDimForNurbs(dimensions);
+        if (saveDict_) {
+            this.loadDataFromDict(saveDict_);
+            this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
+            this.loadMatrixFromDict(saveDict_);
+        } else {
+            this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
+            this.initPositionMat(); // fill vertex mat from scratch
+        }
 
         this.initMeshPoints(drawto);
         this.initMeshGrid(drawto);
         this.initMeshFull(drawto);
         this.initNurbs(drawto);
 
-        this.setMeshDim(newDim);    // calculate and set matrices dimensions
-        this.initPositionMat();         // init vertex mat
-        if (this.useNurbs) { 
-            this.assignControlMatToNurbs(); // assign vertex mat to nurbs
-            this.hasNurbsMat = 0;
-        } else {
-            this.assignPositionMatToMesh(); // assign vertex mat to mesh
-        }
+        this.assignPositionMatToMesh(); // assign vertex mat to mesh
         
         this.calcMeshBoundsMat();   // calculate mesh boundaries 
         this.initTextureCoordMat(); // init texture coord mat
+    }
+
+    this.loadDataFromDict = function(dict) {
+        this.posMatPlaneCount = dict.get("positionMat"+this.ID+"::planecount");
+        this.posMatType = dict.get("positionMat"+this.ID+"::type");
+        this.posMatDim = dict.get("positionMat"+this.ID+"::dimensions");
+    }
+
+    this.loadMatrixFromDict = function(dict) {
+        var posMatDataOb = JSON.parse(dict.get("positionMatData").stringify());
+        //postln(JSON.stringify(posMatDataOb));
+
+        var posMatDataArray = posMatDataOb["positionMat"+this.ID];
+        //postln(JSON.stringify(posMatDataArray));
+    
+        //var thisPositionsArray = dict.get("positionMat"+this.ID+"[1]");
+        var idx = 0;
+        for (var i=0; i<this.positionMat.dim[0]; i++) {
+            for (var j=0; j<this.positionMat.dim[1]; j++) {
+                //var thisCell = thisPositionsArray.get("positions")[j+i*this.positionMat.dim[0]].get(i+"_"+j);
+                var thisCell = posMatDataArray[idx++];
+                this.positionMat.setcell2d(i,j, thisCell);
+            }
+        }
+        // this.scaleMesh();
+    }
+
+    this.setMeshDim = function(newDim) {   
+        if (newDim[0] > 0 && newDim[1] > 0) {
+            this.positionMat.dim = newDim.slice();
+            this.boundingMat.dim = newDim[0]*2 + (newDim[1] * 2) - 4;
+            if (this.useNurbs) {
+                this.textureCoordMat.dim = this.nurbsDim.slice();
+            } else {
+                this.textureCoordMat.dim = newDim.slice();
+            }
+        } 
+        else {
+            this.positionMat.dim = [4,4];
+            this.boundingMat.dim = 4*2 + (4 * 2) - 4;
+            this.textureCoordMat.dim = [4, 4];
+        }
     }
 
     this.changeMode = function(mode) {
@@ -119,9 +176,9 @@ function Mesh() {
         this.nurbs.matrixoutput = 1;
         this.nurbs.drawto = drawto_;
         this.nurbs.enable = this.useNurbs * this.enableMesh;
-        this.nurbs.name = "nurbs_"+this.ID;
+        //this.nurbs.name = "nurbs_"+this.ID;
 
-        this.nurbsMat = new JitterMatrix(3, "float32", this.nurbs.dim.slice());
+        this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbs.dim.slice());
 
         this.nurbsLstnr = new JitterListener(this.nurbs.name, nurbscallback);
         nurbsmap[this.nurbs.name] = this;
@@ -148,28 +205,16 @@ function Mesh() {
         this.meshPoints.enable = show;
     }
 
-    this.setMeshDim = function(dimensions)
-    {   
-        if (dimensions[0] > 0 && dimensions[1] > 0) {
-            this.positionMat.dim = dimensions.slice();
-            this.boundingMat.dim = dimensions[0]*2 + (dimensions[1] * 2) - 4;
-            if (this.useNurbs) {
-                this.textureCoordMat.dim = this.nurbsDim.slice();
-            } else {
-                this.textureCoordMat.dim = dimensions.slice();
-            }
-        } 
-        else {
-            this.positionMat.dim = [4,4];
-            this.boundingMat.dim = 4*2 + (4 * 2) - 4;
-            this.textureCoordMat.dim = [4, 4];
-        }
+    this.getPositionMatProperties = function(prop) {
+        prop.type = this.positionMat.type;
+        prop.dim = this.positionMat.dim;
+        prop.planes = this.positionMat.planecount;
     }
 
     this.resizeMesh = function(dimensions) {
         var newDim = this.checkDimForNurbs(dimensions);
 
-        var tempMat = new JitterMatrix(3, "float32", newDim);
+        var tempMat = new JitterMatrix(this.positionMat.planecount, this.positionMat.type, newDim);
         tempMat.interp = 1;
 
         tempMat.frommatrix(this.positionMat);
@@ -179,22 +224,21 @@ function Mesh() {
         this.positionMat.frommatrix(tempMat);
         tempMat.freepeer();
 
-        if (this.useNurbs) {
-            this.assignControlMatToNurbs(); // set the new position as the control matrix for nurbs
-            this.hasNurbsMat = 0;
-        } else {
-            this.assignPositionMatToMesh();
-        }
+        this.assignPositionMatToMesh();
 
         this.initTextureCoordMat();
         this.calcMeshBoundsMat();
     }
 
-
     this.assignPositionMatToMesh = function() {
-        this.meshPoints.vertex_matrix(this.positionMat.name);
-        this.meshGrid.vertex_matrix(this.positionMat.name);
-        this.meshFull.vertex_matrix(this.positionMat.name);
+        if (this.useNurbs) {
+            this.assignControlMatToNurbs(); // set the new position as the control matrix for nurbs
+            this.hasNurbsMat = 0;
+        } else {
+            this.meshPoints.vertex_matrix(this.positionMat.name);
+            this.meshGrid.vertex_matrix(this.positionMat.name);
+            this.meshFull.vertex_matrix(this.positionMat.name);
+        }
     }
 
     this.assignNurbsMatToMesh = function() {
@@ -216,11 +260,9 @@ function Mesh() {
         this.meshFull.jit_gl_texture(this.textureName);
     }
     
-    //-------------------------------------------
-
     this.initTextureCoordMat = function() {   
-        var xStartingPoint = (1.0/meshes) * this.ID;
-        var xCoordTarget = xStartingPoint + (1.0/meshes); // 0 a 1. +0.25
+        var xStartingPoint = (1.0/meshcount) * this.ID;
+        var xCoordTarget = xStartingPoint + (1.0/meshcount); // 0 a 1. +0.25
         for (var i=0; i<this.textureCoordMat.dim[0]; i++)
         {
             for (var j=0; j<this.textureCoordMat.dim[1]; j++)
@@ -237,8 +279,8 @@ function Mesh() {
         for(var i=0; i<this.positionMat.dim[0]; i++) {
             for(var j=0; j<this.positionMat.dim[1]; j++) {   
                 var xVal = (i / (this.positionMat.dim[0]-1));
-                xVal = map(xVal, 0., 1., -this.currentWindowRatio + ((this.currentWindowRatio / (meshes/2)) * this.ID), 
-                -this.currentWindowRatio+(this.currentWindowRatio/(meshes/2)) + (this.currentWindowRatio / (meshes/2)) * this.ID);
+                xVal = map(xVal, 0., 1., -this.currentWindowRatio + ((this.currentWindowRatio / (meshcount/2)) * this.ID), 
+                -this.currentWindowRatio+(this.currentWindowRatio/(meshcount/2)) + (this.currentWindowRatio / (meshcount/2)) * this.ID);
                 var yVal = ((j / (this.positionMat.dim[1]-1)) * 2.0) - 1.0;
 
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);
@@ -258,12 +300,9 @@ function Mesh() {
             }
         }
         this.currentWindowRatio = gWindowRatio;
-        if (this.useNurbs) { 
-            this.assignControlMatToNurbs(); 
-            this.hasNurbsMat = 0;
-        } else {
-            this.assignPositionMatToMesh();
-        }
+
+        this.assignPositionMatToMesh();
+    
         this.calcMeshBoundsMat();
     }
 
@@ -295,13 +334,9 @@ function Mesh() {
     this.moveVertex = function(coordsWorld, cellIndex) {
         if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
             this.setVertexPosInMat(coordsWorld, cellIndex);
-            if (this.useNurbs) {
-                // this.assignNurbsMatToMesh();
-                this.hasNurbsMat = 0;
-            } else {
-                this.assignPositionMatToMesh();
-            }
-            this.assignControlMatToNurbs();
+
+            this.assignPositionMatToMesh();
+
             gGraphics.drawCircle(coordsWorld);
          }
     }
@@ -427,6 +462,18 @@ function Mesh() {
             sizeY = Math.max(sizeY, 4);
         }
         return [sizeX, sizeY];
+    }
+
+    this.positionMatToArray = function() {
+        var posArray = [];
+        for (var i=0; i<this.positionMat.dim[0]; i++) {
+            for (var j=0; j<this.positionMat.dim[1]; j++) {
+                //var thisPos = new Dict();
+                posArray.push(this.positionMat.getcell(i,j));
+                //posArrayDict.append("positions", thisPos);
+            }
+        }
+        return posArray;
     }
 }
 

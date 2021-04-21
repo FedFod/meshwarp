@@ -31,6 +31,7 @@ var gSelectionStruct = {
 
 //-----PUBLIC FUNCTIONS----------------
 function reset() {
+	show_meshes = 1;
 	init();
 }
 
@@ -40,21 +41,58 @@ function jit_gl_texture(texName) {
 	}
 }
 
+function save_state(path) {
+	postln("saveing to " + path);
+	buildSaveDict(path);
+}
+
+function load_state(path) {
+	postln("loading to " + path);
+	loadSaveDict(path);
+}
+
+function freebang() {
+	//postln("freebang");
+	freeMeshes();
+	gGraphics.sketch.freepeer();
+	nodeCTX.freepeer();
+	videoplane.freepeer();
+	nodeCamera.freepeer();
+	implicit_lstnr.subjectname = ""
+	implicit_tracker.freepeer();
+	// what else?
+}
+
+// Resize single mesh
+function resize_single_mesh(index, meshSizeX, meshSizeY) {
+	if (index < gMeshes.length) {
+		var xSize = Math.max(meshSizeX, 2);
+		var ySize = Math.max(meshSizeY, 2);
+		gMeshes[index].resizeMesh([xSize, ySize]);
+	}
+}
+
 // ATTRIBUTES
 var mode = 0; // default: use mesh
 declareattribute("mode", null, "setMode", 0);
 
-var meshes = 4; 
-declareattribute("meshes", null, "setHowManyMeshes", 0);  // STRANGE BEHAVIOUR
+var meshcount = 1; 
+declareattribute("meshcount", null, "setHowManyMeshes", 0);
 
-var resize_meshes = [4, 4];
-declareattribute("resize_meshes", null, "resizeAllMeshes", 0);
+var meshdim = [4, 4];
+declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
-var resize_single_mesh = [0, 4, 4];
-declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);
+//var resize_single_mesh = [0, 4, 4];
+//declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);
 
 var show_meshes = 1;
 declareattribute("show_meshes", null, "showMeshes", 0);
+
+var enable = 1;
+declareattribute("enable", null, "setenable", 0);
+
+var drawto = "";
+declareattribute("drawto", null, "setdrawto", 0);
 
 //--------------------------------------------
 
@@ -62,16 +100,28 @@ declareattribute("show_meshes", null, "showMeshes", 0);
 //--------------------------------------------
 
 var implicitdrawto = "";
-var drawto = "";
 var swaplisten = null; // The listener for the jit.world
+var explicitdrawto = false;
 
-const is820 = (max.version >= 820);
+//const is820 = (max.version >= 820);
+var is820 = (max.version >= 820);
 var proxy = null;
 if(is820) {
 	proxy = new JitterObject("jit.proxy");
 }
 
-function setdrawto(newdrawto) {
+function setenable(val) {
+	enable = val;
+	nodeCTX.enable = enable;
+	videoplane.enable = val;
+}
+
+function setdrawto(val) {
+	explicitdrawto = true;
+	dosetdrawto(val);
+}
+
+function dosetdrawto(newdrawto) {
 	if(newdrawto == drawto || !newdrawto) {
 		// bounce
 		return;
@@ -84,18 +134,18 @@ function setdrawto(newdrawto) {
 			if(proxy.class != "jit_gl_context_view") {
 				proxydrawto = proxy.send("getdrawto");
 				// important! drawto is an array so get first element
-				return setdrawto(proxydrawto[0]);
+				return dosetdrawto(proxydrawto[0]);
 			}
 		}
 		else {
 			// remove once 8.2 is updated to support proxy.class
 			proxydrawto = proxy.send("getdrawto");
 			if(proxydrawto !== null && proxydrawto !== undefined) {
-				return setdrawto(proxydrawto[0]);
+				return dosetdrawto(proxydrawto[0]);
 			}
 		}
 	}
-	postln("setdrawto " + newdrawto);
+	// postln("setdrawto " + newdrawto);
 	drawto = newdrawto;	
 	
 	setNodeDrawto();
@@ -105,6 +155,7 @@ function setdrawto(newdrawto) {
 	swaplisten = new JitterListener(drawto, swapcallback);
 
 }
+dosetdrawto.local = 1;
 
 function swapcallback(event){
 	//post("callback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
@@ -127,7 +178,7 @@ function swapcallback(event){
 			break;
 
 		case "mouse": // get mouse array when mouse is clicked or released
-			if (gShowMeshes) {
+			if (gShowMeshes && enable) {
 				gMousePosScreen = (event.args);
 				var mouseClicked = gMousePosScreen[2];
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); // transformMouseFromScreenToWorld2D(gMousePosScreen);
@@ -150,7 +201,7 @@ function swapcallback(event){
 			break;
 
 		case "mouseidle":  // Check if mouse is close to vertices to highlight them
-			if (gShowMeshes) {
+			if (gShowMeshes && enable) {
 				gMousePosScreen = (event.args);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
 				
@@ -199,14 +250,14 @@ function swapcallback(event){
 swapcallback.local = 1
 
 var implicit_tracker = new JitterObject("jit_gl_implicit");
-postln("implicit tracker name: "+implicit_tracker.name)
+// postln("implicit tracker name: "+implicit_tracker.name)
 var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
 
 function implicit_callback(event) {
-	if(implicitdrawto != implicit_tracker.drawto[0]) {
+	if(!explicitdrawto && implicitdrawto != implicit_tracker.drawto[0]) {
 		// important! drawto is an array so get first element
 		implicitdrawto = implicit_tracker.drawto[0];
-		setdrawto(implicitdrawto);
+		dosetdrawto(implicitdrawto);
 	}
 }
 implicit_callback.local = 1;
