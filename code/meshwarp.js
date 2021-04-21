@@ -76,6 +76,9 @@ declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);
 var show_meshes = 1;
 declareattribute("show_meshes", null, "showMeshes", 0);
 
+var enable = 1;
+declareattribute("enable", null, "setenable", 0);
+
 //--------------------------------------------
 
 // ROB 
@@ -89,6 +92,12 @@ const is820 = (max.version >= 820);
 var proxy = null;
 if(is820) {
 	proxy = new JitterObject("jit.proxy");
+}
+
+function setenable(val) {
+	enable = val;
+	nodeCTX.enable = enable;
+	videoplane.enable = val;
 }
 
 function setdrawto(newdrawto) {

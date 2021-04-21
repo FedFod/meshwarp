@@ -38,6 +38,16 @@ function Mesh() {
     this.boundingMat = new JitterMatrix(3, "float32", 10);
     this.adjacentCellsMat = new JitterMatrix(3, "float32", 8);
 
+    // unused for now
+    this.setenable = function(val) {
+        if(this.meshFull) {
+            this.meshPoints.enable = this.enableMesh && val;
+            this.meshGrid.enable = this.enableMesh && val;
+            this.meshFull.enable = val;
+            this.nurbs.enable = this.enableMesh && this.useNurbs && val;
+        }
+    }
+
     this.initMesh = function(dimensions, drawto, ID, useNurbs) {
         this.ID = ID;
         this.useNurbs = useNurbs;

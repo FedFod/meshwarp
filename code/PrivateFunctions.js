@@ -4,6 +4,7 @@ var nodeCTX = new JitterObject("jit.gl.node");
 nodeCTX.capture = 1;
 nodeCTX.automatic = 1;
 nodeCTX.adapt = 1;
+nodeCTX.erase_color = [0, 0, 0, 0];
 
 // OBJECTS INSTANCES USED GLOBALLY 
 var gGraphics = new GraphicElements(nodeCTX.name);
@@ -13,6 +14,8 @@ var videoplane = new JitterObject("jit.gl.videoplane");
 videoplane.transform_reset = 2;
 videoplane.color = WHITE;
 videoplane.texture = nodeCTX.out_name;
+videoplane.depth_enable = 0;
+videoplane.blend_enable = 1;
 
 // CAMERA IN NODE
 var nodeCamera = new JitterObject("jit.gl.camera");
