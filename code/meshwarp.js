@@ -41,11 +41,13 @@ function jit_gl_texture(texName) {
 	}
 }
 
-function save(path) {
+function save_state(path) {
+	postln("saveing to " + path);
 	buildSaveDict(path);
 }
 
-function load(path) {
+function load_state(path) {
+	postln("loading to " + path);
 	loadSaveDict(path);
 }
 
@@ -61,6 +63,15 @@ function freebang() {
 	// what else?
 }
 
+// Resize single mesh
+function resize_single_mesh(index, meshSizeX, meshSizeY) {
+	if (index < gMeshes.length) {
+		var xSize = Math.max(meshSizeX, 2);
+		var ySize = Math.max(meshSizeY, 2);
+		gMeshes[index].resizeMesh([xSize, ySize]);
+	}
+}
+
 // ATTRIBUTES
 var mode = 0; // default: use mesh
 declareattribute("mode", null, "setMode", 0);
@@ -71,8 +82,8 @@ declareattribute("meshcount", null, "setHowManyMeshes", 0);
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
-var resize_single_mesh = [0, 4, 4];
-declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);
+//var resize_single_mesh = [0, 4, 4];
+//declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);
 
 var show_meshes = 1;
 declareattribute("show_meshes", null, "showMeshes", 0);

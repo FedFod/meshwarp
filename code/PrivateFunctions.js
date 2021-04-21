@@ -126,16 +126,6 @@ function resizeAllMeshes(meshSizeX, meshSizeY) {
 }
 resizeAllMeshes.local = 1;
 
-// Resize single mesh
-function resizeSingleMesh(index, meshSizeX, meshSizeY) {
-	if (index < gMeshes.length) {
-		var xSize = Math.max(meshSizeX, 2);
-		var ySize = Math.max(meshSizeY, 2);
-		gMeshes[index].resizeMesh([xSize, ySize]);
-	}
-}
-resizeSingleMesh.local = 1;
-
 function showMeshes(show) {
 	for (mesh in gMeshes) {
 		gMeshes[mesh].showMesh(show);
