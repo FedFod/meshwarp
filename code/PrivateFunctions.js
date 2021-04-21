@@ -22,8 +22,9 @@ var nodeCamera = new JitterObject("jit.gl.camera");
 nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
-function buildSaveDict() {
+function buildSaveDict(path) {
 	var saveDict = new Dict();
+	var saveMatOb = new Object();
 
 	saveDict.replace("meshes", meshes);
 	saveDict.replace("mode", mode);
@@ -38,17 +39,23 @@ function buildSaveDict() {
 		saveDict.append("positionMat"+mesh+"::type", matProp.type);
 		saveDict.append("positionMat"+mesh+"::dimensions", matProp.dim);
 
-		saveDict.append("positionMat"+mesh, posMatArray);
+		//saveDict.append("positionMat"+mesh, posMatArray);
+		saveMatOb["positionMat"+mesh] = posMatArray;
 	}
-	saveDict.export_json("./SavedMat.json");
+	var saveDictData = new Dict();
+	saveDictData.parse(JSON.stringify(saveMatOb));
+	saveDict.replace("positionMatData", saveDictData);
+	saveDict.export_json(path);
 }
 
-function loadSaveDict() {
+function loadSaveDict(path) {
 	var saveDict = new Dict();
-	saveDict.import_json("./SavedMat.json");
+	saveDict.import_json(path);
+	
 	meshes = saveDict.get("meshes");
 	mode = saveDict.get("mode");
 	gWindowRatio = saveDict.get("windowRatio");
+
 	init(saveDict);
 }
 

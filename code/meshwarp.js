@@ -41,12 +41,12 @@ function jit_gl_texture(texName) {
 	}
 }
 
-function save() {
-	buildSaveDict();
+function save(path) {
+	buildSaveDict(path);
 }
 
-function load() {
-	loadSaveDict();
+function load(path) {
+	loadSaveDict(path);
 }
 
 function freebang() {
@@ -89,7 +89,8 @@ var implicitdrawto = "";
 var drawto = "";
 var swaplisten = null; // The listener for the jit.world
 
-const is820 = (max.version >= 820);
+//const is820 = (max.version >= 820);
+var is820 = (max.version >= 820);
 var proxy = null;
 if(is820) {
 	proxy = new JitterObject("jit.proxy");

@@ -79,17 +79,24 @@ function Mesh() {
     }
 
     this.loadDataFromDict = function(dict) {
-        this.posMatPlaneCount = dict.get("positionMat"+this.ID+"[0]::planecount");
-        this.posMatType = dict.get("positionMat"+this.ID+"[0]::type");
-        this.posMatDim = dict.get("positionMat"+this.ID+"[0]::dimensions");
+        this.posMatPlaneCount = dict.get("positionMat"+this.ID+"::planecount");
+        this.posMatType = dict.get("positionMat"+this.ID+"::type");
+        this.posMatDim = dict.get("positionMat"+this.ID+"::dimensions");
     }
 
     this.loadMatrixFromDict = function(dict) {
-        var thisPositionsArray = dict.get("positionMat"+this.ID+"[1]");
+        var posMatDataOb = JSON.parse(dict.get("positionMatData").stringify());
+        //postln(JSON.stringify(posMatDataOb));
 
+        var posMatDataArray = posMatDataOb["positionMat"+this.ID];
+        //postln(JSON.stringify(posMatDataArray));
+    
+        //var thisPositionsArray = dict.get("positionMat"+this.ID+"[1]");
+        var idx = 0;
         for (var i=0; i<this.positionMat.dim[0]; i++) {
             for (var j=0; j<this.positionMat.dim[1]; j++) {
-                var thisCell = thisPositionsArray.get("positions")[j+i*this.positionMat.dim[0]].get(i+"_"+j);
+                //var thisCell = thisPositionsArray.get("positions")[j+i*this.positionMat.dim[0]].get(i+"_"+j);
+                var thisCell = posMatDataArray[idx++];
                 this.positionMat.setcell2d(i,j, thisCell);
             }
         }
@@ -458,15 +465,15 @@ function Mesh() {
     }
 
     this.positionMatToArray = function() {
-        var posArrayDict = new Dict();
+        var posArray = [];
         for (var i=0; i<this.positionMat.dim[0]; i++) {
             for (var j=0; j<this.positionMat.dim[1]; j++) {
-                var thisPos = new Dict();
-                thisPos.set(i+"_"+j, this.positionMat.getcell(i,j));
-                posArrayDict.append("positions", thisPos);
+                //var thisPos = new Dict();
+                posArray.push(this.positionMat.getcell(i,j));
+                //posArrayDict.append("positions", thisPos);
             }
         }
-        return posArrayDict;
+        return posArray;
     }
 }
 
