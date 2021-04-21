@@ -49,7 +49,7 @@ function load() {
 }
 
 function freebang() {
-	postln("freebang");
+	//postln("freebang");
 	freeMeshes();
 	gGraphics.sketch.freepeer();
 	nodeCTX.freepeer();

@@ -83,7 +83,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "freebang" ],
-					"patching_rect" : [ 163.0, 306.0, 63.0, 22.0 ],
+					"patching_rect" : [ 316.0, 69.0, 63.0, 22.0 ],
 					"text" : "t freebang"
 				}
 
@@ -95,7 +95,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "bang" ],
-					"patching_rect" : [ 163.0, 278.0, 56.0, 22.0 ],
+					"patching_rect" : [ 316.0, 40.0, 56.0, 22.0 ],
 					"text" : "freebang"
 				}
 
@@ -229,11 +229,11 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-5",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "jit_gl_texture" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 76.0, 19.0, 30.0, 30.0 ]
 				}
 
@@ -490,7 +490,16 @@
 				}
 
 			}
- ]
+ ],
+		"dependency_cache" : [ 			{
+				"name" : "meshwarp.js",
+				"bootpath" : "~/dev/cycling/meshwarp/code",
+				"patcherrelativepath" : "../code",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+ ],
+		"autosave" : 0
 	}
 
 }
