@@ -156,7 +156,7 @@ function swapcallback(event){
 			break;
 
 		case "mouse": // get mouse array when mouse is clicked or released
-			if (gShowMeshes) {
+			if (gShowMeshes && enable) {
 				gMousePosScreen = (event.args);
 				var mouseClicked = gMousePosScreen[2];
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); // transformMouseFromScreenToWorld2D(gMousePosScreen);
@@ -179,7 +179,7 @@ function swapcallback(event){
 			break;
 
 		case "mouseidle":  // Check if mouse is close to vertices to highlight them
-			if (gShowMeshes) {
+			if (gShowMeshes && enable) {
 				gMousePosScreen = (event.args);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
 				
