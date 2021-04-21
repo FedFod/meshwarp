@@ -65,8 +65,8 @@ function freebang() {
 var mode = 0; // default: use mesh
 declareattribute("mode", null, "setMode", 0);
 
-var meshes = 4; 
-declareattribute("meshes", null, "setHowManyMeshes", 0);  // STRANGE BEHAVIOUR
+var meshcount = 1; 
+declareattribute("meshcount", null, "setHowManyMeshes", 0);
 
 var resize_meshes = [4, 4];
 declareattribute("resize_meshes", null, "resizeAllMeshes", 0);

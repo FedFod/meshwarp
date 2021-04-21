@@ -261,8 +261,8 @@ function Mesh() {
     }
     
     this.initTextureCoordMat = function() {   
-        var xStartingPoint = (1.0/meshes) * this.ID;
-        var xCoordTarget = xStartingPoint + (1.0/meshes); // 0 a 1. +0.25
+        var xStartingPoint = (1.0/meshcount) * this.ID;
+        var xCoordTarget = xStartingPoint + (1.0/meshcount); // 0 a 1. +0.25
         for (var i=0; i<this.textureCoordMat.dim[0]; i++)
         {
             for (var j=0; j<this.textureCoordMat.dim[1]; j++)
@@ -279,8 +279,8 @@ function Mesh() {
         for(var i=0; i<this.positionMat.dim[0]; i++) {
             for(var j=0; j<this.positionMat.dim[1]; j++) {   
                 var xVal = (i / (this.positionMat.dim[0]-1));
-                xVal = map(xVal, 0., 1., -this.currentWindowRatio + ((this.currentWindowRatio / (meshes/2)) * this.ID), 
-                -this.currentWindowRatio+(this.currentWindowRatio/(meshes/2)) + (this.currentWindowRatio / (meshes/2)) * this.ID);
+                xVal = map(xVal, 0., 1., -this.currentWindowRatio + ((this.currentWindowRatio / (meshcount/2)) * this.ID), 
+                -this.currentWindowRatio+(this.currentWindowRatio/(meshcount/2)) + (this.currentWindowRatio / (meshcount/2)) * this.ID);
                 var yVal = ((j / (this.positionMat.dim[1]-1)) * 2.0) - 1.0;
 
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);

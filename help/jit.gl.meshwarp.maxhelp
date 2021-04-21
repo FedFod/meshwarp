@@ -348,7 +348,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"patching_rect" : [ 393.190475821495056, 146.119050145149231, 67.0, 22.0 ],
-					"text" : "meshes $1"
+					"text" : "meshcount $1"
 				}
 
 			}

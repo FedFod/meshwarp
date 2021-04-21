@@ -26,7 +26,7 @@ function buildSaveDict(path) {
 	var saveDict = new Dict();
 	var saveMatOb = new Object();
 
-	saveDict.replace("meshes", meshes);
+	saveDict.replace("meshcount", meshcount);
 	saveDict.replace("mode", mode);
 	saveDict.replace("show_meshes", show_meshes);
 	saveDict.replace("windowRatio", gWindowRatio);
@@ -52,7 +52,7 @@ function loadSaveDict(path) {
 	var saveDict = new Dict();
 	saveDict.import_json(path);
 	
-	meshes = saveDict.get("meshes");
+	meshcount = saveDict.get("meshcount");
 	mode = saveDict.get("mode");
 	gWindowRatio = saveDict.get("windowRatio");
 
@@ -71,7 +71,7 @@ freeMeshes.local = 1;
 
 function initMeshes(saveDict_) {	
 	gMeshes = [];
-	for (var i=0; i<meshes; i++) {
+	for (var i=0; i<meshcount; i++) {
 		gMeshes.push(new Mesh());
 		gMeshes[i].initMesh(nodeCTX.name, i, mode, saveDict_); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
 	}
@@ -105,10 +105,10 @@ function setMode(arg) {
 }
 setMode.local = 1;
 
-// Set number of meshes
+// Set number of meshcount
 function setHowManyMeshes(numberMeshes) {
 	if (numberMeshes > 0 && numberMeshes < 20) {
-		meshes = numberMeshes;
+		meshcount = numberMeshes;
 		freeMeshes();
 		initMeshes();
 	}

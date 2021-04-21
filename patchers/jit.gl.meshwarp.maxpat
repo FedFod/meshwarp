@@ -252,7 +252,7 @@
 			}
 , 			{
 				"box" : 				{
-					"attr" : "meshes",
+					"attr" : "meshcount",
 					"id" : "obj-3",
 					"maxclass" : "attrui",
 					"numinlets" : 1,
