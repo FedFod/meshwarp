@@ -1,12 +1,12 @@
-// OBJECTS INSTANCES USED GLOBALLY 
-var gGraphics = new GraphicElements();
-
 // JIT_GL_NODE
 var nodeCTX = new JitterObject("jit.gl.node");
 //nodeCTX.name = "##mesherNodeCTX##";
 nodeCTX.capture = 1;
 nodeCTX.automatic = 1;
 nodeCTX.adapt = 1;
+
+// OBJECTS INSTANCES USED GLOBALLY 
+var gGraphics = new GraphicElements(nodeCTX.name);
 
 // VIDEOPLANE
 var videoplane = new JitterObject("jit.gl.videoplane");
@@ -86,7 +86,6 @@ initMeshes.local = 1;
 function init() {	
 	freeMeshes();
 	initMeshes();
-	gGraphics.initGraphicElements();
 }
 init.local = 1;
 

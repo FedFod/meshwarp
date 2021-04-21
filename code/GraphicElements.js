@@ -1,5 +1,6 @@
-function GraphicElements() {
+function GraphicElements(nodectx) {
     this.sketch = new JitterObject("jit.gl.sketch");
+    this.sketch.drawto = nodectx;
     this.sketch.depth_enable = 0;
     this.sketch.layer = FRONT;
     this.sketch.color = RED;
@@ -9,14 +10,6 @@ function GraphicElements() {
 
     this.transformMouseToWorld = function(screenCoord) {
         return this.sketch.screentoworld(screenCoord);
-    }
-
-    this.setDrawto = function(drawto) {
-        this.sketch.drawto = drawto;
-    }
-
-    this.initGraphicElements = function() {
-        this.setDrawto(nodeCTX.name);
     }
 
     this.drawCircle = function(coordsWorld) {   

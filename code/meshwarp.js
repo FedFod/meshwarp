@@ -51,6 +51,12 @@ function load() {
 function freebang() {
 	postln("freebang");
 	freeMeshes();
+	gGraphics.sketch.freepeer();
+	nodeCTX.freepeer();
+	videoplane.freepeer();
+	nodeCamera.freepeer();
+	implicit_lstnr.subjectname = ""
+	implicit_tracker.freepeer();
 	// what else?
 }
 
