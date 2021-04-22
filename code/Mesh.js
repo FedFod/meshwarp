@@ -290,15 +290,8 @@ function Mesh() {
 
     // Only scale X when window is resized
     this.scaleMesh = function() {
-        for(var i=0; i<this.positionMat.dim[0]; i++) {
-            for(var j=0; j<this.positionMat.dim[1]; j++) {   
-                var xOrigVal = this.positionMat.getcell(i,j)[0];
-                var yVal = this.positionMat.getcell(i,j)[1];
-                var scaledXVal = xOrigVal / this.currentWindowRatio;
-                var newXVal = scaledXVal*gWindowRatio;
-                this.positionMat.setcell2d(i, j, newXVal, yVal, 0.0);
-            }
-        }
+        this.positionMat.op("/", [this.currentWindowRatio, 1.0]);
+        this.positionMat.op("*", [gWindowRatio, 1.0]);
         this.currentWindowRatio = gWindowRatio;
 
         this.assignPositionMatToMesh();
