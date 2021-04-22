@@ -78,29 +78,37 @@ function Mesh() {
         this.initTextureCoordMat(); // init texture coord mat
     }
 
+    this.saveDataIntoDict = function(dict) {
+        var posMatArray = this.positionMatToArray();
+        dict.replace("positionMat"+this.ID+"::scale", this.currentScale);
+		dict.replace("positionMat"+this.ID+"::planecount", this.positionMat.planecount);
+		dict.append("positionMat"+this.ID+"::type", this.positionMat.type);
+		dict.append("positionMat"+this.ID+"::dimensions", this.positionMat.dim);
+        dict.replace("positionMat"+this.ID+"::vertices", JSON.stringify(posMatArray));
+        // dict.append("positionMat"+this.ID+"::vertices", JSON.stringify(posMatArray));
+    }
+
     this.loadDataFromDict = function(dict) {
         this.posMatPlaneCount = dict.get("positionMat"+this.ID+"::planecount");
         this.posMatType = dict.get("positionMat"+this.ID+"::type");
         this.posMatDim = dict.get("positionMat"+this.ID+"::dimensions");
+        this.currentScale = dict.get("positionMat"+this.ID+"::scale");
     }
 
     this.loadMatrixFromDict = function(dict) {
-        var posMatDataOb = JSON.parse(dict.get("positionMatData").stringify());
-        //postln(JSON.stringify(posMatDataOb));
-
-        var posMatDataArray = posMatDataOb["positionMat"+this.ID];
-        //postln(JSON.stringify(posMatDataArray));
-    
-        //var thisPositionsArray = dict.get("positionMat"+this.ID+"[1]");
+        var posArray = dict.get("positionMat"+this.ID+"::vertices");
+        posArray = JSON.parse(posArray);
         var idx = 0;
         for (var i=0; i<this.positionMat.dim[0]; i++) {
             for (var j=0; j<this.positionMat.dim[1]; j++) {
                 //var thisCell = thisPositionsArray.get("positions")[j+i*this.positionMat.dim[0]].get(i+"_"+j);
-                var thisCell = posMatDataArray[idx++];
-                this.positionMat.setcell2d(i,j, thisCell);
+                var thisCell = posArray[idx++];
+                this.positionMat.setcell2d(i,j, thisCell[0], thisCell[1], thisCell[2]);
             }
         }
-        // this.scaleMesh();
+        this.unscaledPosMat.frommatrix(this.positionMat);
+        this.unscaledPosMat.op("/", this.currentScale);
+        this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
     }
 
     this.setMeshDim = function(newDim) {   
@@ -275,12 +283,6 @@ function Mesh() {
         this.meshPoints.enable = show;
     }
 
-    this.getPositionMatProperties = function(prop) {
-        prop.type = this.positionMat.type;
-        prop.dim = this.positionMat.dim;
-        prop.planes = this.positionMat.planecount;
-    }
-
     this.checkIfMouseInsideMesh = function(mouseWorld) {
         if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
             return this.ID;
@@ -318,13 +320,9 @@ function Mesh() {
 
     this.setVertexPosInMat = function(coordsWorld, cellIndex) {
         this.positionMat.setcell2d(cellIndex[0], cellIndex[1], coordsWorld[0], coordsWorld[1], 0.0);
-        var tempMat = new JitterMatrix();
-        tempMat.frommatrix(this.positionMat);
-        tempMat.op("/", this.currentScale);
-        tempMat.op("/", [gWindowRatio, 1.0]);
-
-        this.unscaledPosMat.frommatrix(tempMat);
-        tempMat.freepeer();
+        this.unscaledPosMat.frommatrix(this.positionMat);
+        this.unscaledPosMat.op("/", this.currentScale);
+        this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
     }
 
     this.calcMeshBoundsMat = function() {        
@@ -450,9 +448,7 @@ function Mesh() {
         var posArray = [];
         for (var i=0; i<this.positionMat.dim[0]; i++) {
             for (var j=0; j<this.positionMat.dim[1]; j++) {
-                //var thisPos = new Dict();
                 posArray.push(this.positionMat.getcell(i,j));
-                //posArrayDict.append("positions", thisPos);
             }
         }
         return posArray;

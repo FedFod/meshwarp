@@ -24,7 +24,6 @@ nodeCamera.ortho = 2;
 
 function buildSaveDict(path) {
 	var saveDict = new Dict();
-	var saveMatOb = new Object();
 
 	saveDict.replace("meshcount", meshcount);
 	saveDict.replace("mode", mode);
@@ -32,19 +31,9 @@ function buildSaveDict(path) {
 	saveDict.replace("windowRatio", gWindowRatio);
 
 	for (var mesh in gMeshes) {
-		var posMatArray = gMeshes[mesh].positionMatToArray();
-		var matProp = { planes: "", type: "", dim: "" };
-		gMeshes[mesh].getPositionMatProperties(matProp);
-		saveDict.replace("positionMat"+mesh+"::planecount", matProp.planes);
-		saveDict.append("positionMat"+mesh+"::type", matProp.type);
-		saveDict.append("positionMat"+mesh+"::dimensions", matProp.dim);
-
-		//saveDict.append("positionMat"+mesh, posMatArray);
-		saveMatOb["positionMat"+mesh] = posMatArray;
+		gMeshes[mesh].saveDataIntoDict(saveDict);
 	}
-	var saveDictData = new Dict();
-	saveDictData.parse(JSON.stringify(saveMatOb));
-	saveDict.replace("positionMatData", saveDictData);
+
 	saveDict.export_json(path);
 }
 
