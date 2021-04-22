@@ -82,9 +82,6 @@ declareattribute("meshcount", null, "setHowManyMeshes", 0);
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
-//var resize_single_mesh = [0, 4, 4];
-//declareattribute("resize_single_mesh", null, "resizeSingleMesh", 0);
-
 var show_meshes = 1;
 declareattribute("show_meshes", null, "showMeshes", 0);
 
@@ -93,6 +90,9 @@ declareattribute("enable", null, "setenable", 0);
 
 var drawto = "";
 declareattribute("drawto", null, "setdrawto", 0);
+
+var scale = [1, 1];
+declareattribute("scale", null, "scaleAllMeshes", 0);
 
 //--------------------------------------------
 
@@ -172,7 +172,7 @@ function swapcallback(event){
 					init(); // INIT if meshes don't exist
 				}
 				for (var mesh in gMeshes) {
-					gMeshes[mesh].scaleMesh();
+					gMeshes[mesh].resizeWindowScale();
 				}
 			}
 			break;

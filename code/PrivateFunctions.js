@@ -59,6 +59,12 @@ function loadSaveDict(path) {
 	init(saveDict);
 }
 
+function scaleAllMeshes(scaleX, scaleY) {
+	for (var mesh in gMeshes) {
+		gMeshes[mesh].scaleMesh(scaleX, scaleY);
+	}
+}
+
 function freeMeshes() {
 	if (gMeshes.length > 0) {
 		for (var mesh in gMeshes) {
