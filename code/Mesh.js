@@ -165,8 +165,14 @@ function Mesh() {
 
     this.scaleMesh = function(scaleX, scaleY) {
         this.positionMat.frommatrix(this.unscaledPosMat);
-        this.positionMat.op("*", [scaleX, scaleY]);
+
+        var centerX = this.getMeshCenter();
+        this.positionMat.op("-", [centerX, 0]); // translate to center
+        this.positionMat.op("*", [scaleX, scaleY]); // scale
+        this.positionMat.op("+", [centerX, 0]);  // put back
+
         this.positionMat.op("*", [gWindowRatio, 1]);
+
         this.currentScale = [scaleX, scaleY];
 
         this.assignPositionMatToMesh();
@@ -176,11 +182,22 @@ function Mesh() {
     // Only scale X when window is resized
     this.resizeWindowScale = function() {
         this.positionMat.frommatrix(this.unscaledPosMat);
+
+        var centerX = this.getMeshCenter();
+        this.positionMat.op("-", [centerX, 0]);  // translate to center
+        this.positionMat.op("*", this.currentScale); // scale
+        this.positionMat.op("+", [centerX, 0]); // put back
         this.positionMat.op("*", [gWindowRatio, 1.0]);
-        this.positionMat.op("*", this.currentScale);
 
         this.assignPositionMatToMesh();
         this.calcMeshBoundsMat();
+    }
+
+    this.getMeshCenter = function() {
+        gMinMaxMat.matrixcalc(this.positionMat, this.positionMat);
+        var minX = gMinMaxMat.min[0];
+        var maxX = gMinMaxMat.max[0];
+        return (maxX - minX) / 2 + minX;
     }
 
     this.initTextureCoordMat = function() {   
@@ -208,6 +225,7 @@ function Mesh() {
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);
             }
         }
+
         this.unscaledPosMat.frommatrix(this.positionMat);
     }   
 

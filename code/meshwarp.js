@@ -65,10 +65,16 @@ function freebang() {
 
 // Resize single mesh
 function resize_single_mesh(index, meshSizeX, meshSizeY) {
-	if (index < gMeshes.length) {
+	if (index < gMeshes.length && index >= 0) {
 		var xSize = Math.max(meshSizeX, 2);
 		var ySize = Math.max(meshSizeY, 2);
 		gMeshes[index].resizeMesh([xSize, ySize]);
+	}
+}
+
+function scale_single_mesh(index, scaleX, scaleY) {
+	if (index < gMeshes.length && index >= 0) {
+		gMeshes[index].scaleMesh(scaleX, scaleY);
 	}
 }
 
@@ -93,6 +99,7 @@ declareattribute("drawto", null, "setdrawto", 0);
 
 var scale = [1, 1];
 declareattribute("scale", null, "scaleAllMeshes", 0);
+
 
 //--------------------------------------------
 

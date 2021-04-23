@@ -8,6 +8,7 @@ nodeCTX.erase_color = [0, 0, 0, 0];
 
 // OBJECTS INSTANCES USED GLOBALLY 
 var gGraphics = new GraphicElements(nodeCTX.name);
+var gMinMaxMat = new JitterObject("jit.3m");
 
 // VIDEOPLANE
 var videoplane = new JitterObject("jit.gl.videoplane");
