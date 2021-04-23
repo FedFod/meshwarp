@@ -49,12 +49,6 @@ function loadSaveDict(path) {
 	init(saveDict);
 }
 
-function scaleAllMeshes(scaleX, scaleY) {
-	for (var mesh in gMeshes) {
-		gMeshes[mesh].scaleMesh(scaleX, scaleY);
-	}
-}
-
 function freeMeshes() {
 	if (gMeshes.length > 0) {
 		for (var mesh in gMeshes) {
@@ -75,10 +69,18 @@ function initMeshes(saveDict_) {
 initMeshes.local = 1;
 
 function init(saveDict_) {	
+	gGraphics.reset();
 	freeMeshes();
 	initMeshes(saveDict_);
 }
 init.local = 1;
+
+function scaleAllMeshes(scaleX, scaleY) {
+	for (var mesh in gMeshes) {
+		gMeshes[mesh].scaleMesh(scaleX, scaleY);
+	}
+}
+scaleAllMeshes.local = 1;
 
 function setWindowRatio(dims) {
 	gWindowRatio = dims[0] / dims[1];
@@ -90,6 +92,11 @@ function setNodeDrawto() {
 	videoplane.drawto = drawto;	
 }
 setNodeDrawto.local = 1;
+
+// TODO assign textures to single meshes
+function setTexturesMeshes(textures) {
+	print(arguments[1]);
+}
 
 function setMode(arg) {
 	if (arg == 0 || arg == 1) {
@@ -106,6 +113,7 @@ function setNurbsOrder(orderX, orderY) {
 		gMeshes[mesh].changeNurbsOrder(orderX, orderY);
 	}
 }
+setNurbsOrder.local = 1;
 
 // Set number of meshcount
 function setHowManyMeshes(numberMeshes) {

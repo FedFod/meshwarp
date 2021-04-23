@@ -103,6 +103,8 @@ declareattribute("scale", null, "scaleAllMeshes", 0);
 var nurbs_order = [1, 1];
 declareattribute("nurbs_order", null, "setNurbsOrder", 0);
 
+var texture = "";
+declareattribute("texture", null, "setTexturesMeshes", 0);
 
 //--------------------------------------------
 
