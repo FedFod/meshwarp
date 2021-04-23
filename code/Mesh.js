@@ -23,6 +23,7 @@ function Mesh() {
     this.meshFull = null;
     this.nurbs = null;
     this.nurbsDim = [40, 40];
+    this.nurbsOrder = [1,1];
 
     this.posMatPlaneCount = 3;
     this.posMatType = "float32";
@@ -84,6 +85,7 @@ function Mesh() {
 		dict.replace("positionMat"+this.ID+"::planecount", this.positionMat.planecount);
 		dict.append("positionMat"+this.ID+"::type", this.positionMat.type);
 		dict.append("positionMat"+this.ID+"::dimensions", this.positionMat.dim);
+        dict.append("positionMat"+this.ID+"::nurbs_order", this.nurbsOrder);
         dict.replace("positionMat"+this.ID+"::vertices", JSON.stringify(posMatArray));
         // dict.append("positionMat"+this.ID+"::vertices", JSON.stringify(posMatArray));
     }
@@ -93,6 +95,7 @@ function Mesh() {
         this.posMatType = dict.get("positionMat"+this.ID+"::type");
         this.posMatDim = dict.get("positionMat"+this.ID+"::dimensions");
         this.currentScale = dict.get("positionMat"+this.ID+"::scale");
+        this.nurbsOrder = dict.get("positionMat"+this.ID+"::nurbs_order");
     }
 
     this.loadMatrixFromDict = function(dict) {
@@ -141,6 +144,14 @@ function Mesh() {
                 this.textureCoordMat.dim = this.positionMat.dim.slice();
             }
             this.initTextureCoordMat();
+        }
+    }
+
+    this.changeNurbsOrder = function(orderX, orderY) {
+        this.nurbs.order = [orderX, orderY];
+        this.nurbsOrder = this.nurbs.order.slice();
+        if (this.useNurbs) {
+            this.assignPositionMatToMesh();
         }
     }
 
@@ -271,6 +282,7 @@ function Mesh() {
         this.nurbs.matrixoutput = 1;
         this.nurbs.drawto = drawto_;
         this.nurbs.enable = this.useNurbs * this.enableMesh;
+        this.nurbs.order = this.nurbsOrder.slice();
         //this.nurbs.name = "nurbs_"+this.ID;
 
         this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbs.dim.slice());
