@@ -14,6 +14,7 @@ var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
 var gWindowPrevRatio = gWindowRatio;
 var gShowMeshes = 1;
+var gTextureNames = "noTexture";
 
 // a structure to contain infos relative to the clicked mesh and vertex
 var gSelectionStruct = {
@@ -36,8 +37,12 @@ function reset() {
 }
 
 function jit_gl_texture(texName) {
-	for (mesh in gMeshes) {
-		gMeshes[mesh].assignTextureToMesh(texName);
+	if (gTextureNames !== texName) {
+		gTextureNames= [""];
+		gTextureNames[0] = texName;
+		for (mesh in gMeshes) {
+			gMeshes[mesh].assignTextureToMesh(texName);
+		}
 	}
 }
 
@@ -103,7 +108,7 @@ declareattribute("scale", null, "scaleAllMeshes", 0);
 var nurbs_order = [1, 1];
 declareattribute("nurbs_order", null, "setNurbsOrder", 0);
 
-var texture = "";
+var texture = [""];
 declareattribute("texture", null, "setTexturesMeshes", 0);
 
 //--------------------------------------------
@@ -143,7 +148,7 @@ function dosetdrawto(newdrawto) {
 		proxy.name = newdrawto;
 		//postln("drawto class " + proxy.class);
 		if(proxy.class !== undefined) {
-			if(proxy.class != "jit_gl_context_view") {
+			if(proxy.class != "jit_gl_context_view") { // what class is that??
 				proxydrawto = proxy.send("getdrawto");
 				// important! drawto is an array so get first element
 				return dosetdrawto(proxydrawto[0]);
@@ -153,7 +158,7 @@ function dosetdrawto(newdrawto) {
 			// remove once 8.2 is updated to support proxy.class
 			proxydrawto = proxy.send("getdrawto");
 			if(proxydrawto !== null && proxydrawto !== undefined) {
-				return dosetdrawto(proxydrawto[0]);
+				return dosetdrawto(proxydrawto[0]);  // name of the internal node
 			}
 		}
 	}

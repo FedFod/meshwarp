@@ -63,10 +63,22 @@ function initMeshes(saveDict_) {
 	gMeshes = [];
 	for (var i=0; i<meshcount; i++) {
 		gMeshes.push(new Mesh());
-		gMeshes[i].initMesh(nodeCTX.name, i, mode, saveDict_); // args: "mesh dim_x", "mesh dim_y", "drawto", "mesh index"
+		gMeshes[i].initMesh(nodeCTX.name, i, mode, saveDict_); 
 	}
+	setTexturesMeshes();
 }
 initMeshes.local = 1;
+
+function setTexturesMeshes() {
+	if (arguments.length > 0) {
+		gTextureNames = (arrayfromargs(arguments));
+	}
+	for (var i=0; i<gMeshes.length; i++) {
+		gMeshes[i].assignTextureToMesh(gTextureNames[i%gTextureNames.length]);
+		gMeshes[i].initTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
+	}
+}
+setTexturesMeshes.local = 1;
 
 function init(saveDict_) {	
 	gGraphics.reset();
@@ -92,11 +104,6 @@ function setNodeDrawto() {
 	videoplane.drawto = drawto;	
 }
 setNodeDrawto.local = 1;
-
-// TODO assign textures to single meshes
-function setTexturesMeshes(textures) {
-	print(arguments[1]);
-}
 
 function setMode(arg) {
 	if (arg == 0 || arg == 1) {

@@ -116,11 +116,11 @@
 				"box" : 				{
 					"id" : "obj-15",
 					"maxclass" : "newobj",
-					"numinlets" : 7,
-					"numoutlets" : 7,
-					"outlettype" : [ "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 468.0, 103.0, 367.0, 22.0 ],
-					"text" : "routepass show_meshes mode meshdim meshcount enable drawto"
+					"numinlets" : 8,
+					"numoutlets" : 8,
+					"outlettype" : [ "", "", "", "", "", "", "", "" ],
+					"patching_rect" : [ 468.0, 103.0, 407.0, 22.0 ],
+					"text" : "routepass show_meshes mode meshdim meshcount enable drawto texture"
 				}
 
 			}
@@ -233,7 +233,7 @@
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "jit_gl_texture" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 76.0, 19.0, 30.0, 30.0 ]
 				}
 
@@ -334,6 +334,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-15", 0 ],
 					"source" : [ "obj-14", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-15", 6 ]
 				}
 
 			}

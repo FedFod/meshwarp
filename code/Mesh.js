@@ -75,7 +75,6 @@ function Mesh() {
         this.initNurbs(drawto);
 
         this.resizeWindowScale();
-
         this.initTextureCoordMat(); // init texture coord mat
     }
 
@@ -214,11 +213,14 @@ function Mesh() {
     this.initTextureCoordMat = function() {   
         var xStartingPoint = (1.0/meshcount) * this.ID;
         var xCoordTarget = xStartingPoint + (1.0/meshcount); // 0 a 1. +0.25
-        for (var i=0; i<this.textureCoordMat.dim[0]; i++)
-        {
-            for (var j=0; j<this.textureCoordMat.dim[1]; j++)
-            {   
-                var xCoord = map(i, 0, this.textureCoordMat.dim[0]-1, xStartingPoint, xCoordTarget);
+        for (var i=0; i<this.textureCoordMat.dim[0]; i++) {
+            for (var j=0; j<this.textureCoordMat.dim[1]; j++) {   
+                var xCoord;
+                if (gTextureNames.length > 1) {
+                    xCoord = i/(this.textureCoordMat.dim[0]-1); // in case we have more textures, just map each of them to a mesh
+                } else {
+                    xCoord = map(i, 0, this.textureCoordMat.dim[0]-1, xStartingPoint, xCoordTarget);
+                }
                 this.textureCoordMat.setcell2d(i,j, xCoord, j/(this.textureCoordMat.dim[1]-1));
             }
         }
@@ -268,7 +270,7 @@ function Mesh() {
         this.meshFull.draw_mode = "quad_grid";
         this.meshFull.depth_enable = 0;
         this.meshFull.layer = BACKGROUND;
-        this.meshFull.color = WHITE;
+        this.meshFull.color = GREY;
         this.meshFull.drawto   = drawto_;
     }
 
@@ -387,7 +389,6 @@ function Mesh() {
         // Transfer those vertices from the array to the boundingMat matrix
         for (var i=0; i<boundingArray.length; i++) {
             this.boundingMat.setcell1d(i, boundingArray[i][0], boundingArray[i][1]);
-           // postln("inside bounding "+this.boundingMat.getcell(i));
         }
     }
 
@@ -511,6 +512,7 @@ function Mesh() {
 
     this.assignTextureToMesh = function(textureName) {
         this.textureName = textureName;
+        this.meshFull.color = WHITE;
         this.meshFull.jit_gl_texture(this.textureName);
     }
     
