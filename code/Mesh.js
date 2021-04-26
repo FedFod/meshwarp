@@ -36,6 +36,7 @@ function Mesh() {
     this.nurbsLstnr = null;
     this.hasNurbsMat = 0;
     this.textureName = "";
+    this.handle = null;
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
@@ -73,6 +74,7 @@ function Mesh() {
         this.initMeshGrid(drawto);
         this.initMeshFull(drawto);
         this.initNurbs(drawto);
+        this.initHandle(drawto);
 
         this.resizeWindowScale();
         this.initTextureCoordMat(); // init texture coord mat
@@ -109,7 +111,10 @@ function Mesh() {
             }
         }
         this.unscaledPosMat.frommatrix(this.positionMat);
-        this.unscaledPosMat.op("/", this.currentScale);
+        var centerX = this.getMeshCenter(this.positionMat)[0];
+        this.unscaledPosMat.op("-", [centerX, 0]);  // translate to center
+        this.unscaledPosMat.op("/", this.currentScale); // scale
+        this.unscaledPosMat.op("+", [centerX, 0]); // put back
         this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
     }
 
@@ -175,12 +180,10 @@ function Mesh() {
 
     this.scaleMesh = function(scaleX, scaleY) {
         this.positionMat.frommatrix(this.unscaledPosMat);
-
-        var centerX = this.getMeshCenter();
+        var centerX = this.getMeshCenter(this.unscaledPosMat)[0];
         this.positionMat.op("-", [centerX, 0]); // translate to center
         this.positionMat.op("*", [scaleX, scaleY]); // scale
         this.positionMat.op("+", [centerX, 0]);  // put back
-
         this.positionMat.op("*", [gWindowRatio, 1]);
 
         this.currentScale = [scaleX, scaleY];
@@ -192,8 +195,7 @@ function Mesh() {
     // Only scale X when window is resized
     this.resizeWindowScale = function() {
         this.positionMat.frommatrix(this.unscaledPosMat);
-
-        var centerX = this.getMeshCenter();
+        var centerX = this.getMeshCenter(this.positionMat)[0];
         this.positionMat.op("-", [centerX, 0]);  // translate to center
         this.positionMat.op("*", this.currentScale); // scale
         this.positionMat.op("+", [centerX, 0]); // put back
@@ -203,11 +205,13 @@ function Mesh() {
         this.calcMeshBoundsMat();
     }
 
-    this.getMeshCenter = function() {
-        gMinMaxMat.matrixcalc(this.positionMat, this.positionMat);
+    this.getMeshCenter = function(mat) {
+        gMinMaxMat.matrixcalc(mat, mat);
         var minX = gMinMaxMat.min[0];
         var maxX = gMinMaxMat.max[0];
-        return (maxX - minX) / 2 + minX;
+        var minY = gMinMaxMat.min[1];
+        var maxY = gMinMaxMat.max[1];
+        return [(maxX - minX) / 2 + minX, (maxY - minY) / 2 + minY];
     }
 
     this.initTextureCoordMat = function() {   
@@ -293,6 +297,12 @@ function Mesh() {
         nurbsmap[this.nurbs.name] = this;
     }
 
+    this.initHandle = function(drawto_) {
+        this.handle = new JitterObject("jit.gl.sketch", drawto_);
+        this.handle.layer = FRONT;
+        this.handle.color = LIGHT_BLUE;
+    }
+
     this.freeMesh = function() {
         if (this.positionMat) {
             this.positionMat.freepeer();
@@ -352,8 +362,15 @@ function Mesh() {
 
     this.setVertexPosInMat = function(coordsWorld, cellIndex) {
         this.positionMat.setcell2d(cellIndex[0], cellIndex[1], coordsWorld[0], coordsWorld[1], 0.0);
+        this.unscaledFromPos();
+    }
+
+    this.unscaledFromPos = function() {
         this.unscaledPosMat.frommatrix(this.positionMat);
-        this.unscaledPosMat.op("/", this.currentScale);
+        var centerX = this.getMeshCenter(this.positionMat)[0];
+        this.unscaledPosMat.op("-", [centerX, 0]);  // translate to center
+        this.unscaledPosMat.op("/", this.currentScale); // scale
+        this.unscaledPosMat.op("+", [centerX, 0]); // put back
         this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
     }
 

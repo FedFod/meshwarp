@@ -116,8 +116,10 @@ function setMode(arg) {
 setMode.local = 1;
 
 function setNurbsOrder(orderX, orderY) {
-	for (var mesh in gMeshes) {
-		gMeshes[mesh].changeNurbsOrder(orderX, orderY);
+	if (orderX > 0 && orderX < 4 && orderY > 0 && orderY < 4) {
+		for (var mesh in gMeshes) {
+			gMeshes[mesh].changeNurbsOrder(orderX, orderY);
+		}
 	}
 }
 setNurbsOrder.local = 1;
