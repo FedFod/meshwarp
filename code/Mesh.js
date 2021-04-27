@@ -52,6 +52,7 @@ function Mesh() {
             this.meshGrid.enable = this.enableMesh && val;
             this.meshFull.enable = val;
             this.nurbs.enable = this.enableMesh && this.useNurbs && val;
+            this.handle = this.enableMesh && val;
         }
     }
 
@@ -76,65 +77,8 @@ function Mesh() {
         this.initNurbs(drawto);
         this.initHandle(drawto);
 
-        this.resizeWindowScale();
+        this.scaleToWindowRatio();
         this.initTextureCoordMat(); // init texture coord mat
-    }
-
-    this.saveDataIntoDict = function(dict) {
-        var posMatArray = this.positionMatToArray();
-        dict.replace("positionMat"+this.ID+"::scale", this.currentScale);
-		dict.replace("positionMat"+this.ID+"::planecount", this.positionMat.planecount);
-		dict.append("positionMat"+this.ID+"::type", this.positionMat.type);
-		dict.append("positionMat"+this.ID+"::dimensions", this.positionMat.dim);
-        dict.append("positionMat"+this.ID+"::nurbs_order", this.nurbsOrder);
-        dict.replace("positionMat"+this.ID+"::vertices", JSON.stringify(posMatArray));
-        // dict.append("positionMat"+this.ID+"::vertices", JSON.stringify(posMatArray));
-    }
-
-    this.loadDataFromDict = function(dict) {
-        this.posMatPlaneCount = dict.get("positionMat"+this.ID+"::planecount");
-        this.posMatType = dict.get("positionMat"+this.ID+"::type");
-        this.posMatDim = dict.get("positionMat"+this.ID+"::dimensions");
-        this.currentScale = dict.get("positionMat"+this.ID+"::scale");
-        this.nurbsOrder = dict.get("positionMat"+this.ID+"::nurbs_order");
-    }
-
-    this.loadMatrixFromDict = function(dict) {
-        var posArray = dict.get("positionMat"+this.ID+"::vertices");
-        posArray = JSON.parse(posArray);
-        var idx = 0;
-        for (var i=0; i<this.positionMat.dim[0]; i++) {
-            for (var j=0; j<this.positionMat.dim[1]; j++) {
-                //var thisCell = thisPositionsArray.get("positions")[j+i*this.positionMat.dim[0]].get(i+"_"+j);
-                var thisCell = posArray[idx++];
-                this.positionMat.setcell2d(i,j, thisCell[0], thisCell[1], thisCell[2]);
-            }
-        }
-        this.unscaledPosMat.frommatrix(this.positionMat);
-        var centerX = this.getMeshCenter(this.positionMat)[0];
-        this.unscaledPosMat.op("-", [centerX, 0]);  // translate to center
-        this.unscaledPosMat.op("/", this.currentScale); // scale
-        this.unscaledPosMat.op("+", [centerX, 0]); // put back
-        this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
-    }
-
-    this.setMeshDim = function(newDim) {   
-        if (newDim[0] > 0 && newDim[1] > 0) {
-            this.positionMat.dim = newDim.slice();
-            this.unscaledPosMat.dim = this.positionMat.dim.slice();
-            this.boundingMat.dim = newDim[0]*2 + (newDim[1] * 2) - 4;
-            if (this.useNurbs) {
-                this.textureCoordMat.dim = this.nurbsDim.slice();
-            } else {
-                this.textureCoordMat.dim = newDim.slice();
-            }
-        } 
-        else {
-            this.positionMat.dim = [4,4];
-            this.unscaledPosMat.dim = this.positionMat.dim.slice();
-            this.boundingMat.dim = 4*2 + (4 * 2) - 4;
-            this.textureCoordMat.dim = [4, 4];
-        }
     }
 
     this.changeMode = function(mode) {
@@ -142,7 +86,7 @@ function Mesh() {
             this.useNurbs = mode;
             this.nurbs.enable = this.useNurbs;
             if (this.useNurbs) { 
-                this.resizeMesh(this.positionMat.dim);
+                this.resizeMeshDim(this.positionMat.dim);
             } else {
                 this.assignPositionMatToMesh(); // assign vertex mat to mesh
                 this.textureCoordMat.dim = this.positionMat.dim.slice();
@@ -157,61 +101,6 @@ function Mesh() {
         if (this.useNurbs) {
             this.assignPositionMatToMesh();
         }
-    }
-
-    this.resizeMesh = function(dimensions) {
-        var newDim = this.checkDimForNurbs(dimensions);
-
-        var tempMat = new JitterMatrix(this.positionMat.planecount, this.positionMat.type, newDim);
-        tempMat.interp = 1;
-
-        tempMat.frommatrix(this.positionMat);
-        
-        this.setMeshDim(newDim);
-
-        this.positionMat.frommatrix(tempMat);
-        tempMat.freepeer();
-
-        this.assignPositionMatToMesh();
-
-        this.initTextureCoordMat();
-        this.calcMeshBoundsMat();
-    }
-
-    this.scaleMesh = function(scaleX, scaleY) {
-        this.positionMat.frommatrix(this.unscaledPosMat);
-        var centerX = this.getMeshCenter(this.unscaledPosMat)[0];
-        this.positionMat.op("-", [centerX, 0]); // translate to center
-        this.positionMat.op("*", [scaleX, scaleY]); // scale
-        this.positionMat.op("+", [centerX, 0]);  // put back
-        this.positionMat.op("*", [gWindowRatio, 1]);
-
-        this.currentScale = [scaleX, scaleY];
-
-        this.assignPositionMatToMesh();
-        this.calcMeshBoundsMat();
-    }
-
-    // Only scale X when window is resized
-    this.resizeWindowScale = function() {
-        this.positionMat.frommatrix(this.unscaledPosMat);
-        var centerX = this.getMeshCenter(this.positionMat)[0];
-        this.positionMat.op("-", [centerX, 0]);  // translate to center
-        this.positionMat.op("*", this.currentScale); // scale
-        this.positionMat.op("+", [centerX, 0]); // put back
-        this.positionMat.op("*", [gWindowRatio, 1.0]);
-
-        this.assignPositionMatToMesh();
-        this.calcMeshBoundsMat();
-    }
-
-    this.getMeshCenter = function(mat) {
-        gMinMaxMat.matrixcalc(mat, mat);
-        var minX = gMinMaxMat.min[0];
-        var maxX = gMinMaxMat.max[0];
-        var minY = gMinMaxMat.min[1];
-        var maxY = gMinMaxMat.max[1];
-        return [(maxX - minX) / 2 + minX, (maxY - minY) / 2 + minY];
     }
 
     this.initTextureCoordMat = function() {   
@@ -231,7 +120,6 @@ function Mesh() {
         this.assignTextureCoordMatToMesh();  // assign texture coord mat to mesh
     }
 
-    // Set values for position matrix
     this.initPositionMat = function() {    
         for(var i=0; i<this.positionMat.dim[0]; i++) {
             for(var j=0; j<this.positionMat.dim[1]; j++) {   
@@ -301,6 +189,8 @@ function Mesh() {
         this.handle = new JitterObject("jit.gl.sketch", drawto_);
         this.handle.layer = FRONT;
         this.handle.color = LIGHT_BLUE;
+        this.handle.line_width = 4;
+        this.moveHandleToCenter();
     }
 
     this.freeMesh = function() {
@@ -317,61 +207,13 @@ function Mesh() {
             this.nurbsLstnr.subjectname = "";
             nurbsmap[this.nurbs.name] = null;
             this.nurbs.freepeer();
+            this.handle.freepeer();
         }
     }
 
     this.showMesh = function(show) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
-    }
-
-    this.checkIfMouseInsideMesh = function(mouseWorld) {
-        if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
-            return this.ID;
-        } else {
-            return -1;
-        }
-    }
-    
-    this.mouseIsCloseToVertex = function(mouseWorld) {   
-        for (var i=0; i<this.positionMat.dim[0]; i++)
-        {
-            for (var j=0; j<this.positionMat.dim[1]; j++)
-            {
-                var currVertexPos = this.positionMat.getcell(i,j);
-                var distFromMouse = calcDist2D(currVertexPos.slice(0,2), mouseWorld.slice(0,2));
-
-                if (distFromMouse <= gMinimumSelectionDist) {
-                    gGraphics.drawCircle(currVertexPos);
-                    return [i, j].slice();
-                }
-            }
-        } 
-        return [-1, -1].slice();
-    } 
-
-    this.moveVertex = function(coordsWorld, cellIndex) {
-        if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
-            this.setVertexPosInMat(coordsWorld, cellIndex);
-
-            this.assignPositionMatToMesh();
-
-            gGraphics.drawCircle(coordsWorld);
-         }
-    }
-
-    this.setVertexPosInMat = function(coordsWorld, cellIndex) {
-        this.positionMat.setcell2d(cellIndex[0], cellIndex[1], coordsWorld[0], coordsWorld[1], 0.0);
-        this.unscaledFromPos();
-    }
-
-    this.unscaledFromPos = function() {
-        this.unscaledPosMat.frommatrix(this.positionMat);
-        var centerX = this.getMeshCenter(this.positionMat)[0];
-        this.unscaledPosMat.op("-", [centerX, 0]);  // translate to center
-        this.unscaledPosMat.op("/", this.currentScale); // scale
-        this.unscaledPosMat.op("+", [centerX, 0]); // put back
-        this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
     }
 
     this.calcMeshBoundsMat = function() {        
@@ -490,16 +332,6 @@ function Mesh() {
             sizeY = Math.max(sizeY, 4);
         }
         return [sizeX, sizeY];
-    }
-
-    this.positionMatToArray = function() {
-        var posArray = [];
-        for (var i=0; i<this.positionMat.dim[0]; i++) {
-            for (var j=0; j<this.positionMat.dim[1]; j++) {
-                posArray.push(this.positionMat.getcell(i,j));
-            }
-        }
-        return posArray;
     }
 
     this.assignPositionMatToMesh = function() {

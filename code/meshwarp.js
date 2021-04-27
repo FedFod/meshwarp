@@ -1,6 +1,10 @@
 autowatch = 1;
 
 include("Mesh.js");
+include("Mesh_scale.js");
+include("Mesh_save_load.js");
+include("Mesh_dim.js");
+include("Mesh_mouse_interaction.js");
 include("Utilities.js");
 include("GraphicElements.js");
 include("PrivateFunctions.js");
@@ -73,7 +77,7 @@ function resize_single_mesh(index, meshSizeX, meshSizeY) {
 	if (index < gMeshes.length && index >= 0) {
 		var xSize = Math.max(meshSizeX, 2);
 		var ySize = Math.max(meshSizeY, 2);
-		gMeshes[index].resizeMesh([xSize, ySize]);
+		gMeshes[index].resizeMeshDim([xSize, ySize]);
 	}
 }
 
@@ -189,7 +193,7 @@ function swapcallback(event){
 					init(); // INIT if meshes don't exist
 				}
 				for (var mesh in gMeshes) {
-					gMeshes[mesh].resizeWindowScale();
+					gMeshes[mesh].scaleToWindowRatio();
 				}
 			}
 			break;
