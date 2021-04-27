@@ -109,7 +109,7 @@ declareattribute("drawto", null, "setdrawto", 0);
 var scale = [1, 1];
 declareattribute("scale", null, "scaleAllMeshes", 0);
 
-var nurbs_order = [1, 1];
+var nurbs_order = 1;
 declareattribute("nurbs_order", null, "setNurbsOrder", 0);
 
 var texture = [""];

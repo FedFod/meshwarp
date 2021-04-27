@@ -37,7 +37,7 @@ function Mesh() {
     this.hasNurbsMat = 0;
     this.textureName = "";
     this.handle = null;
-    this.oldMousePos = [0,0];
+    this.mouseOffset = [0,0];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
@@ -96,11 +96,13 @@ function Mesh() {
         }
     }
 
-    this.changeNurbsOrder = function(orderX, orderY) {
-        this.nurbs.order = [orderX, orderY];
-        this.nurbsOrder = this.nurbs.order.slice();
-        if (this.useNurbs) {
-            this.assignPositionMatToMesh();
+    this.changeNurbsOrder = function(order) {
+        if (order < this.positionMat.dim[0] && order < this.positionMat.dim[1] && order > 0) {
+            this.nurbs.order = order;
+            this.nurbsOrder = this.nurbs.order.slice();
+            if (this.useNurbs) {
+                this.assignPositionMatToMesh();
+            }
         }
     }
 
@@ -190,9 +192,11 @@ function Mesh() {
         this.handle = new JitterObject("jit.gl.sketch", drawto_);
         this.handle.layer = FRONT;
         this.handle.color = LIGHT_BLUE;
-        this.handle.line_width = 4;
+        this.handle.line_width = 2;
         this.handle.handlePos = [];
-        this.handle.handleSize = 0.1;
+        this.handle.handleSize = 0.08;
+        this.handle.blend_enable = 1;
+        this.handle.depth_enable = 0;
         this.drawHandleInPos(this.getMeshCenter(this.positionMat));
     }
 
@@ -217,6 +221,7 @@ function Mesh() {
     this.showMesh = function(show) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
+        this.handle.enable = show;
     }
 
     this.calcMeshBoundsMat = function() {        

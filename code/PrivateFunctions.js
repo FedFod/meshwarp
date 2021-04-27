@@ -115,11 +115,9 @@ function setMode(arg) {
 }
 setMode.local = 1;
 
-function setNurbsOrder(orderX, orderY) {
-	if (orderX > 0 && orderX < 4 && orderY > 0 && orderY < 4) {
-		for (var mesh in gMeshes) {
-			gMeshes[mesh].changeNurbsOrder(orderX, orderY);
-		}
+function setNurbsOrder(order) {
+	for (var mesh in gMeshes) {
+		gMeshes[mesh].changeNurbsOrder(order);
 	}
 }
 setNurbsOrder.local = 1;
@@ -140,7 +138,7 @@ function resizeAllMeshes(meshSizeX, meshSizeY) {
 	var ySize = Math.max(meshSizeY, 2);
 	meshdim = [xSize, ySize];
 	for (mesh in gMeshes) {
-		gMeshes[mesh].resizeMesh([xSize, ySize]);
+		gMeshes[mesh].resizeMeshDim([xSize, ySize]);
 	}
 }
 resizeAllMeshes.local = 1;

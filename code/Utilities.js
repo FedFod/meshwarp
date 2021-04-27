@@ -2,7 +2,8 @@ var WHITE = [1,1,1,1];
 var BLACK = [0,0,0,1];
 var RED   = [1,0,0,1];
 var GREY  = [0.5, 0.5, 0.5, 1.0];
-var LIGHT_BLUE = [0.1, 0.7, 1.0, 1.0];
+var LIGHT_BLUE_TRANSPARENT = [0.1, 0.7, 1.0, 0.5];
+var LIGHT_BLUE= [0.1, 0.9, 1.0, 1];
 
 var BACKGROUND = 9;
 var MIDDLE = 10;
@@ -10,17 +11,15 @@ var MIDDLE_1 = 11;
 var FRONT = 12;
 
 
-function copy2DMatrixByValues(mat1, mat2) {
-	mat1.dim = mat2.dim.slice();
-
-	for (var i=0; i<mat2.dim[0]; i++) {
-		for (var j=0; j<mat2.dim[1]; j++) {
-			var cell2 = mat2.getcell(i,j);
-			mat1.setcell2d(i,j, cell2[0], cell2[1], 0.0);
-		}
-	}
+function subVec2D(vec1, vec2) {
+	return [vec1[0]-vec2[0], vec1[1]-vec2[1]];
 }
-// - - -
+subVec2D.local = 1;
+
+function sumVec2D(vec1, vec2) {
+	return [vec1[0]+vec2[0], vec1[1]+vec2[1]];
+}
+subVec2D.local = 1;
 
 function isPointInsidePolygon(coords, matrix) {
 	var testx = coords[0]; var testy = coords[1];
