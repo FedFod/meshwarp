@@ -88,7 +88,7 @@ function scale_single_mesh(index, scaleX, scaleY) {
 }
 
 // ATTRIBUTES
-var mode = 0; // default: use mesh
+var mode = 1; // default: use NURBS
 declareattribute("mode", null, "setMode", 0);
 
 var meshcount = 1; 
@@ -205,8 +205,12 @@ function swapcallback(event){
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); // transformMouseFromScreenToWorld2D(gMousePosScreen);
 				
 				if (mouseClicked) {
-					if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex
-						gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice(0,2)); // move the vertex with the mouse
+					if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex or a handle
+						if (gSelectionStruct.cellIndex[0] == -100) {
+							gMeshes[gSelectionStruct.meshIDToClick].moveMesh(mouseWorld);
+						} else {
+							gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
+						}
 					}
 				} else { // mouse is released
 					// if we moved some vertices
@@ -252,7 +256,9 @@ function swapcallback(event){
 							if (gSelectionStruct.cellIndex[0] != gSelectionStruct.oldCellIndex[0] || 
 								gSelectionStruct.cellIndex[1] != gSelectionStruct.oldCellIndex[1]) {
 									gSelectionStruct.oldCellIndex = gSelectionStruct.cellIndex.slice();
-									gMeshes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
+									if (gSelectionStruct.cellIndex[0] != -100) { // if it's a handle don't recalculate ajiacent cells mat
+										gMeshes[gSelectionStruct.meshIDToClick].calcAdjacentCellsMat(gSelectionStruct.cellIndex.slice());
+									}
 							}
 							break; // We just need to check a single mesh so we break the loop
 						}

@@ -3,7 +3,7 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.currentScale = [scaleX, scaleY];
     this.assignPositionMatToMesh();
     this.calcMeshBoundsMat();
-    this.moveHandleToCenter();
+    this.drawHandleInPos(this.getMeshCenter(this.positionMat));
 }
 
 // Only scale X when window is resized
@@ -11,16 +11,14 @@ Mesh.prototype.scaleToWindowRatio = function() {
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
     this.calcMeshBoundsMat();
-    this.moveHandleToCenter();
+    this.drawHandleInPos(this.getMeshCenter(this.positionMat));
 }
 
 Mesh.prototype.getMeshCenter = function(mat) {
     gMinMaxMat.matrixcalc(mat, mat);
-    var minX = gMinMaxMat.min[0];
-    var maxX = gMinMaxMat.max[0];
-    var minY = gMinMaxMat.min[1];
-    var maxY = gMinMaxMat.max[1];
-    return [(maxX - minX) / 2 + minX, (maxY - minY) / 2 + minY];
+    var centerX = gMinMaxMat.mean[0];
+    var centerY = gMinMaxMat.mean[1];
+    return [centerX, centerY, 0];
 }
 
 Mesh.prototype.unscaledMatFromPosMat = function() {

@@ -37,6 +37,7 @@ function Mesh() {
     this.hasNurbsMat = 0;
     this.textureName = "";
     this.handle = null;
+    this.oldMousePos = [0,0];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
@@ -190,7 +191,9 @@ function Mesh() {
         this.handle.layer = FRONT;
         this.handle.color = LIGHT_BLUE;
         this.handle.line_width = 4;
-        this.moveHandleToCenter();
+        this.handle.handlePos = [];
+        this.handle.handleSize = 0.1;
+        this.drawHandleInPos(this.getMeshCenter(this.positionMat));
     }
 
     this.freeMesh = function() {
