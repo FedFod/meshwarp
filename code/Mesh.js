@@ -227,36 +227,40 @@ function Mesh() {
     this.calcMeshBoundsMat = function() {        
         // Get the bounding vertices that are on the edges of the polygon in clockwise order
         var boundingArray = [];
-        var pad = 0.15; // pad so that the mesh is checked also when mouse is outside of it
+        var pad = 0.; // pad so that the mesh is checked also when mouse is outside of it
 
+        var tempBiggerMat = new JitterMatrix();
+        tempBiggerMat.frommatrix(this.positionMat);
+        tempBiggerMat.op("*", [1.5, 1.5, 1]);
         // TOP
         for (var i=0; i < this.positionMat.dim[0]; i++) {
-            var xVal = this.positionMat.getcell(i, 0)[0];
-            var yVal = this.positionMat.getcell(i, 0)[1] - pad;
+            var xVal = tempBiggerMat.getcell(i, 0)[0];
+            var yVal = tempBiggerMat.getcell(i, 0)[1] - pad;
             boundingArray.push([xVal, yVal]);
         }
         // RIGHT
-        for (var j=1; j < this.positionMat.dim[1]; j++) {
-            var xVal = this.positionMat.getcell(this.positionMat.dim[0]-1, j)[0] + pad;
-            var yVal = this.positionMat.getcell(this.positionMat.dim[0]-1, j)[1];
+        for (var j=1; j < tempBiggerMat.dim[1]; j++) {
+            var xVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[0] + pad;
+            var yVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[1];
             boundingArray.push([xVal, yVal]);
         }
         // BOTTOM
-        for (var k=this.positionMat.dim[0]-2; k >= 0; k--) {
-            var xVal = this.positionMat.getcell(k, this.positionMat.dim[1]-1)[0];
-            var yVal = this.positionMat.getcell(k, this.positionMat.dim[1]-1)[1] + pad;
+        for (var k=tempBiggerMat.dim[0]-2; k >= 0; k--) {
+            var xVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[0];
+            var yVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[1] + pad;
             boundingArray.push([xVal, yVal]);
         }
         // LEFT
-        for (var z=this.positionMat.dim[1]-2; z > 0; z--) {
-            var xVal = this.positionMat.getcell(0, z)[0] - pad;
-            var yVal = this.positionMat.getcell(0, z)[1];
+        for (var z=tempBiggerMat.dim[1]-2; z > 0; z--) {
+            var xVal = tempBiggerMat.getcell(0, z)[0] - pad;
+            var yVal = tempBiggerMat.getcell(0, z)[1];
             boundingArray.push([xVal, yVal]);
         }
         // Transfer those vertices from the array to the boundingMat matrix
         for (var i=0; i<boundingArray.length; i++) {
             this.boundingMat.setcell1d(i, boundingArray[i][0], boundingArray[i][1]);
         }
+        tempBiggerMat.freepeer();
     }
 
     this.calcAdjacentCellsMat = function(cellIndex) {

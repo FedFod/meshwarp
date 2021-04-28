@@ -1,5 +1,5 @@
 Mesh.prototype.saveDataIntoDict = function(dict) {
-    var posMatArray = this.positionMatToArray();
+    var posMatArray = jitMatToArray(this.positionMat);
     dict.replace("positionMat"+this.ID+"::scale", this.currentScale);
     dict.replace("positionMat"+this.ID+"::planecount", this.positionMat.planecount);
     dict.append("positionMat"+this.ID+"::type", this.positionMat.type);
@@ -28,14 +28,4 @@ Mesh.prototype.loadMatrixFromDict = function(dict) {
         }
     }
     this.unscaledMatFromPosMat();
-}
-
-Mesh.prototype.positionMatToArray = function() {
-    var posArray = [];
-    for (var i=0; i<this.positionMat.dim[0]; i++) {
-        for (var j=0; j<this.positionMat.dim[1]; j++) {
-            posArray.push(this.positionMat.getcell(i,j));
-        }
-    }
-    return posArray;
 }

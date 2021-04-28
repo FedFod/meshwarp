@@ -40,6 +40,7 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
         this.setVertexPosInMat(newPos, cellIndex);
         this.assignPositionMatToMesh();
         gGraphics.drawCircle(newPos);
+        this.drawHandleInPos(this.getMeshCenter(this.positionMat));
      }
 }
 
@@ -47,6 +48,7 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
     var offset = sumVec2D(mouseWorld, this.mouseOffset);
     var newPos = subVec2D(offset, this.handle.handlePos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);
+    this.unscaledMatFromPosMat();
     this.drawHandleInPos(offset);
     this.drawHandleFull();
     this.assignPositionMatToMesh();

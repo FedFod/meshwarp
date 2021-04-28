@@ -1,6 +1,7 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
-    this.posMatFromUnscaledMat();
     this.currentScale = [scaleX, scaleY];
+    this.posMatFromUnscaledMat();
+    // this.positionMat.op("*", [gWindowRatio, 1.0]);
     this.assignPositionMatToMesh();
     this.calcMeshBoundsMat();
     this.drawHandleInPos(this.getMeshCenter(this.positionMat));
@@ -9,6 +10,7 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
 // Only scale X when window is resized
 Mesh.prototype.scaleToWindowRatio = function() {
     this.posMatFromUnscaledMat();
+    // this.positionMat.op("*", [gWindowRatio, 1.0]);
     this.assignPositionMatToMesh();
     this.calcMeshBoundsMat();
     this.drawHandleInPos(this.getMeshCenter(this.positionMat));
@@ -27,7 +29,7 @@ Mesh.prototype.unscaledMatFromPosMat = function() {
     this.unscaledPosMat.op("-", center);  // translate to center
     this.unscaledPosMat.op("/", this.currentScale); // scale
     this.unscaledPosMat.op("+", center); // put back
-    this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
+    // this.unscaledPosMat.op("/", [gWindowRatio, 1.0]);
 }
 
 Mesh.prototype.posMatFromUnscaledMat = function() {
@@ -36,5 +38,5 @@ Mesh.prototype.posMatFromUnscaledMat = function() {
     this.positionMat.op("-", center);  // translate to center
     this.positionMat.op("*", this.currentScale); // scale
     this.positionMat.op("+", center); // put back
-    this.positionMat.op("*", [gWindowRatio, 1.0]);
+    // this.positionMat.op("*", [gWindowRatio, 1.0]);
 }

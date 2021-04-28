@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 322.0, 235.0, 1080.0, 642.0 ],
+		"rect" : [ 243.0, 244.0, 1080.0, 642.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -469,7 +469,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 1080.0, 616.0 ],
+						"rect" : [ 243.0, 270.0, 1080.0, 616.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1104,7 +1104,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 322.0, 261.0, 1080.0, 616.0 ],
+						"rect" : [ 0.0, 26.0, 1080.0, 616.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1482,7 +1482,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 37.642860054969788, 522.619042873382568, 275.0, 22.0 ],
+									"patching_rect" : [ 37.642860054969788, 530.619042873382568, 275.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_meshes 1 @meshdim 5 4"
 								}
 
@@ -1683,12 +1683,14 @@
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxpat",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/code",
+				"patcherrelativepath" : "../code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}

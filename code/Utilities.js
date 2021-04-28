@@ -21,37 +21,71 @@ function sumVec2D(vec1, vec2) {
 }
 subVec2D.local = 1;
 
-function isPointInsidePolygon(coords, matrix) {
-	var testx = coords[0]; var testy = coords[1];
-	var i, j, c = 0;
-
-	if (!Array.isArray(matrix.dim)) {
-		var nvert = matrix.dim;
-		for (i=0, j = nvert-1; i < nvert; j = i++) {
-			var verty_i = matrix.getcell(i)[1];
-			var verty_j = matrix.getcell(j)[1];
-			var vertx_i = matrix.getcell(i)[0];
-			var vertx_j = matrix.getcell(j)[0];
-			if ( ((verty_i>testy) != (verty_j>testy)) &&
-				((testx < ( ((vertx_j-vertx_i) * (testy-verty_i)) / (verty_j-verty_i) + vertx_i)) ) ) {
-				c = !c;
+function jitMatToArray(mat) {
+    var posArray = [];
+	if (Array.isArray(mat.dim)) {
+		for (var i=0; i<mat.dim[0]; i++) {
+			for (var j=0; j<mat.dim[1]; j++) {
+				posArray.push(mat.getcell(i,j));
 			}
 		}
+	} else {
+		for (var i=0; i<mat.dim; i++) {
+			posArray.push(mat.getcell(i));
+		}
 	}
-	return c ? 1 : 0;
+
+    return posArray;
 }
+jitMatToArray.local = 1;
+
+// POLYGON INTERSECTION TEST CODE, from: https://lassieadventurestudio.wordpress.com/2012/03/20/polygon-hit-test/
+function ccw(x,y,z) {
+	return (z[1]-x[1]) * (y[0]-x[0]) >= (y[1]-x[1]) * (z[0]-x[0]);
+} ccw.local = 1;
+
+function intersection(a, b, c, d) {
+    return ccw(a, c, d) !== ccw(b, c, d) && ccw(a, b, c) !== ccw(a, b, d);
+}
+
+function isPointInsidePolygon(coords, matrix) {
+	// var testx = coords[0]; var testy = coords[1];
+	// var i, j, c = 0;
+
+	// if (!Array.isArray(matrix.dim)) {
+	// 	var nvert = matrix.dim;
+	// 	for (i=0, j = nvert-1; i < nvert; j = i++) {
+	// 		var verty_i = matrix.getcell(i)[1];
+	// 		var verty_j = matrix.getcell(j)[1];
+	// 		var vertx_i = matrix.getcell(i)[0];
+	// 		var vertx_j = matrix.getcell(j)[0];
+	// 		if ( ((verty_i>testy) != (verty_j>testy)) &&
+	// 			((testx < ( ((vertx_j-vertx_i) * (testy-verty_i)) / (verty_j-verty_i) + vertx_i)) ) ) {
+	// 			c = !c;
+	// 		}
+	// 	}
+	// }
+	// return c ? 1 : 0;
+	var p = coords.slice();
+	var poly = jitMatToArray(matrix);
+	var sides = poly.length,
+        origin = [0, p[1]],
+        hits = 0,
+        s1,
+        s2,
+        i;
+    // Test intersection of an external ray against each polygon side.
+    for (i = 0; i < sides; i++) {
+        s1 = poly[i];
+        s2 = poly[(i+1) % sides];
+        origin[0] = Math.min(origin[0], Math.min(s1[0], s2[0])-1);
+        hits += (intersection(origin, p, s1, s2) ? 1 : 0);
+    }
+    // Return true if an odd number of hits were found.
+    return hits % 2 > 0;
+} 
 isPointInsidePolygon.local = 1;
-// - - -
-
-function transformMouseFromScreenToWorld2D(mouseScreen) {
-	var mouseXWorld = (((mouseScreen[0] / gWindowDim[0]) * 2.0) - 1.0) * gWindowRatio; 
-	var mouseYWorld = (((mouseScreen[1] / gWindowDim[1]) * 2.0) - 1.0) * -1.0;
-	
-	return [mouseXWorld, mouseYWorld];
-}
-transformMouseFromScreenToWorld2D.local = 1;
-
-// - - -
+//-------------------------------------------------------------------
 
 function calcDist2D(vec1, vec2) {
     return Math.sqrt((vec1[0]-vec2[0])*(vec1[0]-vec2[0]) + (vec1[1]-vec2[1])*(vec1[1]-vec2[1]));
