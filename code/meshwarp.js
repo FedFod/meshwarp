@@ -19,6 +19,7 @@ var gWindowRatio = 1;
 var gWindowPrevRatio = gWindowRatio;
 var gShowMeshes = 1;
 var gTextureNames = "noTexture";
+var gLatestMousePos = [0,0];
 
 // a structure to contain infos relative to the clicked mesh and vertex
 var gSelectionStruct = {
@@ -200,25 +201,20 @@ function swapcallback(event){
 
 		case "mouse": // get mouse array when mouse is clicked or released
 			if (gShowMeshes && enable) {
-				gMousePosScreen = (event.args);
+				gMousePosScreen = event.args;
 				var mouseClicked = gMousePosScreen[2];
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); // transformMouseFromScreenToWorld2D(gMousePosScreen);
 				
 				if (mouseClicked) {
-					if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex or a handle
-						if (gSelectionStruct.cellIndex[0] == -100) {
-							gMeshes[gSelectionStruct.meshIDToClick].moveMesh(mouseWorld);
-						} else {
-							gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
-						}
-					}
+					moveVertexOrMesh(mouseWorld);
+					gGraphics.drawSelection(gLatestMousePos, mouseWorld);
 				} else { // mouse is released
 					// if we moved some vertices
 					if (gSelectionStruct.meshIDToClick != -1) {
 						gMeshes[gSelectionStruct.meshIDToClick].calcMeshBoundsMat(); // recalculate the bounding matrix only when finished dragging
 						gSelectionStruct.reset(); // reset the values in the selectionStruct
 					}
-					gGraphics.reset(); // delete the circle
+					gGraphics.reset(); // delete graphics if mouse unclicked
 				}
 			}
 		
@@ -228,6 +224,7 @@ function swapcallback(event){
 			if (gShowMeshes && enable) {
 				gMousePosScreen = (event.args);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
+				gLatestMousePos = mouseWorld.slice(); // set latest mouse pos (used for selecting multiple)
 				
 				gSelectionStruct.reset(); // reset all the struct values
 

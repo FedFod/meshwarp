@@ -23,6 +23,16 @@ var nodeCamera = new JitterObject("jit.gl.camera");
 nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
+function moveVertexOrMesh(mouseWorld) {
+	if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex or a handle
+		if (gSelectionStruct.cellIndex[0] == -100) {
+			gMeshes[gSelectionStruct.meshIDToClick].moveMesh(mouseWorld);
+		} else {
+			gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
+		}
+	}
+}
+
 function buildSaveDict(path) {
 	var saveDict = new Dict();
 

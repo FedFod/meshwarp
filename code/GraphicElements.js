@@ -21,4 +21,12 @@ function GraphicElements(nodectx) {
     this.reset = function() {
         this.sketch.reset();
     }
+
+    this.drawSelection = function(start, end) {
+        this.sketch.reset();
+        this.sketch.framequad(start[0], start[1], 0, 
+                                end[0], start[1], 0,
+                                end[0], end[1], 0,
+                                start[0], end[1], 0);
+    }
 }

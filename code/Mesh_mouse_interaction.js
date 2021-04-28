@@ -52,6 +52,7 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
     this.drawHandleInPos(offset);
     this.drawHandleFull();
     this.assignPositionMatToMesh();
+    gGraphics.reset();
 }
 
 Mesh.prototype.setVertexPosInMat = function(coordsWorld, cellIndex) {
