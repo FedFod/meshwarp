@@ -1,4 +1,6 @@
 Mesh.prototype.setMeshDim = function(newDim) {   
+    gGraphics.resetSelected();
+    gGraphics.resetSingleCircle();
     if (newDim[0] > 0 && newDim[1] > 0) {
         this.positionMat.dim = newDim.slice();
         this.unscaledPosMat.dim = this.positionMat.dim.slice();

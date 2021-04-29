@@ -24,13 +24,29 @@ nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
 function moveVertexOrMesh(mouseWorld) {
-	if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex or a handle
-		if (gSelectionStruct.cellIndex[0] == -100) {
-			gMeshes[gSelectionStruct.meshIDToClick].moveMesh(mouseWorld);
-		} else {
-			gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
+	// if it's the handle
+	if (gSelectionStruct.cellIndex[0] == -100) { 
+		gMeshes[gSelectionStruct.meshIDToClick].moveMesh(mouseWorld);
+		gGraphics.resetSelected(); 
+	} 
+	// if we have selected vertices and want to move them
+	else if (gSelectionStruct.howManyVerticesSelected > 1 && gSelectionStruct.cellIndex[0] != -1) {
+		gMeshes[0].moveSelectedVertices(mouseWorld);
+		gSelectionStruct.areVerticesMoved = 1;
+		gGraphics.resetSingleCircle();
+	} 
+	// if we want to move a single vertex
+	else { 
+		gMeshes[gSelectionStruct.meshIDToClick].moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
+		if (gSelectionStruct.howManyVerticesSelected == 1) {
+			gGraphics.resetSelected(); // delete selected circles
 		}
 	}
+}
+
+function selectMultipleVertices(mouseWorld) {
+	gGraphics.drawFrame(gLatestMousePos, mouseWorld);
+	gSelectionStruct.howManyVerticesSelected = gMeshes[0].highlightSelectedVertices(gLatestMousePos, mouseWorld);
 }
 
 function buildSaveDict(path) {
@@ -91,7 +107,8 @@ function setTexturesMeshes() {
 setTexturesMeshes.local = 1;
 
 function init(saveDict_) {	
-	gGraphics.reset();
+	gGraphics.resetSingleCircle();
+	gGraphics.resetSelected();
 	freeMeshes();
 	initMeshes(saveDict_);
 }
@@ -158,7 +175,7 @@ function showMeshes(show) {
 		gMeshes[mesh].showMesh(show);
 	}
 	if (!show) {
-		gGraphics.reset();
+		gGraphics.resetSingleCircle();
 	}
 	gShowMeshes = show;
 }

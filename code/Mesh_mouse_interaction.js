@@ -1,4 +1,5 @@
 Mesh.prototype.checkIfMouseInsideMesh = function(mouseWorld) {
+    this.latestMousePos = mouseWorld.slice();
     if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
         return this.ID;
     } else {
@@ -23,15 +24,50 @@ Mesh.prototype.mouseIsCloseToVertex = function(mouseWorld) {
 
 Mesh.prototype.mouseIsCloseToHandle = function(mouseWorld) {
     var distFromHandle = calcDist2D(this.handle.handlePos.slice(), mouseWorld.slice());
+    this.drawHandleInPos(null);
     if (distFromHandle < this.handle.handleSize) {
-        this.drawHandleInPos(null);
         this.drawHandleFull();
         this.mouseOffset = subVec2D(this.handle.handlePos, mouseWorld);
         return [-100, -100];
     } else {
-        this.drawHandleInPos(null);
         return [-1, -1];
     }
+}
+
+Mesh.prototype.highlightSelectedVertices = function(latMousePos, mouseWorld) {
+    gGraphics.resetSelected();
+    this.selectedVerticesIndices = [];
+    var howManySelected = 0;
+    for (var i=0; i<this.positionMat.dim[0]; i++) {
+        for (var j=0; j<this.positionMat.dim[1]; j++) {
+            var cell = this.positionMat.getcell(i,j);
+            if ((cell[0] > latMousePos[0] && cell[0] < mouseWorld[0] && cell[1] < latMousePos[1] && cell[1] > mouseWorld[1]) ||
+                (cell[0] < latMousePos[0] && cell[0] > mouseWorld[0] && cell[1] > latMousePos[1] && cell[1] < mouseWorld[1])) {
+                gGraphics.drawSelectedCircles(cell);
+                howManySelected++;
+                this.selectedVerticesIndices.push([i,j]);
+            }
+        }
+    }
+    return howManySelected;
+}
+
+Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
+    gGraphics.resetSelected();
+    for (var i=0; i<this.selectedVerticesIndices.length; i++) {
+        var cell = this.positionMat.getcell(this.selectedVerticesIndices[i][0], this.selectedVerticesIndices[i][1]);
+        var mouseDifference = subVec2D(mouseWorld, this.latestMousePos);
+        var newPos = sumVec2D(mouseDifference, cell);
+        this.setVertexPosInMat(newPos, this.selectedVerticesIndices[i]);
+        gGraphics.drawSelectedCircles(newPos);
+    }
+    this.latestMousePos = mouseWorld.slice();
+    this.assignPositionMatToMesh();
+}
+
+Mesh.prototype.deselectVertices = function() {
+    this.selectedVerticesIndices = [];
+    gGraphics.resetSelected();
 }
 
 Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
@@ -52,7 +88,9 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
     this.drawHandleInPos(offset);
     this.drawHandleFull();
     this.assignPositionMatToMesh();
-    gGraphics.reset();
+
+    gGraphics.resetSingleCircle();
+    gMeshes[gSelectionStruct.meshIDToClick].deselectVertices();
 }
 
 Mesh.prototype.setVertexPosInMat = function(coordsWorld, cellIndex) {

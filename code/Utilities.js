@@ -4,6 +4,7 @@ var RED   = [1,0,0,1];
 var GREY  = [0.5, 0.5, 0.5, 1.0];
 var LIGHT_BLUE_TRANSPARENT = [0.1, 0.7, 1.0, 0.5];
 var LIGHT_BLUE= [0.1, 0.9, 1.0, 1];
+var YELLOW = [1,1,0,1];
 
 var BACKGROUND = 9;
 var MIDDLE = 10;

@@ -32,7 +32,9 @@ var gSelectionStruct = {
 		//this.oldCellIndex = [-1, -1];
 		this.meshIDsToCheckArr = [];  // we need to check multiple meshes in case they overlap
 		this.meshIDToClick = -1;   // the mesh we are going to operate on
-	}
+	},
+	howManyVerticesSelected: 0,
+	areVerticesMoved: 0
 };
 
 //-----PUBLIC FUNCTIONS----------------
@@ -42,12 +44,10 @@ function reset() {
 }
 
 function jit_gl_texture(texName) {
-	if (gTextureNames !== texName) {
-		gTextureNames= [""];
-		gTextureNames[0] = texName;
-		for (mesh in gMeshes) {
-			gMeshes[mesh].assignTextureToMesh(texName);
-		}
+	// gTextureNames= [""];
+	// gTextureNames[0] = texName;
+	for (mesh in gMeshes) {
+		gMeshes[mesh].assignTextureToMesh(texName);
 	}
 }
 
@@ -89,7 +89,7 @@ function scale_single_mesh(index, scaleX, scaleY) {
 }
 
 // ATTRIBUTES
-var mode = 1; // default: use NURBS
+var mode = 0; // default: use NURBS
 declareattribute("mode", null, "setMode", 0);
 
 var meshcount = 1; 
@@ -98,8 +98,8 @@ declareattribute("meshcount", null, "setHowManyMeshes", 0);
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
-var show_meshes = 1;
-declareattribute("show_meshes", null, "showMeshes", 0);
+var show_mesh = 1;
+declareattribute("show_mesh", null, "showMeshes", 0);
 
 var enable = 1;
 declareattribute("enable", null, "setenable", 0);
@@ -206,15 +206,24 @@ function swapcallback(event){
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); // transformMouseFromScreenToWorld2D(gMousePosScreen);
 				
 				if (mouseClicked) {
-					moveVertexOrMesh(mouseWorld);
-					gGraphics.drawSelection(gLatestMousePos, mouseWorld);
+					if (gSelectionStruct.cellIndex[0] != -1 && gSelectionStruct.meshIDToClick != -1) {  // we are clicking on a vertex or a handle
+						moveVertexOrMesh(mouseWorld);
+					} else {
+						selectMultipleVertices(mouseWorld);
+					}
 				} else { // mouse is released
 					// if we moved some vertices
 					if (gSelectionStruct.meshIDToClick != -1) {
 						gMeshes[gSelectionStruct.meshIDToClick].calcMeshBoundsMat(); // recalculate the bounding matrix only when finished dragging
 						gSelectionStruct.reset(); // reset the values in the selectionStruct
 					}
-					gGraphics.reset(); // delete graphics if mouse unclicked
+					// if we did select some vertices and moved them
+					if (gSelectionStruct.howManyVerticesSelected && gSelectionStruct.areVerticesMoved) {
+						gSelectionStruct.howManyVerticesSelected = 0;
+						gSelectionStruct.areVerticesMoved = 0;
+						gMeshes[0].deselectVertices();
+					}
+					gGraphics.resetSingleCircle(); // delete graphics if mouse unclicked
 				}
 			}
 		
@@ -237,17 +246,17 @@ function swapcallback(event){
 				}
 
 				if (gSelectionStruct.meshIDsToCheckArr.length < 1) {
-					gGraphics.reset(); // we are not inside a mesh
+					gGraphics.resetSingleCircle(); // we are not inside a mesh
 				} else {
 					// if we are on a mesh, let's check if the mouse is close to a vertex
 					for (var i=0; i<gSelectionStruct.meshIDsToCheckArr.length; i++) { // check all the meshes the mouse is in
 						gSelectionStruct.cellIndex = gMeshes[gSelectionStruct.meshIDsToCheckArr[i]].mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
 
-						if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
-							gGraphics.reset();
-						} else {  // mouse is close to a vertex in the mesh
-							gSelectionStruct.meshIDToClick = gSelectionStruct.meshIDsToCheckArr[i]; // This is the mesh we are working with
+						gSelectionStruct.meshIDToClick = gSelectionStruct.meshIDsToCheckArr[i]; // This is the mesh we are working with
 
+						if (gSelectionStruct.cellIndex[0] == -1) {  // if mouse is not close to vertex than delete highlight circle
+							gGraphics.resetSingleCircle();
+						} else {  // mouse is close to a vertex in the mesh
 							// check if the cell currently selected is different from the previous cell selected. 
 							// In case it is different we fill the matrix with the adjacent cells for bounding calculation
 							if (gSelectionStruct.cellIndex[0] != gSelectionStruct.oldCellIndex[0] || 
@@ -266,7 +275,6 @@ function swapcallback(event){
 			
 		case "reshape":
 			//gWindowDim = nodeCTX.dim;
-		
 			break;
 	}
 }

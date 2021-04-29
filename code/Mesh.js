@@ -38,6 +38,8 @@ function Mesh() {
     this.textureName = "";
     this.handle = null;
     this.mouseOffset = [0,0];
+    this.latestMousePos = [0,0];
+    this.selectedVerticesIndices = [];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
@@ -62,6 +64,8 @@ function Mesh() {
 
         this.useNurbs = useNurbs;
         this.currentScale = [1, 1];
+        this.selectedVerticesIndices = [];
+        this.latestMousePos = [0,0];
 
         if (saveDict_) {
             this.loadDataFromDict(saveDict_);
@@ -83,17 +87,16 @@ function Mesh() {
     }
 
     this.changeMode = function(mode) {
-        if (mode != this.useNurbs) {
-            this.useNurbs = mode;
+        if (mode == 0) {
+            this.useNurbs = 1;
             this.nurbs.enable = this.useNurbs;
-            if (this.useNurbs) { 
-                this.resizeMeshDim(this.positionMat.dim);
-            } else {
-                this.assignPositionMatToMesh(); // assign vertex mat to mesh
-                this.textureCoordMat.dim = this.positionMat.dim.slice();
-            }
-            this.initTextureCoordMat();
+            this.resizeMeshDim(this.positionMat.dim);
+        } else {
+            this.useNurbs = 0;
+            this.assignPositionMatToMesh(); // assign vertex mat to mesh
+            this.textureCoordMat.dim = this.positionMat.dim.slice();
         }
+        this.initTextureCoordMat();
     }
 
     this.changeNurbsOrder = function(order) {
