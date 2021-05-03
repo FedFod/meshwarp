@@ -41,8 +41,8 @@ Mesh.prototype.highlightSelectedVertices = function(latMousePos, mouseWorld) {
     for (var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
             var cell = this.positionMat.getcell(i,j);
-            if ((cell[0] > latMousePos[0] && cell[0] < mouseWorld[0] && cell[1] < latMousePos[1] && cell[1] > mouseWorld[1]) ||
-                (cell[0] < latMousePos[0] && cell[0] > mouseWorld[0] && cell[1] > latMousePos[1] && cell[1] < mouseWorld[1])) {
+            if (((cell[0] > latMousePos[0] && cell[0] < mouseWorld[0]) || (cell[0] < latMousePos[0] && cell[0] > mouseWorld[0])) 
+                && ((cell[1] > latMousePos[1] && cell[1] < mouseWorld[1]) || (cell[1] < latMousePos[1] && cell[1] > mouseWorld[1]))) {
                 gGraphics.drawSelectedCircles(cell);
                 howManySelected++;
                 this.selectedVerticesIndices.push([i,j]);
@@ -63,6 +63,7 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     }
     this.latestMousePos = mouseWorld.slice();
     this.assignPositionMatToMesh();
+    this.drawHandleInPos(this.getMeshCenter(this.positionMat));
 }
 
 Mesh.prototype.deselectVertices = function() {

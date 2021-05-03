@@ -1,4 +1,5 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
+    gGraphics.resetSelected();
     this.currentScale = [scaleX, scaleY];
     this.posMatFromUnscaledMat();
     // this.positionMat.op("*", [gWindowRatio, 1.0]);

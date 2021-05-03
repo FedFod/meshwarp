@@ -39,7 +39,7 @@ var gSelectionStruct = {
 
 //-----PUBLIC FUNCTIONS----------------
 function reset() {
-	show_meshes = 1;
+	show_mesh = 1;
 	init();
 }
 
@@ -179,6 +179,20 @@ function dosetdrawto(newdrawto) {
 }
 dosetdrawto.local = 1;
 
+var implicit_tracker = new JitterObject("jit_gl_implicit");
+// postln("implicit tracker name: "+implicit_tracker.name)
+var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
+
+function implicit_callback(event) {
+	if(!explicitdrawto && implicitdrawto != implicit_tracker.drawto[0]) {
+		// important! drawto is an array so get first element
+		implicitdrawto = implicit_tracker.drawto[0];
+		dosetdrawto(implicitdrawto);
+	}
+}
+implicit_callback.local = 1;
+
+
 function swapcallback(event){
 	//post("callback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
 
@@ -280,15 +294,3 @@ function swapcallback(event){
 }
 swapcallback.local = 1
 
-var implicit_tracker = new JitterObject("jit_gl_implicit");
-// postln("implicit tracker name: "+implicit_tracker.name)
-var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
-
-function implicit_callback(event) {
-	if(!explicitdrawto && implicitdrawto != implicit_tracker.drawto[0]) {
-		// important! drawto is an array so get first element
-		implicitdrawto = implicit_tracker.drawto[0];
-		dosetdrawto(implicitdrawto);
-	}
-}
-implicit_callback.local = 1;
