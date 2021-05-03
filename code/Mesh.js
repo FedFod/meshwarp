@@ -29,7 +29,7 @@ function Mesh() {
     this.posMatType = "float32";
     this.posMatDim = meshdim;
 
-    this.enableMesh = gShowMeshes;
+    this.enableMesh = show_mesh;
 
     this.useNurbs = 0;
     this.currentScale = [1, 1];
@@ -62,10 +62,11 @@ function Mesh() {
     this.initMesh = function(drawto, ID, useNurbs, saveDict_) {
         this.ID = ID;
 
-        this.useNurbs = useNurbs;
+        this.useNurbs = (useNurbs==0);
         this.currentScale = [1, 1];
         this.selectedVerticesIndices = [];
         this.latestMousePos = [0,0];
+        this.enableMesh = show_mesh;
 
         if (saveDict_) {
             this.loadDataFromDict(saveDict_);
@@ -110,7 +111,7 @@ function Mesh() {
     }
 
     this.initTextureCoordMat = function() {   
-        var xStartingPoint = (1.0/meshcount) * this.ID;
+        var xStartingPoint = (1.0/meshcount);
         var xCoordTarget = xStartingPoint + (1.0/meshcount); // 0 a 1. +0.25
         for (var i=0; i<this.textureCoordMat.dim[0]; i++) {
             for (var j=0; j<this.textureCoordMat.dim[1]; j++) {   
@@ -130,7 +131,7 @@ function Mesh() {
         for(var i=0; i<this.positionMat.dim[0]; i++) {
             for(var j=0; j<this.positionMat.dim[1]; j++) {   
                 var xVal = (i / (this.positionMat.dim[0]-1));
-                xVal = map(xVal, 0., 1., -1 + (1 / (meshcount/2) * this.ID), -1+(1/(meshcount/2)) + (1 / (meshcount/2)) * this.ID);
+                xVal = map(xVal, 0., 1., -1 + (1 / (meshcount/2) * 0), -1+(1/(meshcount/2)) + (1 / (meshcount/2)) * 0);
                 var yVal = ((j / (this.positionMat.dim[1]-1)) * 2.0) - 1.0;
 
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);
@@ -183,7 +184,6 @@ function Mesh() {
         this.nurbs.drawto = drawto_;
         this.nurbs.enable = this.useNurbs * this.enableMesh;
         this.nurbs.order = this.nurbsOrder.slice();
-        //this.nurbs.name = "nurbs_"+this.ID;
 
         this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbs.dim.slice());
 
@@ -224,7 +224,7 @@ function Mesh() {
     this.showMesh = function(show) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
-        this.handle.enable = show;
+        // this.handle.enable = show;
     }
 
     this.calcMeshBoundsMat = function() {        

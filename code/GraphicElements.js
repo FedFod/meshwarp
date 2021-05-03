@@ -13,17 +13,18 @@ function GraphicElements(nodectx) {
     this.sketch2.depth_enable = 0;
     this.sketch2.layer = FRONT;
     this.sketch2.color = YELLOW;
-    this.sketch2.line_width = 2;
-
+    this.sketch2.line_width = 2;    
 
     this.transformMouseToWorld = function(screenCoord) {
         return this.sketch.screentoworld(screenCoord);
     }
 
     this.drawCircle = function(coordsWorld) {   
-        this.sketch.reset();
-        this.sketch.moveto(coordsWorld);
-        this.sketch.framecircle(this.circleRadius);
+        if (gGlobal.currentlySelected == nodeCTX.name) {
+            this.sketch.reset();
+            this.sketch.moveto(coordsWorld);
+            this.sketch.framecircle(this.circleRadius);
+        }
     }
 
     this.resetSingleCircle = function() {

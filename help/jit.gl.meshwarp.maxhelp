@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ -618.0, -975.0, 935.0, 696.0 ],
+		"rect" : [ 950.0, 200.0, 933.0, 694.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -58,7 +58,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 935.0, 670.0 ],
+						"rect" : [ 0.0, 26.0, 933.0, 668.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ -618.0, -949.0, 935.0, 670.0 ],
+						"rect" : [ 950.0, 226.0, 933.0, 668.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -382,6 +382,64 @@
 						"showontab" : 1,
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-43",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 301.142860054969788, 594.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-41",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 319.142860054969788, 528.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-38",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "jit_gl_texture", "" ],
+									"patching_rect" : [ 506.238093376159668, 460.047614336013794, 313.0, 22.0 ],
+									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile bball.mov"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-28",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 133.642860054969788, 457.0, 70.0, 22.0 ],
+									"text" : "resetGlobal"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-22",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "jit_gl_texture", "" ],
+									"patching_rect" : [ 345.0, 418.0, 339.0, 22.0 ],
+									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile sunflower.mp4"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-40",
 									"maxclass" : "number",
@@ -558,7 +616,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 66.142860054969788, 495.619042873382568, 71.0, 22.0 ],
+									"patching_rect" : [ 236.642860054969788, 441.0, 71.0, 22.0 ],
 									"text" : "r meshwarp"
 								}
 
@@ -690,8 +748,8 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 37.642860054969788, 528.047614336013794, 275.0, 22.0 ],
-									"text" : "jit.gl.meshwarp @show_meshes 1 @meshdim 5 4"
+									"patching_rect" : [ 37.642860054969788, 528.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
 								}
 
 							}
@@ -786,6 +844,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-22", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-17", 0 ],
 									"source" : [ "obj-25", 0 ]
 								}
@@ -793,8 +858,22 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"source" : [ "obj-28", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
 									"source" : [ "obj-36", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"source" : [ "obj-38", 0 ]
 								}
 
 							}

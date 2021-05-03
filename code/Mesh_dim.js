@@ -27,6 +27,7 @@ Mesh.prototype.resizeMeshDim = function(dimensions) {
     this.setMeshDim(newDim);
     this.positionMat.frommatrix(tempMat);
     tempMat.freepeer();
+    this.unscaledMatFromPosMat();
     this.assignPositionMatToMesh();
     this.initTextureCoordMat();
     this.calcMeshBoundsMat();

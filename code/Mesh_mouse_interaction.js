@@ -91,7 +91,7 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
     this.assignPositionMatToMesh();
 
     gGraphics.resetSingleCircle();
-    gMeshes[gSelectionStruct.meshIDToClick].deselectVertices();
+    gMesh.deselectVertices();
 }
 
 Mesh.prototype.setVertexPosInMat = function(coordsWorld, cellIndex) {

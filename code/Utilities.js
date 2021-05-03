@@ -11,7 +11,6 @@ var MIDDLE = 10;
 var MIDDLE_1 = 11;
 var FRONT = 12;
 
-
 function subVec2D(vec1, vec2) {
 	return [vec1[0]-vec2[0], vec1[1]-vec2[1]];
 }
