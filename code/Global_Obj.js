@@ -1,6 +1,5 @@
 // GLOBAL OBJECT
 var gGlobal = new Global("gMeshwarp");
-gGlobal.meshwarpToCheck = -1;
 gGlobal.currentlySelected = -1;
 gGlobal.isOnHandle = 0;
 
@@ -10,6 +9,13 @@ function notify_selected_meshwarp(currentlySelected) {
         showMesh(0);
     }
 }
+
+// function attachColorBufferToGlobal() {
+// 	if (gGlobal.colorBuffer == null) {
+// 		gGlobal.colorBuffer = new JitterObject("jit.gl.node");
+// 		gGlobal.colorBuffer.drawto = 
+// 	}
+// }
 
 function checkIfItIsGloballySelected() {
 	return (gGlobal.currentlySelected == nodeCTX.name);
@@ -23,7 +29,6 @@ function addThisMeshwarpObjToGlobal() {
     var index = gGlobal.meshwarp_objects.indexOf(nodeCTX.name);
 	if (index == -1) {
 		gGlobal.meshwarp_objects.push(nodeCTX.name);
-		// layer = gGlobal.meshwarp_objects.length-1;
 	} 
 	assignThisAsCurrentlySelectedToGlobal();
 

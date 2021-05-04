@@ -2,7 +2,7 @@ function GraphicElements(nodectx) {
     this.sketch = new JitterObject("jit.gl.sketch");
     this.sketch.drawto = nodectx;
     this.sketch.depth_enable = 0;
-    this.sketch.layer = FRONT;
+    this.sketch.layer = FRONT+1;
     this.sketch.color = RED;
     this.sketch.line_width = 2;
 
@@ -20,7 +20,7 @@ function GraphicElements(nodectx) {
     }
 
     this.drawCircle = function(coordsWorld) {   
-        if (gGlobal.currentlySelected == nodeCTX.name) {
+        if (checkIfItIsGloballySelected()) {
             this.sketch.reset();
             this.sketch.moveto(coordsWorld);
             this.sketch.framecircle(this.circleRadius);

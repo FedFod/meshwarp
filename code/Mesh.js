@@ -234,7 +234,7 @@ function Mesh() {
 
         var tempBiggerMat = new JitterMatrix();
         tempBiggerMat.frommatrix(this.positionMat);
-        tempBiggerMat.op("*", [1.5, 1.5, 1]);
+        tempBiggerMat.op("*", [1., 1., 1]);
         // TOP
         for (var i=0; i < this.positionMat.dim[0]; i++) {
             var xVal = tempBiggerMat.getcell(i, 0)[0];
@@ -358,6 +358,7 @@ function Mesh() {
             this.meshGrid.vertex_matrix(this.positionMat.name);
             this.meshFull.vertex_matrix(this.positionMat.name);
         }
+        physBody.jit_matrix(this.positionMat.name);
     }
 
     this.assignNurbsMatToMesh = function() {

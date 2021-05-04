@@ -1,4 +1,5 @@
 autowatch = 1;
+outlets = 2;
 include("Global_Obj.js");
 include("GetContext.js");
 include("Mesh.js");
@@ -148,21 +149,26 @@ function swapcallback(event){
 				}
 			}
 			break;
-
+		
 		case "mouseidle":  // Check if mouse is close to vertices to highlight them
 			if (enable) {
 				gMousePosScreen = (event.args);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
 				gLatestMousePos = mouseWorld.slice(); // set latest mouse pos (used for selecting multiple)
+
+				// physWorld.screenraytest(gMousePosScreen);
+
+				outlet(1, gMousePosScreen);
 				
 				gSelectionStruct.reset(); // reset all the struct values
 
 				var meshID = gMesh.checkIfMouseInsideMesh(mouseWorld);
+				// print("meshID "+meshID + " nodeName: "+nodeCTX.name )
 				if (meshID != -1) {  // We are inside the mesh
 					gSelectionStruct.mouseIsOnMesh = 1; 
 
 					gSelectionStruct.cellIndex = gMesh.mouseIsCloseToHandle(mouseWorld);
-					// gGraphics.resetSingleCircle();
+					// print("meshID "+meshID + " nodeName: "+nodeCTX.name + " cell: "+gSelectionStruct.cellIndex[0] + " show_mesh: "+show_mesh)
 					if (gSelectionStruct.cellIndex[0] == -1 && show_mesh) { // otherwise let's check if we click on a vertex
 						// if we are on a mesh, let's check if the mouse is close to a vertex
 						if (checkIfItIsGloballySelected()) { // if this is the currently selected meshwarp

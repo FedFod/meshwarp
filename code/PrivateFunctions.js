@@ -24,7 +24,36 @@ var nodeCamera = new JitterObject("jit.gl.camera");
 nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
+// PHYS PICKING
+// var physWorld = new JitterObject("jit.phys.world");
+// physWorld.dynamics = 0;
+// physWorld.worldbox = 0;
+var physBody = new JitterObject("jit.phys.body");
+physBody.worldname = "meshwarp_phys_world";
+physBody.shape = "convexhull";
+physBody.name = "meshwarpPhysBody_"+nodeCTX.name;
+var physDraw = new JitterObject("jit.gl.physdraw");
+physDraw.drawto = nodeCTX.name;
+physDraw.enable = 1;
+
+// var phys_lstnr = new JitterListener(physWorld.name, phys_callback);
+
+// function phys_callback(event) {
+// 	print(event)
+// }
+
 //---------------------------------------------------------------
+function setPhysWorldName(physWorldName) {
+	physBody.worldname = physWorldName;
+	physDraw.worldname = physWorldName;
+}
+
+function setNodeDrawto() {
+	nodeCTX.drawto = drawto;
+	videoplane.drawto = drawto;	
+	// physWorld.drawto = drawto;
+}
+setNodeDrawto.local = 1;
 
 function moveVertexOrMultipleOrMesh(mouseWorld) {
 	// if it's in the handle
@@ -124,12 +153,6 @@ function setWindowRatio(dims) {
 	gWindowRatio = dims[0] / dims[1];
 } 
 setWindowRatio.local = 1;
-
-function setNodeDrawto() {
-	nodeCTX.drawto = drawto;
-	videoplane.drawto = drawto;	
-}
-setNodeDrawto.local = 1;
 
 function setMode(arg) {
 	if (arg == 0 || arg == 1) {
