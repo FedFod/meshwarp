@@ -26,11 +26,16 @@ nodeCamera.ortho = 2;
 
 //---------------------------------------------------------------
 
-function moveVertexOrMesh(mouseWorld) {
-	// if it's the handle
+function moveVertexOrMultipleOrMesh(mouseWorld) {
+	// if it's in the handle
 	if (gSelectionStruct.cellIndex[0] == -100) { 
-		assignThisAsCurrentlySelectedToGlobal();
-		gMesh.moveMesh(mouseWorld);
+		// print("name : "+nodeCTX.name + " " +gGlobal.isOnHandle)
+		if (gGlobal.isOnHandle == 0) {
+			assignThisAsCurrentlySelectedToGlobal();
+		}
+		if (checkIfItIsGloballySelected()) {
+			gMesh.moveMesh(mouseWorld);
+		}
 		gGraphics.resetSelected(); 
 	} 
 	// if we have selected vertices and want to move them
@@ -155,7 +160,7 @@ function showMesh(show) {
 	if (gMesh!=null) {
 		gMesh.showMesh(show);
 	}
-	print("show mesh "+show)
+	// print("show mesh "+show)
 	if (!show) {
 		gGraphics.resetSingleCircle();
 	}

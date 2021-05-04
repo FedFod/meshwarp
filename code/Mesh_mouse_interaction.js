@@ -19,7 +19,7 @@ Mesh.prototype.mouseIsCloseToVertex = function(mouseWorld) {
             }
         }
     } 
-    return this.mouseIsCloseToHandle(mouseWorld);
+    return [-1,-1];
 } 
 
 Mesh.prototype.mouseIsCloseToHandle = function(mouseWorld) {
@@ -28,8 +28,14 @@ Mesh.prototype.mouseIsCloseToHandle = function(mouseWorld) {
     if (distFromHandle < this.handle.handleSize) {
         this.drawHandleFull();
         this.mouseOffset = subVec2D(this.handle.handlePos, mouseWorld);
+        if (checkIfItIsGloballySelected()) {
+            gGlobal.isOnHandle = 1;
+        }
         return [-100, -100];
     } else {
+        if (checkIfItIsGloballySelected()) {
+            gGlobal.isOnHandle = 0;
+        }
         return [-1, -1];
     }
 }

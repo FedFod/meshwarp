@@ -128,8 +128,8 @@ function swapcallback(event){
 				
 				if (mouseClicked) {
 					if (gSelectionStruct.cellIndex[0] != -1) {  // we are clicking on a vertex or a handle
-						moveVertexOrMesh(mouseWorld);
-					} else if (gGlobal.currentlySelected == nodeCTX.name && show_mesh) {
+						moveVertexOrMultipleOrMesh(mouseWorld);
+					} else if (checkIfItIsGloballySelected() && show_mesh) {
 						selectMultipleVertices(mouseWorld);
 					}
 				} else { // mouse is released
@@ -165,7 +165,7 @@ function swapcallback(event){
 					// gGraphics.resetSingleCircle();
 					if (gSelectionStruct.cellIndex[0] == -1 && show_mesh) { // otherwise let's check if we click on a vertex
 						// if we are on a mesh, let's check if the mouse is close to a vertex
-						if (gGlobal.currentlySelected == nodeCTX.name) { // if this is the currently selected meshwarp
+						if (checkIfItIsGloballySelected()) { // if this is the currently selected meshwarp
 							gSelectionStruct.cellIndex = gMesh.mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
 						} 
 						// check if the cell currently selected is different from the previous cell selected. 

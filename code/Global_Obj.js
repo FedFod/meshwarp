@@ -2,12 +2,17 @@
 var gGlobal = new Global("gMeshwarp");
 gGlobal.meshwarpToCheck = -1;
 gGlobal.currentlySelected = -1;
+gGlobal.isOnHandle = 0;
 
-function notify_selected_meshwarp(nodeName) {
-    if (nodeCTX.name != nodeName) {
+function notify_selected_meshwarp(currentlySelected) {
+    if (nodeCTX.name != currentlySelected) {
         videoplane.layer = 80;
         showMesh(0);
     }
+}
+
+function checkIfItIsGloballySelected() {
+	return (gGlobal.currentlySelected == nodeCTX.name);
 }
 
 function addThisMeshwarpObjToGlobal() {
@@ -18,9 +23,10 @@ function addThisMeshwarpObjToGlobal() {
     var index = gGlobal.meshwarp_objects.indexOf(nodeCTX.name);
 	if (index == -1) {
 		gGlobal.meshwarp_objects.push(nodeCTX.name);
-		layer = gGlobal.meshwarp_objects.length-1;
-        assignThisAsCurrentlySelectedToGlobal();
+		// layer = gGlobal.meshwarp_objects.length-1;
 	} 
+	assignThisAsCurrentlySelectedToGlobal();
+
 	print("after adding: "+gGlobal.meshwarp_objects)
 }
 addThisMeshwarpObjToGlobal.local = 1;
@@ -28,6 +34,7 @@ addThisMeshwarpObjToGlobal.local = 1;
 function assignThisAsCurrentlySelectedToGlobal() {
     gGlobal.currentlySelected = nodeCTX.name;
     videoplane.layer = 100;
+	gGlobal.isOnHandle = 1;
     showMesh(1);
     outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }
@@ -49,8 +56,5 @@ removeThisMeshwarpObjFromGlobal.local = 1;
 function resetGlobal() {
 	gGlobal.meshwarp_objects = null;
     gGlobal.currentlySelected = -1;
+	gGlobal.isOnHandle = 0;
 }
-
-// gGlobal.sortGlobalLayers = function() {
-//     gGlobal.layers.sort(function(a, b){return b - a});
-// }
