@@ -5,6 +5,7 @@ nodeCTX.capture = 1;
 nodeCTX.automatic = 1;
 nodeCTX.adapt = 1;
 nodeCTX.erase_color = [0, 0, 0, 0];
+nodeCTX.fsaa = 1;
 
 // OBJECTS INSTANCES USED GLOBALLY 
 var gGraphics = new GraphicElements(nodeCTX.name);
@@ -55,20 +56,20 @@ function setNodeDrawto() {
 }
 setNodeDrawto.local = 1;
 
-function moveVertexOrMultipleOrMesh(mouseWorld) {
+function moveWholeMesh(mouseWorld) {
 	// if it's in the handle
-	if (gSelectionStruct.cellIndex[0] == -100) { 
-		// print("name : "+nodeCTX.name + " " +gGlobal.isOnHandle)
-		if (gGlobal.isOnHandle == 0) {
-			assignThisAsCurrentlySelectedToGlobal();
-		}
-		if (checkIfItIsGloballySelected()) {
-			gMesh.moveMesh(mouseWorld);
-		}
-		gGraphics.resetSelected(); 
-	} 
+	if (gGlobal.isOnHandle == 0) {
+		assignThisAsCurrentlySelectedToGlobal();
+	}
+	if (checkIfItIsGloballySelected()) {
+		gMesh.moveMesh(mouseWorld);
+	}
+	gGraphics.resetSelected(); 
+}
+
+function moveSingleVertexOrSelectedVertices(mouseWorld) {
 	// if we have selected vertices and want to move them
-	else if (gSelectionStruct.howManyVerticesSelected > 1 && gSelectionStruct.cellIndex[0] != -1) {
+	if (gSelectionStruct.howManyVerticesSelected > 1 && gSelectionStruct.cellIndex[0] != -1) {
 		gMesh.moveSelectedVertices(mouseWorld);
 		gSelectionStruct.areVerticesMoved = 1;
 		gGraphics.resetSingleCircle();
@@ -81,11 +82,24 @@ function moveVertexOrMultipleOrMesh(mouseWorld) {
 		}
 	}
 }
+moveSingleVertexOrSelectedVertices.local = 1;
 
 function selectMultipleVertices(mouseWorld) {
 	gGraphics.drawFrame(gLatestMousePos, mouseWorld);
 	gSelectionStruct.howManyVerticesSelected = gMesh.highlightSelectedVertices(gLatestMousePos, mouseWorld);
 }
+selectMultipleVertices.local = 1;
+
+function calculateBoundingCells(selectionStruct) {
+	if (selectionStruct.cellIndex[0] != -1 && (selectionStruct.cellIndex[0] != selectionStruct.oldCellIndex[0] || 
+		selectionStruct.cellIndex[1] != selectionStruct.oldCellIndex[1])) {
+		selectionStruct.oldCellIndex = selectionStruct.cellIndex.slice();
+		if (selectionStruct.cellIndex[0] != -100) { // if it's a handle don't recalculate ajiacent cells mat
+			gMesh.calcAdjacentCellsMat(selectionStruct.cellIndex.slice());
+		}
+	}
+}
+calculateBoundingCells.local = 1;
 
 function buildSaveDict(path) {
 	var saveDict = new Dict();
@@ -99,6 +113,7 @@ function buildSaveDict(path) {
 
 	saveDict.export_json(path);
 }
+buildSaveDict.local = 1;
 
 function loadSaveDict(path) {
 	var saveDict = new Dict();

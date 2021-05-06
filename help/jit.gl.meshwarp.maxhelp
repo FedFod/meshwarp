@@ -383,37 +383,11 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
-									"color" : [ 0.596078431372549, 0.0, 0.996078431372549, 1.0 ],
-									"id" : "obj-21",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 645.5, 566.110660076141357, 307.0, 22.0 ],
-									"text" : "jit.gl.physdraw nody @worldname physworld @enable 0"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"color" : [ 0.596078431372549, 0.0, 0.996078431372549, 1.0 ],
-									"id" : "obj-23",
-									"maxclass" : "newobj",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 645.5, 536.110660076141357, 397.0, 22.0 ],
-									"text" : "jit.phys.body physworld @shape cube @scale 1 1 0.01 @name planeObj"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-43",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 301.142860054969788, 594.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 387.642860054969788, 549.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
 								}
 
@@ -424,7 +398,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 374.142860054969788, 510.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 345.0, 487.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
 								}
 
@@ -436,7 +410,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_gl_texture", "" ],
-									"patching_rect" : [ 506.238093376159668, 460.047614336013794, 313.0, 22.0 ],
+									"patching_rect" : [ 692.238093376159668, 418.047614336013794, 313.0, 22.0 ],
 									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile bball.mov"
 								}
 
@@ -808,7 +782,19 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 95.142860054969788, 158.738092999999992, 150.0, 22.0 ]
+									"patching_rect" : [ 173.142860054969788, 151.642863392829895, 150.0, 22.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"attr" : "name",
+									"id" : "obj-24",
+									"maxclass" : "attrui",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 93.642860054969788, 116.738092999999992, 150.0, 22.0 ]
 								}
 
 							}
@@ -896,6 +882,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"source" : [ "obj-24", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-17", 0 ],
 									"source" : [ "obj-25", 0 ]
 								}
@@ -933,7 +926,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-41", 0 ],
-									"order" : 0,
+									"order" : 1,
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -941,7 +934,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-43", 0 ],
-									"order" : 1,
+									"order" : 0,
 									"source" : [ "obj-4", 0 ]
 								}
 

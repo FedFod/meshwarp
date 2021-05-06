@@ -15,7 +15,7 @@ if(is820) {
 function setenable(val) {
 	enable = val;
 	nodeCTX.enable = enable;
-	videoplane.enable = val;
+	videoplane.enable = enable;
 }
 
 function setdrawto(val) {

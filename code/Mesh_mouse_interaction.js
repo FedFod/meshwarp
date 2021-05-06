@@ -22,22 +22,46 @@ Mesh.prototype.mouseIsCloseToVertex = function(mouseWorld) {
     return [-1,-1];
 } 
 
-Mesh.prototype.mouseIsCloseToHandle = function(mouseWorld) {
-    var distFromHandle = calcDist2D(this.handle.handlePos.slice(), mouseWorld.slice());
-    this.drawHandleInPos(null);
-    if (distFromHandle < this.handle.handleSize) {
+Mesh.prototype.scaleWithHandle = function(initialPos, mouseWorld) {
+    var distFromInitial = subVec2D(mouseWorld, initialPos); //this.latestMousePos
+    distFromInitial = subVec2D([1,1], [distFromInitial[0], distFromInitial[1]*-1]);
+    this.scaleMesh(distFromInitial[0], distFromInitial[1]);
+    // this.unscaledPosMat.frommatrix(this.positionMat);
+    // print(this.unscaledPosMat.getcell(0,0))
+    this.latestMousePos = mouseWorld.slice();
+}
+
+Mesh.prototype.checkIfMouseIsCloseToHandle = function(mouseWorld) {
+    var cellIndex = [-1,-1];
+    var distFromHandle = calcDist2D(this.moveHandle.handlePos.slice(), mouseWorld.slice());
+    this.drawMoveHandleInPos(null);
+    if (distFromHandle < this.moveHandle.handleSize) {
         this.drawHandleFull();
-        this.mouseOffset = subVec2D(this.handle.handlePos, mouseWorld);
-        if (checkIfItIsGloballySelected()) {
+        this.mouseOffset = subVec2D(this.moveHandle.handlePos, mouseWorld);
+        cellIndex = [-100, -100];
+    } 
+    if (checkIfItIsGloballySelected()) {
+        gGlobal.isOnHandle = 0;
+        if (cellIndex[0] == -100) {
             gGlobal.isOnHandle = 1;
-        }
-        return [-100, -100];
-    } else {
-        if (checkIfItIsGloballySelected()) {
-            gGlobal.isOnHandle = 0;
-        }
-        return [-1, -1];
+        } 
     }
+    return cellIndex;
+}
+
+Mesh.prototype.checkIfMouseIsCloseToScaleHandles = function(mouseWorld) {
+    var cellIndex = [-1,-1];
+    this.scaleHandles.reset();
+    this.drawScaleHandles();
+    for (var handle in this.scaleHandles.handlesPositions) {
+        var distFromHandle = calcDist2D(this.scaleHandles.handlesPositions[handle].slice(), mouseWorld.slice());
+        if (distFromHandle <= this.scaleHandles.handleSize) {
+            this.drawScaleHandleFull(handle);
+            cellIndex = [-50, -50];
+            break;
+        }
+    }
+    return cellIndex;
 }
 
 Mesh.prototype.highlightSelectedVertices = function(latMousePos, mouseWorld) {
@@ -69,7 +93,7 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     }
     this.latestMousePos = mouseWorld.slice();
     this.assignPositionMatToMesh();
-    this.drawHandleInPos(this.getMeshCenter(this.positionMat));
+    this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
 }
 
 Mesh.prototype.deselectVertices = function() {
@@ -78,26 +102,28 @@ Mesh.prototype.deselectVertices = function() {
 }
 
 Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
-    if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
+    // if (isPointInsidePolygon(coordsWorld, this.adjacentCellsMat)) {
         var newPos = sumVec2D(coordsWorld, this.mouseOffset);
         this.setVertexPosInMat(newPos, cellIndex);
         this.assignPositionMatToMesh();
         gGraphics.drawCircle(newPos);
-        this.drawHandleInPos(this.getMeshCenter(this.positionMat));
-     }
+        this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
+    //  }
 }
 
 Mesh.prototype.moveMesh = function(mouseWorld) {
     var offset = sumVec2D(mouseWorld, this.mouseOffset);
-    var newPos = subVec2D(offset, this.handle.handlePos);
+    var newPos = subVec2D(offset, this.moveHandle.handlePos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);
     this.unscaledMatFromPosMat();
-    this.drawHandleInPos(offset);
+    this.drawMoveHandleInPos(offset);
     this.drawHandleFull();
     this.assignPositionMatToMesh();
 
+    this.drawScaleHandles();
+
     gGraphics.resetSingleCircle();
-    gMesh.deselectVertices();
+    this.deselectVertices();
 }
 
 Mesh.prototype.setVertexPosInMat = function(coordsWorld, cellIndex) {
@@ -105,18 +131,3 @@ Mesh.prototype.setVertexPosInMat = function(coordsWorld, cellIndex) {
     this.unscaledMatFromPosMat();
 }
 
-Mesh.prototype.drawHandleInPos = function(pos) {
-    this.handle.reset();
-    if (pos) {
-        this.handle.handlePos = [pos[0], pos[1], 0];
-    }
-    this.handle.shapeslice(80);
-    this.handle.moveto(this.handle.handlePos);
-    this.handle.glcolor(LIGHT_BLUE);
-    this.handle.framecircle(this.handle.handleSize);
-}
-
-Mesh.prototype.drawHandleFull = function() {
-    this.handle.glcolor(LIGHT_BLUE_TRANSPARENT);
-    this.handle.circle(this.handle.handleSize);
-}

@@ -36,7 +36,8 @@ function Mesh() {
     this.nurbsLstnr = null;
     this.hasNurbsMat = 0;
     this.textureName = "";
-    this.handle = null;
+    this.moveHandle = null;
+    this.scaleHandles = null;
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
@@ -55,11 +56,12 @@ function Mesh() {
             this.meshGrid.enable = this.enableMesh && val;
             this.meshFull.enable = val;
             this.nurbs.enable = this.enableMesh && this.useNurbs && val;
-            this.handle = this.enableMesh && val;
+            this.moveHandle = this.enableMesh && val;
+            this.scaleHandles = this.enableMesh && val;
         }
     }
 
-    this.initMesh = function(drawto, ID, useNurbs, saveDict_) {
+    this.initMesh = function(drawto_, ID, useNurbs, saveDict_) {
         this.ID = ID;
 
         this.useNurbs = (useNurbs==0);
@@ -67,6 +69,7 @@ function Mesh() {
         this.selectedVerticesIndices = [];
         this.latestMousePos = [0,0];
         this.enableMesh = show_mesh;
+        this.scaleHandlesPos = [];
 
         if (saveDict_) {
             this.loadDataFromDict(saveDict_);
@@ -77,11 +80,12 @@ function Mesh() {
             this.initPositionMat(); // fill vertex mat from scratch
         }
 
-        this.initMeshPoints(drawto);
-        this.initMeshGrid(drawto);
-        this.initMeshFull(drawto);
-        this.initNurbs(drawto);
-        this.initHandle(drawto);
+        this.initMeshPoints(drawto_);
+        this.initMeshGrid(drawto_);
+        this.initMeshFull(drawto_);
+        this.initNurbs(drawto_);
+        this.initHandle(drawto_);
+        this.initScaleHandles(drawto_);
 
         this.scaleToWindowRatio();
         this.initTextureCoordMat(); // init texture coord mat
@@ -192,15 +196,27 @@ function Mesh() {
     }
 
     this.initHandle = function(drawto_) {
-        this.handle = new JitterObject("jit.gl.sketch", drawto_);
-        this.handle.layer = FRONT;
-        this.handle.color = LIGHT_BLUE;
-        this.handle.line_width = 2;
-        this.handle.handlePos = [];
-        this.handle.handleSize = 0.08;
-        this.handle.blend_enable = 1;
-        this.handle.depth_enable = 0;
-        this.drawHandleInPos(this.getMeshCenter(this.positionMat));
+        this.moveHandle = new JitterObject("jit.gl.sketch", drawto_);
+        this.moveHandle.layer = FRONT;
+        this.moveHandle.color = LIGHT_BLUE;
+        this.moveHandle.line_width = 2;
+        this.moveHandle.handlePos = [];
+        this.moveHandle.handleSize = 0.08;
+        this.moveHandle.blend_enable = 1;
+        this.moveHandle.depth_enable = 0;
+        this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
+    }
+
+    this.initScaleHandles = function(drawto_) {
+        this.scaleHandles = new JitterObject("jit.gl.sketch", drawto_);
+        this.scaleHandles.layer = FRONT;
+        this.scaleHandles.color = LIGHT_BLUE;
+        this.scaleHandles.line_width = 2;
+        this.scaleHandles.blend_enable = 1;
+        this.scaleHandles.depth_enable = 0;
+        this.scaleHandles.handleSize = 0.1;
+        this.scaleHandles.handlesPositions = [];
+        this.drawScaleHandles();
     }
 
     this.freeMesh = function() {
@@ -217,14 +233,15 @@ function Mesh() {
             this.nurbsLstnr.subjectname = "";
             nurbsmap[this.nurbs.name] = null;
             this.nurbs.freepeer();
-            this.handle.freepeer();
+            this.moveHandle.freepeer();
         }
     }
 
     this.showMesh = function(show) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
-        // this.handle.enable = show;
+        this.scaleHandles.enable = show;
+        // this.moveHandle.enable = show;
     }
 
     this.calcMeshBoundsMat = function() {        
@@ -358,7 +375,7 @@ function Mesh() {
             this.meshGrid.vertex_matrix(this.positionMat.name);
             this.meshFull.vertex_matrix(this.positionMat.name);
         }
-        physBody.jit_matrix(this.positionMat.name);
+        // physBody.jit_matrix(this.positionMat.name);
     }
 
     this.assignNurbsMatToMesh = function() {
