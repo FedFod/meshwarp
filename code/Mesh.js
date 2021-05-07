@@ -15,8 +15,8 @@ function nurbscallback(event) {
 }
 var nurbsmap = {};
 
-function Mesh() {
-    this.ID = -1;
+function Mesh(ID) {
+    this.ID = ID;
 
     this.meshPoints = null;
     this.meshGrid = null;
@@ -41,6 +41,7 @@ function Mesh() {
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
+    this.scaleHandlesPos = [];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
@@ -61,24 +62,9 @@ function Mesh() {
         }
     }
 
-    this.initMesh = function(drawto_, ID, useNurbs, saveDict_) {
-        this.ID = ID;
-
-        this.useNurbs = (useNurbs==0);
-        this.currentScale = [1, 1];
-        this.selectedVerticesIndices = [];
-        this.latestMousePos = [0,0];
-        this.enableMesh = show_mesh;
-        this.scaleHandlesPos = [];
-
-        if (saveDict_) {
-            this.loadDataFromDict(saveDict_);
-            this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
-            this.loadMatrixFromDict(saveDict_);
-        } else {
-            this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
-            this.initPositionMat(); // fill vertex mat from scratch
-        }
+    this.initMesh = function(drawto_) {
+        this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
+        this.initPositionMat(); // fill vertex mat from scratch
 
         this.initMeshPoints(drawto_);
         this.initMeshGrid(drawto_);
@@ -89,6 +75,12 @@ function Mesh() {
 
         this.scaleToWindowRatio();
         this.initTextureCoordMat(); // init texture coord mat
+    }
+
+    this.loadDict = function(saveDict_) {
+        this.loadDataFromDict(saveDict_);
+        this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
+        this.loadMatrixFromDict(saveDict_);
     }
 
     this.changeMode = function(mode) {

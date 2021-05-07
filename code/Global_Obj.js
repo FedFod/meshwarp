@@ -1,7 +1,12 @@
 // GLOBAL OBJECT
-var gGlobal = new Global("gMeshwarp");
-gGlobal.currentlySelected = -1;
-gGlobal.isOnHandle = 0;
+gGlobal = new Global("gMeshwarp");
+if(gGlobal.inited === undefined) {
+	gGlobal.inited = true;
+	gGlobal.currentlySelected = -1;
+	gGlobal.isOnHandle = 0;
+	gGlobal.contexts = {};
+	gGlobal.meshCount = 0;
+}
 
 function notify_selected_meshwarp(currentlySelected) {
     if (nodeCTX.name != currentlySelected) {
@@ -21,21 +26,6 @@ function checkIfItIsGloballySelected() {
 	return (gGlobal.currentlySelected == nodeCTX.name);
 }
 
-function addThisMeshwarpObjToGlobal() {
-	if (gGlobal.meshwarp_objects == null) {
-		gGlobal.meshwarp_objects = [];
-	}
-	// ADD OBJ TO GLOBAL IF IT DOESN'T EXIST
-    var index = gGlobal.meshwarp_objects.indexOf(nodeCTX.name);
-	if (index == -1) {
-		gGlobal.meshwarp_objects.push(nodeCTX.name);
-	} 
-	assignThisAsCurrentlySelectedToGlobal();
-
-	print("after adding: "+gGlobal.meshwarp_objects)
-}
-addThisMeshwarpObjToGlobal.local = 1;
-
 function assignThisAsCurrentlySelectedToGlobal() {
     gGlobal.currentlySelected = nodeCTX.name;
     videoplane.layer = 100;
@@ -45,21 +35,45 @@ function assignThisAsCurrentlySelectedToGlobal() {
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;
 
-function removeThisMeshwarpObjFromGlobal() {
-	if (gGlobal.meshwarp_objects != null) {
-		print("THIS NODE NAME IN REMOVE " + nodeCTX.name)
-		var index = gGlobal.meshwarp_objects.indexOf(nodeCTX.name);
+// called when drawto set
+function addToGlobalCtxMap() {
+	print("addToGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
+	// check if context in map, if not create it
+	var ctxob = null;
+	if(gGlobal.contexts.drawto === undefined) {
+		print("create global context " + drawto);
+		gGlobal.contexts.drawto = {};
+		ctxob = gGlobal.contexts.drawto;
+		ctxob.objects = [];
+	}
+	else {
+		ctxob = gGlobal.contexts.drawto;
+	}
+	ctxob.objects.push(nodeCTX.name);
+	//postln("context contains...");
+	//for(var i = 0; i < ctxob.objects.length; i++) {
+	//	postln(ctxob.objects[i]);
+	//}
+
+	assignThisAsCurrentlySelectedToGlobal();
+}
+
+// called by freebang
+function removeFromGlobalCtxMap() {
+	print("removeFromGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
+	if(drawto !== "" && gGlobal.contexts.drawto !== undefined) {
+		var obs = gGlobal.contexts.drawto.objects;
+		var index = obs.indexOf(nodeCTX.name);
 		if (index != -1) {
-			gGlobal.meshwarp_objects.splice(index, 1);
+			obs.splice(index, 1);
 			print("ID "+ index + " REMOVED")
 		}
-		print("after removal: "+gGlobal.meshwarp_objects)
 	}
-}
-removeThisMeshwarpObjFromGlobal.local = 1;
-
-function resetGlobal() {
-	gGlobal.meshwarp_objects = null;
-    gGlobal.currentlySelected = -1;
-	gGlobal.isOnHandle = 0;
+	
+	if(checkIfItIsGloballySelected()) {
+		gGlobal.currentlySelected = -1;
+		gGlobal.isOnHandle = 0;
+	}
+	
+	gGlobal.meshCount--;
 }

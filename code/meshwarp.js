@@ -13,65 +13,6 @@ include("GraphicElements.js");
 include("PrivateFunctions.js");
 include("Canvas.js");
 
-// GLOBAL VARIABLES
-var gMesh = null;
-var gMousePosScreen = [];
-var gMinimumSelectionDist = 0.06;
-var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
-var gWindowRatio = 1; 
-var gWindowPrevRatio = gWindowRatio;
-var gTextureNames = "noTexture";
-var gLatestMousePos = [0,0];
-
-// a structure to contain infos relative to the clicked mesh and vertex
-var gSelectionStruct = {
-	cellIndex: [-1, -1], 
-	oldCellIndex: [-1, -1],
-	mouseIsOnMesh: 0,
-	isTopMesh: 0,
-	reset: function() {
-		this.cellIndex = [-1, -1];
-		this.mouseIsOnMesh = 0;   // the mesh we are going to operate on
-	},
-	howManyVerticesSelected: 0,
-	areVerticesMoved: 0
-};
-
-//-----PUBLIC FUNCTIONS----------------
-function reset() {
-	show_mesh = 1;
-	init();
-}
-
-function jit_gl_texture(texName) {
-	if (gMesh) {
-		gMesh.assignTextureToMesh(texName);
-	}
-}
-
-function save_state(path) {
-	postln("saveing to " + path);
-	buildSaveDict(path);
-}
-
-function load_state(path) {
-	postln("loading to " + path);
-	loadSaveDict(path);
-}
-
-function freebang() {
-	//postln("freebang");
-	removeThisMeshwarpObjFromGlobal(); // remove from global meshwarp array
-	freeMeshes();
-	gGraphics.sketch.freepeer();
-	nodeCTX.freepeer();
-	videoplane.freepeer();
-	nodeCamera.freepeer();
-	implicit_lstnr.subjectname = ""
-	implicit_tracker.freepeer();
-	// what else?
-}
-
 // ATTRIBUTES
 var mode = 0; // default: use NURBS
 declareattribute("mode", null, "setMode", 0);
@@ -103,6 +44,69 @@ declareattribute("texture", null, "setTexturesMeshes", 0);
 var layer = 0;
 declareattribute("layer", null, "setMeshwarpLayer", 0);
 
+// GLOBAL VARIABLES
+var gMousePosScreen = [];
+var gMinimumSelectionDist = 0.06;
+var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
+var gWindowRatio = 1; 
+var gWindowPrevRatio = gWindowRatio;
+var gTextureNames = "noTexture";
+var gLatestMousePos = [0,0];
+
+var gMesh = new Mesh(gGlobal.meshCount++);
+gMesh.initMesh(nodeCTX.name);
+setTexturesMeshes();
+
+// a structure to contain infos relative to the clicked mesh and vertex
+var gSelectionStruct = {
+	cellIndex: [-1, -1], 
+	oldCellIndex: [-1, -1],
+	mouseIsOnMesh: 0,
+	isTopMesh: 0,
+	reset: function() {
+		this.cellIndex = [-1, -1];
+		this.mouseIsOnMesh = 0;   // the mesh we are going to operate on
+	},
+	howManyVerticesSelected: 0,
+	areVerticesMoved: 0
+};
+
+//-----PUBLIC FUNCTIONS----------------
+function reset() {
+	show_mesh = 1;
+	gGraphics.resetSingleCircle();
+	gGraphics.resetSelected();
+}
+
+function jit_gl_texture(texName) {
+	if (gMesh) {
+		gMesh.assignTextureToMesh(texName);
+	}
+}
+
+function save_state(path) {
+	postln("saveing to " + path);
+	buildSaveDict(path);
+}
+
+function load_state(path) {
+	postln("loading to " + path);
+	loadSaveDict(path);
+}
+
+function freebang() {
+	//postln("freebang");
+	removeFromGlobalCtxMap(); // remove from global meshwarp array
+	gMesh.freeMesh();
+	gGraphics.sketch.freepeer();
+	nodeCTX.freepeer();
+	videoplane.freepeer();
+	nodeCamera.freepeer();
+	implicit_lstnr.subjectname = ""
+	implicit_tracker.freepeer();
+	// what else?
+}
+
 //--------------------------------------------
 
 function swapcallback(event){
@@ -114,10 +118,7 @@ function swapcallback(event){
 			if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
 				setWindowRatio(nodeCTX.dim);
 				gWindowDim = nodeCTX.dim.slice();
-				if (gMesh==null) {
-					gWindowPrevRatio = gWindowRatio;
-					init(); // INIT if meshes don't exist
-				}
+				gWindowPrevRatio = gWindowRatio;
 				gMesh.scaleToWindowRatio();
 			}
 			break;

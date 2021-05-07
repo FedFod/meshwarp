@@ -26,15 +26,16 @@ nodeCamera.drawto = nodeCTX.name;
 nodeCamera.ortho = 2;
 
 // PHYS PICKING
-// var physWorld = new JitterObject("jit.phys.world");
-// physWorld.dynamics = 0;
-// physWorld.worldbox = 0;
+var physWorld = new JitterObject("jit.phys.world");
+physWorld.dynamics = 0;
+physWorld.worldbox = 0;
+
 var physBody = new JitterObject("jit.phys.body");
-physBody.worldname = "meshwarp_phys_world";
+physBody.worldname = physWorld.name;
 physBody.shape = "convexhull";
-physBody.name = "meshwarpPhysBody_"+nodeCTX.name;
+
 var physDraw = new JitterObject("jit.gl.physdraw");
-physDraw.drawto = nodeCTX.name;
+physDraw.worldname = physWorld.name;
 physDraw.enable = 1;
 
 // var phys_lstnr = new JitterListener(physWorld.name, phys_callback);
@@ -44,15 +45,12 @@ physDraw.enable = 1;
 // }
 
 //---------------------------------------------------------------
-function setPhysWorldName(physWorldName) {
-	physBody.worldname = physWorldName;
-	physDraw.worldname = physWorldName;
-}
 
 function setNodeDrawto() {
 	nodeCTX.drawto = drawto;
 	videoplane.drawto = drawto;	
-	// physWorld.drawto = drawto;
+	physWorld.drawto = drawto;
+	physDraw.drawto = drawto;
 }
 setNodeDrawto.local = 1;
 
@@ -123,16 +121,10 @@ function loadSaveDict(path) {
 	mode = saveDict.get("mode");
 	gWindowRatio = saveDict.get("windowRatio");
 
-	init(saveDict);
+	gMesh.loadDict(saveDict); 
+	gMesh.changeMode(mode);
+	setTexturesMeshes();
 }
-
-function freeMeshes() {
-	if (gMesh!=null) {
-		gMesh.freeMesh();
-	}
-	gMesh = null;
-}
-freeMeshes.local = 1;
 
 function setTexturesMeshes() {
 	if (arguments.length > 0) {
@@ -142,22 +134,6 @@ function setTexturesMeshes() {
 	gMesh.initTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
 }
 setTexturesMeshes.local = 1;
-
-function init(saveDict_) {	
-	addThisMeshwarpObjToGlobal();
-	gGraphics.resetSingleCircle();
-	gGraphics.resetSelected();
-	freeMeshes();
-	initMeshes(saveDict_);
-}
-init.local = 1;
-
-function initMeshes(saveDict_) {	
-	gMesh = new Mesh();
-	gMesh.initMesh(nodeCTX.name, gGlobal.meshwarp_objects.indexOf(nodeCTX.name), mode, saveDict_); 
-	setTexturesMeshes();
-}
-initMeshes.local = 1;
 
 function scaleAllMeshes(scaleX, scaleY) {
 	gMesh.scaleMesh(scaleX, scaleY);

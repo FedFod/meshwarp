@@ -49,13 +49,12 @@ function dosetdrawto(newdrawto) {
 	}
 	// postln("setdrawto " + newdrawto);
 	drawto = newdrawto;	
-	
 	setNodeDrawto();
-	
+	addToGlobalCtxMap();
+
 	if(swaplisten)
 		swaplisten.subjectname = "";
 	swaplisten = new JitterListener(drawto, swapcallback);
-
 }
 dosetdrawto.local = 1;
 
