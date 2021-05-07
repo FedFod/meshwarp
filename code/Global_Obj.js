@@ -15,13 +15,6 @@ function notify_selected_meshwarp(currentlySelected) {
     }
 }
 
-// function attachColorBufferToGlobal() {
-// 	if (gGlobal.colorBuffer == null) {
-// 		gGlobal.colorBuffer = new JitterObject("jit.gl.node");
-// 		gGlobal.colorBuffer.drawto = 
-// 	}
-// }
-
 function checkIfItIsGloballySelected() {
 	return (gGlobal.currentlySelected == nodeCTX.name);
 }

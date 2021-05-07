@@ -22,15 +22,6 @@ Mesh.prototype.mouseIsCloseToVertex = function(mouseWorld) {
     return [-1,-1];
 } 
 
-Mesh.prototype.scaleWithHandle = function(initialPos, mouseWorld) {
-    var distFromInitial = subVec2D(mouseWorld, initialPos); //this.latestMousePos
-    distFromInitial = subVec2D([1,1], [distFromInitial[0], distFromInitial[1]*-1]);
-    this.scaleMesh(distFromInitial[0], distFromInitial[1]);
-    // this.unscaledPosMat.frommatrix(this.positionMat);
-    // print(this.unscaledPosMat.getcell(0,0))
-    this.latestMousePos = mouseWorld.slice();
-}
-
 Mesh.prototype.checkIfMouseIsCloseToHandle = function(mouseWorld) {
     var cellIndex = [-1,-1];
     var distFromHandle = calcDist2D(this.moveHandle.handlePos.slice(), mouseWorld.slice());
@@ -119,6 +110,7 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
     this.drawMoveHandleInPos(offset);
     this.drawHandleFull();
     this.assignPositionMatToMesh();
+    this.currentPos = offset.slice();
 
     this.drawScaleHandles();
 

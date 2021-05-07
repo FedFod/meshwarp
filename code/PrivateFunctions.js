@@ -174,7 +174,6 @@ function showMesh(show) {
 	if (gMesh!=null) {
 		gMesh.showMesh(show);
 	}
-	// print("show mesh "+show)
 	if (!show) {
 		gGraphics.resetSingleCircle();
 	}

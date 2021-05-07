@@ -1,5 +1,4 @@
 function nurbscallback(event) {
-    //post("nurbscallback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
     if (event.eventname == "matrixoutput") {
         var mesh = nurbsmap[event.subjectname];
         if(mesh) {
@@ -33,6 +32,8 @@ function Mesh(ID) {
 
     this.useNurbs = 0;
     this.currentScale = [1, 1];
+    this.latestScale = this.currentScale.slice();
+    this.currentPos = [0,0];
     this.nurbsLstnr = null;
     this.hasNurbsMat = 0;
     this.textureName = "";
@@ -41,7 +42,6 @@ function Mesh(ID) {
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
-    this.scaleHandlesPos = [];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
@@ -66,6 +66,8 @@ function Mesh(ID) {
         this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
         this.initPositionMat(); // fill vertex mat from scratch
 
+        this.initProperties();
+
         this.initMeshPoints(drawto_);
         this.initMeshGrid(drawto_);
         this.initMeshFull(drawto_);
@@ -73,7 +75,7 @@ function Mesh(ID) {
         this.initHandle(drawto_);
         this.initScaleHandles(drawto_);
 
-        this.scaleToWindowRatio();
+        this.calcMeshBoundsMat();
         this.initTextureCoordMat(); // init texture coord mat
     }
 
@@ -81,6 +83,15 @@ function Mesh(ID) {
         this.loadDataFromDict(saveDict_);
         this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
         this.loadMatrixFromDict(saveDict_);
+    }
+
+    this.initProperties = function() {
+        this.latestMousePos = [0,0];
+        this.mouseOffset = [0,0];
+        this.currentPos = [0,0];
+        this.currentScale = [1, 1];
+        this.latestScale = this.currentScale.slice();
+        this.useNurbs = 0;
     }
 
     this.changeMode = function(mode) {
@@ -105,6 +116,10 @@ function Mesh(ID) {
             }
         }
     }
+
+    // this.initTransformMat = function() {
+    //     this.transformMat = new Mat([[1,0,0,0], [0,1,0,0], [0,0,1,0], [0,0,0,1]]);
+    // }
 
     this.initTextureCoordMat = function() {   
         var xStartingPoint = (1.0/meshcount);
@@ -202,7 +217,7 @@ function Mesh(ID) {
     this.initScaleHandles = function(drawto_) {
         this.scaleHandles = new JitterObject("jit.gl.sketch", drawto_);
         this.scaleHandles.layer = FRONT;
-        this.scaleHandles.color = LIGHT_BLUE;
+        this.scaleHandles.color = ORANGE;
         this.scaleHandles.line_width = 2;
         this.scaleHandles.blend_enable = 1;
         this.scaleHandles.depth_enable = 0;

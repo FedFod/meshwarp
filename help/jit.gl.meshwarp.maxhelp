@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 745.0, 88.0, 933.0, 694.0 ],
+		"rect" : [ 846.0, 198.0, 933.0, 694.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 745.0, 114.0, 933.0, 668.0 ],
+						"rect" : [ 846.0, 224.0, 933.0, 668.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -567,7 +567,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 777.5, 210.619042873382568, 127.0, 37.0 ],
+									"patching_rect" : [ 777.5, 210.619042873382568, 127.0, 38.0 ],
 									"text" : "Mode: 1 (mesh)\nMode: 0 (NURBS)"
 								}
 
@@ -579,7 +579,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 70.0, 516.0, 33.0 ],
+									"patching_rect" : [ 21.0, 70.0, 516.0, 34.0 ],
 									"text" : "The jit.gl.meshwarp allows to deform visual material projected on an arbitrary number of planes.\nIt can be used either for video-mapping or as a creative tool."
 								}
 
@@ -592,7 +592,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 19.0, 241.0, 42.0 ],
+									"patching_rect" : [ 21.0, 19.0, 241.0, 43.0 ],
 									"text" : "jit.gl.meshwarp"
 								}
 
@@ -604,7 +604,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 236.642860054969788, 441.0, 71.0, 22.0 ],
+									"patching_rect" : [ 222.142860054969788, 441.0, 71.0, 22.0 ],
 									"text" : "r meshwarp"
 								}
 
@@ -690,7 +690,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 109.142860054969788, 217.738093018531799, 80.0, 35.0 ]
+									"patching_rect" : [ 76.642860054969788, 220.738093018531799, 80.0, 36.0 ]
 								}
 
 							}
@@ -900,23 +900,6 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-1", 0 ],
-									"order" : 2,
-									"source" : [ "obj-4", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-41", 0 ],
-									"order" : 1,
-									"source" : [ "obj-4", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-43", 0 ],
-									"order" : 0,
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -1010,15 +993,13 @@
 		"lines" : [  ],
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/code",
-				"patcherrelativepath" : "../code",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}

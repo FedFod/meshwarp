@@ -5,11 +5,18 @@ var GREY  = [0.5, 0.5, 0.5, 1.0];
 var LIGHT_BLUE_TRANSPARENT = [0.1, 0.7, 1.0, 0.5];
 var LIGHT_BLUE= [0.1, 0.9, 1.0, 1];
 var YELLOW = [1,1,0,1];
+var ORANGE = [1,0.7,0,1];
 
 var BACKGROUND = 9;
 var MIDDLE = 10;
 var MIDDLE_1 = 11;
 var FRONT = 12;
+
+// ------------------------------------------
+
+function checkIfVec2AreDifferent(vec1, vec2) {
+	return (vec1[0] != vec2[0] || vec1[1] != vec2[1]);
+}
 
 function subVec2D(vec1, vec2) {
 	return [vec1[0]-vec2[0], vec1[1]-vec2[1]];
@@ -49,23 +56,6 @@ function intersection(a, b, c, d) {
 }
 
 function isPointInsidePolygon(coords, matrix) {
-	// var testx = coords[0]; var testy = coords[1];
-	// var i, j, c = 0;
-
-	// if (!Array.isArray(matrix.dim)) {
-	// 	var nvert = matrix.dim;
-	// 	for (i=0, j = nvert-1; i < nvert; j = i++) {
-	// 		var verty_i = matrix.getcell(i)[1];
-	// 		var verty_j = matrix.getcell(j)[1];
-	// 		var vertx_i = matrix.getcell(i)[0];
-	// 		var vertx_j = matrix.getcell(j)[0];
-	// 		if ( ((verty_i>testy) != (verty_j>testy)) &&
-	// 			((testx < ( ((vertx_j-vertx_i) * (testy-verty_i)) / (verty_j-verty_i) + vertx_i)) ) ) {
-	// 			c = !c;
-	// 		}
-	// 	}
-	// }
-	// return c ? 1 : 0;
 	var p = coords.slice();
 	var poly = jitMatToArray(matrix);
 	var sides = poly.length,

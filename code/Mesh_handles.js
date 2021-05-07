@@ -20,10 +20,15 @@ Mesh.prototype.drawScaleHandles = function() {
     var min = gMinMaxMat.min.slice();
     var max = gMinMaxMat.max.slice();
 
-    this.scaleHandles.handlesPositions[0] = [min[0], max[1], 0];
-    this.scaleHandles.handlesPositions[1] = [max[0], max[1], 0];
-    this.scaleHandles.handlesPositions[2] = [max[0], min[1], 0];
-    this.scaleHandles.handlesPositions[3] = [min[0], min[1], 0];
+    // this.scaleHandles.handlesPositions[0] = [min[0], max[1], 0];
+    // this.scaleHandles.handlesPositions[1] = [max[0], max[1], 0];
+    // this.scaleHandles.handlesPositions[2] = [max[0], min[1], 0];
+    // this.scaleHandles.handlesPositions[3] = [min[0], min[1], 0];
+    
+    this.scaleHandles.handlesPositions[0] = [-this.currentScale[0]+this.currentPos[0], this.currentScale[1]+this.currentPos[1], 0];
+    this.scaleHandles.handlesPositions[1] = [this.currentScale[0]+this.currentPos[0], this.currentScale[1]+this.currentPos[1], 0];
+    this.scaleHandles.handlesPositions[2] = [this.currentScale[0]+this.currentPos[0], -this.currentScale[1]+this.currentPos[1], 0];
+    this.scaleHandles.handlesPositions[3] = [-this.currentScale[0]+this.currentPos[0], -this.currentScale[1]+this.currentPos[1], 0];
 
     for (var i=0; i<this.scaleHandles.handlesPositions.length; i++) {
         this.scaleHandles.moveto(this.scaleHandles.handlesPositions[i]);
@@ -32,7 +37,10 @@ Mesh.prototype.drawScaleHandles = function() {
 }
 
 Mesh.prototype.drawScaleHandleFull = function(index) {
+    if (index) {
+        this.scaleHandles.index = index;
+    }
     this.scaleHandles.glcolor(LIGHT_BLUE_TRANSPARENT);
-    this.scaleHandles.moveto(this.scaleHandles.handlesPositions[index]);
+    this.scaleHandles.moveto(this.scaleHandles.handlesPositions[this.scaleHandles.index]);
     this.scaleHandles.circle(this.scaleHandles.handleSize);
 }
