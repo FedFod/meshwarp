@@ -76,6 +76,7 @@ function reset() {
 	show_mesh = 1;
 	gGraphics.resetSingleCircle();
 	gGraphics.resetSelected();
+	gMesh.initMesh(nodeCTX.name);
 }
 
 function jit_gl_texture(texName) {
