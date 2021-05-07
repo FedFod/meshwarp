@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 846.0, 198.0, 933.0, 694.0 ],
+		"rect" : [ 819.0, 190.0, 933.0, 676.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -58,7 +58,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 933.0, 668.0 ],
+						"rect" : [ 0.0, 26.0, 933.0, 650.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 846.0, 224.0, 933.0, 668.0 ],
+						"rect" : [ 819.0, 216.0, 933.0, 650.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -604,7 +604,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 222.142860054969788, 441.0, 71.0, 22.0 ],
+									"patching_rect" : [ 176.142860054969788, 462.0, 71.0, 22.0 ],
 									"text" : "r meshwarp"
 								}
 
@@ -764,25 +764,13 @@
 							}
 , 							{
 								"box" : 								{
-									"attr" : "floating",
-									"id" : "obj-19",
-									"maxclass" : "attrui",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 121.142860054969788, 145.619042873382568, 150.0, 22.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"attr" : "drawto",
 									"id" : "obj-24",
 									"maxclass" : "attrui",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 93.642860054969788, 116.738092999999992, 150.0, 22.0 ],
+									"patching_rect" : [ 112.0, 151.642863392829895, 150.0, 22.0 ],
 									"text_width" : 56.357139945030212
 								}
 
@@ -838,13 +826,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-25", 0 ],
 									"source" : [ "obj-18", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-2", 0 ],
-									"source" : [ "obj-19", 0 ]
 								}
 
 							}

@@ -13,13 +13,15 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
 
 Mesh.prototype.scaleWithHandle = function(initialPos, mouseWorld) {
     var distFromInitial = subVec2D(mouseWorld, initialPos); //this.latestMousePos
-
-    // if (mouseWorld[1] < initialPos[1]) {
+    if (this.scaleHandles.index == 0) {
         distFromInitial[1] = distFromInitial[1]*-1;
-    // }
-    
+    } else if (this.scaleHandles.index == 1) {
+       distFromInitial[0] *= -1;
+       distFromInitial[1] *= -1;
+    } else if (this.scaleHandles.index == 2) {
+        distFromInitial[0] *= -1;
+    }
     distFromInitial = subVec2D(this.latestScale, distFromInitial);
-
     this.scaleMesh(distFromInitial[0], distFromInitial[1]);
     this.latestMousePos = mouseWorld.slice();
 }

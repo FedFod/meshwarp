@@ -6,7 +6,7 @@ include("Mesh.js");
 include("Mesh_scale.js");
 include("Mesh_save_load.js");
 include("Mesh_dim.js");
-include("Mesh_mouse_interaction.js");
+include("Mesh_movement.js");
 include("Mesh_handles.js");
 include("Utilities.js");
 include("GraphicElements.js");

@@ -223,6 +223,7 @@ function Mesh(ID) {
         this.scaleHandles.depth_enable = 0;
         this.scaleHandles.handleSize = 0.1;
         this.scaleHandles.handlesPositions = [];
+        this.scaleHandles.index = -1;
         this.drawScaleHandles();
     }
 

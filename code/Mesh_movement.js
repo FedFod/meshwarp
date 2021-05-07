@@ -84,7 +84,7 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     }
     this.latestMousePos = mouseWorld.slice();
     this.assignPositionMatToMesh();
-    this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
+    // this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
 }
 
 Mesh.prototype.deselectVertices = function() {

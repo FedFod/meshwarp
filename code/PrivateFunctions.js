@@ -137,6 +137,7 @@ setTexturesMeshes.local = 1;
 
 function scaleAllMeshes(scaleX, scaleY) {
 	gMesh.scaleMesh(scaleX, scaleY);
+	gMesh.setLatestScale();
 }
 scaleAllMeshes.local = 1;
 
