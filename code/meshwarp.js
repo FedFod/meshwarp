@@ -102,8 +102,6 @@ function notifydeleted() {
 	nodeCTX.freepeer();
 	videoplane.freepeer();
 	nodeCamera.freepeer();
-	physWorld.freepeer();
-	physDraw.freepeer();
 	implicit_lstnr.subjectname = ""
 	implicit_tracker.freepeer();
 	// what else?

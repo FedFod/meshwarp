@@ -33,6 +33,22 @@ function assignThisAsCurrentlySelectedToGlobal() {
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;
 
+function checkContextObs() {
+	for(var c in gGlobal.contexts) {
+		var ctxOb = gGlobal.contexts[c];
+		if(ctxOb.requestInit) {
+			ctxOb.requestInit = false;
+			ctxOb.physWorld = new JitterObject("jit.phys.world");
+			ctxOb.physWorld.drawto = nodeCTX.drawto;
+			// other stuff
+			ctxOb.physDraw = new JitterObject("jit.gl.physdraw");
+			ctxOb.physDraw.drawto = nodeCTX.drawto;
+			ctxOb.physDraw.worldname = ctxOb.physWorld.name;
+			// other stuff
+		}
+	}
+}
+
 // called when drawto set
 function addToGlobalCtxMap() {
 	print("Global MeshCount : "+gGlobal.meshCount);
@@ -44,6 +60,7 @@ function addToGlobalCtxMap() {
 		gGlobal.contexts.drawto = {};
 		ctxob = gGlobal.contexts.drawto;
 		ctxob.objects = [];
+		ctxob.requestInit = true;
 	}
 	else {
 		ctxob = gGlobal.contexts.drawto;
@@ -71,6 +88,9 @@ function removeFromGlobalCtxMap() {
 		print("Objects Length : "+obs.length)
 		if (obs.length == 0) {
 			print("freed global objects")
+			gGlobal.contexts.drawto.physDraw.freepeer();
+			gGlobal.contexts.drawto.physWorld.freepeer();
+			gGlobal.contexts.drawto.ctxCamera.freepeer();
 			gGlobal.inited = null;
 			gGlobal.contexts.drawto = null;
 		}
@@ -82,4 +102,10 @@ function removeFromGlobalCtxMap() {
 	}
 	
 	gGlobal.meshCount--;
+}
+
+function initPhysWorld(physWorld) {
+	physWorld.drawto = proxydrawto[0];
+	physWorld.worldbox = 0;
+	physWorld.dynamics = 0;
 }
