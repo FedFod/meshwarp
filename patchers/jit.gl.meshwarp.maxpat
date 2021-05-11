@@ -40,6 +40,40 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-19",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 34.0, 246.0, 177.0, 22.0 ],
+					"restore" : [ 						{
+							"meshcount" : 1,
+							"mode" : 0,
+							"show_mesh" : 1,
+							"windowRatio" : 1,
+							"positionMat" : 							{
+								"scale" : [ 1, 1 ],
+								"planecount" : 3,
+								"type" : "float32",
+								"dimensions" : [ 4, 4 ],
+								"nurbs_order" : [ 1, 1 ],
+								"vertices" : "[[-1,-1,0],[-1,-0.3333333432674408,0],[-1,0.3333333432674408,0],[-1,1,0],[-0.3333333432674408,-1,0],[-0.3333333432674408,-0.3333333432674408,0],[-0.3333333432674408,0.3333333432674408,0],[-0.3333333432674408,1,0],[0.3333333432674408,-1,0],[0.3333333432674408,-0.3333333432674408,0],[0.3333333432674408,0.3333333432674408,0],[0.3333333432674408,1,0],[1,-1,0],[1,-0.3333333432674408,0],[1,0.3333333432674408,0],[1,1,0]]"
+							}
+
+						}
+ ],
+					"saved_object_attributes" : 					{
+						"parameter_enable" : 0,
+						"parameter_mappable" : 0
+					}
+,
+					"text" : "pattr meshwarp @autorestore 0",
+					"varname" : "meshwarp"
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-24",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -231,7 +265,8 @@
 						"parameter_enable" : 0
 					}
 ,
-					"text" : "js meshwarp.js"
+					"text" : "js meshwarp.js",
+					"varname" : "js"
 				}
 
 			}
@@ -414,6 +449,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"source" : [ "obj-18", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-19", 1 ]
 				}
 
 			}

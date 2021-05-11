@@ -88,7 +88,7 @@ function jit_gl_texture(texName) {
 
 function save_state(path) {
 	postln("saveing to " + path);
-	buildSaveDict(path);
+	saveDictToPath(path);
 }
 
 function load_state(path) {
@@ -110,6 +110,16 @@ function notifydeleted() {
 	implicit_lstnr.subjectname = ""
 	implicit_tracker.freepeer();
 	// what else?
+}
+
+function getvalueof() {
+	postln("getvalueof");
+	return buildSaveDict(null);
+}
+
+function setvalueof(dict) {
+	postln("setvalueof");
+	loadFromDict(dict);
 }
 
 //--------------------------------------------
