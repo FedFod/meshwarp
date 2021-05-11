@@ -64,34 +64,26 @@ function Mesh(ID) {
     }
 
     this.initMesh = function(drawto_) {
-        this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
         this.initPositionMat(); // fill vertex mat from scratch
-
-        this.initProperties();
         this.initState();
 
         this.initMeshPoints(drawto_);
         this.initMeshGrid(drawto_);
         this.initMeshFull(drawto_);
         this.initNurbs(drawto_);
-        this.initHandle(drawto_);
         this.initMvmtHandle(drawto_);
         this.initScaleHandles(drawto_);
-
         this.initPhysBody();
         this.calcMeshBoundsMat();
-        this.initTextureCoordMat(); // init texture coord mat
         
         this.initAndAssignTextureCoordMat(); // init texture coord mat
     }
 
     this.loadDict = function(saveDict_) {
         this.loadDataFromDict(saveDict_);
-        this.setMeshDim(this.posMatDim);    // calculate and set matrices dimensions
         this.loadMatrixFromDict(saveDict_);
     }
 
-    this.initProperties = function() {
     this.initState = function() {
         this.latestMousePos = [0,0];
         this.mouseOffset = [0,0];
@@ -111,7 +103,6 @@ function Mesh(ID) {
             this.assignPositionMatToMesh(); // assign vertex mat to mesh
             this.textureCoordMat.dim = this.positionMat.dim.slice();
         }
-        this.initTextureCoordMat();
         this.initAndAssignTextureCoordMat();
     }
 
@@ -125,13 +116,6 @@ function Mesh(ID) {
         }
     }
 
-    // this.initTransformMat = function() {
-    //     this.transformMat = new Mat([[1,0,0,0], [0,1,0,0], [0,0,1,0], [0,0,0,1]]);
-    // }
-
-    this.initTextureCoordMat = function() {   
-        var xStartingPoint = (1.0/meshcount);
-        var xCoordTarget = xStartingPoint + (1.0/meshcount); // 0 a 1. +0.25
     this.initAndAssignTextureCoordMat = function() {   
         var xStartingPoint = 1;
         var xCoordTarget = xStartingPoint + 1; // 0 a 1. +0.25
@@ -153,7 +137,6 @@ function Mesh(ID) {
         for(var i=0; i<this.positionMat.dim[0]; i++) {
             for(var j=0; j<this.positionMat.dim[1]; j++) {   
                 var xVal = (i / (this.positionMat.dim[0]-1));
-                xVal = map(xVal, 0., 1., -1 + (1 / (meshcount/2) * 0), -1+(1/(meshcount/2)) + (1 / (meshcount/2)) * 0);
                 xVal = map(xVal, 0., 1., -1 + (1 / (0.5) * 0), -1+(1/(0.5)) + (1 / (0.5)) * 0);
                 var yVal = ((j / (this.positionMat.dim[1]-1)) * 2.0) - 1.0;
 
@@ -214,7 +197,6 @@ function Mesh(ID) {
         nurbsmap[this.nurbs.name] = this;
     }
 
-    this.initHandle = function(drawto_) {
     this.initMvmtHandle = function(drawto_) {
         this.moveHandle = new JitterObject("jit.gl.sketch", drawto_);
         this.moveHandle.layer = FRONT;
@@ -250,22 +232,6 @@ function Mesh(ID) {
     }
 
     this.freeMesh = function() {
-        if (this.positionMat) {
-            this.positionMat.freepeer();
-            this.unscaledPosMat.freepeer();
-            this.boundingMat.freepeer();
-            this.nurbsMat.freepeer();
-            this.adjacentCellsMat.freepeer();
-            this.textureCoordMat.freepeer();
-            this.meshPoints.freepeer();
-            this.meshGrid.freepeer();
-            this.meshFull.freepeer();
-            this.nurbsLstnr.subjectname = "";
-            nurbsmap[this.nurbs.name] = null;
-            this.nurbs.freepeer();
-            this.moveHandle.freepeer();
-            this.scaleHandles.freepeer();
-        }
         this.freeMeshMatrices();
         this.freeMeshShapes();
         this.freeMeshHandles();
@@ -438,7 +404,6 @@ function Mesh(ID) {
             this.meshGrid.vertex_matrix(this.positionMat.name);
             this.meshFull.vertex_matrix(this.positionMat.name);
         }
-        // physBody.jit_matrix(this.positionMat.name);
         this.physBody.jit_matrix(this.positionMat.name);
     }
 

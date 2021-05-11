@@ -29,22 +29,18 @@ function dosetdrawto(newdrawto) {
 		return;
 	}
 
-		//postln("drawto class " + proxy.class);
-		if(gGlobal.proxy.class !== undefined) {
-			if(gGlobal.proxy.class != "jit_gl_context_view") { // what class is that??
-				proxydrawto = gGlobal.proxy.send("getdrawto");
-		if(proxy.class !== undefined) {
-			if(proxy.class != "jit_gl_context_view") { // what class is that??
-				proxydrawto = proxy.send("getdrawto");
-				// important! drawto is an array so get first element
-				return dosetdrawto(proxydrawto[0]);
-			}
+	//postln("drawto class " + proxy.class);
+	if(gGlobal.proxy.class !== undefined) {
+		if(gGlobal.proxy.class != "jit_gl_context_view") { // what class is that??
+			proxydrawto = gGlobal.proxy.send("getdrawto");
+			// important! drawto is an array so get first element
+			return dosetdrawto(proxydrawto[0]);
 		}
-		else {
-			// remove once 8.2 is updated to support proxy.class
-			if(proxydrawto !== null && proxydrawto !== undefined) {
-				return dosetdrawto(proxydrawto[0]);  // name of the internal node
-			}
+	}
+	else {
+		// remove once 8.2 is updated to support proxy.class
+		if(proxydrawto !== null && proxydrawto !== undefined) {
+			return dosetdrawto(proxydrawto[0]);  // name of the internal node
 		}
 	}
 	// postln("setdrawto " + newdrawto);

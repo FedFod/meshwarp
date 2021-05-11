@@ -99,12 +99,9 @@ function calculateBoundingCells(selectionStruct) {
 }
 calculateBoundingCells.local = 1;
 
-function buildSaveDict() {
 function buildSaveDict(path) {
 	var saveDict = new Dict();
 
-	saveDict.replace("meshcount", meshcount);
-	// saveDict.replace("meshcount", meshcount);
 	saveDict.replace("mode", mode);
 	saveDict.replace("show_mesh", show_mesh);
 	saveDict.replace("windowRatio", gWindowRatio);
@@ -113,13 +110,12 @@ function buildSaveDict(path) {
 
 	saveDict.export_json(path);
 }
+buildSaveDict.local = 1;
 
 function loadSaveDict(path) {
 	var saveDict = new Dict();
 	saveDict.import_json(path);
-	meshcount = saveDict.get("meshcount");
 	
-	// meshcount = saveDict.get("meshcount");
 	mode = saveDict.get("mode");
 	gWindowRatio = saveDict.get("windowRatio");
 
@@ -133,7 +129,6 @@ function setTexturesMeshes() {
 		gTextureNames = (arrayfromargs(arguments));
 	}
 	gMesh.assignTextureToMesh(gTextureNames);
-	gMesh.initTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
 	gMesh.initAndAssignTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
 }
 setTexturesMeshes.local = 1;
