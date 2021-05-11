@@ -227,7 +227,8 @@ function Mesh(ID) {
         this.physBody.jit_matrix(this.positionMat.name);
         this.physBody.shape = "concave";
         this.physBody.name = "mesh_"+this.ID;
-        print("from mesh world name : "+gGlobal.contexts.drawto.physWorld.name)
+        this.physBody.mass = 0;
+        //print("from mesh world name : "+gGlobal.contexts.drawto.physWorld.name)
     }
 
     this.setPhysWorldNameToMeshBody = function(name) {

@@ -30,8 +30,6 @@ nodeCamera.ortho = 2;
 function setNodeDrawto() {
 	nodeCTX.drawto = drawto;
 	videoplane.drawto = drawto;	
-	physWorld.drawto = drawto;
-	physDraw.drawto = drawto;
 }
 setNodeDrawto.local = 1;
 
