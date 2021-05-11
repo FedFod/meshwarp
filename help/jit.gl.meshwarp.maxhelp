@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1069.0, 227.0, 1116.0, 676.0 ],
+		"rect" : [ 762.0, 202.0, 1116.0, 676.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 1069.0, 253.0, 1116.0, 650.0 ],
+						"rect" : [ 762.0, 228.0, 1116.0, 650.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -387,8 +387,9 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 387.642860054969788, 549.047614336013794, 262.0, 22.0 ],
-									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
+									"patching_rect" : [ 692.238093376159668, 487.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
+									"varname" : "jit.gl.meshwarp[2]"
 								}
 
 							}
@@ -399,7 +400,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 0,
 									"patching_rect" : [ 345.0, 487.047614336013794, 262.0, 22.0 ],
-									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
+									"varname" : "jit.gl.meshwarp[1]"
 								}
 
 							}
@@ -604,7 +606,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 176.142860054969788, 462.0, 71.0, 22.0 ],
+									"patching_rect" : [ 178.142860054969788, 426.619042873382568, 71.0, 22.0 ],
 									"text" : "r meshwarp"
 								}
 
@@ -736,8 +738,9 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 84.642860054969788, 520.047614336013794, 262.0, 22.0 ],
-									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4"
+									"patching_rect" : [ 37.642860054969788, 513.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
+									"varname" : "jit.gl.meshwarp"
 								}
 
 							}
@@ -966,7 +969,8 @@
 						"tags" : ""
 					}
 ,
-					"text" : "p basic"
+					"text" : "p basic",
+					"varname" : "basic"
 				}
 
 			}

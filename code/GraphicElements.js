@@ -43,6 +43,11 @@ function GraphicElements(nodectx) {
                                 start[0], end[1], 0);
     }
 
+    this.free = function() {
+        this.sketch.freepeer();
+        this.sketch2.freepeer();
+    }
+
     this.drawSelectedCircles = function(coordsWorld) {
         this.sketch2.moveto(coordsWorld);
         this.sketch2.framecircle(this.circleRadius);

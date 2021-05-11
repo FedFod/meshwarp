@@ -86,7 +86,7 @@ function jit_gl_texture(texName) {
 
 function save_state(path) {
 	postln("saveing to " + path);
-	buildSaveDict(path);
+	saveDictToPath(path);
 }
 
 function load_state(path) {
@@ -94,17 +94,27 @@ function load_state(path) {
 	loadSaveDict(path);
 }
 
-function freebang() {
-	//postln("freebang");
+function notifydeleted() {
+	postln("freebang");
 	removeFromGlobalCtxMap(); // remove from global meshwarp array
 	gMesh.freeMesh();
-	gGraphics.sketch.freepeer();
+	gGraphics.free();
 	nodeCTX.freepeer();
 	videoplane.freepeer();
 	nodeCamera.freepeer();
 	implicit_lstnr.subjectname = ""
 	implicit_tracker.freepeer();
 	// what else?
+}
+
+function getvalueof() {
+	postln("getvalueof");
+	return buildSaveDict(null);
+}
+
+function setvalueof(dict) {
+	postln("setvalueof");
+	loadFromDict(dict);
 }
 
 //--------------------------------------------
