@@ -6,8 +6,7 @@ if(gGlobal.inited === undefined) {
 	gGlobal.isOnHandle = 0;
 	gGlobal.contexts = {};
 	gGlobal.meshCount = 0;
-	if(max.version >= 820)
-		gGlobal.proxy = new JitterObject("jit.proxy");
+	print("gGlobal PhysWorld Name : "+gGlobal.physWorld.name);
 }
 
 function notify_selected_meshwarp(currentlySelected) {
@@ -32,6 +31,7 @@ assignThisAsCurrentlySelectedToGlobal.local = 1;
 
 // called when drawto set
 function addToGlobalCtxMap() {
+	print("Global MeshCount : "+gGlobal.meshCount);
 	print("addToGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
 	// check if context in map, if not create it
 	var ctxob = null;
@@ -40,9 +40,19 @@ function addToGlobalCtxMap() {
 		gGlobal.contexts.drawto = {};
 		ctxob = gGlobal.contexts.drawto;
 		ctxob.objects = [];
+		ctxob.physWorld = new JitterObject("jit.phys.world");
+		ctxob.physDraw = new JitterObject("jit.gl.physdraw");
+		ctxob.ctxCamera = new JitterObject("jit.gl.camera");
+		ctxob.ctxCamera.drawto = proxydrawto[0];
+		ctxob.ctxCamera.ortho = 2;
+		ctxob.physDraw.worldname = ctxob.physWorld.name;
+		ctxob.physDraw.drawto = drawto;
+		initPhysWorld(ctxob.physWorld);
 	}
 	else {
 		ctxob = gGlobal.contexts.drawto;
+		print("phys world name from else : "+ctxob.physWorld.name);
+		print("phys world drawto : "+ctxob.physWorld.drawto);
 	}
 	ctxob.objects.push(nodeCTX.name);
 	//postln("context contains...");
@@ -63,6 +73,10 @@ function removeFromGlobalCtxMap() {
 			obs.splice(index, 1);
 			print("ID "+ index + " REMOVED")
 		}
+		print("Objects Length : "+obs.length)
+		if (obs.length === 0) {
+			gGlobal.inited = false;
+		}
 	}
 	
 	if(checkIfItIsGloballySelected()) {
@@ -71,4 +85,10 @@ function removeFromGlobalCtxMap() {
 	}
 	
 	gGlobal.meshCount--;
+}
+
+function initPhysWorld(physWorld) {
+	physWorld.drawto = proxydrawto[0];
+	physWorld.worldbox = 0;
+	physWorld.dynamics = 0;
 }

@@ -11,6 +11,7 @@
 ,
 		"classnamespace" : "box",
 		"rect" : [ 819.0, 190.0, 933.0, 676.0 ],
+		"rect" : [ 1069.0, 227.0, 1116.0, 676.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -59,6 +60,7 @@
 ,
 						"classnamespace" : "box",
 						"rect" : [ 0.0, 26.0, 933.0, 650.0 ],
+						"rect" : [ 0.0, 26.0, 1116.0, 650.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -353,6 +355,7 @@
 ,
 						"classnamespace" : "box",
 						"rect" : [ 819.0, 216.0, 933.0, 650.0 ],
+						"rect" : [ 1069.0, 253.0, 1116.0, 650.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -715,6 +718,7 @@
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 37.642860054969788, 151.642863392829895, 33.476186752319336, 33.476186752319336 ]
+									"patching_rect" : [ 37.642860054969788, 145.619042873382568, 33.476186752319336, 33.476186752319336 ]
 								}
 
 							}
@@ -756,6 +760,7 @@
 									"outlettype" : [ "", "", "int" ],
 									"parameter_enable" : 0,
 									"patching_rect" : [ 72.142860054969788, 158.380956768989563, 20.0, 20.0 ],
+									"patching_rect" : [ 70.642860054969788, 151.642863392829895, 20.0, 20.0 ],
 									"rounded" : 60.0,
 									"text" : "1",
 									"textcolor" : [ 0.34902, 0.34902, 0.34902, 1.0 ]

@@ -100,33 +100,26 @@ function calculateBoundingCells(selectionStruct) {
 calculateBoundingCells.local = 1;
 
 function buildSaveDict() {
+function buildSaveDict(path) {
 	var saveDict = new Dict();
 
 	saveDict.replace("meshcount", meshcount);
+	// saveDict.replace("meshcount", meshcount);
 	saveDict.replace("mode", mode);
 	saveDict.replace("show_mesh", show_mesh);
 	saveDict.replace("windowRatio", gWindowRatio);
 
 	gMesh.saveDataIntoDict(saveDict);
-	return saveDict;
-}
-buildSaveDict.local = 1;
 
-function saveDictToPath(path) {
-	var saveDict = buildSaveDict();
 	saveDict.export_json(path);
 }
-saveDictToPath.local = 1;
 
 function loadSaveDict(path) {
 	var saveDict = new Dict();
 	saveDict.import_json(path);
-	loadFromDict(saveDict);
-}
-loadSaveDict.local = 1;
-
-function loadFromDict(saveDict) {
 	meshcount = saveDict.get("meshcount");
+	
+	// meshcount = saveDict.get("meshcount");
 	mode = saveDict.get("mode");
 	gWindowRatio = saveDict.get("windowRatio");
 
@@ -134,7 +127,6 @@ function loadFromDict(saveDict) {
 	gMesh.changeMode(mode);
 	setTexturesMeshes();
 }
-loadFromDict.local = 1;
 
 function setTexturesMeshes() {
 	if (arguments.length > 0) {
@@ -142,6 +134,7 @@ function setTexturesMeshes() {
 	}
 	gMesh.assignTextureToMesh(gTextureNames);
 	gMesh.initTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
+	gMesh.initAndAssignTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
 }
 setTexturesMeshes.local = 1;
 

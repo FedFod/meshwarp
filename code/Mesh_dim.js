@@ -30,5 +30,6 @@ Mesh.prototype.resizeMeshDim = function(dimensions) {
     this.unscaledMatFromPosMat();
     this.assignPositionMatToMesh();
     this.initTextureCoordMat();
+    this.initAndAssignTextureCoordMat();
     this.calcMeshBoundsMat();
 }

@@ -70,6 +70,8 @@ var gSelectionStruct = {
 	howManyVerticesSelected: 0,
 	areVerticesMoved: 0,
 	isScaled: 0
+	isScaled: 0,
+	isOnScaleHandle: 0
 };
 
 //-----PUBLIC FUNCTIONS----------------
@@ -88,7 +90,6 @@ function jit_gl_texture(texName) {
 
 function save_state(path) {
 	postln("saveing to " + path);
-	saveDictToPath(path);
 }
 
 function load_state(path) {
@@ -96,11 +97,8 @@ function load_state(path) {
 	loadSaveDict(path);
 }
 
-function notifydeleted() {
-	postln("freebang");
 	removeFromGlobalCtxMap(); // remove from global meshwarp array
 	gMesh.freeMesh();
-	gGraphics.free();
 	nodeCTX.freepeer();
 	videoplane.freepeer();
 	nodeCamera.freepeer();
@@ -110,16 +108,6 @@ function notifydeleted() {
 	implicit_lstnr.subjectname = ""
 	implicit_tracker.freepeer();
 	// what else?
-}
-
-function getvalueof() {
-	postln("getvalueof");
-	return buildSaveDict(null);
-}
-
-function setvalueof(dict) {
-	postln("setvalueof");
-	loadFromDict(dict);
 }
 
 //--------------------------------------------
@@ -189,16 +177,25 @@ function swapcallback(event){
 					gLatestMousePos = mouseWorld.slice(); // set latest mouse pos (used for selecting multiple)
 
 					// physWorld.screenraytest(gMousePosScreen);
+					print(gGlobal.contexts.drawto.physWorld.screenraytest(gMousePosScreen.slice(0,2))); 
+
 					gSelectionStruct.reset(); // reset all the struct values
 	
 					if (checkIfItIsGloballySelected() && show_mesh) {
 						gSelectionStruct.cellIndex = gMesh.checkIfMouseIsCloseToScaleHandles(mouseWorld); // if we are not in the move handle, check the scale handles
+						if (gSelectionStruct.cellIndex[0] == -50) {
+							gSelectionStruct.isOnScaleHandle = 1;
+							gGraphics.resetSingleCircle();
+						} else {
+							gSelectionStruct.isOnScaleHandle = 0;
+						}
 					}
 					
 					gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
 	
 					if (gSelectionStruct.mouseIsOnMesh != -1) {  // We are inside the mesh
 						if (gSelectionStruct.cellIndex[0] == -1) {
+						if (gSelectionStruct.cellIndex[0] == -1 || gSelectionStruct.cellIndex[0] == -50) {
 							gSelectionStruct.cellIndex = gMesh.checkIfMouseIsCloseToHandle(mouseWorld); // check if mouse is close to move handle
 							// if we are on a mesh and it's the selected one, let's check if the mouse is close to a vertex
 							if (checkIfItIsGloballySelected() && show_mesh) { // if this is the currently selected meshwarp
@@ -206,6 +203,9 @@ function swapcallback(event){
 								
 								if (gSelectionStruct.cellIndex[0] == -1) { // otherwise let's check if we click on a vertex
 									gSelectionStruct.cellIndex = gMesh.mouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
+									if (gSelectionStruct.isOnScaleHandle && gSelectionStruct.cellIndex[0] == -1) {
+										gSelectionStruct.cellIndex[0] = -50;
+									}
 								}
 								// check if the cell currently selected is different from the previous cell selected. 
 								// In case it is different we fill the matrix with the adjacent cells for bounding calculation
