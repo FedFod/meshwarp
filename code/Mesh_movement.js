@@ -84,7 +84,6 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     }
     this.latestMousePos = mouseWorld.slice();
     this.assignPositionMatToMesh();
-    // this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
     this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
 }
 
@@ -99,7 +98,6 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
         this.setVertexPosInMat(newPos, cellIndex);
         this.assignPositionMatToMesh();
         gGraphics.drawCircle(newPos);
-        this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
         // this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
     //  }
 }

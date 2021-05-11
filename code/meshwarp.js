@@ -17,9 +17,6 @@ include("Canvas.js");
 var mode = 0; // default: use NURBS
 declareattribute("mode", null, "setMode", 0);
 
-var meshcount = 1; 
-declareattribute("meshcount", null, "setHowManyMeshes", 0);
-
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
@@ -69,7 +66,6 @@ var gSelectionStruct = {
 	},
 	howManyVerticesSelected: 0,
 	areVerticesMoved: 0,
-	isScaled: 0
 	isScaled: 0,
 	isOnScaleHandle: 0
 };
@@ -90,6 +86,7 @@ function jit_gl_texture(texName) {
 
 function save_state(path) {
 	postln("saveing to " + path);
+	buildSaveDict(path);
 }
 
 function load_state(path) {
@@ -97,14 +94,14 @@ function load_state(path) {
 	loadSaveDict(path);
 }
 
+function freebang() {
+	//postln("freebang");
 	removeFromGlobalCtxMap(); // remove from global meshwarp array
 	gMesh.freeMesh();
+	gGraphics.sketch.freepeer();
 	nodeCTX.freepeer();
 	videoplane.freepeer();
 	nodeCamera.freepeer();
-	physWorld.freepeer();
-	physBody.freepeer();
-	physDraw.freepeer();
 	implicit_lstnr.subjectname = ""
 	implicit_tracker.freepeer();
 	// what else?
@@ -131,7 +128,6 @@ function swapcallback(event){
 				var mouseClicked = gMousePosScreen[2];
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); 
 
-				
 				if (mouseClicked) {
 					if (gSelectionStruct.cellIndex[0] == -100) { // we are on the move handle, even if the meshwarp is not the active one
 						moveWholeMesh(mouseWorld);
@@ -176,7 +172,6 @@ function swapcallback(event){
 				if (checkIfVec2AreDifferent(mouseWorld, gLatestMousePos)) {
 					gLatestMousePos = mouseWorld.slice(); // set latest mouse pos (used for selecting multiple)
 
-					// physWorld.screenraytest(gMousePosScreen);
 					print(gGlobal.contexts.drawto.physWorld.screenraytest(gMousePosScreen.slice(0,2))); 
 
 					gSelectionStruct.reset(); // reset all the struct values
@@ -194,7 +189,6 @@ function swapcallback(event){
 					gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
 	
 					if (gSelectionStruct.mouseIsOnMesh != -1) {  // We are inside the mesh
-						if (gSelectionStruct.cellIndex[0] == -1) {
 						if (gSelectionStruct.cellIndex[0] == -1 || gSelectionStruct.cellIndex[0] == -50) {
 							gSelectionStruct.cellIndex = gMesh.checkIfMouseIsCloseToHandle(mouseWorld); // check if mouse is close to move handle
 							// if we are on a mesh and it's the selected one, let's check if the mouse is close to a vertex
