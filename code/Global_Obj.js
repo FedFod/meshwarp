@@ -6,8 +6,10 @@ if(gGlobal.inited === undefined) {
 	gGlobal.isOnHandle = 0;
 	gGlobal.contexts = {};
 	gGlobal.meshCount = 0;
-	if(max.version >= 820)
+	if(max.version >= 820) {
 		gGlobal.proxy = new JitterObject("jit.proxy");
+		print("created proxy")
+	}
 	print("gGlobal PhysWorld Name : "+gGlobal.physWorld.name);
 }
 
@@ -49,14 +51,15 @@ function addToGlobalCtxMap() {
 		ctxob.ctxCamera.ortho = 2;
 		ctxob.physDraw.worldname = ctxob.physWorld.name;
 		ctxob.physDraw.drawto = drawto;
+		ctxob.physDraw.depth_enable = 0;
+		ctxob.physDraw.layer = 1000;
 		initPhysWorld(ctxob.physWorld);
 	}
 	else {
 		ctxob = gGlobal.contexts.drawto;
-		print("phys world name from else : "+ctxob.physWorld.name);
-		print("phys world drawto : "+ctxob.physWorld.drawto);
 	}
 	ctxob.objects.push(nodeCTX.name);
+	gMesh.setPhysWorldNameToMeshBody(ctxob.physWorld.name);
 	//postln("context contains...");
 	//for(var i = 0; i < ctxob.objects.length; i++) {
 	//	postln(ctxob.objects[i]);
@@ -76,8 +79,13 @@ function removeFromGlobalCtxMap() {
 			print("ID "+ index + " REMOVED")
 		}
 		print("Objects Length : "+obs.length)
-		if (obs.length === 0) {
-			gGlobal.inited = false;
+		if (obs.length == 0) {
+			print("freed global objects")
+			gGlobal.contexts.drawto.physDraw.freepeer();
+			gGlobal.contexts.drawto.physWorld.freepeer();
+			gGlobal.contexts.drawto.ctxCamera.freepeer();
+			gGlobal.inited = null;
+			gGlobal.contexts.drawto = null;
 		}
 	}
 	

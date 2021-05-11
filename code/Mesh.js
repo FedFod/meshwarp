@@ -225,10 +225,14 @@ function Mesh(ID) {
     this.initPhysBody = function() {
         this.physBody = new JitterObject("jit.phys.body");
         this.physBody.jit_matrix(this.positionMat.name);
-        this.physBody.worldname = gGlobal.contexts.drawto.physWorld.name;
         this.physBody.shape = "concave";
         this.physBody.name = "mesh_"+this.ID;
         print("from mesh world name : "+gGlobal.contexts.drawto.physWorld.name)
+    }
+
+    this.setPhysWorldNameToMeshBody = function(name) {
+        this.physBody.worldname = name;
+        print("physbody worldname : "+this.physBody.worldname);
     }
 
     this.freeMesh = function() {
@@ -270,7 +274,6 @@ function Mesh(ID) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
         this.scaleHandles.enable = show;
-        // this.moveHandle.enable = show;
     }
 
     this.calcMeshBoundsMat = function() {        
