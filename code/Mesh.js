@@ -242,6 +242,7 @@ function Mesh(ID) {
             nurbsmap[this.nurbs.name] = null;
             this.nurbs.freepeer();
             this.moveHandle.freepeer();
+            this.scaleHandles.freepeer();
         }
     }
 

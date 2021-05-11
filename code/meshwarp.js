@@ -100,10 +100,13 @@ function notifydeleted() {
 	postln("freebang");
 	removeFromGlobalCtxMap(); // remove from global meshwarp array
 	gMesh.freeMesh();
-	gGraphics.sketch.freepeer();
+	gGraphics.free();
 	nodeCTX.freepeer();
 	videoplane.freepeer();
 	nodeCamera.freepeer();
+	physWorld.freepeer();
+	physBody.freepeer();
+	physDraw.freepeer();
 	implicit_lstnr.subjectname = ""
 	implicit_tracker.freepeer();
 	// what else?

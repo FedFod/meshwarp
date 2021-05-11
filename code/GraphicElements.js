@@ -15,6 +15,11 @@ function GraphicElements(nodectx) {
     this.sketch2.color = YELLOW;
     this.sketch2.line_width = 2;    
 
+    this.free = function() {
+        this.sketch.freepeer();
+        this.sketch2.freepeer();
+    }
+
     this.transformMouseToWorld = function(screenCoord) {
         return this.sketch.screentoworld(screenCoord);
     }
