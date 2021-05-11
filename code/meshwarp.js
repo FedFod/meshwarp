@@ -96,8 +96,8 @@ function load_state(path) {
 	loadSaveDict(path);
 }
 
-function freebang() {
-	//postln("freebang");
+function notifydeleted() {
+	postln("freebang");
 	removeFromGlobalCtxMap(); // remove from global meshwarp array
 	gMesh.freeMesh();
 	gGraphics.sketch.freepeer();
