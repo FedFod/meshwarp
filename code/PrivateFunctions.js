@@ -30,10 +30,6 @@ var physWorld = new JitterObject("jit.phys.world");
 physWorld.dynamics = 0;
 physWorld.worldbox = 0;
 
-var physBody = new JitterObject("jit.phys.body");
-physBody.worldname = physWorld.name;
-physBody.shape = "convexhull";
-
 var physDraw = new JitterObject("jit.gl.physdraw");
 physDraw.worldname = physWorld.name;
 physDraw.enable = 1;

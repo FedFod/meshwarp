@@ -44,16 +44,6 @@ function addToGlobalCtxMap() {
 		gGlobal.contexts.drawto = {};
 		ctxob = gGlobal.contexts.drawto;
 		ctxob.objects = [];
-		ctxob.physWorld = new JitterObject("jit.phys.world");
-		ctxob.physDraw = new JitterObject("jit.gl.physdraw");
-		ctxob.ctxCamera = new JitterObject("jit.gl.camera");
-		ctxob.ctxCamera.drawto = proxydrawto[0];
-		ctxob.ctxCamera.ortho = 2;
-		ctxob.physDraw.worldname = ctxob.physWorld.name;
-		ctxob.physDraw.drawto = drawto;
-		ctxob.physDraw.depth_enable = 0;
-		ctxob.physDraw.layer = 1000;
-		initPhysWorld(ctxob.physWorld);
 	}
 	else {
 		ctxob = gGlobal.contexts.drawto;
@@ -81,9 +71,6 @@ function removeFromGlobalCtxMap() {
 		print("Objects Length : "+obs.length)
 		if (obs.length == 0) {
 			print("freed global objects")
-			gGlobal.contexts.drawto.physDraw.freepeer();
-			gGlobal.contexts.drawto.physWorld.freepeer();
-			gGlobal.contexts.drawto.ctxCamera.freepeer();
 			gGlobal.inited = null;
 			gGlobal.contexts.drawto = null;
 		}
@@ -95,10 +82,4 @@ function removeFromGlobalCtxMap() {
 	}
 	
 	gGlobal.meshCount--;
-}
-
-function initPhysWorld(physWorld) {
-	physWorld.drawto = proxydrawto[0];
-	physWorld.worldbox = 0;
-	physWorld.dynamics = 0;
 }
