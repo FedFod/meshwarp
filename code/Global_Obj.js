@@ -40,11 +40,14 @@ function checkContextObs() {
 			ctxOb.requestInit = false;
 			ctxOb.physWorld = new JitterObject("jit.phys.world");
 			ctxOb.physWorld.drawto = nodeCTX.drawto;
-			// other stuff
+			
 			ctxOb.physDraw = new JitterObject("jit.gl.physdraw");
 			ctxOb.physDraw.drawto = nodeCTX.drawto;
 			ctxOb.physDraw.worldname = ctxOb.physWorld.name;
-			// other stuff
+
+			ctxOb.ctxCamera = new JitterObject("jit.gl.camera");
+			ctxOb.ctxCamera.drawto = nodeCTX.drawto;
+			ctxOb.ctxCamera.ortho = 2;
 		}
 	}
 }
@@ -75,7 +78,7 @@ function addToGlobalCtxMap() {
 	assignThisAsCurrentlySelectedToGlobal();
 }
 
-// called by freebang
+// called by notifyDeleted
 function removeFromGlobalCtxMap() {
 	print("removeFromGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
 	if(drawto !== "" && gGlobal.contexts.drawto !== undefined) {

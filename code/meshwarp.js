@@ -130,6 +130,7 @@ function swapcallback(event){
 				gWindowDim = nodeCTX.dim.slice();
 				gWindowPrevRatio = gWindowRatio;
 			}
+			checkContextObs();
 			break;
 
 		case "mouse": // get mouse array when mouse is clicked or released
