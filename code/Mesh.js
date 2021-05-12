@@ -284,6 +284,7 @@ function Mesh(ID) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
         this.scaleHandles.enable = show;
+        this.physBody.enable = show;
     }
 
     this.calcMeshBoundsMat = function() {        

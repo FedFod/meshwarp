@@ -5,11 +5,18 @@ var implicitdrawto = "";
 var swaplisten = null; // The listener for the jit.world
 var explicitdrawto = false;
 
-function setenable(val) {
-	enable = val;
-	nodeCTX.enable = enable;
-	videoplane.enable = enable;
+var implicit_tracker = new JitterObject("jit_gl_implicit");
+// postln("implicit tracker name: "+implicit_tracker.name)
+var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
+
+function implicit_callback(event) {
+	if(!explicitdrawto && implicitdrawto != implicit_tracker.drawto[0]) {
+		// important! drawto is an array so get first element
+		implicitdrawto = implicit_tracker.drawto[0];
+		dosetdrawto(implicitdrawto);
+	}
 }
+implicit_callback.local = 1;
 
 function setdrawto(val) {
 	explicitdrawto = true;
@@ -21,13 +28,12 @@ function dosetdrawto(newdrawto) {
 		// bounce
 		return;
 	}
-
 	//postln("drawto class " + proxy.class);
 	if(gGlobal.proxy !== undefined) {
 		gGlobal.proxy.name = newdrawto;
 		//postln("drawto class " + proxy.class);
 		if(gGlobal.proxy.class !== undefined) {
-			if(gGlobal.proxy.class != "jit_gl_context_view") { // what class is that??
+			if(gGlobal.proxy.class != "jit_gl_context_view") { // what class is that?
 				proxydrawto = gGlobal.proxy.send("getdrawto");
 				// important! drawto is an array so get first element
 				return dosetdrawto(proxydrawto[0]);
@@ -50,16 +56,3 @@ function dosetdrawto(newdrawto) {
 	swaplisten = new JitterListener(drawto, swapcallback);
 }
 dosetdrawto.local = 1;
-
-var implicit_tracker = new JitterObject("jit_gl_implicit");
-// postln("implicit tracker name: "+implicit_tracker.name)
-var implicit_lstnr = new JitterListener(implicit_tracker.name, implicit_callback);
-
-function implicit_callback(event) {
-	if(!explicitdrawto && implicitdrawto != implicit_tracker.drawto[0]) {
-		// important! drawto is an array so get first element
-		implicitdrawto = implicit_tracker.drawto[0];
-		dosetdrawto(implicitdrawto);
-	}
-}
-implicit_callback.local = 1;

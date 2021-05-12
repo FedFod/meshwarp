@@ -27,6 +27,13 @@ nodeCamera.ortho = 2;
 
 //---------------------------------------------------------------
 
+function setenable(val) {
+	enable = val;
+	nodeCTX.enable = enable;
+	videoplane.enable = enable;
+}
+setenable.local = 1;
+
 function setNodeDrawto() {
 	nodeCTX.drawto = drawto;
 	videoplane.drawto = drawto;	
