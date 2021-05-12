@@ -8,9 +8,7 @@ if(gGlobal.inited === undefined) {
 	gGlobal.meshCount = 0;
 	if(max.version >= 820) {
 		gGlobal.proxy = new JitterObject("jit.proxy");
-		print("created proxy")
 	}
-	print("gGlobal PhysWorld Name : "+gGlobal.physWorld.name);
 }
 
 function notify_selected_meshwarp(currentlySelected) {

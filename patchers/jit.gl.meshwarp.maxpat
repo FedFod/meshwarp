@@ -40,40 +40,6 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
-					"id" : "obj-19",
-					"maxclass" : "newobj",
-					"numinlets" : 1,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 34.0, 246.0, 177.0, 22.0 ],
-					"restore" : [ 						{
-							"meshcount" : 1,
-							"mode" : 0,
-							"show_mesh" : 1,
-							"windowRatio" : 1,
-							"positionMat" : 							{
-								"scale" : [ 1, 1 ],
-								"planecount" : 3,
-								"type" : "float32",
-								"dimensions" : [ 4, 4 ],
-								"nurbs_order" : [ 1, 1 ],
-								"vertices" : "[[-1,-1,0],[-1,-0.3333333432674408,0],[-1,0.3333333432674408,0],[-1,1,0],[-0.3333333432674408,-1,0],[-0.3333333432674408,-0.3333333432674408,0],[-0.3333333432674408,0.3333333432674408,0],[-0.3333333432674408,1,0],[0.3333333432674408,-1,0],[0.3333333432674408,-0.3333333432674408,0],[0.3333333432674408,0.3333333432674408,0],[0.3333333432674408,1,0],[1,-1,0],[1,-0.3333333432674408,0],[1,0.3333333432674408,0],[1,1,0]]"
-							}
-
-						}
- ],
-					"saved_object_attributes" : 					{
-						"parameter_enable" : 0,
-						"parameter_mappable" : 0
-					}
-,
-					"text" : "pattr meshwarp @autorestore 0",
-					"varname" : "meshwarp"
-				}
-
-			}
-, 			{
-				"box" : 				{
 					"id" : "obj-24",
 					"maxclass" : "newobj",
 					"numinlets" : 0,
@@ -262,11 +228,11 @@
 					"patching_rect" : [ 147.0, 346.0, 88.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"filename" : "meshwarp.js",
-						"parameter_enable" : 0
+						"parameter_enable" : 1
 					}
 ,
 					"text" : "js meshwarp.js",
-					"varname" : "js"
+					"varname" : "meshwarpjs"
 				}
 
 			}
@@ -455,13 +421,6 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
-					"source" : [ "obj-19", 1 ]
-				}
-
-			}
-, 			{
-				"patchline" : 				{
-					"destination" : [ "obj-8", 0 ],
 					"source" : [ "obj-2", 0 ]
 				}
 
@@ -560,6 +519,15 @@
 
 			}
  ],
+		"parameters" : 		{
+			"obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
+			"parameterbanks" : 			{
+
+			}
+,
+			"inherited_shortname" : 1
+		}
+,
 		"dependency_cache" : [ 			{
 				"name" : "meshwarp.js",
 				"bootpath" : "~/dev/cycling/meshwarp/code",

@@ -86,6 +86,7 @@ function buildSaveDict() {
 	saveDict.replace("windowRatio", gWindowRatio);
 
 	gMesh.saveDataIntoDict(saveDict);
+	return saveDict;
 }
 buildSaveDict.local = 1;
 
