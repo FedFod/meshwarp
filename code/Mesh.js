@@ -82,11 +82,6 @@ function Mesh(ID) {
         this.initAndAssignTextureCoordMat(); // init texture coord mat
     }
 
-    this.loadDict = function(saveDict_) {
-        this.loadDataFromDict(saveDict_);
-        this.loadMatrixFromDict(saveDict_);
-    }
-
     this.initState = function() {
         this.enableMesh = 1;
         this.latestMousePos = [0,0];
@@ -97,8 +92,8 @@ function Mesh(ID) {
         this.useNurbs = 1;
     }
 
-    this.changeMode = function(mode) {
-        if (mode == 0) {
+    this.setNurbsOrMeshMode = function(use_nurbs) {
+        if (use_nurbs) {
             this.useNurbs = 1;
             this.nurbs.enable = this.useNurbs;
             this.resizeMeshDim(this.positionMat.dim);

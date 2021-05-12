@@ -81,7 +81,7 @@ calculateBoundingCells.local = 1;
 function buildSaveDict() {
 	var saveDict = new Dict();
 
-	saveDict.replace("mode", mode);
+	// saveDict.replace("mode", mode);
 	saveDict.replace("show_mesh", show_mesh);
 	saveDict.replace("windowRatio", gWindowRatio);
 
@@ -105,11 +105,11 @@ function loadSaveDict(path) {
 loadSaveDict.local = 1;
 
 function loadFromDict(saveDict) {
-	mode = saveDict.get("mode");
+	use_nurbs = saveDict.get("use_nurbs");
 	gWindowRatio = saveDict.get("windowRatio");
 
 	gMesh.loadDict(saveDict); 
-	gMesh.changeMode(mode);
+	// gMesh.changeMode(mode);
 	setTexturesMeshes();
 }
 loadFromDict.local = 1;
@@ -134,13 +134,13 @@ function setWindowRatio(dims) {
 } 
 setWindowRatio.local = 1;
 
-function setMode(arg) {
+function setNurbsOrMeshMode(arg) {
 	if (arg == 0 || arg == 1) {
-		mode = arg;
-		gMesh.changeMode(mode);
+		use_nurbs = arg;
+		gMesh.setNurbsOrMeshMode(use_nurbs);
 	}
 }
-setMode.local = 1;
+setNurbsOrMeshMode.local = 1;
 
 function setNurbsOrder(order) {
 	gMesh.changeNurbsOrder(order);

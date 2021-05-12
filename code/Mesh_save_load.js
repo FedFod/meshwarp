@@ -1,6 +1,8 @@
 Mesh.prototype.saveDataIntoDict = function(dict) {
     var posMatArray = jitMatToArray(this.positionMat);
+    dict.replace("use_nurbs", this.useNurbs);
     dict.replace("positionMat"+"::scale", this.currentScale);
+    dict.replace("positionMat"+"::center", this.currentPos);
     dict.replace("positionMat"+"::planecount", this.positionMat.planecount);
     dict.append("positionMat"+"::type", this.positionMat.type);
     dict.append("positionMat"+"::dimensions", this.positionMat.dim);
@@ -8,12 +10,23 @@ Mesh.prototype.saveDataIntoDict = function(dict) {
     dict.replace("positionMat"+"::vertices", JSON.stringify(posMatArray));
 }
 
+Mesh.prototype.loadDict = function(saveDict_) {
+    this.loadDataFromDict(saveDict_);
+    this.loadMatrixFromDict(saveDict_);
+    this.drawMoveHandleInPos(this.currentPos);
+    this.drawScaleHandles();
+    this.assignPositionMatToMesh();
+}
+
 Mesh.prototype.loadDataFromDict = function(dict) {
+    this.useNurbs = dict.get("use_nurbs");
     this.posMatPlaneCount = dict.get("positionMat"+"::planecount");
     this.posMatType = dict.get("positionMat"+"::type");
     this.posMatDim = dict.get("positionMat"+"::dimensions");
     this.currentScale = dict.get("positionMat"+"::scale");
+    this.currentPos = dict.get("positionMat"+"::center");
     this.nurbsOrder = dict.get("positionMat"+"::nurbs_order");
+    this.latestScale = this.currentScale.slice();
 }
 
 Mesh.prototype.loadMatrixFromDict = function(dict) {

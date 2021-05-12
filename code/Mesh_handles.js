@@ -16,9 +16,6 @@ Mesh.prototype.drawHandleFull = function() {
 
 Mesh.prototype.drawScaleHandles = function() {
     this.scaleHandles.reset();
-    gMinMaxMat.matrixcalc(this.positionMat, this.positionMat);
-    var min = gMinMaxMat.min.slice();
-    var max = gMinMaxMat.max.slice();
 
     // this.scaleHandles.handlesPositions[0] = [min[0], max[1], 0];
     // this.scaleHandles.handlesPositions[1] = [max[0], max[1], 0];

@@ -14,8 +14,8 @@ include("PrivateFunctions.js");
 include("Canvas.js");
 
 // ATTRIBUTES
-var mode = 0; // default: use NURBS
-declareattribute("mode", null, "setMode", 0);
+var use_nurbs = 0; // default: use NURBS
+declareattribute("use_nurbs", null, "setNurbsOrMeshMode", 0);
 
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "resizeAllMeshes", 0);

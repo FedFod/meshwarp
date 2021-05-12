@@ -1,6 +1,4 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
-    // this.transformMat.setScale(scaleX, scaleY);
-    // this.transformMat.mulJitMat(this.positionMat);
     this.deselectVertices();
     this.currentScale = [scaleX, scaleY];
     this.posMatFromUnscaledMat();
