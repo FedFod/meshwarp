@@ -31,7 +31,7 @@ function Mesh(ID) {
 
     this.enableMesh = show_mesh;
 
-    this.useNurbs = 0;
+    this.useNurbs = 1;
     this.currentScale = [1, 1];
     this.latestScale = this.currentScale.slice();
     this.currentPos = [0,0];
@@ -44,10 +44,10 @@ function Mesh(ID) {
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
 
-    this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim);
-    this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim);
-    this.positionMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim);
-    this.unscaledPosMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim);
+    this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim.slice());
+    this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim.slice());
+    this.positionMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim.slice());
+    this.unscaledPosMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim.slice());
     this.boundingMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 10);
     this.adjacentCellsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 8);
 
@@ -64,8 +64,10 @@ function Mesh(ID) {
     }
 
     this.initMesh = function(drawto_) {
-        this.initPositionMat(); // fill vertex mat from scratch
         this.initState();
+
+        this.setMeshDim(this.posMatDim);
+        this.initPositionMat(); // fill vertex mat from scratch
 
         this.initMeshPoints(drawto_);
         this.initMeshGrid(drawto_);
@@ -76,6 +78,7 @@ function Mesh(ID) {
         this.initPhysBody();
         this.calcMeshBoundsMat();
         
+        this.assignPositionMatToMesh();
         this.initAndAssignTextureCoordMat(); // init texture coord mat
     }
 
@@ -85,12 +88,13 @@ function Mesh(ID) {
     }
 
     this.initState = function() {
+        this.enableMesh = 1;
         this.latestMousePos = [0,0];
         this.mouseOffset = [0,0];
         this.currentPos = [0,0];
         this.currentScale = [1, 1];
         this.latestScale = this.currentScale.slice();
-        this.useNurbs = 0;
+        this.useNurbs = 1;
     }
 
     this.changeMode = function(mode) {
@@ -134,6 +138,10 @@ function Mesh(ID) {
     }
 
     this.initPositionMat = function() {    
+        this.positionMat.planecount = this.posMatPlaneCount;
+        this.positionMat.type = this.posMatType;
+        this.positionMat.dim = this.posMatDim.slice();
+        
         for(var i=0; i<this.positionMat.dim[0]; i++) {
             for(var j=0; j<this.positionMat.dim[1]; j++) {   
                 var xVal = (i / (this.positionMat.dim[0]-1));
@@ -143,7 +151,7 @@ function Mesh(ID) {
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);
             }
         }
-        this.textureCoordMat.dim = this.positionMat.dim.slice();
+        // this.textureCoordMat.dim = this.positionMat.dim.slice();
         this.unscaledPosMat.frommatrix(this.positionMat);
     }   
 
@@ -223,12 +231,14 @@ function Mesh(ID) {
     }
 
     this.initPhysBody = function() {
-        this.physBody = new JitterObject("jit.phys.body");
+        if (this.physBody) {
+            this.physBody.name = "";
+        }
+        this.physBody = new JitterObject("jit.phys.body"); 
         this.physBody.jit_matrix(this.positionMat.name);
         this.physBody.shape = "concave";
         this.physBody.name = "mesh_"+this.ID;
         this.physBody.mass = 0;
-        //print("from mesh world name : "+gGlobal.contexts.drawto.physWorld.name)
     }
 
     this.setPhysWorldNameToMeshBody = function(name) {
@@ -241,8 +251,7 @@ function Mesh(ID) {
         this.freeMeshShapes();
         this.freeMeshHandles();
         this.freeMeshNurbsLstnr();
-
-        this.physBody.freepeer();
+        this.freePhysBody();
     }
 
     this.freeMeshMatrices = function() {
@@ -269,6 +278,11 @@ function Mesh(ID) {
     this.freeMeshNurbsLstnr = function() {
         this.nurbsLstnr.subjectname = "";
         nurbsmap[this.nurbs.name] = null;
+    }
+
+    this.freePhysBody = function() {
+        this.physBody.name = "";
+        this.physBody.freepeer();
     }
 
     this.showMesh = function(show) {
@@ -389,15 +403,6 @@ function Mesh(ID) {
         this.adjacentCellsMat.setcell1d(7, cell[0], cell[1], 0.0); // LEFT CENTER
     }
 
-    this.checkDimForNurbs = function(dimensions) {
-        var sizeX = dimensions[0]; 
-        var sizeY = dimensions[1];
-        if (this.useNurbs) {
-            sizeX = Math.max(sizeX, 4);
-            sizeY = Math.max(sizeY, 4);
-        }
-        return [sizeX, sizeY];
-    }
 
     this.assignPositionMatToMesh = function() {
         if (this.useNurbs) {

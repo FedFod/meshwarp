@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 720.0, 186.0, 1116.0, 676.0 ],
+		"rect" : [ 754.0, 164.0, 1116.0, 676.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 720.0, 212.0, 1116.0, 650.0 ],
+						"rect" : [ 754.0, 190.0, 1116.0, 650.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -399,7 +399,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 355.0, 485.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 357.0, 516.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp[1]"
 								}
@@ -455,54 +455,6 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-25",
-									"maxclass" : "toggle",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "int" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 37.642860054969788, 426.619042873382568, 24.0, 24.0 ]
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-18",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "int" ],
-									"patching_rect" : [ 37.642860054969788, 398.0, 29.5, 22.0 ],
-									"text" : "!- 1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-17",
-									"maxclass" : "newobj",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 37.642860054969788, 457.0, 52.0, 22.0 ],
-									"text" : "gate 1 1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-5",
-									"maxclass" : "newobj",
-									"numinlets" : 0,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 37.642860054969788, 369.619042873382568, 149.0, 22.0 ],
-									"text" : "r enable_multiple_textures"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-6",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -546,18 +498,6 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 652.238093376159668, 145.619042873382568, 67.0, 22.0 ],
 									"text" : "save_state"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"bubble" : 1,
-									"id" : "obj-42",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 91.142860054969788, 337.619042873382568, 333.0, 24.0 ],
-									"text" : "Send your image/video as a Texture to the jit.gl.meshwarp"
 								}
 
 							}
@@ -677,7 +617,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_gl_texture", "" ],
-									"patching_rect" : [ 70.642860054969788, 298.619042873382568, 335.0, 22.0 ],
+									"patching_rect" : [ 53.642860054969788, 309.619042873382568, 335.0, 22.0 ],
 									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile chickens.mp4"
 								}
 
@@ -738,7 +678,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 47.642860054969788, 511.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 53.642860054969788, 508.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp"
 								}
@@ -781,7 +721,7 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
-									"destination" : [ "obj-17", 1 ],
+									"destination" : [ "obj-1", 0 ],
 									"source" : [ "obj-10", 0 ]
 								}
 
@@ -820,20 +760,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-1", 0 ],
-									"source" : [ "obj-17", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-25", 0 ],
-									"source" : [ "obj-18", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-16", 0 ],
 									"source" : [ "obj-2", 1 ]
 								}
@@ -862,13 +788,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-17", 0 ],
-									"source" : [ "obj-25", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
 									"source" : [ "obj-36", 0 ]
 								}
@@ -884,6 +803,23 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-1", 0 ],
+									"order" : 2,
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"order" : 1,
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"order" : 0,
 									"source" : [ "obj-4", 0 ]
 								}
 
@@ -907,13 +843,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-47", 0 ],
 									"source" : [ "obj-49", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-18", 0 ],
-									"source" : [ "obj-5", 0 ]
 								}
 
 							}
@@ -976,6 +905,17 @@
 			}
  ],
 		"lines" : [  ],
+		"parameters" : 		{
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
+			"parameterbanks" : 			{
+
+			}
+,
+			"inherited_shortname" : 1
+		}
+,
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxpat",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",

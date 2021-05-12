@@ -32,3 +32,13 @@ Mesh.prototype.resizeMeshDim = function(dimensions) {
     this.initAndAssignTextureCoordMat();
     this.calcMeshBoundsMat();
 }
+
+Mesh.prototype.checkDimForNurbs = function(dimensions) {
+    var sizeX = dimensions[0]; 
+    var sizeY = dimensions[1];
+    if (this.useNurbs) {
+        sizeX = Math.max(sizeX, 4);
+        sizeY = Math.max(sizeY, 4);
+    }
+    return [sizeX, sizeY];
+}

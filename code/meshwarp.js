@@ -73,6 +73,7 @@ var gSelectionStruct = {
 //-----PUBLIC FUNCTIONS----------------
 function reset() {
 	show_mesh = 1;
+	gGlobal.isOnHandle == 0;
 	gGraphics.resetSingleCircle();
 	gGraphics.resetSelected();
 	gMesh.initMesh(nodeCTX.name);
@@ -183,8 +184,8 @@ function swapcallback(event){
 				if (checkIfVec2AreDifferent(mouseWorld, gLatestMousePos)) {
 					gLatestMousePos = mouseWorld.slice(); // set latest mouse pos (used for selecting multiple)
 
-					print(gGlobal.contexts.drawto.physWorld.screenraytest(gMousePosScreen.slice(0,2)));
-					print(gGlobal.contexts.drawto.physWorld.drawto) 
+					// print(gGlobal.contexts.drawto.physWorld.screenraytest(gMousePosScreen.slice(0,2)));
+					// print(gGlobal.contexts.drawto.physWorld.drawto) 
 
 					gSelectionStruct.reset(); // reset all the struct values
 	
