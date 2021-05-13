@@ -11,6 +11,7 @@ include("Mesh_handles.js");
 include("Utilities.js");
 include("GraphicElements.js");
 include("PrivateFunctions.js");
+include("Set_Attributes_Functions");
 include("Canvas.js");
 
 // ATTRIBUTES
@@ -149,9 +150,16 @@ function swapcallback(event){
 						if(gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.SCALE_HANDLE) {
 							gGraphics.resetSingleCircle(); 
 							gMesh.scaleWithHandle(gLatestMousePos, mouseWorld);
-							gSelectionStruct.isScaled = 1;
+							gSelectionStruct.isScaled = true;
 						} else if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
-							moveSingleVertexOrSelectedVertices(mouseWorld);
+							if (gSelectionStruct.howManyVerticesSelected > 1) {
+								gMesh.moveSelectedVertices(mouseWorld);
+								gGraphics.resetSingleCircle();
+								gSelectionStruct.areVerticesMoved = true;
+							} else {
+								gMesh.moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
+								gGraphics.resetSelected(); // delete selected circles
+							}
 						} else { // if we are not clicking on anything then create the vertices selection quad
 							selectMultipleVertices(mouseWorld);
 						}
@@ -188,7 +196,6 @@ function swapcallback(event){
 					// print(gGlobal.contexts.drawto.physWorld.drawto) 
 
 					gSelectionStruct.reset(); // reset all the struct values
-					
 					gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseIsInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
 	
 					if (gSelectionStruct.mouseIsOnMesh != GUI_ELEMENTS.NOTHING) {  // We are inside the mesh

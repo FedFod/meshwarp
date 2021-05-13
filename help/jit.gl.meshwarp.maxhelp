@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 754.0, 168.0, 1116.0, 672.0 ],
+		"rect" : [ 747.0, 163.0, 1116.0, 672.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 754.0, 194.0, 1116.0, 646.0 ],
+						"rect" : [ 747.0, 189.0, 1116.0, 646.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -387,7 +387,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 702.238093376159668, 485.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 692.238093376159668, 486.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp[2]"
 								}
@@ -399,7 +399,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 357.0, 516.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 345.0, 477.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp[1]"
 								}
