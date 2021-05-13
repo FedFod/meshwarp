@@ -37,8 +37,8 @@ function moveWholeMesh(mouseWorld) {
 }
 
 function selectMultipleVertices(mouseWorld) {
-	gGraphics.drawFrame(gLatestMousePos, mouseWorld);
-	gSelectionStruct.howManyVerticesSelected = gMesh.highlightSelectedVertices(gLatestMousePos, mouseWorld);
+	gGraphics.drawFrame(gMesh.getLatestMousePos(), mouseWorld);
+	gSelectionStruct.howManyVerticesSelected = gMesh.highlightSelectedVertices(mouseWorld);
 }
 selectMultipleVertices.local = 1;
 
@@ -58,4 +58,16 @@ function setWindowRatio(dims) {
 } 
 setWindowRatio.local = 1;
 
+function notifydeleted() {
+	postln("freebang");
+	removeFromGlobalCtxMap(); // remove from global meshwarp array
+	gMesh.freeMesh();
+	gGraphics.free();
+	nodeCTX.freepeer();
+	videoplane.freepeer();
+	nodeCamera.freepeer();
+	implicit_lstnr.subjectname = ""
+	implicit_tracker.freepeer();
+	// what else?
+}
 

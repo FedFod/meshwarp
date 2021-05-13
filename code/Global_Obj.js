@@ -64,7 +64,7 @@ function addToGlobalCtxMap() {
 	print("addToGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
 	// check if context in map, if not create it
 	var ctxOb = null;
-	if(gGlobal.contexts.drawto === undefined) {
+	if(gGlobal.contexts.drawto === undefined || gGlobal.contexts.drawto == null) {
 		print("create global context " + drawto);
 		gGlobal.contexts.drawto = {};
 		ctxOb = gGlobal.contexts.drawto;

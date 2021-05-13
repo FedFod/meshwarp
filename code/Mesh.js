@@ -85,7 +85,7 @@ function Mesh(ID) {
 
     this.initState = function() {
         this.enableMesh = 1;
-        this.latestMousePos = [0,0];
+        this.latestMousePos = [-1000, -1000];
         this.mouseOffset = [0,0];
         this.currentPos = [0,0];
         this.currentScale = [1, 1];

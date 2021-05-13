@@ -9,8 +9,8 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.drawScaleHandleFull();
 }
 
-Mesh.prototype.scaleWithHandle = function(initialPos, mouseWorld) {
-    var distFromInitial = subVec2D(mouseWorld, initialPos); //this.latestMousePos
+Mesh.prototype.scaleWithHandle = function(mouseWorld) {
+    var distFromInitial = subVec2D(mouseWorld, this.latestMousePos); //this.latestMousePos
     if (this.scaleHandles.index == 0) {
         distFromInitial[1] = distFromInitial[1]*-1;
     } else if (this.scaleHandles.index == 1) {
@@ -21,7 +21,6 @@ Mesh.prototype.scaleWithHandle = function(initialPos, mouseWorld) {
     }
     distFromInitial = subVec2D(this.latestScale, distFromInitial);
     this.scaleMesh(distFromInitial[0], distFromInitial[1]);
-    this.latestMousePos = mouseWorld.slice();
 }
 
 Mesh.prototype.setLatestScale = function() {

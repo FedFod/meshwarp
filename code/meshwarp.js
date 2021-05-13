@@ -49,7 +49,6 @@ var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
 var gWindowPrevRatio = gWindowRatio;
 var gTextureNames = "noTexture";
-var gLatestMousePos = [-1000,-1000];
 
 var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);
@@ -98,19 +97,6 @@ function load_state(path) {
 	loadSaveDict(path);
 }
 
-function notifydeleted() {
-	postln("freebang");
-	removeFromGlobalCtxMap(); // remove from global meshwarp array
-	gMesh.freeMesh();
-	gGraphics.free();
-	nodeCTX.freepeer();
-	videoplane.freepeer();
-	nodeCamera.freepeer();
-	implicit_lstnr.subjectname = ""
-	implicit_tracker.freepeer();
-	// what else?
-}
-
 function getvalueof() {
 	postln("getvalueof");
 	return buildSaveDict(null);
@@ -149,7 +135,7 @@ function swapcallback(event){
 					} else if (checkIfItIsGloballySelected()) {
 						if(gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.SCALE_HANDLE) {
 							gGraphics.resetSingleCircle(); 
-							gMesh.scaleWithHandle(gLatestMousePos, mouseWorld);
+							gMesh.scaleWithHandle(mouseWorld);
 							gSelectionStruct.isScaled = true;
 						} else if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
 							if (gSelectionStruct.howManyVerticesSelected > 1) {
@@ -189,19 +175,22 @@ function swapcallback(event){
 			if (enable) {
 				gMousePosScreen = (event.args);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
-				if (checkIfVec2AreDifferent(mouseWorld, gLatestMousePos)) {
-					gLatestMousePos = mouseWorld.slice(); // set latest mouse pos (used for selecting multiple)
+				if (checkIfVec2AreDifferent(mouseWorld, gMesh.getLatestMousePos())) {
 
 					// print(gGlobal.contexts.drawto.physWorld.screenraytest(gMousePosScreen.slice(0,2)));
 					// print(gGlobal.contexts.drawto.physWorld.drawto) 
 
 					gSelectionStruct.reset(); // reset all the struct values
-					gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseIsInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
+					// gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseIsInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
+					gSelectionStruct.mouseIsOnMesh = true;
 	
 					if (gSelectionStruct.mouseIsOnMesh != GUI_ELEMENTS.NOTHING) {  // We are inside the mesh
 						gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToMoveHandle(mouseWorld); // check if mouse is close to move handle
 						if (checkIfItIsGloballySelected() && gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.NOTHING) { // if this is the currently selected meshwarp
 							gGraphics.resetSingleCircle(); 
+
+							gMesh.setLatestMousePos(mouseWorld);
+
 							
 							gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
 							

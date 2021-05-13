@@ -8,7 +8,7 @@ Mesh.prototype.checkIfMouseIsInsideMesh = function(mouseWorld) {
 }
 
 Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {   
-    this.selectedVertex = [-1,-1];
+    this.selectedVertex = GUI_ELEMENTS.NEGATIVE_INDEX.slice();
     var isCloseToVertex = GUI_ELEMENTS.NOTHING;
     for (var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
@@ -63,15 +63,15 @@ Mesh.prototype.checkIfMouseIsCloseToScaleHandles = function(mouseWorld) {
     return isClose;
 }
 
-Mesh.prototype.highlightSelectedVertices = function(latMousePos, mouseWorld) {
+Mesh.prototype.highlightSelectedVertices = function(mouseWorld) {
     gGraphics.resetSelected();
     this.selectedVerticesIndices = [];
     var howManySelected = 0;
     for (var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
             var cell = this.positionMat.getcell(i,j);
-            if (((cell[0] > latMousePos[0] && cell[0] < mouseWorld[0]) || (cell[0] < latMousePos[0] && cell[0] > mouseWorld[0])) 
-                && ((cell[1] > latMousePos[1] && cell[1] < mouseWorld[1]) || (cell[1] < latMousePos[1] && cell[1] > mouseWorld[1]))) {
+            if (((cell[0] > this.latestMousePos[0] && cell[0] < mouseWorld[0]) || (cell[0] < this.latestMousePos[0] && cell[0] > mouseWorld[0])) 
+                && ((cell[1] > this.latestMousePos[1] && cell[1] < mouseWorld[1]) || (cell[1] < this.latestMousePos[1] && cell[1] > mouseWorld[1]))) {
                 gGraphics.drawSelectedCircles(cell);
                 howManySelected++;
                 this.selectedVerticesIndices.push([i,j]);
@@ -129,5 +129,13 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
 Mesh.prototype.setVertexPosInMat = function(coordsWorld, cellIndex) {
     this.positionMat.setcell2d(cellIndex[0], cellIndex[1], coordsWorld[0], coordsWorld[1], 0.0);
     this.unscaledMatFromPosMat();
+}
+
+Mesh.prototype.setLatestMousePos = function(mouseWorld) {
+    this.latestMousePos = mouseWorld.slice();
+}
+
+Mesh.prototype.getLatestMousePos = function() {
+    return this.latestMousePos.slice();
 }
 
