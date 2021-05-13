@@ -37,15 +37,17 @@ Mesh.prototype.getMeshCenter = function(mat) {
 
 Mesh.prototype.unscaledMatFromPosMat = function() {
     this.unscaledPosMat.frommatrix(this.positionMat);
-    this.unscaledPosMat.op("-", this.currentPos);  // translate to center
-    this.unscaledPosMat.op("/", this.currentScale); // scale
-    this.unscaledPosMat.op("+", this.currentPos); // put back
+    this.transformMatrixFromCenter(this.unscaledPosMat, this.currentScale, '/');
 }
 
 Mesh.prototype.posMatFromUnscaledMat = function() {
     this.unscaledPosMat.frommat
     this.positionMat.frommatrix(this.unscaledPosMat);
-    this.positionMat.op("-", this.currentPos);  // translate to center
-    this.positionMat.op("*", this.currentScale); // scale
-    this.positionMat.op("+", this.currentPos); // put back
+    this.transformMatrixFromCenter(this.positionMat, this.currentScale, '*');
+}
+
+Mesh.prototype.transformMatrixFromCenter = function(matrixToScale, scaleVal, operator) {
+    matrixToScale.op("-", this.currentPos);  // translate to center
+    matrixToScale.op(operator, scaleVal); // scale
+    matrixToScale.op("+", this.currentPos); // put back
 }

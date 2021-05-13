@@ -145,33 +145,31 @@ function swapcallback(event){
 				if (mouseClicked) {
 					if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.MOVE_HANDLE) { // we are on the move handle, even if the meshwarp is not the active one
 						moveWholeMesh(mouseWorld);
-					} else if (checkIfItIsGloballySelected() && show_mesh) {
-						if (gSelectionStruct.mouseIsOnWhat != GUI_ELEMENTS.NOTHING) {  // we are clicking on something 
-							if(gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.SCALE_HANDLE) {
-								gGraphics.resetSingleCircle(); 
-								gMesh.scaleWithHandle(gLatestMousePos, mouseWorld);
-								gSelectionStruct.isScaled = 1;
-							} else {
-								moveSingleVertexOrSelectedVertices(mouseWorld);
-							}
+					} else if (checkIfItIsGloballySelected()) {
+						if(gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.SCALE_HANDLE) {
+							gGraphics.resetSingleCircle(); 
+							gMesh.scaleWithHandle(gLatestMousePos, mouseWorld);
+							gSelectionStruct.isScaled = 1;
+						} else if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
+							moveSingleVertexOrSelectedVertices(mouseWorld);
 						} else { // if we are not clicking on anything then create the vertices selection quad
 							selectMultipleVertices(mouseWorld);
 						}
-					}
+					} 
 				} else { // mouse is released
 					// if we moved a single vertex
 					if (gSelectionStruct.isScaled) {
-						gSelectionStruct.isScaled = 0;
+						gSelectionStruct.isScaled = false;
 						gMesh.setLatestScale();
 					}
-					if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
+					if (gSelectionStruct.mouseIsOnWhat != GUI_ELEMENTS.NOTHING) {
 						gMesh.calcMeshBoundsMat(); // recalculate the bounding matrix only when finished dragging
 						gSelectionStruct.reset(); // reset the values in the selectionStruct
 					}
 					// if we did select more vertices and moved them
 					if (gSelectionStruct.howManyVerticesSelected && gSelectionStruct.areVerticesMoved) {
 						gSelectionStruct.howManyVerticesSelected = 0;
-						gSelectionStruct.areVerticesMoved = 0;
+						gSelectionStruct.areVerticesMoved = false;
 						gMesh.deselectVertices();
 					}
 					gGraphics.resetSingleCircle(); // delete graphics if mouse unclicked
@@ -190,34 +188,20 @@ function swapcallback(event){
 					// print(gGlobal.contexts.drawto.physWorld.drawto) 
 
 					gSelectionStruct.reset(); // reset all the struct values
-	
-					if (checkIfItIsGloballySelected() && show_mesh) {
-						gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToScaleHandles(mouseWorld); // if we are not in the move handle, check the scale handles
-						if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.SCALE_HANDLE) {
-							gSelectionStruct.isOnScaleHandle = true;
-							gGraphics.resetSingleCircle();
-						} else {
-							gSelectionStruct.isOnScaleHandle = false;
-						}
-					}
 					
 					gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseIsInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
 	
 					if (gSelectionStruct.mouseIsOnMesh != GUI_ELEMENTS.NOTHING) {  // We are inside the mesh
 						gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToMoveHandle(mouseWorld); // check if mouse is close to move handle
-						// if we are on a mesh and it's the selected one, let's check if the mouse is close to a vertex
-						if (checkIfItIsGloballySelected() && show_mesh) { // if this is the currently selected meshwarp
+						if (checkIfItIsGloballySelected() && gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.NOTHING) { // if this is the currently selected meshwarp
 							gGraphics.resetSingleCircle(); 
 							
-							if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.NOTHING) { // otherwise let's check if we click on a vertex
-								gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
-								
-								if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
-									gSelectionStruct.cellIndex = gMesh.getSelectedVertexIndex();
-								}
-								if (gSelectionStruct.isOnScaleHandle && gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.NOTHING) {
-									gSelectionStruct.mouseIsOnWhat = GUI_ELEMENTS.SCALE_HANDLE;
-								} 
+							gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
+							
+							if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
+								gSelectionStruct.cellIndex = gMesh.getSelectedVertexIndex();
+							} else {
+								gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToScaleHandles(mouseWorld); // if we are not in the move handle, check the scale handles
 							}
 							// check if the cell currently selected is different from the previous cell selected. 
 							// In case it is different we fill the matrix with the adjacent cells for bounding calculation

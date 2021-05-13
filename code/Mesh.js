@@ -295,7 +295,7 @@ function Mesh(ID) {
 
         var tempBiggerMat = new JitterMatrix();
         tempBiggerMat.frommatrix(this.positionMat);
-        tempBiggerMat.op("*", [1., 1., 1]);
+        this.transformMatrixFromCenter(tempBiggerMat, [1.2, 1.2], '*');
         // TOP
         for (var i=0; i < this.positionMat.dim[0]; i++) {
             var xVal = tempBiggerMat.getcell(i, 0)[0];

@@ -16,6 +16,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
     this.drawMoveHandleInPos(this.currentPos);
     this.drawScaleHandles();
     this.assignPositionMatToMesh();
+    this.calcMeshBoundsMat();
 }
 
 Mesh.prototype.loadDataFromDict = function(dict) {
