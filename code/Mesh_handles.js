@@ -16,11 +16,6 @@ Mesh.prototype.drawHandleFull = function() {
 
 Mesh.prototype.drawScaleHandles = function() {
     this.scaleHandles.reset();
-
-    // this.scaleHandles.handlesPositions[0] = [min[0], max[1], 0];
-    // this.scaleHandles.handlesPositions[1] = [max[0], max[1], 0];
-    // this.scaleHandles.handlesPositions[2] = [max[0], min[1], 0];
-    // this.scaleHandles.handlesPositions[3] = [min[0], min[1], 0];
     
     this.scaleHandles.handlesPositions[0] = [-this.currentScale[0]+this.currentPos[0], this.currentScale[1]+this.currentPos[1], 0];
     this.scaleHandles.handlesPositions[1] = [this.currentScale[0]+this.currentPos[0], this.currentScale[1]+this.currentPos[1], 0];

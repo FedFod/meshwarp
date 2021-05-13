@@ -1,13 +1,15 @@
-Mesh.prototype.checkIfMouseInsideMesh = function(mouseWorld) {
+Mesh.prototype.checkIfMouseIsInsideMesh = function(mouseWorld) {
     this.latestMousePos = mouseWorld.slice();
     if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
         return this.ID;
     } else {
-        return -1;
+        return GUI_ELEMENTS.NOTHING;
     }
 }
 
-Mesh.prototype.mouseIsCloseToVertex = function(mouseWorld) {   
+Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {   
+    this.selectedVertex = [-1,-1];
+    var isCloseToVertex = GUI_ELEMENTS.NOTHING;
     for (var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
             var currVertexPos = this.positionMat.getcell(i,j);
@@ -15,44 +17,50 @@ Mesh.prototype.mouseIsCloseToVertex = function(mouseWorld) {
             if (distFromMouse <= gMinimumSelectionDist) {
                 gGraphics.drawCircle(currVertexPos);
                 this.mouseOffset = subVec2D(this.positionMat.getcell(i,j), mouseWorld);
-                return [i, j];
+                this.selectedVertex = [i, j];
+                isCloseToVertex = GUI_ELEMENTS.VERTEX;
+                break;
             }
         }
     } 
-    return [-1,-1];
+    return isCloseToVertex;
 } 
 
-Mesh.prototype.checkIfMouseIsCloseToHandle = function(mouseWorld) {
-    var cellIndex = [-1,-1];
+Mesh.prototype.getSelectedVertexIndex = function() {
+    return this.selectedVertex;
+}
+
+Mesh.prototype.checkIfMouseIsCloseToMoveHandle = function(mouseWorld) {
+    var isCloseTo = GUI_ELEMENTS.NOTHING;
     var distFromHandle = calcDist2D(this.moveHandle.handlePos.slice(), mouseWorld.slice());
     this.drawMoveHandleInPos(null);
     if (distFromHandle < this.moveHandle.handleSize) {
         this.drawHandleFull();
         this.mouseOffset = subVec2D(this.moveHandle.handlePos, mouseWorld);
-        cellIndex = [-100, -100];
+        isCloseTo = GUI_ELEMENTS.MOVE_HANDLE;
     } 
     if (checkIfItIsGloballySelected()) {
         gGlobal.isOnHandle = 0;
-        if (cellIndex[0] == -100) {
+        if (isCloseTo == GUI_ELEMENTS.MOVE_HANDLE) {
             gGlobal.isOnHandle = 1;
         } 
     }
-    return cellIndex;
+    return isCloseTo;
 }
 
 Mesh.prototype.checkIfMouseIsCloseToScaleHandles = function(mouseWorld) {
-    var cellIndex = [-1,-1];
+    var isClose = GUI_ELEMENTS.NOTHING;
     this.scaleHandles.reset();
     this.drawScaleHandles();
     for (var handle in this.scaleHandles.handlesPositions) {
         var distFromHandle = calcDist2D(this.scaleHandles.handlesPositions[handle].slice(), mouseWorld.slice());
         if (distFromHandle <= this.scaleHandles.handleSize) {
             this.drawScaleHandleFull(handle);
-            cellIndex = [-50, -50];
+            isClose = GUI_ELEMENTS.SCALE_HANDLE;
             break;
         }
     }
-    return cellIndex;
+    return isClose;
 }
 
 Mesh.prototype.highlightSelectedVertices = function(latMousePos, mouseWorld) {

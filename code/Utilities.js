@@ -12,6 +12,14 @@ var MIDDLE = 10;
 var MIDDLE_1 = 11;
 var FRONT = 12;
 
+var GUI_ELEMENTS = {
+	NOTHING: -1,
+	MOVE_HANDLE: -100,
+	SCALE_HANDLE: -50,
+	VERTEX: -25,
+	NEGATIVE_INDEX: [-1,-1]
+};
+
 // ------------------------------------------
 
 function checkIfVec2AreDifferent(vec1, vec2) {

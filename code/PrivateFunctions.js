@@ -42,7 +42,7 @@ setNodeDrawto.local = 1;
 
 function moveWholeMesh(mouseWorld) {
 	// if it's in the handle
-	if (gGlobal.isOnHandle == 0) {
+	if (!gGlobal.isOnHandle) {
 		assignThisAsCurrentlySelectedToGlobal();
 	}
 	if (checkIfItIsGloballySelected()) {

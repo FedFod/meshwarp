@@ -43,6 +43,7 @@ function Mesh(ID) {
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
+    this.selectedVertex = [-1,-1];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim.slice());
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim.slice());
