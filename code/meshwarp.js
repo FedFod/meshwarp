@@ -179,8 +179,8 @@ function swapcallback(event){
 			if (enable) {
 				gMousePosScreen = (event.args);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
-				if (checkIfVec2AreDifferent(mouseWorld, gMesh.getLatestMousePos())) {
-
+				//print("mouseidle " + gMesh.ID + " latest mouse pos " + gMesh.getLatestMousePos() + " mouse world "+ mouseWorld);
+				//if (checkIfVec2AreDifferent(mouseWorld, gMesh.getLatestMousePos())) {
 					// we are using default cam position and far_clip distance for our ray z points
 					// var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
 					// var result = gGlobal.contexts.drawto.physWorld.raytest(ray);
@@ -212,7 +212,7 @@ function swapcallback(event){
 							// calculateBoundingCells(gSelectionStruct);
 						}
 					}
-				}
+				//}
 			}
 			break;
 	}

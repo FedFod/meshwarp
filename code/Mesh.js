@@ -61,6 +61,7 @@ function Mesh(ID) {
             this.nurbs.enable = this.enableMesh && this.useNurbs && val;
             this.moveHandle = this.enableMesh && val;
             this.scaleHandles = this.enableMesh && val;
+            this.physBody.enable = val;
         }
     }
 
@@ -227,9 +228,6 @@ function Mesh(ID) {
     }
 
     this.initPhysBody = function() {
-        if (this.physBody) {
-            this.physBody.name = "";
-        }
         this.physBody = new JitterObject("jit.phys.body"); 
         this.physBody.jit_matrix(this.positionMat.name);
         this.physBody.shape = "concave";
@@ -277,7 +275,6 @@ function Mesh(ID) {
     }
 
     this.freePhysBody = function() {
-        this.physBody.name = "";
         this.physBody.freepeer();
     }
 
@@ -285,7 +282,7 @@ function Mesh(ID) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
         this.scaleHandles.enable = show;
-        this.physBody.enable = show;
+        //this.physBody.enable = show;
     }
 
     this.calcMeshBoundsMat = function() {        
