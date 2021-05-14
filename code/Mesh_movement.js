@@ -19,6 +19,7 @@ Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {
                 this.mouseOffset = subVec2D(this.positionMat.getcell(i,j), mouseWorld);
                 this.selectedVertex = [i, j];
                 isCloseToVertex = GUI_ELEMENTS.VERTEX;
+                this.outputSelectedVertex();
                 break;
             }
         }
@@ -137,5 +138,9 @@ Mesh.prototype.setLatestMousePos = function(mouseWorld) {
 
 Mesh.prototype.getLatestMousePos = function() {
     return this.latestMousePos.slice();
+}
+
+Mesh.prototype.outputSelectedVertex = function() {
+    outlet(0, "selected_vertex", this.selectedVertex[0], this.selectedVertex[1]);
 }
 

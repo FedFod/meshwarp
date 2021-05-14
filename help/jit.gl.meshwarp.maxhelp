@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 853.0, 300.0, 1116.0, 652.0 ],
+		"rect" : [ 609.0, 208.0, 1116.0, 652.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 853.0, 326.0, 1116.0, 626.0 ],
+						"rect" : [ 609.0, 234.0, 1116.0, 626.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -411,7 +411,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 692.238093376159668, 522.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 688.238093376159668, 513.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp[2]"
 								}
@@ -423,7 +423,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 357.0, 516.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 345.0, 508.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp[1]"
 								}
@@ -927,8 +927,8 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-51::obj-1::obj-8" : [ "meshwarpjs[5]", "meshwarpjs[5]", 0 ],
-			"obj-51::obj-41::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
 			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"parameterbanks" : 			{
 

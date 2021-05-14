@@ -81,6 +81,10 @@ function reset() {
 	gMesh.initMesh(nodeCTX.name);
 }
 
+function move_vertex(indexX, indexY, posX, posY) {
+	gMesh.moveVertex([posX, posY], [indexX, indexY]);
+}
+
 function jit_gl_texture(texName) {
 	if (gMesh) {
 		gMesh.assignTextureToMesh(texName);
@@ -178,11 +182,11 @@ function swapcallback(event){
 				if (checkIfVec2AreDifferent(mouseWorld, gMesh.getLatestMousePos())) {
 
 					// we are using default cam position and far_clip distance for our ray z points
-					var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
-					var result = gGlobal.contexts.drawto.physWorld.raytest(ray);
-					if(result) {
-						print("raytest " + result[0]);
-					}
+					// var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
+					// var result = gGlobal.contexts.drawto.physWorld.raytest(ray);
+					// if(result) {
+					// 	print("raytest " + result[0]);
+					// }
 
 					gSelectionStruct.reset(); // reset all the struct values
 					// gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseIsInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
