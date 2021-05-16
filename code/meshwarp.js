@@ -42,6 +42,13 @@ declareattribute("texture", null, "setTexturesMeshes", 0);
 var layer = 0;
 declareattribute("layer", null, "setMeshwarpLayer", 0);
 
+var color = WHITE.slice();
+declareattribute("color", null, "setColor", 0);
+
+var blend_enable = 0;
+declareattribute("blend_enable", null, "setBlendEnable", 0);
+
+
 // GLOBAL VARIABLES
 var gMousePosScreen = [];
 var gMinimumSelectionDist = 0.06;
@@ -49,6 +56,7 @@ var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
 var gWindowPrevRatio = gWindowRatio;
 var gTextureNames = "noTexture";
+var gShiftPressed = false;
 
 var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);
@@ -125,6 +133,7 @@ function swapcallback(event){
 				gWindowPrevRatio = gWindowRatio;
 			}
 			checkContextObs();
+			shiftkeydown();
 			break;
 
 		case "mouse": // get mouse array when mouse is clicked or released
@@ -147,7 +156,7 @@ function swapcallback(event){
 								gGraphics.resetSingleCircle();
 								gSelectionStruct.areVerticesMoved = true;
 							} else {
-								gMesh.moveVertex(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
+								gMesh.moveVertexWithMouse(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
 								gGraphics.resetSelected(); // delete selected circles
 							}
 						} else { // if we are not clicking on anything then create the vertices selection quad
@@ -155,7 +164,6 @@ function swapcallback(event){
 						}
 					} 
 				} else { // mouse is released
-					// if we moved a single vertex
 					if (gSelectionStruct.isScaled) {
 						gSelectionStruct.isScaled = false;
 						gMesh.setLatestScale();
@@ -179,40 +187,38 @@ function swapcallback(event){
 			if (enable) {
 				gMousePosScreen = (event.args);
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
-				//print("mouseidle " + gMesh.ID + " latest mouse pos " + gMesh.getLatestMousePos() + " mouse world "+ mouseWorld);
-				//if (checkIfVec2AreDifferent(mouseWorld, gMesh.getLatestMousePos())) {
 					// we are using default cam position and far_clip distance for our ray z points
-					// var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
-					// var result = gGlobal.contexts.drawto.physWorld.raytest(ray);
-					// if(result) {
-					// 	print("raytest " + result[0]);
-					// }
+				// var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
+				// var result = gGlobal.contexts.drawto.physWorld.raytest(ray);
+				// print(gMesh.physBody.enable + " " + gMesh.ID)
+				// if(result) {
+				// 	print("raytest " + result[0]);
+				// }
 
-					gSelectionStruct.reset(); // reset all the struct values
-					// gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseIsInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
-					gSelectionStruct.mouseIsOnMesh = true;
-	
-					if (gSelectionStruct.mouseIsOnMesh != GUI_ELEMENTS.NOTHING) {  // We are inside the mesh
-						gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToMoveHandle(mouseWorld); // check if mouse is close to move handle
-						if (checkIfItIsGloballySelected() && gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.NOTHING) { // if this is the currently selected meshwarp
-							gGraphics.resetSingleCircle(); 
+				gSelectionStruct.reset(); // reset all the struct values
+				// gSelectionStruct.mouseIsOnMesh = gMesh.checkIfMouseIsInsideMesh(mouseWorld); // check if we are in a mesh and not in an empty area
+				gSelectionStruct.mouseIsOnMesh = true;
 
-							gMesh.setLatestMousePos(mouseWorld);
+				if (gSelectionStruct.mouseIsOnMesh != GUI_ELEMENTS.NOTHING) {  // We are inside the mesh
+					gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToMoveHandle(mouseWorld); // check if mouse is close to move handle
+					if (checkIfItIsGloballySelected() && gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.NOTHING) { // if this is the currently selected meshwarp
+						gGraphics.resetSingleCircle(); 
 
-							
-							gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
-							
-							if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
-								gSelectionStruct.cellIndex = gMesh.getSelectedVertexIndex();
-							} else {
-								gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToScaleHandles(mouseWorld); // if we are not in the move handle, check the scale handles
-							}
-							// check if the cell currently selected is different from the previous cell selected. 
-							// In case it is different we fill the matrix with the adjacent cells for bounding calculation
-							// calculateBoundingCells(gSelectionStruct);
+						gMesh.setLatestMousePos(mouseWorld);
+
+						
+						gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToVertex(mouseWorld); // check if the mouse is close to any vertex in the mesh
+						
+						if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
+							gSelectionStruct.cellIndex = gMesh.getSelectedVertexIndex();
+						} else {
+							gSelectionStruct.mouseIsOnWhat = gMesh.checkIfMouseIsCloseToScaleHandles(mouseWorld); // if we are not in the move handle, check the scale handles
 						}
+						// check if the cell currently selected is different from the previous cell selected. 
+						// In case it is different we fill the matrix with the adjacent cells for bounding calculation
+						// calculateBoundingCells(gSelectionStruct);
 					}
-				//}
+				}
 			}
 			break;
 	}

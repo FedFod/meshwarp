@@ -20,7 +20,8 @@ Mesh.prototype.setMeshDim = function(newDim) {
 }
 
 Mesh.prototype.resizeMeshDim = function(dimensions) {
-    var newDim = this.checkDimForNurbs(dimensions);
+    // var newDim = this.checkDimForNurbs(dimensions);
+    var newDim = dimensions;
     var tempMat = new JitterMatrix(this.positionMat.planecount, this.positionMat.type, newDim);
     tempMat.interp = 1;
     tempMat.frommatrix(this.positionMat);

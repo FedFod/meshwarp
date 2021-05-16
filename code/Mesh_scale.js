@@ -1,6 +1,10 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.deselectVertices();
-    this.currentScale = [scaleX, scaleY];
+    if (gShiftPressed) {
+        this.currentScale = [this.latestScale[0]*(1-((this.latestScale[1]-scaleY))), scaleY]; 
+    } else {
+        this.currentScale = [scaleX, scaleY];
+    }
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
     this.calcMeshBoundsMat();
@@ -49,4 +53,8 @@ Mesh.prototype.transformMatrixFromCenter = function(matrixToScale, scaleVal, ope
     matrixToScale.op("-", this.currentPos);  // translate to center
     matrixToScale.op(operator, scaleVal); // scale
     matrixToScale.op("+", this.currentPos); // put back
+}
+
+Mesh.prototype.getCurrentRatio = function() {
+    return this.latestScale[0] / this.latestScale[1];
 }

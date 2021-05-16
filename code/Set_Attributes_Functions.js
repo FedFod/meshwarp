@@ -5,11 +5,16 @@ function setenable(val) {
 }
 setenable.local = 1;
 
-function setNodeDrawto() {
-	nodeCTX.drawto = drawto;
-	videoplane.drawto = drawto;	
+function setColor() {
+	color = arrayfromargs(messagename, arguments).slice(1,5);
+	gMesh.setColor(color);
 }
-setNodeDrawto.local = 1;
+setColor.local = 1;
+
+function setBlendEnable(val) {
+	gMesh.setBlendEnable(val);
+}
+setBlendEnable.local = 1;
 
 function buildSaveDict() {
 	var saveDict = new Dict();

@@ -43,7 +43,7 @@ function Mesh(ID) {
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
-    this.selectedVertex = [-1,-1];
+    this.selectedVertexIndex = [-1,-1];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim.slice());
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim.slice());
@@ -105,6 +105,14 @@ function Mesh(ID) {
             this.textureCoordMat.dim = this.positionMat.dim.slice();
         }
         this.initAndAssignTextureCoordMat();
+    }
+
+    this.setColor = function(color_) {
+        this.meshFull.color = color_.slice();
+    }
+
+    this.setBlendEnable = function(val_) {
+        this.meshFull.blend_enable = val_;
     }
 
     this.changeNurbsOrder = function(order) {
@@ -180,7 +188,7 @@ function Mesh(ID) {
         this.meshFull.draw_mode = "quad_grid";
         this.meshFull.depth_enable = 0;
         this.meshFull.layer = BACKGROUND;
-        this.meshFull.color = GREY;
+        this.meshFull.color = WHITE.slice();
         this.meshFull.drawto   = drawto_;
     }
 
@@ -229,9 +237,13 @@ function Mesh(ID) {
 
     this.initPhysBody = function() {
         this.physBody = new JitterObject("jit.phys.body"); 
-        this.physBody.jit_matrix(this.positionMat.name);
+        if (this.useNurbs) {
+            this.physBody.jit_matrix(this.nurbsMat.name);
+        } else {
+            this.physBody.jit_matrix(this.positionMat.name);
+        }
         this.physBody.shape = "concave";
-        this.physBody.name = "mesh_"+this.ID;
+        // this.physBody.name = "mesh_"+this.ID;
         this.physBody.mass = 0;
     }
 
@@ -407,13 +419,21 @@ function Mesh(ID) {
             this.meshGrid.vertex_matrix(this.positionMat.name);
             this.meshFull.vertex_matrix(this.positionMat.name);
         }
+        // var tempMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, [10,10]);
+        // tempMat.interp = 1;
+        // tempMat.frommatrix(tempMat);
         this.physBody.jit_matrix(this.positionMat.name);
+        // tempMat.freepeer();
     }
 
     this.assignNurbsMatToMesh = function() {
         this.meshPoints.vertex_matrix(this.positionMat.name);
         this.meshGrid.vertex_matrix(this.positionMat.name);
         this.meshFull.vertex_matrix(this.nurbsMat.name);
+        // var tempMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, [10, 10]);
+        // tempMat.frommatrix(tempMat);
+        // this.physBody.jit_matrix(tempMat.name);
+        // tempMat.freepeer();
     }
 
     this.assignTextureCoordMatToMesh = function() {
@@ -421,12 +441,20 @@ function Mesh(ID) {
     }
 
     this.assignControlMatToNurbs = function() {
-        this.nurbs.ctlmatrix(this.positionMat.name);
+        if (this.positionMat.dim[0] < 4 || this.positionMat.dim[1] < 4) {
+            var tempMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, [4, 4]);
+            tempMat.interp = 1;
+            tempMat.frommatrix(this.positionMat);
+            this.nurbs.ctlmatrix(tempMat.name);
+            tempMat.freepeer();
+        } else {
+            this.nurbs.ctlmatrix(this.positionMat.name);
+        }
     }
 
     this.assignTextureToMesh = function(textureName) {
         this.textureName = textureName;
-        this.meshFull.color = WHITE;
+        // this.meshFull.color = WHITE;
         this.meshFull.jit_gl_texture(this.textureName);
     }
     

@@ -71,3 +71,17 @@ function notifydeleted() {
 	// what else?
 }
 
+function setNodeDrawto() {
+	nodeCTX.drawto = drawto;
+	videoplane.drawto = drawto;	
+}
+setNodeDrawto.local = 1;
+
+function shiftkeydown() {
+	var tempShift = gShiftPressed;
+	gShiftPressed = max.shiftkeydown;
+	// if (gShiftPressed != tempShift) {
+	// 	gMesh.setLatestScale();
+	// }
+}
+shiftkeydown.local = 1;
