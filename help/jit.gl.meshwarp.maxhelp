@@ -605,6 +605,56 @@
 							}
 , 							{
 								"box" : 								{
+									"id" : "obj-17",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 796.142860054969788, 476.047614336013794, 35.0, 22.0 ],
+									"text" : "reset"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-5",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 495.142860054969788, 473.619042873382568, 35.0, 22.0 ],
+									"text" : "reset"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-43",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 767.238093376159668, 519.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
+									"varname" : "jit.gl.meshwarp[2]"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-41",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 424.0, 514.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
+									"varname" : "jit.gl.meshwarp[1]"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-38",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
@@ -872,6 +922,19 @@
 							}
 , 							{
 								"box" : 								{
+									"id" : "obj-1",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 53.642860054969788, 496.047614336013794, 262.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
+									"varname" : "jit.gl.meshwarp"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"background" : 1,
 									"bgcolor" : [ 1.0, 0.788235, 0.470588, 1.0 ],
 									"fontface" : 1,
@@ -907,6 +970,20 @@
  ],
 						"lines" : [ 							{
 								"patchline" : 								{
+									"destination" : [ "obj-23", 0 ],
+									"source" : [ "obj-1", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"source" : [ "obj-10", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
 									"midpoints" : [ 755.738093376159668, 195.499992728233337, 689.0, 195.499992728233337, 689.0, 297.499992728233337, 709.880953431129456, 297.499992728233337 ],
 									"source" : [ "obj-11", 0 ]
@@ -939,6 +1016,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"source" : [ "obj-17", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-16", 0 ],
 									"source" : [ "obj-2", 1 ]
 								}
@@ -948,6 +1032,13 @@
 								"patchline" : 								{
 									"destination" : [ "obj-14", 0 ],
 									"source" : [ "obj-20", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-22", 0 ]
 								}
 
 							}
@@ -990,6 +1081,14 @@
 								"patchline" : 								{
 									"destination" : [ "obj-54", 0 ],
 									"source" : [ "obj-25", 1 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"midpoints" : [ 63.857145041227341, 741.0, 39.0, 741.0, 39.0, 492.0, 63.142860054969788, 492.0 ],
+									"source" : [ "obj-26", 0 ]
 								}
 
 							}
@@ -1076,6 +1175,20 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"source" : [ "obj-38", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-1", 0 ],
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-36", 0 ],
 									"source" : [ "obj-40", 0 ]
 								}
@@ -1108,6 +1221,13 @@
 								"patchline" : 								{
 									"destination" : [ "obj-47", 0 ],
 									"source" : [ "obj-49", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-5", 0 ]
 								}
 
 							}
@@ -1207,6 +1327,9 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[5]", "meshwarpjs[5]", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
+			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"parameterbanks" : 			{
 
 			}
@@ -1214,7 +1337,19 @@
 			"inherited_shortname" : 1
 		}
 ,
-		"dependency_cache" : [  ],
+		"dependency_cache" : [ 			{
+				"name" : "jit.gl.meshwarp.maxpat",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "meshwarp.js",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/code",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+ ],
 		"autosave" : 0
 	}
 

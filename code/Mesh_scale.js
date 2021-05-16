@@ -1,7 +1,7 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.deselectVertices();
     if (gShiftPressed) {
-        this.currentScale = [this.latestScale[0]*(1-((this.latestScale[1]-scaleY))), scaleY]; 
+        this.currentScale = [this.meshRatio * scaleY, scaleY]; 
     } else {
         this.currentScale = [scaleX, scaleY];
     }
@@ -27,8 +27,17 @@ Mesh.prototype.scaleWithHandle = function(mouseWorld) {
     this.scaleMesh(distFromInitial[0], distFromInitial[1]);
 }
 
+Mesh.prototype.scaleToAspectRatio = function() {
+
+}
+
 Mesh.prototype.setLatestScale = function() {
     this.latestScale = this.currentScale.slice();
+    this.setMeshRatio();
+}
+
+Mesh.prototype.setMeshRatio = function() {
+    this.meshRatio = this.currentScale[0] / this.currentScale[1];
 }
 
 Mesh.prototype.getMeshCenter = function(mat) {

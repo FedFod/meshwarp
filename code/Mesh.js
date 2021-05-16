@@ -34,6 +34,7 @@ function Mesh(ID) {
     this.useNurbs = 1;
     this.currentScale = [1, 1];
     this.latestScale = this.currentScale.slice();
+    this.meshRatio = 1;
     this.currentPos = [0,0];
     this.nurbsLstnr = null;
     this.hasNurbsMat = 0;

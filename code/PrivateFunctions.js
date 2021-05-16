@@ -80,8 +80,8 @@ setNodeDrawto.local = 1;
 function shiftkeydown() {
 	var tempShift = gShiftPressed;
 	gShiftPressed = max.shiftkeydown;
-	// if (gShiftPressed != tempShift) {
-	// 	gMesh.setLatestScale();
-	// }
+	if (gShiftPressed != tempShift) {
+		gMesh.setShiftScale();
+	}
 }
 shiftkeydown.local = 1;

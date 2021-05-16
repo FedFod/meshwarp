@@ -89,6 +89,10 @@ function reset() {
 	gMesh.initMesh(nodeCTX.name);
 }
 
+function use_aspect_ratio() {
+	gMesh.scaleToAspectRatio();
+}
+
 function move_vertex(indexX, indexY, posX, posY) {
 	gMesh.moveVertex([posX, posY], [indexX, indexY]);
 }
