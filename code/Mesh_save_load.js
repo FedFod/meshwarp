@@ -13,10 +13,8 @@ Mesh.prototype.saveDataIntoDict = function(dict) {
 Mesh.prototype.loadDict = function(saveDict_) {
     this.loadDataFromDict(saveDict_);
     this.loadMatrixFromDict(saveDict_);
-    this.drawMoveHandleInPos(this.currentPos);
-    this.drawScaleHandles();
-    this.assignPositionMatToMesh();
-    // this.calcMeshBoundsMat();
+
+    this.applyMeshTransformation();
 }
 
 Mesh.prototype.loadDataFromDict = function(dict) {
@@ -40,35 +38,43 @@ Mesh.prototype.loadMatrixFromDict = function(dict) {
             this.positionMat.setcell2d(i,j, thisCell[0], thisCell[1], thisCell[2]);
         }
     }
-    this.unscaledMatFromPosMat();
 }
 
-Mesh.prototype.saveUndoPositionMat = function() {
-    this.undoRedoLevels[0].frommatrix(this.positionMat);
-    // print("save level index "+this.saveUndoRedoLevelIndex);
-    for (var i=1; i<this.amountOfUndoRedoLevels-1; i++) {
-        this.undoRedoLevels[i+1].frommatrix(this.undoRedoLevels[i]);
+
+// UNDO / REDO
+Mesh.prototype.saveUndoRedoPositionMat = function() {
+    for (var i=this.amountOfUndoRedoLevels-1; i > 0; i--) {
+        this.undoRedoLevels[i].posMat.frommatrix(this.undoRedoLevels[i-1].posMat);
+        this.undoRedoLevels[i].scale = this.undoRedoLevels[i-1].scale.slice();
     }
+    this.undoRedoLevels[0].posMat.frommatrix(this.positionMat);
+    this.undoRedoLevels[0].scale = this.currentScale.slice();
     this.undoLevelIndex = 0;
-    // this.undoLevelIndex = this.redoLevelIndex-1;
-    // this.redoLevelIndex++;
-    // this.redoLevelIndex %= this.amountOfUndoRedoLevels;
 }
 
 Mesh.prototype.undo = function() {
-    // this.undoLevelIndex = mod(this.undoLevelIndex, this.amountOfUndoRedoLevels);
-    print("undo level index "+this.undoLevelIndex);
-    this.positionMat.frommatrix(this.undoRedoLevels[this.undoLevelIndex]);
+    // print("undo level index "+this.undoLevelIndex);
+    this.positionMat.frommatrix(this.undoRedoLevels[this.undoLevelIndex*2 + 1].posMat);
+    this.currentScale = this.undoRedoLevels[this.undoLevelIndex*2 + 1].scale.slice();
+
+    this.redoLevelIndex = this.undoLevelIndex;
     this.undoLevelIndex++;
-    this.assignPositionMatToMesh();
+    this.undoLevelIndex = clamp(this.undoLevelIndex, 0, Math.floor((this.amountOfUndoRedoLevels-1)/2));
+
+    this.setLatestScale();
+    this.applyMeshTransformation();
+    this.updateGUI();
 }
 
 Mesh.prototype.redo = function() {
-    // this.undoLevelIndex++;
-    // this.undoLevelIndex = mod(this.undoLevelIndex, this.amountOfUndoRedoLevels);
+    this.redoLevelIndex = clamp(this.redoLevelIndex, 0, Math.floor((this.amountOfUndoRedoLevels-1)/2));
+    this.positionMat.frommatrix(this.undoRedoLevels[this.redoLevelIndex*2].posMat);
+    this.currentScale = this.undoRedoLevels[this.redoLevelIndex*2].scale.slice();
+
+    // print("undo level index from REDO "+this.redoLevelIndex);
     this.redoLevelIndex--;
-    this.redoLevelIndex = mod(this.redoLevelIndex, this.amountOfUndoRedoLevels);
-    print("redo level index "+ (this.redoLevelIndex));
-    this.positionMat.frommatrix(this.undoRedoLevels[this.redoLevelIndex]);
-    this.assignPositionMatToMesh();
+
+    this.setLatestScale();
+    this.applyMeshTransformation();
+    this.updateGUI();
 }

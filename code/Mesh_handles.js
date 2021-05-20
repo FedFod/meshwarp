@@ -1,17 +1,18 @@
-Mesh.prototype.drawMoveHandleInPos = function(pos) {
+Mesh.prototype.drawMoveHandleInPos = function() {
     this.moveHandle.reset();
-    if (pos) {
-        this.moveHandle.handlePos = [pos[0], pos[1], 0];
-    }
+    
+    this.moveHandle.handlePos = this.currentPos.slice();
     this.moveHandle.shapeslice(80);
     this.moveHandle.moveto(this.moveHandle.handlePos);
     this.moveHandle.glcolor(LIGHT_BLUE);
     this.moveHandle.framecircle(this.moveHandle.handleSize);
 }
 
-Mesh.prototype.drawHandleFull = function() {
-    this.moveHandle.glcolor(LIGHT_BLUE_TRANSPARENT);
-    this.moveHandle.circle(this.moveHandle.handleSize);
+Mesh.prototype.drawMoveHandleFull = function() {
+    if (this.mouseIsCloseTo == GUI_ELEMENTS.MOVE_HANDLE) {
+        this.moveHandle.glcolor(LIGHT_BLUE_TRANSPARENT);
+        this.moveHandle.circle(this.moveHandle.handleSize);
+    }
 }
 
 Mesh.prototype.drawScaleHandles = function() {
@@ -29,10 +30,20 @@ Mesh.prototype.drawScaleHandles = function() {
 }
 
 Mesh.prototype.drawScaleHandleFull = function(index) {
-    if (index) {
-        this.scaleHandles.index = index;
+    if (this.scaleHandles.index != -1) {
+        this.scaleHandles.glcolor(LIGHT_BLUE_TRANSPARENT);
+        this.scaleHandles.moveto(this.scaleHandles.handlesPositions[this.scaleHandles.index]);
+        this.scaleHandles.circle(this.scaleHandles.handleSize);
     }
-    this.scaleHandles.glcolor(LIGHT_BLUE_TRANSPARENT);
-    this.scaleHandles.moveto(this.scaleHandles.handlesPositions[this.scaleHandles.index]);
-    this.scaleHandles.circle(this.scaleHandles.handleSize);
+}
+
+Mesh.prototype.drawAllHandles = function() {
+    this.drawMoveHandleInPos();
+    this.drawScaleHandles();
+    this.drawMoveHandleFull();
+    this.drawScaleHandleFull();
+}
+
+Mesh.prototype.updateGUI = function() {
+    this.drawAllHandles();
 }

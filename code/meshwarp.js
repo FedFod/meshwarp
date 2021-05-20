@@ -164,7 +164,7 @@ function swapcallback(event){
 						moveWholeMesh(mouseWorld);
 					} else if (checkIfItIsGloballySelected()) {
 						if (!oldMouseClicked) {
-							gMesh.saveUndoPositionMat();
+							gMesh.saveUndoRedoPositionMat();
 						}
 						if(gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.SCALE_HANDLE) {
 							gGraphics.resetSingleCircle(); 
@@ -197,10 +197,11 @@ function swapcallback(event){
 					if (gSelectionStruct.mouseIsOnWhat != GUI_ELEMENTS.NOTHING) {
 						// gMesh.calcMeshBoundsMat(); // recalculate the bounding matrix only when finished dragging
 						gSelectionStruct.reset(); // reset the values in the selectionStruct
-						// gMesh.saveUndoPositionMat();
+						gMesh.saveUndoRedoPositionMat();
 					}
 					gGraphics.resetSingleCircle(); // delete graphics if mouse unclicked
 				}
+				gMesh.updateGUI();
 			}
 			break;
 		
@@ -239,8 +240,14 @@ function swapcallback(event){
 						// In case it is different we fill the matrix with the adjacent cells for bounding calculation
 						// calculateBoundingCells(gSelectionStruct);
 					}
+					gMesh.updateGUI();
 				}
 			}
+			break;
+		
+		case "keydown": 
+			print(event.args)
+			print("case")
 			break;
 	}
 }

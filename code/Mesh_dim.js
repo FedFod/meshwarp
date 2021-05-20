@@ -26,26 +26,15 @@ Mesh.prototype.resizeMeshDim = function(dimensions) {
     this.setMeshDim(newDim);
     this.positionMat.frommatrix(tempMat);
     tempMat.freepeer();
-    this.unscaledMatFromPosMat();
-    this.assignPositionMatToMesh();
+    this.applyMeshTransformation();
     this.initAndAssignTextureCoordMat();
     this.setUndoRedoLevelsMatDim(this.positionMat.dim.slice());
     this.initUndoRedoLevelsFromPositionMat();
     // this.calcMeshBoundsMat();
 }
 
-Mesh.prototype.checkDimForNurbs = function(dimensions) {
-    var sizeX = dimensions[0]; 
-    var sizeY = dimensions[1];
-    if (this.useNurbs) {
-        sizeX = Math.max(sizeX, 4);
-        sizeY = Math.max(sizeY, 4);
-    }
-    return [sizeX, sizeY];
-}
-
 Mesh.prototype.setUndoRedoLevelsMatDim = function(dim_) {
     for (var level in this.undoRedoLevels) {
-        this.undoRedoLevels[level].dim = dim_.slice();
+        this.undoRedoLevels[level].posMat.dim = dim_.slice();
     }
 }

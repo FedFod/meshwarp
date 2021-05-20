@@ -7,10 +7,6 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     }
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
-    // this.calcMeshBoundsMat();
-    this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
-    this.drawScaleHandles();
-    this.drawScaleHandleFull();
 }
 
 Mesh.prototype.scaleWithHandle = function(mouseWorld) {

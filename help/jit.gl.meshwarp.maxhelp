@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 945.0, 146.0, 1026.0, 789.0 ],
+		"rect" : [ 801.0, 142.0, 1026.0, 789.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 945.0, 172.0, 1026.0, 763.0 ],
+						"rect" : [ 801.0, 168.0, 1026.0, 763.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -412,9 +412,20 @@
 									"numinlets" : 3,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "float" ],
-									"parameter_enable" : 0,
+									"parameter_enable" : 1,
 									"patching_rect" : [ 634.30952672163653, 46.0, 128.0, 32.0 ],
-									"saturation" : 1.0
+									"saturation" : 1.0,
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_invisible" : 1,
+											"parameter_longname" : "swatch",
+											"parameter_shortname" : "swatch",
+											"parameter_type" : 3
+										}
+
+									}
+,
+									"varname" : "swatch"
 								}
 
 							}
@@ -452,8 +463,19 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "bang" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 796.142860054969788, 64.380957126617432, 50.0, 22.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 796.142860054969788, 64.380957126617432, 50.0, 22.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_longname" : "number[5]",
+											"parameter_mmax" : 1.0,
+											"parameter_shortname" : "number[5]",
+											"parameter_type" : 0
+										}
+
+									}
+,
+									"varname" : "number[5]"
 								}
 
 							}
@@ -476,8 +498,19 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "bang" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 121.309526721636473, 626.0, 50.0, 22.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 121.309526721636473, 626.0, 50.0, 22.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_invisible" : 1,
+											"parameter_longname" : "number[4]",
+											"parameter_shortname" : "number[4]",
+											"parameter_type" : 3
+										}
+
+									}
+,
+									"varname" : "number[4]"
 								}
 
 							}
@@ -488,8 +521,19 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "bang" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 53.642860054969788, 626.0, 50.0, 22.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 53.642860054969788, 626.0, 50.0, 22.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_invisible" : 1,
+											"parameter_longname" : "number[3]",
+											"parameter_shortname" : "number[3]",
+											"parameter_type" : 3
+										}
+
+									}
+,
+									"varname" : "number[3]"
 								}
 
 							}
@@ -573,8 +617,19 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "bang" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 256.642860054969788, 650.0, 67.0, 22.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 256.642860054969788, 650.0, 67.0, 22.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_invisible" : 1,
+											"parameter_longname" : "number[2]",
+											"parameter_shortname" : "number[2]",
+											"parameter_type" : 3
+										}
+
+									}
+,
+									"varname" : "number[2]"
 								}
 
 							}
@@ -586,8 +641,19 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "bang" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 188.642860054969788, 650.0, 50.0, 22.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 188.642860054969788, 650.0, 50.0, 22.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_invisible" : 1,
+											"parameter_longname" : "number[1]",
+											"parameter_shortname" : "number[1]",
+											"parameter_type" : 3
+										}
+
+									}
+,
+									"varname" : "number[1]"
 								}
 
 							}
@@ -708,8 +774,19 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "bang" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 868.0, 305.0, 50.0, 22.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 868.0, 305.0, 50.0, 22.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_invisible" : 1,
+											"parameter_longname" : "number",
+											"parameter_shortname" : "number",
+											"parameter_type" : 3
+										}
+
+									}
+,
+									"varname" : "number"
 								}
 
 							}
@@ -841,8 +918,20 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 836.690475821495056, 216.619042873382568, 24.0, 24.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 836.690475821495056, 216.619042873382568, 24.0, 24.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_enum" : [ "off", "on" ],
+											"parameter_longname" : "toggle[2]",
+											"parameter_mmax" : 1,
+											"parameter_shortname" : "toggle[2]",
+											"parameter_type" : 2
+										}
+
+									}
+,
+									"varname" : "toggle[2]"
 								}
 
 							}
@@ -865,8 +954,20 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 700.380953431129456, 208.619042873382568, 24.0, 24.0 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 700.380953431129456, 208.619042873382568, 24.0, 24.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_enum" : [ "off", "on" ],
+											"parameter_longname" : "toggle[1]",
+											"parameter_mmax" : 1,
+											"parameter_shortname" : "toggle[1]",
+											"parameter_type" : 2
+										}
+
+									}
+,
+									"varname" : "toggle[1]"
 								}
 
 							}
@@ -927,8 +1028,20 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
-									"parameter_enable" : 0,
-									"patching_rect" : [ 37.642860054969788, 145.619042873382568, 33.476186752319336, 33.476186752319336 ]
+									"parameter_enable" : 1,
+									"patching_rect" : [ 37.642860054969788, 145.619042873382568, 33.476186752319336, 33.476186752319336 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_enum" : [ "off", "on" ],
+											"parameter_longname" : "toggle",
+											"parameter_mmax" : 1,
+											"parameter_shortname" : "toggle",
+											"parameter_type" : 2
+										}
+
+									}
+,
+									"varname" : "toggle"
 								}
 
 							}
@@ -1365,9 +1478,19 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-51::obj-1::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
-			"obj-51::obj-41::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-51::obj-20" : [ "toggle[1]", "toggle[1]", 0 ],
+			"obj-51::obj-28" : [ "number[1]", "number[1]", 0 ],
+			"obj-51::obj-30" : [ "number[2]", "number[2]", 0 ],
+			"obj-51::obj-40" : [ "number", "number", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
 			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
+			"obj-51::obj-49" : [ "toggle[2]", "toggle[2]", 0 ],
+			"obj-51::obj-50" : [ "number[5]", "number[5]", 0 ],
+			"obj-51::obj-52" : [ "swatch", "swatch", 0 ],
+			"obj-51::obj-53" : [ "number[3]", "number[3]", 0 ],
+			"obj-51::obj-54" : [ "number[4]", "number[4]", 0 ],
+			"obj-51::obj-9" : [ "toggle", "toggle", 0 ],
 			"parameterbanks" : 			{
 
 			}

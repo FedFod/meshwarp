@@ -44,10 +44,10 @@ function Mesh(ID) {
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
-    this.selectedVertexIndex = [-1,-1];
+    this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
 
     // UNDO REDO
-    this.amountOfUndoRedoLevels = 5;
+    this.amountOfUndoRedoLevels = 10;
     this.saveUndoRedoLevelIndex = 0;
     this.redoLevelIndex = 0;
     this.undoLevelIndex = 0;
@@ -175,8 +175,9 @@ function Mesh(ID) {
     this.initUndoRedoLevelsFromPositionMat = function() {
         this.undoRedoLevels = [];
         for (var i=0; i<this.amountOfUndoRedoLevels; i++) {
-            this.undoRedoLevels.push(new JitterMatrix(this.positionMat.planecount, this.positionMat.type, this.positionMat.dim.slice()));
-            this.undoRedoLevels[i].frommatrix(this.positionMat);
+            this.undoRedoLevels.push( { posMat: new JitterMatrix(this.positionMat.planecount, this.positionMat.type, this.positionMat.dim.slice()), 
+                                        scale: this.currentScale.slice() } );
+            this.undoRedoLevels[i].posMat.frommatrix(this.positionMat);
         }
     }
 
@@ -292,7 +293,7 @@ function Mesh(ID) {
 
     this.freeUndoRedoLevels = function() {
         for (var level in this.undoRedoLevels) {
-            this.undoRedoLevels[level].freepeer();
+            this.undoRedoLevels[level].posMat.freepeer();
         }
     }
 
