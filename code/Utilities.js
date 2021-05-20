@@ -85,6 +85,11 @@ function isPointInsidePolygon(coords, matrix) {
 isPointInsidePolygon.local = 1;
 //-------------------------------------------------------------------
 
+function mod(n, m) {
+	return ((n % m) + m) % m;
+}
+mod.local = 1;
+
 function calcDist2D(vec1, vec2) {
     return Math.sqrt((vec1[0]-vec2[0])*(vec1[0]-vec2[0]) + (vec1[1]-vec2[1])*(vec1[1]-vec2[1]));
 }

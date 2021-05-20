@@ -103,15 +103,15 @@ Mesh.prototype.deselectVertices = function() {
 }
 
 Mesh.prototype.moveVertexWithMouse = function(coordsWorld, cellIndex) {
-    this.moveVertex(coordsWorld, cellIndex);
+    var newPos = sumVec2D(coordsWorld, this.mouseOffset);
+    this.moveVertex(newPos, cellIndex);
     this.outputSelectedVertex(coordsWorld);
 }
 
 Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
-    var newPos = sumVec2D(coordsWorld, this.mouseOffset);
-    this.setVertexPosInMat(newPos, cellIndex);
+    this.setVertexPosInMat(coordsWorld, cellIndex);
     this.assignPositionMatToMesh();
-    gGraphics.drawCircle(newPos);
+    gGraphics.drawCircle(coordsWorld);
 }
 
 Mesh.prototype.moveMesh = function(mouseWorld) {

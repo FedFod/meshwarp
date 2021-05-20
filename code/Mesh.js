@@ -46,12 +46,20 @@ function Mesh(ID) {
     this.selectedVerticesIndices = [];
     this.selectedVertexIndex = [-1,-1];
 
+    // UNDO REDO
+    this.amountOfUndoRedoLevels = 5;
+    this.saveUndoRedoLevelIndex = 0;
+    this.redoLevelIndex = 0;
+    this.undoLevelIndex = 0;
+    this.undoRedoLevels = [];
+
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim.slice());
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim.slice());
     this.positionMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim.slice());
     this.unscaledPosMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim.slice());
     this.boundingMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 10);
     this.adjacentCellsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 8);
+
 
     // unused for now
     this.setenable = function(val) {
@@ -71,6 +79,7 @@ function Mesh(ID) {
 
         this.setMeshDim(this.posMatDim);
         this.initPositionMat(); // fill vertex mat from scratch
+        this.initUndoRedoLevelsFromPositionMat(); 
 
         this.initMeshPoints(drawto_);
         this.initMeshGrid(drawto_);
@@ -79,7 +88,7 @@ function Mesh(ID) {
         this.initMvmtHandle(drawto_);
         this.initScaleHandles(drawto_);
         this.initPhysBody();
-        this.calcMeshBoundsMat();
+        // this.calcMeshBoundsMat();
         
         this.assignPositionMatToMesh();
         this.initAndAssignTextureCoordMat(); // init texture coord mat
@@ -93,6 +102,9 @@ function Mesh(ID) {
         this.currentScale = [1, 1];
         this.latestScale = this.currentScale.slice();
         this.useNurbs = 1;
+        this.redoLevelIndex = 0;
+        this.undoLevelIndex = 0;
+        this.saveUndoRedoLevelIndex = 0;
     }
 
     this.setNurbsOrMeshMode = function(use_nurbs) {
@@ -157,9 +169,16 @@ function Mesh(ID) {
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);
             }
         }
-        // this.textureCoordMat.dim = this.positionMat.dim.slice();
-        this.unscaledPosMat.frommatrix(this.positionMat);
+        this.unscaledPosMat.frommatrix();
     }   
+
+    this.initUndoRedoLevelsFromPositionMat = function() {
+        this.undoRedoLevels = [];
+        for (var i=0; i<this.amountOfUndoRedoLevels; i++) {
+            this.undoRedoLevels.push(new JitterMatrix(this.positionMat.planecount, this.positionMat.type, this.positionMat.dim.slice()));
+            this.undoRedoLevels[i].frommatrix(this.positionMat);
+        }
+    }
 
     this.initMeshPoints = function(drawto_) {
         this.meshPoints = new JitterObject("jit.gl.mesh");
@@ -268,6 +287,13 @@ function Mesh(ID) {
         this.nurbsMat.freepeer();
         this.adjacentCellsMat.freepeer();
         this.textureCoordMat.freepeer();
+        this.freeUndoRedoLevels();
+    }
+
+    this.freeUndoRedoLevels = function() {
+        for (var level in this.undoRedoLevels) {
+            this.undoRedoLevels[level].freepeer();
+        }
     }
 
     this.freeMeshShapes = function() {
@@ -298,44 +324,44 @@ function Mesh(ID) {
         //this.physBody.enable = show;
     }
 
-    this.calcMeshBoundsMat = function() {        
-        // Get the bounding vertices that are on the edges of the polygon in clockwise order
-        var boundingArray = [];
-        var pad = 0.; // pad so that the mesh is checked also when mouse is outside of it
+    // this.calcMeshBoundsMat = function() {        
+    //     // Get the bounding vertices that are on the edges of the polygon in clockwise order
+    //     var boundingArray = [];
+    //     var pad = 0.; // pad so that the mesh is checked also when mouse is outside of it
 
-        var tempBiggerMat = new JitterMatrix();
-        tempBiggerMat.frommatrix(this.positionMat);
-        this.transformMatrixFromCenter(tempBiggerMat, [1.2, 1.2], '*');
-        // TOP
-        for (var i=0; i < this.positionMat.dim[0]; i++) {
-            var xVal = tempBiggerMat.getcell(i, 0)[0];
-            var yVal = tempBiggerMat.getcell(i, 0)[1] - pad;
-            boundingArray.push([xVal, yVal]);
-        }
-        // RIGHT
-        for (var j=1; j < tempBiggerMat.dim[1]; j++) {
-            var xVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[0] + pad;
-            var yVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[1];
-            boundingArray.push([xVal, yVal]);
-        }
-        // BOTTOM
-        for (var k=tempBiggerMat.dim[0]-2; k >= 0; k--) {
-            var xVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[0];
-            var yVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[1] + pad;
-            boundingArray.push([xVal, yVal]);
-        }
-        // LEFT
-        for (var z=tempBiggerMat.dim[1]-2; z > 0; z--) {
-            var xVal = tempBiggerMat.getcell(0, z)[0] - pad;
-            var yVal = tempBiggerMat.getcell(0, z)[1];
-            boundingArray.push([xVal, yVal]);
-        }
-        // Transfer those vertices from the array to the boundingMat matrix
-        for (var i=0; i<boundingArray.length; i++) {
-            this.boundingMat.setcell1d(i, boundingArray[i][0], boundingArray[i][1]);
-        }
-        tempBiggerMat.freepeer();
-    }
+    //     var tempBiggerMat = new JitterMatrix();
+    //     tempBiggerMat.frommatrix(this.positionMat);
+    //     this.transformMatrixFromCenter(tempBiggerMat, [1.2, 1.2], '*');
+    //     // TOP
+    //     for (var i=0; i < this.positionMat.dim[0]; i++) {
+    //         var xVal = tempBiggerMat.getcell(i, 0)[0];
+    //         var yVal = tempBiggerMat.getcell(i, 0)[1] - pad;
+    //         boundingArray.push([xVal, yVal]);
+    //     }
+    //     // RIGHT
+    //     for (var j=1; j < tempBiggerMat.dim[1]; j++) {
+    //         var xVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[0] + pad;
+    //         var yVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[1];
+    //         boundingArray.push([xVal, yVal]);
+    //     }
+    //     // BOTTOM
+    //     for (var k=tempBiggerMat.dim[0]-2; k >= 0; k--) {
+    //         var xVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[0];
+    //         var yVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[1] + pad;
+    //         boundingArray.push([xVal, yVal]);
+    //     }
+    //     // LEFT
+    //     for (var z=tempBiggerMat.dim[1]-2; z > 0; z--) {
+    //         var xVal = tempBiggerMat.getcell(0, z)[0] - pad;
+    //         var yVal = tempBiggerMat.getcell(0, z)[1];
+    //         boundingArray.push([xVal, yVal]);
+    //     }
+    //     // Transfer those vertices from the array to the boundingMat matrix
+    //     for (var i=0; i<boundingArray.length; i++) {
+    //         this.boundingMat.setcell1d(i, boundingArray[i][0], boundingArray[i][1]);
+    //     }
+    //     tempBiggerMat.freepeer();
+    // }
 
     this.calcAdjacentCellsMat = function(cellIndex) {
         var cell = [];
@@ -443,7 +469,7 @@ function Mesh(ID) {
 
     this.assignControlMatToNurbs = function() {
         if (this.positionMat.dim[0] < 4 || this.positionMat.dim[1] < 4) {
-            var tempMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, [4, 4]);
+            var tempMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, [Math.max(this.positionMat.dim[0], 4), Math.max(this.positionMat.dim[1], 4)]);
             tempMat.interp = 1;
             tempMat.frommatrix(this.positionMat);
             this.nurbs.ctlmatrix(tempMat.name);

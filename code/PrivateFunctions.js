@@ -77,11 +77,15 @@ function setNodeDrawto() {
 }
 setNodeDrawto.local = 1;
 
-function shiftkeydown() {
-	var tempShift = gShiftPressed;
-	gShiftPressed = max.shiftkeydown;
-	if (gShiftPressed != tempShift) {
-		gMesh.setShiftScale();
+function checkWhichKeyDown() {
+	var tempShift = gKeysPressed.shiftPressed;
+	var tempCtrl = gKeysPressed.ctrlPressed;
+	gKeysPressed.shiftPressed = max.shiftkeydown;
+	if (gKeysPressed.shiftPressed != tempShift) {
+		gMesh.setMeshRatio();
+	}
+	if (gKeysPressed.ctrlPressed != tempCtrl) {
+
 	}
 }
-shiftkeydown.local = 1;
+checkWhichKeyDown.local = 1;

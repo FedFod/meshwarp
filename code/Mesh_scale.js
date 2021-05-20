@@ -1,13 +1,13 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.deselectVertices();
-    if (gShiftPressed) {
+    if (gKeysPressed.shiftPressed) {
         this.currentScale = [this.meshRatio * scaleY, scaleY]; 
     } else {
         this.currentScale = [scaleX, scaleY];
     }
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
-    this.calcMeshBoundsMat();
+    // this.calcMeshBoundsMat();
     this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
     this.drawScaleHandles();
     this.drawScaleHandleFull();
