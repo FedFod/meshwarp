@@ -7,6 +7,7 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     }
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
+    this.latestAction = GUI_ELEMENTS.WAS_SCALED;
 }
 
 Mesh.prototype.scaleWithHandle = function(mouseWorld) {
@@ -49,7 +50,6 @@ Mesh.prototype.unscaledMatFromPosMat = function() {
 }
 
 Mesh.prototype.posMatFromUnscaledMat = function() {
-    this.unscaledPosMat.frommat
     this.positionMat.frommatrix(this.unscaledPosMat);
     this.transformMatrixFromCenter(this.positionMat, this.currentScale, '*');
 }

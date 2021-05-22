@@ -26,22 +26,6 @@ nodeCamera.ortho = 2;
 
 //---------------------------------------------------------------
 
-function moveWholeMesh(mouseWorld) {
-	if (!gGlobal.isOnHandle) {
-		assignThisAsCurrentlySelectedToGlobal();
-	}
-	if (checkIfItIsGloballySelected()) {
-		gMesh.moveMesh(mouseWorld);
-	}
-	gGraphics.resetSelected(); 
-}
-
-function selectMultipleVertices(mouseWorld) {
-	gGraphics.drawFrame(gMesh.getLatestMousePos(), mouseWorld);
-	gSelectionStruct.howManyVerticesSelected = gMesh.highlightSelectedVertices(mouseWorld);
-}
-selectMultipleVertices.local = 1;
-
 // function calculateBoundingCells(selectionStruct) {
 // 	if (selectionStruct.cellIndex[0] != -1 && (selectionStruct.cellIndex[0] != selectionStruct.oldCellIndex[0] || 
 // 		selectionStruct.cellIndex[1] != selectionStruct.oldCellIndex[1])) {

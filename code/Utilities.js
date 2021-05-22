@@ -17,7 +17,9 @@ var GUI_ELEMENTS = {
 	MOVE_HANDLE: -100,
 	SCALE_HANDLE: -50,
 	VERTEX: -25,
-	NEGATIVE_INDEX: [-1,-1]
+	NEGATIVE_INDEX: [-1,-1],
+	WAS_SCALED: -3,
+	WAS_MOVED_VERTICES: -4
 };
 
 // ------------------------------------------

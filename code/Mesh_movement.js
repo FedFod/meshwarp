@@ -85,6 +85,7 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     }
     this.latestMousePos = mouseWorld.slice();
     this.applyMeshTransformation();
+    this.latestAction = GUI_ELEMENTS.WAS_MOVED_VERTICES;
 
     // this.currentPos = this.getMeshCenter(this.positionMat);
 }

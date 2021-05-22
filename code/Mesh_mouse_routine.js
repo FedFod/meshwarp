@@ -1,4 +1,5 @@
 Mesh.prototype.mouseIdleRoutine = function(mouseWorld, isGloballySelected) {
+    this.latestAction = GUI_ELEMENTS.NOTHING;
     this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
     if (isGloballySelected && this.mouseIsCloseTo == GUI_ELEMENTS.NOTHING) {
         gGraphics.resetSingleCircle();
@@ -21,13 +22,12 @@ Mesh.prototype.mouseClickedRoutine = function(mouseWorld, mouseClicked, oldMouse
             if (isGloballySelected) {
                 this.moveMesh(mouseWorld);
             }
-            gGraphics.resetSelected();
-        } else if (isGloballySelected) {
+        } 
+        if (isGloballySelected) {
             if (!oldMouseClicked) {
                 this.saveUndoRedoPositionMat();
             }
             if (this.mouseIsCloseTo == GUI_ELEMENTS.SCALE_HANDLE) {
-                gGraphics.resetSingleCircle();
                 this.scaleWithHandle(mouseWorld);
             } else if (this.mouseIsCloseTo == GUI_ELEMENTS.VERTEX) {
                 if (this.selectedVerticesIndices.length > 1) {
@@ -37,16 +37,17 @@ Mesh.prototype.mouseClickedRoutine = function(mouseWorld, mouseClicked, oldMouse
                     this.moveVertexWithMouse(mouseWorld);
                     gGraphics.resetSelected();
                 }
-            } else {
+            } else if (this.mouseIsCloseTo != GUI_ELEMENTS.MOVE_HANDLE) {
                 gGraphics.drawFrame(this.latestMousePos, mouseWorld);
                 this.highlightSelectedVertices(mouseWorld);
             }
         }
     }
     else { // mouse is released
-        this.setLatestScale();
-        // if vertices are moved
-        if (this.selectedVerticesIndices.length > 1) {
+        if (this.latestAction == GUI_ELEMENTS.WAS_SCALED) {
+            this.setLatestScale();
+        }
+        else if (this.latestAction == GUI_ELEMENTS.WAS_MOVED_VERTICES) {
             this.deselectVertices();
         }
         if (this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {

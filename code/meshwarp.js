@@ -67,24 +67,6 @@ var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);
 setTexturesMeshes();
 
-// a structure to contain infos relative to the clicked mesh and vertex
-var gSelectionStruct = {
-	mouseIsOnWhat: GUI_ELEMENTS.NOTHING,
-	cellIndex: GUI_ELEMENTS.NEGATIVE_INDEX.slice(), 
-	oldCellIndex: GUI_ELEMENTS.NEGATIVE_INDEX.slice(),
-	mouseIsOnMesh: false,
-	howManyVerticesSelected: 0,
-	areVerticesMoved: 0,
-	isScaled: 0,
-	isOnScaleHandle: 0,
-
-	reset: function() {
-		this.cellIndex = GUI_ELEMENTS.NEGATIVE_INDEX.slice();
-		this.mouseIsOnMesh = false;   // the mesh we are going to operate on
-		this.mouseIsOnWhat = GUI_ELEMENTS.NOTHING;
-	}
-};
-
 //-----PUBLIC FUNCTIONS----------------
 function undo() {
 	gMesh.undo();
@@ -162,49 +144,6 @@ function swapcallback(event){
 
 				gMesh.mouseClickedRoutine(mouseWorld, gKeysPressed.mouseClicked, oldMouseClicked, checkIfItIsGloballySelected());
 
-				// if (gKeysPressed.mouseClicked) {
-				// 	if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.MOVE_HANDLE) { // we are on the move handle, even if the meshwarp is not the active one
-				// 		moveWholeMesh(mouseWorld);
-				// 	} else if (checkIfItIsGloballySelected()) {
-				// 		if (!oldMouseClicked) {
-				// 			gMesh.saveUndoRedoPositionMat();
-				// 		}
-				// 		if(gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.SCALE_HANDLE) {
-				// 			gGraphics.resetSingleCircle(); 
-				// 			gMesh.scaleWithHandle(mouseWorld);
-				// 			gSelectionStruct.isScaled = true;
-				// 		} else if (gSelectionStruct.mouseIsOnWhat == GUI_ELEMENTS.VERTEX) {
-				// 			if (gSelectionStruct.howManyVerticesSelected > 1) {
-				// 				gMesh.moveSelectedVertices(mouseWorld);
-				// 				gGraphics.resetSingleCircle();
-				// 				gSelectionStruct.areVerticesMoved = true;
-				// 			} else {
-				// 				gMesh.moveVertexWithMouse(mouseWorld, gSelectionStruct.cellIndex.slice()); // move the vertex with the mouse
-				// 				gGraphics.resetSelected(); // delete selected circles
-				// 			}
-				// 		} else { // if we are not clicking on anything then create the vertices selection quad
-				// 			selectMultipleVertices(mouseWorld);
-				// 		}
-				// 	} 
-				// } else { // mouse is released
-				// 	if (gSelectionStruct.isScaled) {
-				// 		gSelectionStruct.isScaled = false;
-				// 		gMesh.setLatestScale();
-				// 	}
-				// 	// if we did select more vertices and moved them
-				// 	if (gSelectionStruct.howManyVerticesSelected && gSelectionStruct.areVerticesMoved) {
-				// 		gSelectionStruct.howManyVerticesSelected = 0;
-				// 		gSelectionStruct.areVerticesMoved = false;
-				// 		gMesh.deselectVertices();
-				// 	}
-				// 	if (gSelectionStruct.mouseIsOnWhat != GUI_ELEMENTS.NOTHING) {
-				// 		// gMesh.calcMeshBoundsMat(); // recalculate the bounding matrix only when finished dragging
-				// 		gSelectionStruct.reset(); // reset the values in the selectionStruct
-				// 		gMesh.saveUndoRedoPositionMat();
-				// 	}
-				// 	gGraphics.resetSingleCircle(); // delete graphics if mouse unclicked
-				// }
-				// gMesh.updateGUI();
 			}
 			break;
 		

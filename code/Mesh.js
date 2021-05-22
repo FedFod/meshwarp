@@ -45,12 +45,14 @@ function Mesh(ID) {
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
     this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
+    this.latestAction = GUI_ELEMENTS.NOTHING;
 
     // UNDO REDO
     this.amountOfUndoRedoLevels = 10;
     this.saveUndoRedoLevelIndex = 0;
     this.redoLevelIndex = 0;
     this.undoLevelIndex = 0;
+    this.undoRedoAccumulatedIndex = 0;
     this.undoRedoLevels = [];
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim.slice());
@@ -96,7 +98,7 @@ function Mesh(ID) {
 
     this.initState = function() {
         this.enableMesh = 1;
-        this.latestMousePos = [-1000, -1000];
+        this.latestMousePos = [0, 0];
         this.mouseOffset = [0,0];
         this.currentPos = [0,0];
         this.currentScale = [1, 1];
@@ -105,6 +107,8 @@ function Mesh(ID) {
         this.redoLevelIndex = 0;
         this.undoLevelIndex = 0;
         this.saveUndoRedoLevelIndex = 0;
+        this.undoRedoAccumulatedIndex = 0;
+        this.latestAction = GUI_ELEMENTS.NOTHING;
     }
 
     this.setNurbsOrMeshMode = function(use_nurbs) {
@@ -169,7 +173,7 @@ function Mesh(ID) {
                 this.positionMat.setcell2d(i, j, xVal, yVal, 0.0);
             }
         }
-        this.unscaledPosMat.frommatrix();
+        this.unscaledPosMat.frommatrix(this.positionMat);
     }   
 
     this.initUndoRedoLevelsFromPositionMat = function() {
