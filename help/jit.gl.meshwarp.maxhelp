@@ -383,6 +383,18 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-64",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 433.0, 296.0, 83.0, 22.0 ],
+									"text" : "set_to_aspect"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-18",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -1014,7 +1026,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_gl_texture", "" ],
-									"patching_rect" : [ 53.642860054969788, 309.619042873382568, 335.0, 22.0 ],
+									"patching_rect" : [ 53.642860054969788, 341.619042873382568, 335.0, 22.0 ],
 									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile chickens.mp4"
 								}
 
@@ -1461,6 +1473,13 @@
 									"destination" : [ "obj-3", 0 ],
 									"midpoints" : [ 485.642860054969788, 273.619042873382568, 709.880953431129456, 273.619042873382568 ],
 									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"source" : [ "obj-64", 0 ]
 								}
 
 							}

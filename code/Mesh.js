@@ -22,6 +22,7 @@ function Mesh(ID) {
     this.meshFull = null;
     this.nurbs = null;
     this.physBody = null;
+    this.textureProxy = null;
     this.nurbsDim = [40, 40];
     this.nurbsOrder = [1,1];
 
@@ -46,6 +47,7 @@ function Mesh(ID) {
     this.selectedVerticesIndices = [];
     this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
     this.latestAction = GUI_ELEMENTS.NOTHING;
+    this.textureRatio = 1;
 
     // UNDO REDO
     this.amountOfUndoRedoLevels = 10;
@@ -54,6 +56,7 @@ function Mesh(ID) {
     this.undoLevelIndex = 0;
     this.undoRedoAccumulatedIndex = 0;
     this.undoRedoLevels = [];
+    //----------------------------------
 
     this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim.slice());
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim.slice());
@@ -90,6 +93,7 @@ function Mesh(ID) {
         this.initMvmtHandle(drawto_);
         this.initScaleHandles(drawto_);
         this.initPhysBody();
+        this.initTextureProxy();
         // this.calcMeshBoundsMat();
         
         this.assignPositionMatToMesh();
@@ -109,6 +113,7 @@ function Mesh(ID) {
         this.saveUndoRedoLevelIndex = 0;
         this.undoRedoAccumulatedIndex = 0;
         this.latestAction = GUI_ELEMENTS.NOTHING;
+        this.textureRatio = 1;
     }
 
     this.setNurbsOrMeshMode = function(use_nurbs) {
@@ -271,6 +276,10 @@ function Mesh(ID) {
         this.physBody.shape = "concave";
         // this.physBody.name = "mesh_"+this.ID;
         this.physBody.mass = 0;
+    }
+
+    this.initTextureProxy = function() {
+        this.textureProxy = new JitterObject("jit.proxy");
     }
 
     this.setPhysWorldNameToMeshBody = function(name) {
@@ -487,7 +496,9 @@ function Mesh(ID) {
 
     this.assignTextureToMesh = function(textureName) {
         this.textureName = textureName;
-        // this.meshFull.color = WHITE;
+        this.textureProxy.name = textureName;
+        var texDim = this.textureProxy.send("getdim");
+        this.textureRatio = texDim[0] / texDim[1];
         this.meshFull.jit_gl_texture(this.textureName);
     }
     

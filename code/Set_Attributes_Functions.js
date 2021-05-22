@@ -5,6 +5,11 @@ function setenable(val) {
 }
 setenable.local = 1;
 
+function scaleToTextureRatio() {
+	gMesh.scaleToTextureRatio();
+}
+scaleToTextureRatio.local = 1;
+
 function setColor() {
 	color = arrayfromargs(messagename, arguments).slice(1,5);
 	gMesh.setColor(color);

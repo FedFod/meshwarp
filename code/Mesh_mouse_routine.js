@@ -2,12 +2,12 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld, isGloballySelected) {
     this.latestAction = GUI_ELEMENTS.NOTHING;
     this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
     if (isGloballySelected && this.mouseIsCloseTo == GUI_ELEMENTS.NOTHING) {
-        gGraphics.resetSingleCircle();
         this.setLatestMousePos(mouseWorld);
         this.checkIfMouseIsCloseToVertex(mouseWorld);
 
         if (this.mouseIsCloseTo != GUI_ELEMENTS.VERTEX) {
             this.checkIfMouseIsCloseToScaleHandles(mouseWorld);
+            gGraphics.resetSingleCircle();
         }
     }
     this.updateGUI();

@@ -24,8 +24,10 @@ Mesh.prototype.scaleWithHandle = function(mouseWorld) {
     this.scaleMesh(distFromInitial[0], distFromInitial[1]);
 }
 
-Mesh.prototype.scaleToAspectRatio = function() {
-
+Mesh.prototype.scaleToTextureRatio = function() {
+    this.scaleMesh(this.textureRatio*this.currentScale[1], this.currentScale[1]);
+    this.setLatestScale();
+    this.updateGUI();
 }
 
 Mesh.prototype.setLatestScale = function() {

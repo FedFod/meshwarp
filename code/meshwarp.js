@@ -49,6 +49,8 @@ declareattribute("color", null, "setColor", 0);
 var blend_enable = 0;
 declareattribute("blend_enable", null, "setBlendEnable", 0);
 
+var set_to_aspect = 0;
+declareattribute("set_to_aspect", null, "scaleToTextureRatio", 0);
 
 // GLOBAL VARIABLES
 var gMousePosScreen = [];
@@ -135,7 +137,7 @@ function swapcallback(event){
 			checkWhichKeyDown();
 			break;
 
-		case "mouse": // get mouse array when mouse is clicked or released
+		case "mouse": 
 			if (enable) {
 				gMousePosScreen = event.args.slice();
 				var oldMouseClicked = gKeysPressed.mouseClicked;

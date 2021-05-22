@@ -35,7 +35,6 @@ Mesh.prototype.drawScaleHandleFull = function() {
         this.scaleHandles.glcolor(LIGHT_BLUE_TRANSPARENT);
         this.scaleHandles.moveto(this.scaleHandles.handlesPositions[this.scaleHandles.index]);
         this.scaleHandles.circle(this.scaleHandles.handleSize);
-        gGraphics.resetSingleCircle();
     }
 }
 
