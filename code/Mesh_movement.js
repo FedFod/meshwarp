@@ -9,7 +9,6 @@ Mesh.prototype.checkIfMouseIsInsideMesh = function(mouseWorld) {
 
 Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {   
     this.selectedVertexIndex = GUI_ELEMENTS.NEGATIVE_INDEX.slice();
-    this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
     for (var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
             var currVertexPos = this.positionMat.getcell(i,j);
@@ -45,7 +44,6 @@ Mesh.prototype.checkIfMouseIsCloseToMoveHandle = function(mouseWorld) {
 }
 
 Mesh.prototype.checkIfMouseIsCloseToScaleHandles = function(mouseWorld) {
-    this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
     this.scaleHandles.index = -1;
     for (var i=0; i < this.scaleHandles.handlesPositions.length; i++) {
         var distFromHandle = calcDist2D(this.scaleHandles.handlesPositions[i].slice(), mouseWorld.slice());
@@ -76,6 +74,7 @@ Mesh.prototype.highlightSelectedVertices = function(mouseWorld) {
 
 Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     gGraphics.resetSelected();
+    gGraphics.resetSingleCircle();
     for (var i=0; i<this.selectedVerticesIndices.length; i++) {
         var cell = this.positionMat.getcell(this.selectedVerticesIndices[i][0], this.selectedVerticesIndices[i][1]);
         var mouseDifference = subVec2D(mouseWorld, this.latestMousePos);
@@ -86,8 +85,6 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     this.latestMousePos = mouseWorld.slice();
     this.applyMeshTransformation();
     this.latestAction = GUI_ELEMENTS.WAS_MOVED_VERTICES;
-
-    // this.currentPos = this.getMeshCenter(this.positionMat);
 }
 
 Mesh.prototype.moveMesh = function(mouseWorld) {

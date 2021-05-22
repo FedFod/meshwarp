@@ -1,7 +1,7 @@
 Mesh.prototype.mouseIdleRoutine = function(mouseWorld, isGloballySelected) {
     this.latestAction = GUI_ELEMENTS.NOTHING;
     this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
-    if (isGloballySelected && this.mouseIsCloseTo == GUI_ELEMENTS.NOTHING) {
+    if (isGloballySelected) {
         this.setLatestMousePos(mouseWorld);
         this.checkIfMouseIsCloseToVertex(mouseWorld);
 
@@ -32,7 +32,6 @@ Mesh.prototype.mouseClickedRoutine = function(mouseWorld, mouseClicked, oldMouse
             } else if (this.mouseIsCloseTo == GUI_ELEMENTS.VERTEX) {
                 if (this.selectedVerticesIndices.length > 1) {
                     this.moveSelectedVertices(mouseWorld);
-                    gGraphics.resetSingleCircle();
                 } else {
                     this.moveVertexWithMouse(mouseWorld);
                     gGraphics.resetSelected();

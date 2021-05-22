@@ -383,6 +383,18 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-37",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 584.0, 482.619042873382568, 83.0, 22.0 ],
+									"text" : "set_to_aspect"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-64",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -1371,6 +1383,13 @@
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
 									"source" : [ "obj-36", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-37", 0 ]
 								}
 
 							}
