@@ -383,6 +383,30 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-18",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 485.642860054969788, 482.619042873382568, 33.0, 22.0 ],
+									"text" : "redo"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-19",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 533.642860054969788, 482.619042873382568, 35.0, 22.0 ],
+									"text" : "undo"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-27",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -700,7 +724,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 796.142860054969788, 476.047614336013794, 35.0, 22.0 ],
+									"patching_rect" : [ 761.40476667881012, 485.0, 35.0, 22.0 ],
 									"text" : "reset"
 								}
 
@@ -712,7 +736,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 495.142860054969788, 473.619042873382568, 35.0, 22.0 ],
+									"patching_rect" : [ 436.142860054969788, 482.619042873382568, 35.0, 22.0 ],
 									"text" : "reset"
 								}
 
@@ -724,7 +748,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 767.238093376159668, 519.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 736.5, 523.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp[2]"
 								}
@@ -737,7 +761,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 424.0, 514.047614336013794, 262.0, 22.0 ],
+									"patching_rect" : [ 365.0, 523.047614336013794, 262.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_mesh 1 @meshdim 5 4",
 									"varname" : "jit.gl.meshwarp[1]"
 								}
@@ -750,7 +774,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_gl_texture", "" ],
-									"patching_rect" : [ 771.238093376159668, 436.047614336013794, 313.0, 22.0 ],
+									"patching_rect" : [ 736.5, 445.0, 313.0, 22.0 ],
 									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile bball.mov"
 								}
 
@@ -762,7 +786,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_gl_texture", "" ],
-									"patching_rect" : [ 424.0, 436.0, 339.0, 22.0 ],
+									"patching_rect" : [ 365.0, 445.0, 339.0, 22.0 ],
 									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile sunflower.mp4"
 								}
 
@@ -1155,6 +1179,20 @@
 								"patchline" : 								{
 									"destination" : [ "obj-43", 0 ],
 									"source" : [ "obj-17", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-18", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-19", 0 ]
 								}
 
 							}

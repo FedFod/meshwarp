@@ -176,7 +176,8 @@ function Mesh(ID) {
         this.undoRedoLevels = [];
         for (var i=0; i<this.amountOfUndoRedoLevels; i++) {
             this.undoRedoLevels.push( { posMat: new JitterMatrix(this.positionMat.planecount, this.positionMat.type, this.positionMat.dim.slice()), 
-                                        scale: this.currentScale.slice() } );
+                                        scale: this.currentScale.slice(),
+                                        position: this.currentPos.slice() } );
             this.undoRedoLevels[i].posMat.frommatrix(this.positionMat);
         }
     }

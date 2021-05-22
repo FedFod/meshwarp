@@ -101,9 +101,9 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
     this.applyMeshTransformation();
 }
 
-Mesh.prototype.moveVertexWithMouse = function(coordsWorld, cellIndex) {
+Mesh.prototype.moveVertexWithMouse = function(coordsWorld) {
     var newPos = sumVec2D(coordsWorld, this.mouseOffset);
-    this.moveVertex(newPos, cellIndex);
+    this.moveVertex(newPos, this.selectedVertexIndex);
     this.outputSelectedVertex(coordsWorld);
 }
 
