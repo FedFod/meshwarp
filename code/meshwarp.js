@@ -49,8 +49,8 @@ declareattribute("color", null, "setColor", 0);
 var blend_enable = 0;
 declareattribute("blend_enable", null, "setBlendEnable", 0);
 
-var set_to_aspect = 0;
-declareattribute("set_to_aspect", null, "scaleToTextureRatio", 0);
+var lock_to_aspect = 0;
+declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
 // GLOBAL VARIABLES
 var gMousePosScreen = [];
@@ -88,9 +88,6 @@ function reset() {
 	gMesh.initMesh(nodeCTX.name);
 }
 
-function use_aspect_ratio() {
-	gMesh.scaleToAspectRatio();
-}
 
 function move_vertex(indexX, indexY, posX, posY) {
 	gMesh.moveVertex([posX, posY], [indexX, indexY]);

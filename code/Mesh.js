@@ -49,6 +49,7 @@ function Mesh(ID) {
     this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
     this.latestAction = GUI_ELEMENTS.NOTHING;
     this.textureRatio = 1;
+    this.useAspectRatio = 0;
 
     // UNDO REDO
     this.amountOfUndoRedoLevels = 10;
@@ -110,6 +111,7 @@ function Mesh(ID) {
         this.currentScale = [1, 1];
         this.latestScale = this.currentScale.slice();
         this.useNurbs = 1;
+        this.useAspectRatio = 0;
         this.redoLevelIndex = 0;
         this.undoLevelIndex = 0;
         this.saveUndoRedoLevelIndex = 0;

@@ -37,6 +37,11 @@ nodeCamera.ortho = 2;
 // }
 // calculateBoundingCells.local = 1;
 
+function setScaleRelativeToAspect(val) {
+	gMesh.scaleToTextureRatio(val);
+}
+setScaleRelativeToAspect.local = 1;
+
 function setWindowRatio(dims) {
 	gWindowRatio = dims[0] / dims[1];
 } 
@@ -63,15 +68,12 @@ setNodeDrawto.local = 1;
 
 function checkModifiersKeyDown() {
 	var tempShift = gKeysPressed.shiftPressed;
-	var tempCtrl = gKeysPressed.ctrlPressed;
+	// var tempCtrl = gKeysPressed.ctrlPressed;
 	gKeysPressed.shiftPressed = max.shiftkeydown;
-	gKeysPressed.ctrlPressed = max.ctrlkeydown * max.cmdkeydown;
+	// gKeysPressed.ctrlPressed = max.ctrlkeydown * max.cmdkeydown;
 	if (gKeysPressed.shiftPressed != tempShift) {
 		gMesh.setMeshRatio();
 	}
-	// if (gKeysPressed.ctrlPressed != tempCtrl && gKeysPressed.zPressed) {
-	// 	gMesh.undo();
-	// }
 }
 checkModifiersKeyDown.local = 1;
 

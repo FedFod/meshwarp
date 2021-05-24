@@ -48,3 +48,8 @@ Mesh.prototype.drawAllHandles = function() {
 Mesh.prototype.updateGUI = function() {
     this.drawAllHandles();
 }
+
+Mesh.prototype.hideGUI = function() {
+    this.moveHandle.enable = 0;
+    showMesh(0);
+}

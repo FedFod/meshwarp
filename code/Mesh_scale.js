@@ -1,9 +1,9 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.deselectVertices();
-    if (gKeysPressed.shiftPressed) {
-        this.currentScale = [this.meshRatio * scaleY, scaleY]; 
-    } else {
-        this.currentScale = [scaleX, scaleY];
+    // if (gKeysPressed.shiftPressed) {
+    this.currentScale = [Math.max(scaleX, 0.01), Math.max(scaleY, 0.01)]; 
+    if (gKeysPressed.shiftPressed || this.useAspectRatio) {
+        this.currentScale[0] = this.meshRatio * this.currentScale[1];
     }
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
@@ -21,12 +21,15 @@ Mesh.prototype.scaleWithHandle = function(mouseWorld) {
     } else if (this.scaleHandles.index == 2) {
         distFromInitial[0] *= -1;
     }
+
     distFromInitial = subVec2D(this.latestScale, distFromInitial);
     this.scaleMesh(distFromInitial[0], distFromInitial[1]);
 }
 
-Mesh.prototype.scaleToTextureRatio = function() {
-    this.scaleMesh(this.textureRatio*this.currentScale[1], this.currentScale[1]);
+Mesh.prototype.scaleToTextureRatio = function(val) {
+    this.useAspectRatio = val;
+    this.meshRatio = this.textureRatio;
+    this.scaleMesh(this.currentScale[0], this.currentScale[1]);
     this.setLatestScale();
     this.updateGUI();
 }
