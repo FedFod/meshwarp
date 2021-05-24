@@ -8,6 +8,7 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
     this.latestAction = GUI_ELEMENTS.WAS_SCALED;
+    this.updateGUI();
 }
 
 Mesh.prototype.scaleWithHandle = function(mouseWorld) {

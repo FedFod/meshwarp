@@ -61,15 +61,28 @@ function setNodeDrawto() {
 }
 setNodeDrawto.local = 1;
 
-function checkWhichKeyDown() {
+function checkModifiersKeyDown() {
 	var tempShift = gKeysPressed.shiftPressed;
 	var tempCtrl = gKeysPressed.ctrlPressed;
 	gKeysPressed.shiftPressed = max.shiftkeydown;
+	gKeysPressed.ctrlPressed = max.ctrlkeydown * max.cmdkeydown;
 	if (gKeysPressed.shiftPressed != tempShift) {
 		gMesh.setMeshRatio();
 	}
-	if (gKeysPressed.ctrlPressed != tempCtrl) {
+	// if (gKeysPressed.ctrlPressed != tempCtrl && gKeysPressed.zPressed) {
+	// 	gMesh.undo();
+	// }
+}
+checkModifiersKeyDown.local = 1;
 
+function checkZKeyCtrlKeyDown(zVal) {
+	if (gMesh.isSelected && gIsMouseInsideWindow) {
+		gGraphics.resetSelected();
+		gKeysPressed.zPressed = zVal;
+		if (zVal == "undo") {
+			gMesh.undo();
+		} else if (zVal == "redo") {
+			gMesh.redo();
+		}
 	}
 }
-checkWhichKeyDown.local = 1;

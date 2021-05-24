@@ -383,6 +383,78 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-46",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 1,
+									"patching_rect" : [ 833.0, 548.619042873382568, 24.0, 24.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_enum" : [ "off", "on" ],
+											"parameter_longname" : "toggle[4]",
+											"parameter_mmax" : 1,
+											"parameter_shortname" : "toggle[1]",
+											"parameter_type" : 2
+										}
+
+									}
+,
+									"varname" : "toggle[4]"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-56",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 833.0, 584.619042873382568, 89.0, 22.0 ],
+									"text" : "show_mesh $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-31",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 1,
+									"patching_rect" : [ 629.0, 548.619042873382568, 24.0, 24.0 ],
+									"saved_attribute_attributes" : 									{
+										"valueof" : 										{
+											"parameter_enum" : [ "off", "on" ],
+											"parameter_longname" : "toggle[3]",
+											"parameter_mmax" : 1,
+											"parameter_shortname" : "toggle[1]",
+											"parameter_type" : 2
+										}
+
+									}
+,
+									"varname" : "toggle[3]"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-42",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 629.0, 584.619042873382568, 89.0, 22.0 ],
+									"text" : "show_mesh $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-37",
 									"maxclass" : "message",
 									"numinlets" : 2,
@@ -1321,6 +1393,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-42", 0 ],
+									"source" : [ "obj-31", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-26", 3 ],
 									"order" : 0,
 									"source" : [ "obj-32", 0 ]
@@ -1416,9 +1495,23 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-42", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
 									"midpoints" : [ 805.642860054969788, 129.0, 825.0, 129.0, 825.0, 201.0, 801.0, 201.0, 801.0, 312.0, 709.880953431129456, 312.0 ],
 									"source" : [ "obj-45", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-56", 0 ],
+									"source" : [ "obj-46", 0 ]
 								}
 
 							}
@@ -1489,6 +1582,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-43", 0 ],
+									"source" : [ "obj-56", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
 									"midpoints" : [ 485.642860054969788, 273.619042873382568, 709.880953431129456, 273.619042873382568 ],
 									"source" : [ "obj-6", 0 ]
@@ -1554,13 +1654,15 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-51::obj-1::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
 			"obj-51::obj-20" : [ "toggle[1]", "toggle[1]", 0 ],
 			"obj-51::obj-28" : [ "number[1]", "number[1]", 0 ],
 			"obj-51::obj-30" : [ "number[2]", "number[2]", 0 ],
+			"obj-51::obj-31" : [ "toggle[3]", "toggle[1]", 0 ],
 			"obj-51::obj-40" : [ "number", "number", 0 ],
-			"obj-51::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
 			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
+			"obj-51::obj-46" : [ "toggle[4]", "toggle[1]", 0 ],
 			"obj-51::obj-49" : [ "toggle[2]", "toggle[2]", 0 ],
 			"obj-51::obj-50" : [ "number[5]", "number[5]", 0 ],
 			"obj-51::obj-52" : [ "swatch", "swatch", 0 ],

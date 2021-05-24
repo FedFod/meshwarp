@@ -1,7 +1,7 @@
-Mesh.prototype.mouseIdleRoutine = function(mouseWorld, isGloballySelected) {
+Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
     this.latestAction = GUI_ELEMENTS.NOTHING;
     this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
-    if (isGloballySelected) {
+    if (gMesh.isSelected) {
         this.setLatestMousePos(mouseWorld);
         this.checkIfMouseIsCloseToVertex(mouseWorld);
 
@@ -24,7 +24,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseWorld, mouseClicked, oldMouse
             }
         } 
         if (isGloballySelected) {
-            if (!oldMouseClicked) {
+            if (!oldMouseClicked && this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
                 this.saveUndoRedoPositionMat();
             }
             if (this.mouseIsCloseTo == GUI_ELEMENTS.SCALE_HANDLE) {

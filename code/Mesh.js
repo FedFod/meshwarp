@@ -16,6 +16,7 @@ var nurbsmap = {};
 
 function Mesh(ID) {
     this.ID = ID;
+    this.isSelected = 0;
 
     this.meshPoints = null;
     this.meshGrid = null;
@@ -102,6 +103,7 @@ function Mesh(ID) {
 
     this.initState = function() {
         this.enableMesh = 1;
+        // this.isSelected = 0;
         this.latestMousePos = [0, 0];
         this.mouseOffset = [0,0];
         this.currentPos = [0,0];
@@ -336,6 +338,7 @@ function Mesh(ID) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
         this.scaleHandles.enable = show;
+        // this.moveHandle.enable = show;
         //this.physBody.enable = show;
     }
 
@@ -496,10 +499,16 @@ function Mesh(ID) {
 
     this.assignTextureToMesh = function(textureName) {
         this.textureName = textureName;
-        this.textureProxy.name = textureName;
-        var texDim = this.textureProxy.send("getdim");
-        this.textureRatio = texDim[0] / texDim[1];
-        this.meshFull.jit_gl_texture(this.textureName);
+        if (textureName != "noTexture") {
+            this.textureProxy.name = textureName;
+            var texDim = this.textureProxy.send("getdim");
+            this.textureRatio = texDim[0] / texDim[1];
+            this.meshFull.jit_gl_texture(this.textureName);
+        }
+    }
+
+    this.setMeshAsSelected = function(val) {
+        this.isSelected = val;
     }
     
 }

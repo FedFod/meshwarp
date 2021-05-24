@@ -97,6 +97,7 @@ Mesh.prototype.moveMesh = function(mouseWorld) {
     this.deselectVertices();
 
     this.applyMeshTransformation();
+    this.latestAction = GUI_ELEMENTS.WAS_MOVED_MESH;
 }
 
 Mesh.prototype.moveVertexWithMouse = function(coordsWorld) {

@@ -59,10 +59,12 @@ var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
 var gWindowPrevRatio = gWindowRatio;
 var gTextureNames = "noTexture";
+var gIsMouseInsideWindow = false;
 var gKeysPressed = {
 	shiftPressed: false,
 	ctrlPressed: false,
-	mouseClicked: false
+	mouseClicked: false,
+	zAndCtrlPressed: false
 };
 
 var gMesh = new Mesh(gGlobal.meshCount++);
@@ -134,7 +136,7 @@ function swapcallback(event){
 				gWindowPrevRatio = gWindowRatio;
 			}
 			checkContextObs();
-			checkWhichKeyDown();
+			checkModifiersKeyDown();
 			break;
 
 		case "mouse": 
@@ -152,6 +154,7 @@ function swapcallback(event){
 		case "mouseidle":  // Check if mouse is close to vertices to highlight them
 			if (enable) {
 				gMousePosScreen = (event.args);
+				gIsMouseInsideWindow = true;
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
 					// we are using default cam position and far_clip distance for our ray z points
 				// var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
@@ -161,13 +164,18 @@ function swapcallback(event){
 				// 	print("raytest " + result[0]);
 				// }
 
-				gMesh.mouseIdleRoutine(mouseWorld, checkIfItIsGloballySelected());
+				gMesh.mouseIdleRoutine(mouseWorld);
 			}
+			break;
+
+		case "mouseidleout":
+			// print(event.args)
+			gIsMouseInsideWindow = false;
 			break;
 		
 		case "keydown": 
-			print(event.args)
-			print("case")
+			// print(event.args)
+			// print("case")
 			break;
 	}
 }
