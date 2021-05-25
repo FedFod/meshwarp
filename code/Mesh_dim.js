@@ -2,6 +2,7 @@ Mesh.prototype.setMeshDim = function(newDim) {
     gGraphics.resetSelected();
     gGraphics.resetSingleCircle();
     if (newDim[0] > 0 && newDim[1] > 0) {
+        this.posMatDim = newDim.slice();
         this.positionMat.dim = newDim.slice();
         this.boundingMat.dim = newDim[0]*2 + (newDim[1] * 2) - 4;
         if (this.useNurbs) {
@@ -28,13 +29,6 @@ Mesh.prototype.resizeMeshDim = function(dimensions) {
     tempMat.freepeer();
     this.applyMeshTransformation();
     this.initAndAssignTextureCoordMat();
-    this.setUndoRedoLevelsMatDim(this.positionMat.dim.slice());
     this.initUndoRedoLevelsFromPositionMat();
-    // this.calcMeshBoundsMat();
-}
-
-Mesh.prototype.setUndoRedoLevelsMatDim = function(dim_) {
-    for (var level in this.undoRedoLevels) {
-        this.undoRedoLevels[level].posMat.dim = dim_.slice();
-    }
+    this.calcMeshBoundsMat();
 }

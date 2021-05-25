@@ -2,6 +2,7 @@ function setenable(val) {
 	enable = val;
 	nodeCTX.enable = enable;
 	videoplane.enable = enable;
+	showUI(val);
 }
 setenable.local = 1;
 
@@ -96,12 +97,13 @@ function resizeAllMeshes(meshSizeX, meshSizeY) {
 resizeAllMeshes.local = 1;
 
 function showUI(show) {
-	show_mesh = show;
+	show_ui = show;
 	if (gMesh!=null) {
 		gMesh.showUI(show);
 	}
 	if (!show) {
 		gGraphics.resetSingleCircle();
+		gGraphics.resetSelected();
 	}
 }
 showUI.local = 1;

@@ -99,12 +99,12 @@ function jit_gl_texture(texName) {
 	}
 }
 
-function save_state(path) {
+function write(path) {
 	postln("saveing to " + path);
 	saveDictToPath(path);
 }
 
-function load_state(path) {
+function read(path) {
 	postln("loading to " + path);
 	loadSaveDict(path);
 }
@@ -153,7 +153,7 @@ function swapcallback(event){
 				gMousePosScreen = (event.args);
 				gIsMouseInsideWindow = true;
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
-					// we are using default cam position and far_clip distance for our ray z points
+				// we are using default cam position and far_clip distance for our ray z points
 				// var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
 				// var result = gGlobal.contexts.drawto.physWorld.raytest(ray);
 				// print(gMesh.physBody.enable + " " + gMesh.ID)
@@ -166,7 +166,6 @@ function swapcallback(event){
 			break;
 
 		case "mouseidleout":
-			// print(event.args)
 			gIsMouseInsideWindow = false;
 			break;
 		

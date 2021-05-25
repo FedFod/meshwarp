@@ -1,5 +1,5 @@
 Mesh.prototype.checkIfMouseIsInsideMesh = function(mouseWorld) {
-    this.latestMousePos = mouseWorld.slice();
+    // this.latestMousePos = mouseWorld.slice();
     if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
         return this.ID;
     } else {
@@ -88,6 +88,7 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
 }
 
 Mesh.prototype.moveMesh = function(mouseWorld) {
+    gGraphics.resetSelected();
     var offset = sumVec2D(mouseWorld, this.mouseOffset);
     var newPos = subVec2D(offset, this.currentPos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);

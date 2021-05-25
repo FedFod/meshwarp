@@ -202,8 +202,8 @@
 					"numinlets" : 9,
 					"numoutlets" : 9,
 					"outlettype" : [ "", "", "", "", "", "", "", "", "" ],
-					"patching_rect" : [ 577.0, 125.0, 437.0, 22.0 ],
-					"text" : "routepass show_meshes mode meshdim meshcount enable drawto texture layer"
+					"patching_rect" : [ 577.0, 125.0, 404.0, 22.0 ],
+					"text" : "routepass show_ui mode meshdim meshcount enable drawto texture layer"
 				}
 
 			}

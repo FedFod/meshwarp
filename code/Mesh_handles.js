@@ -12,7 +12,6 @@ Mesh.prototype.drawMoveHandleFull = function() {
     if (this.mouseIsCloseTo == GUI_ELEMENTS.MOVE_HANDLE) {
         this.moveHandle.glcolor(LIGHT_BLUE_TRANSPARENT);
         this.moveHandle.circle(this.moveHandle.handleSize);
-        gGraphics.resetSelected();
     }
 }
 
@@ -38,18 +37,9 @@ Mesh.prototype.drawScaleHandleFull = function() {
     }
 }
 
-Mesh.prototype.drawAllHandles = function() {
+Mesh.prototype.updateGUI = function() {
     this.drawMoveHandleInPos();
     this.drawScaleHandles();
     this.drawMoveHandleFull();
     this.drawScaleHandleFull();
-}
-
-Mesh.prototype.updateGUI = function() {
-    this.drawAllHandles();
-}
-
-Mesh.prototype.hideGUI = function() {
-    this.moveHandle.enable = 0;
-    showMesh(0);
 }

@@ -77,7 +77,6 @@ Mesh.prototype.undo = function() {
 }
 
 Mesh.prototype.redo = function() {
-
     this.redoLevelIndex = clamp(this.redoLevelIndex, 0, this.amountOfUndoRedoLevels-1);
     // print("redo level index "+this.redoLevelIndex)
     arrayToJitMat(this.positionMat, this.undoRedoLevels[this.redoLevelIndex].posMat);
