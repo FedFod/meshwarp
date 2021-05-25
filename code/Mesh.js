@@ -56,7 +56,6 @@ function Mesh(ID) {
     this.saveUndoRedoLevelIndex = 0;
     this.redoLevelIndex = 0;
     this.undoLevelIndex = 0;
-    this.undoRedoAccumulatedIndex = 0;
     this.undoRedoLevels = [];
     //----------------------------------
 
@@ -115,7 +114,6 @@ function Mesh(ID) {
         this.redoLevelIndex = 0;
         this.undoLevelIndex = 0;
         this.saveUndoRedoLevelIndex = 0;
-        this.undoRedoAccumulatedIndex = 0;
         this.latestAction = GUI_ELEMENTS.NOTHING;
         this.textureRatio = 1;
     }
@@ -188,10 +186,10 @@ function Mesh(ID) {
     this.initUndoRedoLevelsFromPositionMat = function() {
         this.undoRedoLevels = [];
         for (var i=0; i<this.amountOfUndoRedoLevels; i++) {
-            this.undoRedoLevels.push( { posMat: new JitterMatrix(this.positionMat.planecount, this.positionMat.type, this.positionMat.dim.slice()), 
+            this.undoRedoLevels.push( { posMat: jitMatToArray(this.positionMat), 
                                         scale: this.currentScale.slice(),
                                         position: this.currentPos.slice() } );
-            this.undoRedoLevels[i].posMat.frommatrix(this.positionMat);
+            // this.undoRedoLevels[i].posMat.frommatrix(this.positionMat);
         }
     }
 
@@ -306,7 +304,7 @@ function Mesh(ID) {
         this.nurbsMat.freepeer();
         this.adjacentCellsMat.freepeer();
         this.textureCoordMat.freepeer();
-        this.freeUndoRedoLevels();
+        // this.freeUndoRedoLevels();
     }
 
     this.freeUndoRedoLevels = function() {

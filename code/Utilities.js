@@ -57,6 +57,16 @@ function jitMatToArray(mat) {
 }
 jitMatToArray.local = 1;
 
+function arrayToJitMat(mat, arr) {
+	var index = 0;
+	for (var i=0; i<mat.dim[0]; i++) {
+		for (var j=0; j<mat.dim[1]; j++) {
+			mat.setcell2d(i,j, arr[index]);
+			index++;
+		}
+	}
+}
+
 // POLYGON INTERSECTION TEST CODE, from: https://lassieadventurestudio.wordpress.com/2012/03/20/polygon-hit-test/
 function ccw(x,y,z) {
 	return (z[1]-x[1]) * (y[0]-x[0]) >= (y[1]-x[1]) * (z[0]-x[0]);
