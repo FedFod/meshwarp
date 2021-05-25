@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 752.0, 111.0, 1079.0, 859.0 ],
+		"rect" : [ 733.0, 95.0, 1079.0, 859.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -351,7 +351,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 752.0, 137.0, 1079.0, 833.0 ],
+						"rect" : [ 733.0, 121.0, 1079.0, 833.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -381,6 +381,18 @@
 						"showontab" : 1,
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-58",
+									"linecount" : 3,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 404.0, 141.0, 53.0, 48.0 ],
+									"text" : "rename  to write read"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"id" : "obj-57",
 									"maxclass" : "toggle",
@@ -1109,8 +1121,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 700.380953431129456, 244.619042873382568, 89.0, 22.0 ],
-									"text" : "show_mesh $1"
+									"patching_rect" : [ 700.380953431129456, 244.619042873382568, 69.0, 22.0 ],
+									"text" : "show_ui $1"
 								}
 
 							}
@@ -1672,13 +1684,13 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-51::obj-1::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
 			"obj-51::obj-20" : [ "toggle[1]", "toggle[1]", 0 ],
 			"obj-51::obj-28" : [ "number[1]", "number[1]", 0 ],
 			"obj-51::obj-30" : [ "number[2]", "number[2]", 0 ],
 			"obj-51::obj-31" : [ "toggle[3]", "toggle[1]", 0 ],
 			"obj-51::obj-40" : [ "number", "number", 0 ],
-			"obj-51::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
 			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-51::obj-46" : [ "toggle[4]", "toggle[1]", 0 ],
 			"obj-51::obj-49" : [ "toggle[2]", "toggle[2]", 0 ],

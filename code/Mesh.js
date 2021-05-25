@@ -16,7 +16,7 @@ var nurbsmap = {};
 
 function Mesh(ID) {
     this.ID = ID;
-    this.isSelected = 0;
+    // this.isSelected = 0;
 
     this.meshPoints = null;
     this.meshGrid = null;
@@ -31,7 +31,8 @@ function Mesh(ID) {
     this.posMatType = "float32";
     this.posMatDim = meshdim;
 
-    this.enableMesh = show_mesh;
+    this.enableMesh = 1;
+    this.meshColor = WHITE;
 
     this.useNurbs = 1;
     this.currentScale = [1, 1];
@@ -116,6 +117,7 @@ function Mesh(ID) {
         this.saveUndoRedoLevelIndex = 0;
         this.latestAction = GUI_ELEMENTS.NOTHING;
         this.textureRatio = 1;
+        this.meshColor = WHITE;
     }
 
     this.setNurbsOrMeshMode = function(use_nurbs) {
@@ -133,6 +135,7 @@ function Mesh(ID) {
 
     this.setColor = function(color_) {
         this.meshFull.color = color_.slice();
+        this.meshColor = color_.slice();
     }
 
     this.setBlendEnable = function(val_) {
@@ -167,9 +170,7 @@ function Mesh(ID) {
     }
 
     this.initPositionMat = function() {    
-        this.positionMat.planecount = this.posMatPlaneCount;
-        this.positionMat.type = this.posMatType;
-        this.positionMat.dim = this.posMatDim.slice();
+        this.setPosAndUnscaledPosMatrixAttributes();
         
         for(var i=0; i<this.positionMat.dim[0]; i++) {
             for(var j=0; j<this.positionMat.dim[1]; j++) {   
@@ -182,6 +183,16 @@ function Mesh(ID) {
         }
         this.unscaledPosMat.frommatrix(this.positionMat);
     }   
+
+    this.setPosAndUnscaledPosMatrixAttributes = function() {
+        this.positionMat.planecount = this.posMatPlaneCount;
+        this.positionMat.type = this.posMatType;
+        this.positionMat.dim = this.posMatDim.slice();
+
+        this.unscaledPosMat.planecount = this.posMatPlaneCount;
+        this.unscaledPosMat.type = this.posMatType;
+        this.unscaledPosMat.dim = this.posMatDim.slice();
+    }
 
     this.initUndoRedoLevelsFromPositionMat = function() {
         this.undoRedoLevels = [];
@@ -334,11 +345,11 @@ function Mesh(ID) {
         this.physBody.freepeer();
     }
 
-    this.showMesh = function(show) {
+    this.showUI = function(show) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
         this.scaleHandles.enable = show;
-        // this.moveHandle.enable = show;
+        this.moveHandle.enable = show;
         //this.physBody.enable = show;
     }
 

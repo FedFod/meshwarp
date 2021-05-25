@@ -14,7 +14,7 @@ if(gGlobal.inited === undefined) {
 function notify_selected_meshwarp(currentlySelected) {
     if (nodeCTX.name != currentlySelected) {
         videoplane.layer = 80;
-        showMesh(0);
+        showUI(0);
 		gMesh.setMeshAsSelected(0);
     }
 }
@@ -27,7 +27,7 @@ function assignThisAsCurrentlySelectedToGlobal() {
     gGlobal.currentlySelected = nodeCTX.name;
     videoplane.layer = 100;
 	gGlobal.isOnHandle = 1;
-    showMesh(1);
+    showUI(1);
 	gMesh.setMeshAsSelected(1);
     outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }

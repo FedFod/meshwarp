@@ -22,8 +22,8 @@ declareattribute("use_nurbs", null, "setNurbsOrMeshMode", 0);
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
-var show_mesh = 1;
-declareattribute("show_mesh", null, "showMesh", 0);
+var show_ui = 1;
+declareattribute("show_ui", null, "showUI", 0);
 
 var enable = 1;
 declareattribute("enable", null, "setenable", 0);

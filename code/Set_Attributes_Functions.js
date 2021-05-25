@@ -25,9 +25,8 @@ function buildSaveDict() {
 	var saveDict = new Dict();
 
 	// saveDict.replace("mode", mode);
-	saveDict.replace("show_mesh", show_mesh);
+	saveDict.replace("show_ui", show_ui);
 	saveDict.replace("windowRatio", gWindowRatio);
-
 	gMesh.saveDataIntoDict(saveDict);
 	return saveDict;
 }
@@ -96,13 +95,13 @@ function resizeAllMeshes(meshSizeX, meshSizeY) {
 }
 resizeAllMeshes.local = 1;
 
-function showMesh(show) {
+function showUI(show) {
 	show_mesh = show;
 	if (gMesh!=null) {
-		gMesh.showMesh(show);
+		gMesh.showUI(show);
 	}
 	if (!show) {
 		gGraphics.resetSingleCircle();
 	}
 }
-showMesh.local = 1;
+showUI.local = 1;
