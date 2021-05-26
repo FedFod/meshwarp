@@ -131,6 +131,7 @@ function swapcallback(event){
 				setWindowRatio(nodeCTX.dim);
 				gWindowDim = nodeCTX.dim.slice();
 				gWindowPrevRatio = gWindowRatio;
+				gGraphics.changeSelectionCirclesRadius(gWindowDim);
 			}
 			checkContextObs();
 			checkModifiersKeyDown();
@@ -144,7 +145,6 @@ function swapcallback(event){
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); 
 
 				gMesh.mouseClickedRoutine(mouseWorld, gKeysPressed.mouseClicked, oldMouseClicked, checkIfItIsGloballySelected());
-
 			}
 			break;
 		

@@ -16,6 +16,9 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
 }
 
 Mesh.prototype.mouseClickedRoutine = function(mouseWorld, mouseClicked, oldMouseClicked, isGloballySelected) {
+    if (mouseClicked) {
+
+    }
     if (this.showMeshUI) {
         if (mouseClicked) {
             if (this.mouseIsCloseTo == GUI_ELEMENTS.MOVE_HANDLE) {
@@ -61,7 +64,8 @@ Mesh.prototype.mouseClickedRoutine = function(mouseWorld, mouseClicked, oldMouse
         this.updateGUI();
     }
     if (!mouseClicked) {
-        if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
+        if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID && this.latestAction != GUI_ELEMENTS.WAS_SELECTED_VERTICES) {
+            print("is clicked " + this.ID)
             assignThisAsCurrentlySelectedToGlobal();
         }
     }

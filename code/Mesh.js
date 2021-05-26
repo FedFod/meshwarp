@@ -519,6 +519,10 @@ function Mesh(ID) {
 
     this.setMeshAsSelected = function(val) {
         this.isSelected = val;
+        if (!val) {
+            this.deselectVertices();
+            this.latestAction = GUI_ELEMENTS.NOTHING;
+        }
     }
     
 }

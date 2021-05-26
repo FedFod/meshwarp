@@ -15,6 +15,10 @@ function GraphicElements(nodectx) {
     this.sketch2.color = YELLOW;
     this.sketch2.line_width = 2;    
 
+    this.changeSelectionCirclesRadius = function(windowDim) {
+        this.circleRadius = 20 / windowDim[1];
+    }
+
     this.transformMouseToWorld = function(screenCoord) {
         return this.sketch.screentoworld(screenCoord);
     }

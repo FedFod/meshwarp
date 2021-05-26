@@ -447,7 +447,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 404.0, 141.0, 53.0, 48.0 ],
+									"patching_rect" : [ 404.0, 141.0, 56.0, 48.0 ],
 									"text" : "rename  to write read"
 								}
 
@@ -496,7 +496,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 833.0, 584.619042873382568, 89.0, 22.0 ],
-									"text" : "show_mesh $1"
+									"text" : "show_ui $1"
 								}
 
 							}
@@ -531,8 +531,8 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 629.0, 584.619042873382568, 89.0, 22.0 ],
-									"text" : "show_mesh $1"
+									"patching_rect" : [ 629.0, 584.619042873382568, 69.0, 22.0 ],
+									"text" : "show_ui $1"
 								}
 
 							}

@@ -69,6 +69,9 @@ Mesh.prototype.highlightSelectedVertices = function(mouseWorld) {
             }
         }
     }
+    if (this.selectedVerticesIndices.length > 0) {
+        this.latestAction = GUI_ELEMENTS.WAS_SELECTED_VERTICES;
+    }
     return this.selectedVerticesIndices.length;
 }
 
