@@ -4,6 +4,7 @@ if(gGlobal.inited === undefined) {
 	gGlobal.inited = true;
 	gGlobal.currentlySelected = -1;
 	gGlobal.isOnHandle = 0;
+	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
 	gGlobal.contexts = {};
 	gGlobal.meshCount = 0;
 	if(max.version >= 820) {
@@ -14,8 +15,8 @@ if(gGlobal.inited === undefined) {
 function notify_selected_meshwarp(currentlySelected) {
     if (nodeCTX.name != currentlySelected) {
         videoplane.layer = 80;
-        showUI(0);
-		gMesh.setMeshAsSelected(0);
+        showUI(false);
+		gMesh.setMeshAsSelected(false);
     }
 }
 
@@ -27,8 +28,9 @@ function assignThisAsCurrentlySelectedToGlobal() {
     gGlobal.currentlySelected = nodeCTX.name;
     videoplane.layer = 100;
 	gGlobal.isOnHandle = 1;
-    showUI(1);
-	gMesh.setMeshAsSelected(1);
+	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
+    showUI(true);
+	gMesh.setMeshAsSelected(true);
     outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;
@@ -111,4 +113,8 @@ function removeFromGlobalCtxMap() {
 	}
 	
 	gGlobal.meshCount--;
+}
+
+function assignLatestActionToGlobal(latestAction) {
+	gGlobal.latestAction = latestAction;
 }

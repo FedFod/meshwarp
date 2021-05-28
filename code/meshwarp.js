@@ -144,7 +144,7 @@ function swapcallback(event){
 				gKeysPressed.mouseClicked = gMousePosScreen[2];
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); 
 
-				gMesh.mouseClickedRoutine(mouseWorld, gKeysPressed.mouseClicked, oldMouseClicked, checkIfItIsGloballySelected());
+				gMesh.mouseClickedRoutine(mouseWorld, gKeysPressed.mouseClicked, oldMouseClicked);
 			}
 			break;
 		

@@ -16,7 +16,7 @@ var nurbsmap = {};
 
 function Mesh(ID) {
     this.ID = ID;
-    // this.isSelected = 0;
+    this.isSelected = 0;
 
     this.meshPoints = null;
     this.meshGrid = null;
