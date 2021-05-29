@@ -1,5 +1,6 @@
 autowatch = 1;
 outlets = 2;
+include("Meshwarp_Utilities.js");
 include("Global_Obj.js");
 include("GetContext.js");
 include("Mesh.js");
@@ -9,11 +10,10 @@ include("Mesh_dim.js");
 include("Mesh_movement.js");
 include("Mesh_handles.js");
 include("Mesh_mouse_routine.js");
-include("Utilities.js");
 include("GraphicElements.js");
 include("PrivateFunctions.js");
 include("Set_Attributes_Functions");
-include("Canvas.js");
+include("Canvas.js"); // what's that??
 
 // ATTRIBUTES
 var use_nurbs = 0; // default: use NURBS

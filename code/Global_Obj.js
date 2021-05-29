@@ -1,5 +1,6 @@
 // GLOBAL OBJECT
 gGlobal = new Global("gMeshwarp");
+
 if(gGlobal.inited === undefined) {
 	gGlobal.inited = true;
 	gGlobal.currentlySelected = -1;
@@ -29,7 +30,6 @@ function assignThisAsCurrentlySelectedToGlobal() {
     videoplane.layer = 100;
 	gGlobal.isOnHandle = 1;
 	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
-    showUI(true);
 	gMesh.setMeshAsSelected(true);
     outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }

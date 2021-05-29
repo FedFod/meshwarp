@@ -98,8 +98,9 @@ resizeAllMeshes.local = 1;
 
 function showUI(show) {
 	show_ui = show;
-	if (gMesh!=null) {
-		gMesh.showUI(show);
+	if (gMesh!=null && show) {
+		// gMesh.showUI(show);
+		assignThisAsCurrentlySelectedToGlobal();
 	}
 	if (!show) {
 		gGraphics.resetSingleCircle();

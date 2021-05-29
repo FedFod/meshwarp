@@ -16,7 +16,6 @@ var nurbsmap = {};
 
 function Mesh(ID) {
     this.ID = ID;
-    this.isSelected = 0;
 
     this.meshPoints = null;
     this.meshGrid = null;
@@ -55,7 +54,6 @@ function Mesh(ID) {
 
     // UNDO REDO
     this.amountOfUndoRedoLevels = 20;
-    this.saveUndoRedoLevelIndex = 0;
     this.redoLevelIndex = 0;
     this.undoLevelIndex = 0;
     this.undoRedoLevels = [];
@@ -518,12 +516,11 @@ function Mesh(ID) {
     }
 
     this.setMeshAsSelected = function(val) {
-        this.isSelected = val;
         if (!val) {
             this.deselectVertices();
             this.latestAction = GUI_ELEMENTS.NOTHING;
         }
+        this.showUI(val);
     }
-    
 }
 

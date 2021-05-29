@@ -17,6 +17,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
     this.setColor(this.meshColor);
     this.applyMeshTransformation();
     this.updateGUI();
+    assignThisAsCurrentlySelectedToGlobal()
 }
 
 Mesh.prototype.loadDataFromDict = function(dict) {
@@ -56,10 +57,7 @@ Mesh.prototype.saveUndoRedoPositionMat = function() {
         position: this.currentPos.slice()
     }
     this.undoRedoLevels.unshift(newState);
-    // print("levels leng "+ this.undoRedoLevels.length)
-    // print("saveindex "+this.saveUndoRedoLevelIndex)
     this.undoLevelIndex = 1;
-    this.saveUndoRedoLevelIndex++;
 }
 
 Mesh.prototype.undo = function() {

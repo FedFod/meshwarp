@@ -2,14 +2,11 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
     if (this.showMeshUI) {
         this.latestAction = GUI_ELEMENTS.NOTHING;
         this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
-        if (this.isSelected) {
-            this.setLatestMousePos(mouseWorld);
-            this.checkIfMouseIsCloseToVertex(mouseWorld);
-    
-            if (this.mouseIsCloseTo != GUI_ELEMENTS.VERTEX) {
-                this.checkIfMouseIsCloseToScaleHandles(mouseWorld);
-                gGraphics.resetSingleCircle();
-            }
+        this.setLatestMousePos(mouseWorld);
+        this.checkIfMouseIsCloseToVertex(mouseWorld);
+        if (this.mouseIsCloseTo != GUI_ELEMENTS.VERTEX) {
+            this.checkIfMouseIsCloseToScaleHandles(mouseWorld);
+            gGraphics.resetSingleCircle();
         }
         this.updateGUI();
     }
@@ -22,7 +19,6 @@ Mesh.prototype.mouseClickedRoutine = function(mouseWorld, mouseClicked, oldMouse
             assignThisAsCurrentlySelectedToGlobal();
         }
     }
-
     if (this.showMeshUI) {
         if (mouseClicked) {
             if (!oldMouseClicked && this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
