@@ -16,6 +16,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
     this.loadMatrixFromDict(saveDict_);
     this.setColor(this.meshColor);
     this.applyMeshTransformation();
+    this.calcMeshBoundsMat();
     this.updateGUI();
     assignThisAsCurrentlySelectedToGlobal()
 }
@@ -62,7 +63,7 @@ Mesh.prototype.saveUndoRedoPositionMat = function() {
 
 Mesh.prototype.undo = function() {
     this.undoLevelIndex = clamp(this.undoLevelIndex, 0, this.amountOfUndoRedoLevels-1);
-    // print("undo level index "+this.undoLevelIndex)
+    debug(DEBUG.REDO_UNDO, "undo level index "+this.undoLevelIndex)
     arrayToJitMat(this.positionMat, this.undoRedoLevels[this.undoLevelIndex].posMat);
     this.currentScale = this.undoRedoLevels[this.undoLevelIndex].scale.slice();
     this.currentPos = this.undoRedoLevels[this.undoLevelIndex].position.slice();
@@ -71,12 +72,13 @@ Mesh.prototype.undo = function() {
 
     this.setLatestScale();
     this.applyMeshTransformation();
+    this.calcMeshBoundsMat();
     this.updateGUI();
 }
 
 Mesh.prototype.redo = function() {
     this.redoLevelIndex = clamp(this.redoLevelIndex, 0, this.amountOfUndoRedoLevels-1);
-    // print("redo level index "+this.redoLevelIndex)
+    debug(DEBUG.REDO_UNDO, "redo level index "+this.redoLevelIndex)
     arrayToJitMat(this.positionMat, this.undoRedoLevels[this.redoLevelIndex].posMat);
     this.currentScale = this.undoRedoLevels[this.redoLevelIndex].scale.slice();
     this.currentPos = this.undoRedoLevels[this.redoLevelIndex].position.slice();
@@ -85,5 +87,6 @@ Mesh.prototype.redo = function() {
 
     this.setLatestScale();
     this.applyMeshTransformation();
+    this.calcMeshBoundsMat();
     this.updateGUI();
 }

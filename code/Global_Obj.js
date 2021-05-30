@@ -1,10 +1,10 @@
 // GLOBAL OBJECT
 gGlobal = new Global("gMeshwarp");
+gGlobal.mouseIsOnMesh = {};
 
 if(gGlobal.inited === undefined) {
 	gGlobal.inited = true;
 	gGlobal.currentlySelected = -1;
-	gGlobal.isOnHandle = 0;
 	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
 	gGlobal.contexts = {};
 	gGlobal.meshCount = 0;
@@ -15,9 +15,7 @@ if(gGlobal.inited === undefined) {
 
 function notify_selected_meshwarp(currentlySelected) {
     if (nodeCTX.name != currentlySelected) {
-        videoplane.layer = 80;
-        showUI(false);
-		gMesh.setMeshAsSelected(false);
+        deselectThisFromGlobal();
     }
 }
 
@@ -26,14 +24,20 @@ function checkIfItIsGloballySelected() {
 }
 
 function assignThisAsCurrentlySelectedToGlobal() {
-    gGlobal.currentlySelected = nodeCTX.name;
-    videoplane.layer = 100;
-	gGlobal.isOnHandle = 1;
-	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
-	gMesh.setMeshAsSelected(true);
-    outlet(0, "notify_selected_meshwarp",nodeCTX.name);
+		gGlobal.currentlySelected = nodeCTX.name;
+		videoplane.layer = 100;
+		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
+		gMesh.setMeshAsSelected(true);
+		outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;
+
+function deselectThisFromGlobal() {
+	videoplane.layer = 80;
+	assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
+	gMesh.setMeshAsSelected(false);
+}
+deselectThisFromGlobal.local = 1;
 
 function checkContextObs() {
 	for(var c in gGlobal.contexts) {
@@ -81,7 +85,6 @@ function addToGlobalCtxMap() {
 		// gMesh.setPhysWorldNameToMeshBody(ctxOb.physWorldName);
 	}
 	ctxOb.objects.push(nodeCTX.name);
-
 	assignThisAsCurrentlySelectedToGlobal();
 }
 
@@ -109,7 +112,6 @@ function removeFromGlobalCtxMap() {
 	
 	if(checkIfItIsGloballySelected()) {
 		gGlobal.currentlySelected = -1;
-		gGlobal.isOnHandle = 0;
 	}
 	
 	gGlobal.meshCount--;
@@ -118,3 +120,9 @@ function removeFromGlobalCtxMap() {
 function assignLatestActionToGlobal(latestAction) {
 	gGlobal.latestAction = latestAction;
 }
+assignLatestActionToGlobal.local = 1;
+
+function setToGlobalIfMouseIsOnMesh(val) {
+	gGlobal.mouseIsOnMesh[nodeCTX.name] = [val, videoplane.layer];
+}
+setToGlobalIfMouseIsOnMesh.local = 1;

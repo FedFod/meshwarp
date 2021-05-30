@@ -78,7 +78,7 @@ function checkModifiersKeyDown() {
 checkModifiersKeyDown.local = 1;
 
 function checkZKeyCtrlKeyDown(zVal) {
-	if (gMesh.isSelected && gIsMouseInsideWindow) {
+	if (gMesh.showMeshUI && gIsMouseInsideWindow) {
 		gGraphics.resetSelected();
 		gKeysPressed.zPressed = zVal;
 		if (zVal == "undo") {

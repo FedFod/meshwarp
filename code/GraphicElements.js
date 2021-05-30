@@ -15,6 +15,12 @@ function GraphicElements(nodectx) {
     this.sketch2.color = YELLOW;
     this.sketch2.line_width = 2;    
 
+    this.text = new JitterObject("jit.gl.text");
+    this.text.drawto = nodectx;
+    this.text.layer = FRONT;
+    this.text.fontsize = 30;
+    this.text.color = WHITE;
+
     this.changeSelectionCirclesRadius = function(windowDim) {
         this.circleRadius = 20 / windowDim[1];
     }
@@ -40,6 +46,8 @@ function GraphicElements(nodectx) {
     }
 
     this.drawFrame = function(start, end) {
+        debug(DEBUG.GRAPHICS, "is drawing frame")
+        assignLatestActionToGlobal(GUI_ELEMENTS.DRAWING_FRAME);
         this.sketch.reset();
         this.sketch.framequad(start[0], start[1], 0, 
                                 end[0], start[1], 0,
@@ -50,10 +58,16 @@ function GraphicElements(nodectx) {
     this.free = function() {
         this.sketch.freepeer();
         this.sketch2.freepeer();
+        this.text.freepeer();
     }
 
     this.drawSelectedCircles = function(coordsWorld) {
         this.sketch2.moveto(coordsWorld);
         this.sketch2.framecircle(this.circleRadius);
+    }
+
+    this.drawID = function(position) {
+        this.text.position = position;
+        this.text.text(gMesh.ID);
     }
 }

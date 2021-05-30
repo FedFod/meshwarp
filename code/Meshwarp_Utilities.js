@@ -21,8 +21,25 @@ var GUI_ELEMENTS = {
 	WAS_SCALED: -3,
 	WAS_MOVED_VERTICES: -4,
 	WAS_MOVED_MESH: -5,
-	WAS_SELECTED_VERTICES: -6
+	WAS_SELECTED_VERTICES: -6,
+	WAS_MOVED_SINGLE_VERTEX: -7,
+	DRAWING_FRAME: -8
 };
+
+// DEBUG --------------------
+var DEBUG = {
+	GLOBAL_SELECTION: 0,
+	REDO_UNDO: 1,
+	GRAPHICS: 2
+}
+
+var gWhatToDebug = GUI_ELEMENTS.NOTHING; //DEBUG.GLOBAL_SELECTION;
+
+function debug(what, val) {
+	if (gWhatToDebug === what) {
+		print("MESH_ID: "+gMesh.ID+" "+val);
+	} 
+}
 
 // ------------------------------------------
 

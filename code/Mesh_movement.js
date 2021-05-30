@@ -1,5 +1,4 @@
 Mesh.prototype.checkIfMouseIsInsideMesh = function(mouseWorld) {
-    // this.latestMousePos = mouseWorld.slice();
     if (isPointInsidePolygon(mouseWorld, this.boundingMat)) {
         return this.ID;
     } else {
@@ -34,12 +33,6 @@ Mesh.prototype.checkIfMouseIsCloseToMoveHandle = function(mouseWorld) {
         this.mouseOffset = subVec2D(this.moveHandle.handlePos, mouseWorld);
         this.mouseIsCloseTo = GUI_ELEMENTS.MOVE_HANDLE;
     } 
-    if (checkIfItIsGloballySelected()) {
-        gGlobal.isOnHandle = 0;
-        if (this.mouseIsCloseTo == GUI_ELEMENTS.MOVE_HANDLE) {
-            gGlobal.isOnHandle = 1;
-        } 
-    }
     return this.mouseIsCloseTo;
 }
 
@@ -113,6 +106,7 @@ Mesh.prototype.moveVertexWithMouse = function(coordsWorld) {
 Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
     this.setVertexPosInMat(coordsWorld, cellIndex);
     this.applyMeshTransformation();
+    this.latestAction = GUI_ELEMENTS.WAS_MOVED_SINGLE_VERTEX;
     gGraphics.drawCircle(coordsWorld);
 }
 
@@ -122,6 +116,119 @@ Mesh.prototype.applyMeshTransformation = function() {
 }
 
 //-------------------------------------------
+
+Mesh.prototype.calcMeshBoundsMat = function() {        
+    // Get the bounding vertices that are on the edges of the polygon in clockwise order
+    var boundingArray = [];
+
+    var tempBiggerMat = new JitterMatrix();
+    tempBiggerMat.frommatrix(this.positionMat);
+    var pad = 1.;
+    this.transformMatrixFromCenter(tempBiggerMat, [pad, pad], '*');
+    // TOP
+    for (var i=0; i < this.positionMat.dim[0]; i++) {
+        var xVal = tempBiggerMat.getcell(i, 0)[0];
+        var yVal = tempBiggerMat.getcell(i, 0)[1];
+        boundingArray.push([xVal, yVal]);
+    }
+    // RIGHT
+    for (var j=1; j < tempBiggerMat.dim[1]; j++) {
+        var xVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[0];
+        var yVal = tempBiggerMat.getcell(tempBiggerMat.dim[0]-1, j)[1];
+        boundingArray.push([xVal, yVal]);
+    }
+    // BOTTOM
+    for (var k=tempBiggerMat.dim[0]-2; k >= 0; k--) {
+        var xVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[0];
+        var yVal = tempBiggerMat.getcell(k, tempBiggerMat.dim[1]-1)[1];
+        boundingArray.push([xVal, yVal]);
+    }
+    // LEFT
+    for (var z=tempBiggerMat.dim[1]-2; z > 0; z--) {
+        var xVal = tempBiggerMat.getcell(0, z)[0];
+        var yVal = tempBiggerMat.getcell(0, z)[1];
+        boundingArray.push([xVal, yVal]);
+    }
+    // Transfer those vertices from the array to the boundingMat matrix
+    for (var i=0; i<boundingArray.length; i++) {
+        this.boundingMat.setcell1d(i, boundingArray[i][0], boundingArray[i][1]);
+    }
+    tempBiggerMat.freepeer();
+}
+
+Mesh.prototype.calcAdjacentCellsMat = function(cellIndex) {
+    var cell = [];
+    var leftX = clamp(cellIndex[0]-1, 0, this.positionMat.dim[0]-1);
+    var centerX = cellIndex[0];
+    var rightX  = clamp(cellIndex[0]+1, 0, this.positionMat.dim[0]-1);
+    var topY = clamp(cellIndex[1]+1, 0, this.positionMat.dim[1]-1);
+    var centerY = cellIndex[1];
+    var bottomY = clamp(cellIndex[1]-1, 0, this.positionMat.dim[1]-1);
+
+    cell = this.positionMat.getcell(leftX, topY).slice();
+    if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+        cell[1] = 1;
+    }
+    if (cellIndex[0]-1 < 0) {
+        cell[0] = -gWindowRatio;
+    }
+    this.adjacentCellsMat.setcell1d(0, cell[0], cell[1], 0.0); // TOP LEFT
+
+    cell = this.positionMat.getcell(centerX, topY).slice();
+    if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+        cell[1] = 1;
+    }
+    if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+        cell[1] = 1;
+    }
+    this.adjacentCellsMat.setcell1d(1, cell[0], cell[1], 0.0); // TOP CENTER
+
+    cell = this.positionMat.getcell(rightX, topY).slice();
+    if (cellIndex[1]+1 > this.positionMat.dim[1]-1) {
+        cell[1] = 1;
+    }
+    if (cellIndex[0]+1 > this.positionMat.dim[0]-1) {
+        cell[0] = gWindowRatio;
+    }
+    this.adjacentCellsMat.setcell1d(2, cell[0], cell[1], 0.0); // TOP RIGHT
+
+    cell = this.positionMat.getcell(rightX, centerY).slice(); 
+    if (cellIndex[0]+1 > this.positionMat.dim[0]-1) {
+        cell[0] = gWindowRatio;
+    }
+    this.adjacentCellsMat.setcell1d(3, cell[0], cell[1], 0.0); // RIGHT CENTER
+
+    cell = this.positionMat.getcell(rightX, bottomY).slice();
+    if (cellIndex[0]+1 > this.positionMat.dim[0]-1) {
+        cell[0] = gWindowRatio;
+    }
+    if (cellIndex[1]-1 < 0) {
+        cell[1] = -1;
+    }
+    this.adjacentCellsMat.setcell1d(4, cell[0], cell[1], 0.0); // BOTTOM RIGHT
+
+    cell = this.positionMat.getcell(centerX, bottomY).slice();
+    if (cellIndex[1]-1 < 0) {
+        cell[1] = -1;
+    }
+    this.adjacentCellsMat.setcell1d(5, cell[0], cell[1], 0.0); // BOTTOM CENTER
+
+    cell = this.positionMat.getcell(leftX, bottomY).slice();
+    if (cellIndex[0]-1 < 0) {
+        cell[0] = -gWindowRatio;
+    }
+    if (cellIndex[1]-1 < 0) {
+        cell[1] = -1;
+    }
+    this.adjacentCellsMat.setcell1d(6, cell[0], cell[1], 0.0); // BOTTOM LEFT
+
+    cell = this.positionMat.getcell(leftX, centerY).slice();
+    if (cellIndex[0]-1 < 0) {
+        cell[0] = -gWindowRatio;
+    }
+    this.adjacentCellsMat.setcell1d(7, cell[0], cell[1], 0.0); // LEFT CENTER
+}
+
 
 Mesh.prototype.deselectVertices = function() {
     this.selectedVerticesIndices = [];

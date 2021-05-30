@@ -71,54 +71,6 @@ var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);
 setTexturesMeshes();
 
-//-----PUBLIC FUNCTIONS----------------
-function undo() {
-	gMesh.undo();
-}
-
-function redo() {
-	gMesh.redo();
-}
-
-function reset() {
-	show_mesh = 1;
-	gGlobal.isOnHandle == 0;
-	gGraphics.resetSingleCircle();
-	gGraphics.resetSelected();
-	gMesh.initMesh(nodeCTX.name);
-}
-
-
-function move_vertex(indexX, indexY, posX, posY) {
-	gMesh.moveVertex([posX, posY], [indexX, indexY]);
-}
-
-function jit_gl_texture(texName) {
-	if (gMesh) {
-		gMesh.assignTextureToMesh(texName);
-	}
-}
-
-function write(path) {
-	postln("saveing to " + path);
-	saveDictToPath(path);
-}
-
-function read(path) {
-	postln("loading to " + path);
-	loadSaveDict(path);
-}
-
-function getvalueof() {
-	postln("getvalueof");
-	return buildSaveDict(null);
-}
-
-function setvalueof(dict) {
-	postln("setvalueof");
-	loadFromDict(dict);
-}
-
 //--------------------------------------------
 
 function swapcallback(event){
@@ -139,12 +91,9 @@ function swapcallback(event){
 
 		case "mouse": 
 			if (enable) {
+				var oldMouseState = gMousePosScreen.slice();
 				gMousePosScreen = event.args.slice();
-				var oldMouseClicked = gKeysPressed.mouseClicked;
-				gKeysPressed.mouseClicked = gMousePosScreen[2];
-				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); 
-
-				gMesh.mouseClickedRoutine(mouseWorld, gKeysPressed.mouseClicked, oldMouseClicked);
+				gMesh.mouseClickedRoutine(gMousePosScreen, oldMouseState);
 			}
 			break;
 		

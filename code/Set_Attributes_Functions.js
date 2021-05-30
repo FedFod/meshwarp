@@ -1,3 +1,51 @@
+//-----PUBLIC FUNCTIONS----------------
+function undo() {
+	gMesh.undo();
+}
+
+function redo() {
+	gMesh.redo();
+}
+
+function reset() {
+	show_mesh = 1;
+	gGraphics.resetSingleCircle();
+	gGraphics.resetSelected();
+	gMesh.initMesh(nodeCTX.name);
+	assignThisAsCurrentlySelectedToGlobal();
+}
+
+function move_vertex(indexX, indexY, posX, posY) {
+	gMesh.moveVertex([posX, posY], [indexX, indexY]);
+}
+
+function jit_gl_texture(texName) {
+	if (gMesh) {
+		gMesh.assignTextureToMesh(texName);
+	}
+}
+
+function write(path) {
+	postln("saveing to " + path);
+	saveDictToPath(path);
+}
+
+function read(path) {
+	postln("loading to " + path);
+	loadSaveDict(path);
+}
+
+function getvalueof() {
+	postln("getvalueof");
+	return buildSaveDict(null);
+}
+
+function setvalueof(dict) {
+	postln("setvalueof");
+	loadFromDict(dict);
+}
+
+// ATTRIBUTES ----------------------------------
 function setenable(val) {
 	enable = val;
 	nodeCTX.enable = enable;
@@ -99,10 +147,10 @@ resizeAllMeshes.local = 1;
 function showUI(show) {
 	show_ui = show;
 	if (gMesh!=null && show) {
-		// gMesh.showUI(show);
 		assignThisAsCurrentlySelectedToGlobal();
 	}
-	if (!show) {
+	else if (!show) {
+		deselectThisFromGlobal();
 		gGraphics.resetSingleCircle();
 		gGraphics.resetSelected();
 	}
