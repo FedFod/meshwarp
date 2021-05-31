@@ -114,11 +114,26 @@ function setTexturesMeshes() {
 }
 setTexturesMeshes.local = 1;
 
-function scaleAllMeshes(scaleX, scaleY) {
+function setScale(scaleX, scaleY) {
 	gMesh.scaleMesh(scaleX, scaleY);
 	gMesh.setLatestScale();
 }
-scaleAllMeshes.local = 1;
+setScale.local = 1;
+
+function setPosition(posX, posY, posZ) {
+	gMesh.setMeshPosition([posX, posY, posZ]);
+	gMesh.updateGUI();
+}
+setPosition.local = 1;
+
+function setMeshLayer(val) {
+	layer = val;
+	videoplane.layer = layer;
+	setGlobalMaxLayer(val);
+	print("max layer "+gGlobal.maxLayer)
+	print("this layer "+gMesh.ID + " "+layer);
+}
+setMeshLayer.local = 1;
 
 function setNurbsOrMeshMode(arg) {
 	if (arg == 0 || arg == 1) {

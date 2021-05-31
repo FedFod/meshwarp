@@ -83,12 +83,17 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
     this.latestAction = GUI_ELEMENTS.WAS_MOVED_VERTICES;
 }
 
-Mesh.prototype.moveMesh = function(mouseWorld) {
+Mesh.prototype.moveMeshWithHandle = function(mouseWorld) {
     gGraphics.resetSelected();
     var offset = sumVec2D(mouseWorld, this.mouseOffset);
+    this.setMeshPosition(offset);
+}
+
+Mesh.prototype.setMeshPosition = function(offset) {
     var newPos = subVec2D(offset, this.currentPos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);
     this.currentPos = offset.slice();
+    // this.currentPos = newPos;
 
     gGraphics.resetSingleCircle();
     this.deselectVertices();

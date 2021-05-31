@@ -16,9 +16,6 @@ include("Set_Attributes_Functions");
 include("Canvas.js"); // what's that??
 
 // ATTRIBUTES
-var use_nurbs = 0; // default: use NURBS
-declareattribute("use_nurbs", null, "setNurbsOrMeshMode", 0);
-
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
@@ -32,16 +29,15 @@ var drawto = "";
 declareattribute("drawto", null, "setdrawto", 0);
 
 var scale = [1, 1];
-declareattribute("scale", null, "scaleAllMeshes", 0);
-
-var nurbs_order = 1;
-declareattribute("nurbs_order", null, "setNurbsOrder", 0);
+declareattribute("scale", null, "setScale", 0);
+var position = [0,0,0];
+declareattribute("position", null, "setPosition", 0);
 
 var texture = [""];
 declareattribute("texture", null, "setTexturesMeshes", 0);
 
 var layer = 0;
-declareattribute("layer", null, "setMeshwarpLayer", 0);
+declareattribute("layer", null, "setMeshLayer", 0);
 
 var color = WHITE.slice();
 declareattribute("color", null, "setColor", 0);
@@ -49,6 +45,10 @@ declareattribute("color", null, "setColor", 0);
 var blend_enable = 0;
 declareattribute("blend_enable", null, "setBlendEnable", 0);
 
+var nurbs_order = 1;
+declareattribute("nurbs_order", null, "setNurbsOrder", 0);
+var use_nurbs = 0; // default: use NURBS
+declareattribute("use_nurbs", null, "setNurbsOrMeshMode", 0);
 var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 

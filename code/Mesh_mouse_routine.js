@@ -20,13 +20,13 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
         var oldMouseClicked = oldMouseState_[2];
 
         if (mouseClicked) {
-            gGraphics.drawID(this.getMeshCenter(this.positionMat));
+            // gGraphics.drawID(this.getMeshCenter(this.positionMat));
             if (!oldMouseClicked && this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
                 this.saveUndoRedoPositionMat();
             }
             switch (this.mouseIsCloseTo) {
                 case (GUI_ELEMENTS.MOVE_HANDLE):
-                    this.moveMesh(mouseWorld);
+                    this.moveMeshWithHandle(mouseWorld);
                     break;
                 case (GUI_ELEMENTS.SCALE_HANDLE):
                     this.scaleWithHandle(mouseWorld);
@@ -86,7 +86,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                 }
             }
             debug(DEBUG.GLOBAL_SELECTION, "other mesh layer : "+alreadyFound[1])
-            if (alreadyFound[1] < videoplane.layer || alreadyFound[1] === 80) {
+            if (alreadyFound[1] < videoplane.layer) {
                 debug(DEBUG.GLOBAL_SELECTION, "assigning to global")
                 assignThisAsCurrentlySelectedToGlobal();
             }

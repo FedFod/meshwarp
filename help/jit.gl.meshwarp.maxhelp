@@ -382,6 +382,81 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"format" : 6,
+									"id" : "obj-59",
+									"maxclass" : "flonum",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "bang" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 966.333333333333371, 227.738093018531799, 50.0, 22.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"format" : 6,
+									"id" : "obj-49",
+									"maxclass" : "flonum",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "bang" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 907.333333333333371, 227.738093018531799, 50.0, 22.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"format" : 6,
+									"id" : "obj-47",
+									"maxclass" : "flonum",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "bang" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 853.333333333333371, 227.738093018531799, 50.0, 22.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-29",
+									"maxclass" : "newobj",
+									"numinlets" : 4,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 858.0, 270.0, 93.0, 22.0 ],
+									"text" : "pak position f f f"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-40",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 202.0, 179.0, 24.0, 24.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-36",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 202.0, 213.0, 64.0, 22.0 ],
+									"text" : "floating $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-63",
 									"maxclass" : "toggle",
 									"numinlets" : 1,
@@ -442,25 +517,13 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-58",
-									"linecount" : 3,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 404.0, 141.0, 56.0, 48.0 ],
-									"text" : "rename  to write read"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-57",
 									"maxclass" : "toggle",
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 433.0, 260.0, 24.0, 24.0 ]
+									"patching_rect" : [ 432.0, 240.0, 24.0, 24.0 ]
 								}
 
 							}
@@ -472,7 +535,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 833.0, 548.619042873382568, 24.0, 24.0 ],
+									"patching_rect" : [ 838.30952672163653, 564.619042873382568, 24.0, 24.0 ],
 									"saved_attribute_attributes" : 									{
 										"valueof" : 										{
 											"parameter_enum" : [ "off", "on" ],
@@ -495,7 +558,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 833.0, 584.619042873382568, 89.0, 22.0 ],
+									"patching_rect" : [ 838.30952672163653, 600.619042873382568, 89.0, 22.0 ],
 									"text" : "show_ui $1"
 								}
 
@@ -508,7 +571,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 629.0, 548.619042873382568, 24.0, 24.0 ],
+									"patching_rect" : [ 634.30952672163653, 564.619042873382568, 24.0, 24.0 ],
 									"saved_attribute_attributes" : 									{
 										"valueof" : 										{
 											"parameter_enum" : [ "off", "on" ],
@@ -531,7 +594,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 629.0, 584.619042873382568, 69.0, 22.0 ],
+									"patching_rect" : [ 634.30952672163653, 600.619042873382568, 69.0, 22.0 ],
 									"text" : "show_ui $1"
 								}
 
@@ -555,7 +618,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 433.0, 296.0, 105.0, 22.0 ],
+									"patching_rect" : [ 432.0, 276.0, 105.0, 22.0 ],
 									"text" : "lock_to_aspect $1"
 								}
 
@@ -616,7 +679,7 @@
 									"numoutlets" : 2,
 									"outlettype" : [ "", "float" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 634.30952672163653, 46.0, 128.0, 32.0 ],
+									"patching_rect" : [ 634.30952672163653, 49.0, 128.0, 32.0 ],
 									"saturation" : 1.0,
 									"saved_attribute_attributes" : 									{
 										"valueof" : 										{
@@ -927,8 +990,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 736.5, 523.047614336013794, 239.0, 22.0 ],
-									"text" : "jit.gl.meshwarp @show_ui1 @meshdim 5 4",
+									"patching_rect" : [ 736.5, 523.047614336013794, 290.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_ui1 @meshdim 5 4 @layer 3",
 									"varname" : "jit.gl.meshwarp[2]"
 								}
 
@@ -940,8 +1003,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 365.0, 523.047614336013794, 242.0, 22.0 ],
-									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 5 4",
+									"patching_rect" : [ 365.0, 523.047614336013794, 294.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 5 4 @layer 2",
 									"varname" : "jit.gl.meshwarp[1]"
 								}
 
@@ -972,47 +1035,12 @@
 							}
 , 							{
 								"box" : 								{
-									"id" : "obj-40",
-									"maxclass" : "number",
-									"numinlets" : 1,
-									"numoutlets" : 2,
-									"outlettype" : [ "", "bang" ],
-									"parameter_enable" : 1,
-									"patching_rect" : [ 877.0, 305.0, 50.0, 22.0 ],
-									"saved_attribute_attributes" : 									{
-										"valueof" : 										{
-											"parameter_invisible" : 1,
-											"parameter_longname" : "number",
-											"parameter_shortname" : "number",
-											"parameter_type" : 3
-										}
-
-									}
-,
-									"varname" : "number"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-36",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 877.0, 331.0, 90.0, 22.0 ],
-									"text" : "nurbs_order $1"
-								}
-
-							}
-, 							{
-								"box" : 								{
 									"id" : "obj-6",
 									"maxclass" : "message",
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 476.142860054969788, 144.619042873382568, 169.0, 22.0 ],
+									"patching_rect" : [ 467.642860054969788, 131.619042873382568, 169.0, 22.0 ],
 									"text" : "write Desktop:/meshwarp.json"
 								}
 
@@ -1024,7 +1052,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 476.142860054969788, 167.619042873382568, 167.0, 22.0 ],
+									"patching_rect" : [ 467.642860054969788, 162.619042873382568, 167.0, 22.0 ],
 									"text" : "read Desktop:/meshwarp.json"
 								}
 
@@ -1050,19 +1078,6 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 746.238093376159668, 144.619042873382568, 67.0, 22.0 ],
 									"text" : "save_state"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"bubble" : 1,
-									"id" : "obj-39",
-									"linecount" : 2,
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 908.5, 219.0, 127.0, 38.0 ],
-									"text" : "Mode: 0 (mesh)\nMode: 1 (NURBS)"
 								}
 
 							}
@@ -1111,42 +1126,6 @@
 									"numoutlets" : 0,
 									"patching_rect" : [ 700.380953431129456, 327.619042873382568, 73.0, 22.0 ],
 									"text" : "s meshwarp"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-49",
-									"maxclass" : "toggle",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "int" ],
-									"parameter_enable" : 1,
-									"patching_rect" : [ 873.690475821495056, 226.0, 24.0, 24.0 ],
-									"saved_attribute_attributes" : 									{
-										"valueof" : 										{
-											"parameter_enum" : [ "off", "on" ],
-											"parameter_longname" : "toggle[2]",
-											"parameter_mmax" : 1,
-											"parameter_shortname" : "toggle[2]",
-											"parameter_type" : 2
-										}
-
-									}
-,
-									"varname" : "toggle[2]"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-47",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 873.690475821495056, 260.0, 81.0, 22.0 ],
-									"text" : "use_nurbs $1"
 								}
 
 							}
@@ -1267,8 +1246,8 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 53.642860054969788, 496.047614336013794, 242.0, 22.0 ],
-									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 5 4",
+									"patching_rect" : [ 53.642860054969788, 496.047614336013794, 294.0, 22.0 ],
+									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 5 4 @layer 0",
 									"varname" : "jit.gl.meshwarp"
 								}
 
@@ -1349,7 +1328,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"midpoints" : [ 485.642860054969788, 274.119042873382568, 709.880953431129456, 274.119042873382568 ],
+									"midpoints" : [ 477.142860054969788, 274.119042873382568, 709.880953431129456, 274.119042873382568 ],
 									"source" : [ "obj-15", 0 ]
 								}
 
@@ -1469,6 +1448,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
+									"source" : [ "obj-29", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-35", 0 ],
 									"source" : [ "obj-30", 0 ]
 								}
@@ -1543,7 +1529,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-3", 0 ],
+									"destination" : [ "obj-2", 0 ],
 									"source" : [ "obj-36", 0 ]
 								}
 
@@ -1600,8 +1586,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-3", 0 ],
-									"midpoints" : [ 883.190475821495056, 297.499992728233337, 709.880953431129456, 297.499992728233337 ],
+									"destination" : [ "obj-29", 1 ],
 									"source" : [ "obj-47", 0 ]
 								}
 
@@ -1615,7 +1600,7 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-47", 0 ],
+									"destination" : [ "obj-29", 2 ],
 									"source" : [ "obj-49", 0 ]
 								}
 
@@ -1679,8 +1664,15 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-29", 3 ],
+									"source" : [ "obj-59", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"midpoints" : [ 485.642860054969788, 273.619042873382568, 709.880953431129456, 273.619042873382568 ],
+									"midpoints" : [ 477.142860054969788, 273.619042873382568, 709.880953431129456, 273.619042873382568 ],
 									"source" : [ "obj-6", 0 ]
 								}
 
@@ -1772,16 +1764,14 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-51::obj-1::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
 			"obj-51::obj-20" : [ "toggle[1]", "toggle[1]", 0 ],
 			"obj-51::obj-28" : [ "number[1]", "number[1]", 0 ],
 			"obj-51::obj-30" : [ "number[2]", "number[2]", 0 ],
 			"obj-51::obj-31" : [ "toggle[3]", "toggle[1]", 0 ],
-			"obj-51::obj-40" : [ "number", "number", 0 ],
-			"obj-51::obj-41::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
 			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-51::obj-46" : [ "toggle[4]", "toggle[1]", 0 ],
-			"obj-51::obj-49" : [ "toggle[2]", "toggle[2]", 0 ],
 			"obj-51::obj-50" : [ "number[5]", "number[5]", 0 ],
 			"obj-51::obj-52" : [ "swatch", "swatch", 0 ],
 			"obj-51::obj-53" : [ "number[3]", "number[3]", 0 ],
