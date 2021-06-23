@@ -40,8 +40,7 @@ function assignThisAsCurrentlySelectedToGlobal() {
 		var maxLayer = gGlobal.getMaxLayer();
 		setVideoplaneLayer(maxLayer+1);
 		gGraphics.setLayer(maxLayer+2);
-		// print("videoplane layer "+videoplane.layer)
-
+		
 		outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;

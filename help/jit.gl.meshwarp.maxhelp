@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 870.0, 177.0, 336.0, 560.0 ],
+		"rect" : [ 870.0, 177.0, 369.0, 560.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -57,7 +57,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 336.0, 534.0 ],
+						"rect" : [ 0.0, 26.0, 369.0, 534.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -351,7 +351,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 870.0, 203.0, 336.0, 534.0 ],
+						"rect" : [ 870.0, 203.0, 369.0, 534.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -559,42 +559,6 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 826.30952672163653, 419.619042873382568, 89.0, 22.0 ],
-									"text" : "show_ui $1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-31",
-									"maxclass" : "toggle",
-									"numinlets" : 1,
-									"numoutlets" : 1,
-									"outlettype" : [ "int" ],
-									"parameter_enable" : 1,
-									"patching_rect" : [ 634.30952672163653, 564.619042873382568, 24.0, 24.0 ],
-									"saved_attribute_attributes" : 									{
-										"valueof" : 										{
-											"parameter_enum" : [ "off", "on" ],
-											"parameter_longname" : "toggle[3]",
-											"parameter_mmax" : 1,
-											"parameter_shortname" : "toggle[1]",
-											"parameter_type" : 2
-										}
-
-									}
-,
-									"varname" : "toggle[3]"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"id" : "obj-42",
-									"maxclass" : "message",
-									"numinlets" : 2,
-									"numoutlets" : 1,
-									"outlettype" : [ "" ],
-									"patching_rect" : [ 634.30952672163653, 600.619042873382568, 69.0, 22.0 ],
 									"text" : "show_ui $1"
 								}
 
@@ -990,7 +954,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 736.5, 523.047614336013794, 290.0, 22.0 ],
+									"patching_rect" : [ 736.5, 560.047614336013794, 290.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_ui1 @meshdim 5 4 @layer 3",
 									"varname" : "jit.gl.meshwarp[2]"
 								}
@@ -1003,7 +967,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 365.0, 523.047614336013794, 294.0, 22.0 ],
+									"patching_rect" : [ 361.0, 571.047614336013794, 294.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 5 4 @layer 2",
 									"varname" : "jit.gl.meshwarp[1]"
 								}
@@ -1246,7 +1210,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 53.642860054969788, 496.047614336013794, 294.0, 22.0 ],
+									"patching_rect" : [ 53.642860054969788, 500.047614336013794, 294.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 5 4 @layer 0",
 									"varname" : "jit.gl.meshwarp"
 								}
@@ -1462,13 +1426,6 @@
 							}
 , 							{
 								"patchline" : 								{
-									"destination" : [ "obj-42", 0 ],
-									"source" : [ "obj-31", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
 									"destination" : [ "obj-26", 3 ],
 									"order" : 0,
 									"source" : [ "obj-32", 0 ]
@@ -1559,13 +1516,6 @@
 								"patchline" : 								{
 									"destination" : [ "obj-36", 0 ],
 									"source" : [ "obj-40", 0 ]
-								}
-
-							}
-, 							{
-								"patchline" : 								{
-									"destination" : [ "obj-41", 0 ],
-									"source" : [ "obj-42", 0 ]
 								}
 
 							}
@@ -1768,7 +1718,6 @@
 			"obj-51::obj-20" : [ "toggle[1]", "toggle[1]", 0 ],
 			"obj-51::obj-28" : [ "number[1]", "number[1]", 0 ],
 			"obj-51::obj-30" : [ "number[2]", "number[2]", 0 ],
-			"obj-51::obj-31" : [ "toggle[3]", "toggle[1]", 0 ],
 			"obj-51::obj-41::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
 			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-51::obj-46" : [ "toggle[4]", "toggle[1]", 0 ],

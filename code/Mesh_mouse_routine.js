@@ -75,15 +75,16 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
 
     if (!mouseClicked && gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
         if (gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh) {
-            var foundLayer = -10000;
+            var foundLayer = false;
             for (var isIt in gGlobal.mouseIsOnMesh) {
                 // if we clicked on a mesh and it's not this mesh
                 if (gGlobal.mouseIsOnMesh[isIt].isOnMesh && isIt != nodeCTX.name) {
-                    foundLayer = gGlobal.mouseIsOnMesh[isIt].layer;
+                    // foundLayer = gGlobal.mouseIsOnMesh[isIt].layer;
+                    foundLayer = true;
                     break;
                 }
             }
-            if (foundLayer < videoplane.layer) {
+            if (!foundLayer) {
                 assignThisAsCurrentlySelectedToGlobal();
             }
         } else if (gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
