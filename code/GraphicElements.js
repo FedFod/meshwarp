@@ -30,7 +30,7 @@ function GraphicElements(nodectx) {
     }
 
     this.drawCircle = function(coordsWorld) {   
-        if (checkIfItIsGloballySelected()) {
+        if (gGlobal.checkIfItIsGloballySelected()) {
             this.sketch.reset();
             this.sketch.moveto(coordsWorld);
             this.sketch.framecircle(this.circleRadius);
@@ -69,5 +69,9 @@ function GraphicElements(nodectx) {
     this.drawID = function(position) {
         this.text.position = position;
         this.text.text(gMesh.ID);
+    }
+
+    this.setLayer = function(val) {
+        this.sketch.layer = val;
     }
 }

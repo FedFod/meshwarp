@@ -128,12 +128,14 @@ setPosition.local = 1;
 
 function setMeshLayer(val) {
 	layer = val;
-	videoplane.layer = layer;
-	setGlobalMaxLayer(val);
-	print("max layer "+gGlobal.maxLayer)
-	print("this layer "+gMesh.ID + " "+layer);
+	setVideoplaneLayer(val);
 }
 setMeshLayer.local = 1;
+
+function setVideoplaneLayer(val) {
+	videoplane.layer = val;
+}
+setVideoplaneLayer.local = 1;
 
 function setNurbsOrMeshMode(arg) {
 	if (arg == 0 || arg == 1) {

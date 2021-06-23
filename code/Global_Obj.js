@@ -1,7 +1,6 @@
 // GLOBAL OBJECT
 gGlobal = new Global("gMeshwarp");
 gGlobal.mouseIsOnMesh = {};
-gGlobal.maxLayer = -10000;
 
 if(gGlobal.inited === undefined) {
 	gGlobal.inited = true;
@@ -20,24 +19,33 @@ function notify_selected_meshwarp(currentlySelected) {
     }
 }
 
-function checkIfItIsGloballySelected() {
+gGlobal.checkIfItIsGloballySelected = function() {
 	return (gGlobal.currentlySelected == nodeCTX.name);
 }
-checkIfItIsGloballySelected.local = 1;
+
+gGlobal.getMaxLayer = function() {
+	var maxLayer = -1000;
+	for (var meshwarp in gGlobal.mouseIsOnMesh) {
+		if (gGlobal.mouseIsOnMesh[meshwarp].layer > maxLayer) {
+			maxLayer = gGlobal.mouseIsOnMesh[meshwarp].layer;
+		}
+	}
+	return maxLayer;
+}
 
 function assignThisAsCurrentlySelectedToGlobal() {
 		gGlobal.currentlySelected = nodeCTX.name;
-		setMeshLayer(gGlobal.maxLayer+1) 
-		// setGlobalMaxLayer(layer);
 		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
 		gMesh.setMeshAsSelected(true);
+		var maxLayer = gGlobal.getMaxLayer();
+		setVideoplaneLayer(maxLayer+1);
+		gGraphics.setLayer(maxLayer+2);
 		outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;
 
 function deselectThisFromGlobal() {
-	setMeshLayer(gGlobal.maxLayer-1) 
-	// setGlobalMaxLayer(gGlobal.maxLayer-1);
+	setVideoplaneLayer(layer); 
 	assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
 	gMesh.setMeshAsSelected(false);
 }
@@ -107,15 +115,16 @@ function removeFromGlobalCtxMap() {
 		if (obs.length == 0) {
 			print("freed global objects");
 			gGlobal.contexts.drawto.ctxNode.freepeer();
-			gGlobal.contexts.drawto.physDraw.freepeer();
-			gGlobal.contexts.drawto.physWorld.freepeer();
+			// gGlobal.contexts.drawto.physDraw.freepeer();
+			// gGlobal.contexts.drawto.physWorld.freepeer();
 			gGlobal.contexts.drawto.ctxCamera.freepeer();
 			gGlobal.inited = null;
 			gGlobal.contexts.drawto = null;
 		}
 	}
+	removeFromGlobalCtxMap.local = 1;
 	
-	if(checkIfItIsGloballySelected()) {
+	if(gGlobal.checkIfItIsGloballySelected()) {
 		gGlobal.currentlySelected = -1;
 	}
 	
@@ -128,12 +137,9 @@ function assignLatestActionToGlobal(latestAction) {
 assignLatestActionToGlobal.local = 1;
 
 function setToGlobalIfMouseIsOnMesh(val) {
-	gGlobal.mouseIsOnMesh[nodeCTX.name] = [val, videoplane.layer];
+	gGlobal.mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: videoplane.layer};
 }
 setToGlobalIfMouseIsOnMesh.local = 1;
 
-function setGlobalMaxLayer(val) {
-	if (gGlobal.maxLayer < val) {
-		gGlobal.maxLayer = val;
-	}
-}
+
+

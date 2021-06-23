@@ -68,33 +68,28 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     // SELECT MESH GLOBALLY
     if (mouseClicked) {
         if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
-            debug(DEBUG.GLOBAL_SELECTION, "IS INSIDE")
             setToGlobalIfMouseIsOnMesh(true);        } 
         else {
-            debug(DEBUG.GLOBAL_SELECTION, "IS NOT INSIDE")
             setToGlobalIfMouseIsOnMesh(false);        }
     }
-    debug(DEBUG.GLOBAL_SELECTION, "LATEST ACTION "+gGlobal.latestAction)
+
     if (!mouseClicked && gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
         debug(DEBUG.GLOBAL_SELECTION, gGlobal.mouseIsOnMesh[nodeCTX.name])
-        if (gGlobal.mouseIsOnMesh[nodeCTX.name][0]) {
-            var alreadyFound = [false, 80];
+        if (gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh) {
+            var foundLayer = -10000;
             for (var isIt in gGlobal.mouseIsOnMesh) {
-                if (gGlobal.mouseIsOnMesh[isIt][0] && isIt != nodeCTX.name) {
-                    alreadyFound = gGlobal.mouseIsOnMesh[isIt].slice();
+                // if we clicked on a mesh and it's not this mesh
+                if (gGlobal.mouseIsOnMesh[isIt].isOnMesh && isIt != nodeCTX.name) {
+                    foundLayer = gGlobal.mouseIsOnMesh[isIt].layer;
                     break;
                 }
             }
-            debug(DEBUG.GLOBAL_SELECTION, "other mesh layer : "+alreadyFound[1])
-            if (alreadyFound[1] < videoplane.layer) {
-                debug(DEBUG.GLOBAL_SELECTION, "assigning to global")
+            if (foundLayer < videoplane.layer) {
                 assignThisAsCurrentlySelectedToGlobal();
             }
         } else if (gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
-            debug(DEBUG.GLOBAL_SELECTION, "setting layer to 80")
             deselectThisFromGlobal();
             setToGlobalIfMouseIsOnMesh(false);  
         }
-        debug(DEBUG.GLOBAL_SELECTION, gGlobal.mouseIsOnMesh[nodeCTX.name][1])
     } 
 }
