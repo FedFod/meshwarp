@@ -19,8 +19,8 @@ function notify_selected_meshwarp(currentlySelected) {
     }
 }
 
-gGlobal.checkIfItIsGloballySelected = function() {
-	return (gGlobal.currentlySelected == nodeCTX.name);
+gGlobal.checkIfItIsGloballySelected = function(nodeName) {
+	return (gGlobal.currentlySelected == nodeName);
 }
 
 gGlobal.getMaxLayer = function() {
@@ -40,6 +40,8 @@ function assignThisAsCurrentlySelectedToGlobal() {
 		var maxLayer = gGlobal.getMaxLayer();
 		setVideoplaneLayer(maxLayer+1);
 		gGraphics.setLayer(maxLayer+2);
+		// print("videoplane layer "+videoplane.layer)
+
 		outlet(0, "notify_selected_meshwarp",nodeCTX.name);
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;
@@ -98,6 +100,7 @@ function addToGlobalCtxMap() {
 		// gMesh.setPhysWorldNameToMeshBody(ctxOb.physWorldName);
 	}
 	ctxOb.objects.push(nodeCTX.name);
+	setToGlobalIfMouseIsOnMesh(false);
 	assignThisAsCurrentlySelectedToGlobal();
 }
 
@@ -124,7 +127,7 @@ function removeFromGlobalCtxMap() {
 	}
 	removeFromGlobalCtxMap.local = 1;
 	
-	if(gGlobal.checkIfItIsGloballySelected()) {
+	if(gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
 		gGlobal.currentlySelected = -1;
 	}
 	
@@ -137,7 +140,7 @@ function assignLatestActionToGlobal(latestAction) {
 assignLatestActionToGlobal.local = 1;
 
 function setToGlobalIfMouseIsOnMesh(val) {
-	gGlobal.mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: videoplane.layer};
+	gGlobal.mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: layer};
 }
 setToGlobalIfMouseIsOnMesh.local = 1;
 

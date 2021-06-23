@@ -74,7 +74,6 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     }
 
     if (!mouseClicked && gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
-        debug(DEBUG.GLOBAL_SELECTION, gGlobal.mouseIsOnMesh[nodeCTX.name])
         if (gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh) {
             var foundLayer = -10000;
             for (var isIt in gGlobal.mouseIsOnMesh) {
