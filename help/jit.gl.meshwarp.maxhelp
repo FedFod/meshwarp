@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 574.0, 82.0, 638.0, 702.0 ],
+		"rect" : [ 751.0, 84.0, 359.0, 702.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -57,7 +57,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 638.0, 676.0 ],
+						"rect" : [ 0.0, 26.0, 359.0, 676.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -351,7 +351,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 574.0, 108.0, 638.0, 676.0 ],
+						"rect" : [ 751.0, 110.0, 359.0, 676.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -556,7 +556,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 826.30952672163653, 383.619042873382568, 24.0, 24.0 ],
+									"patching_rect" : [ 837.0, 481.619042873382568, 24.0, 24.0 ],
 									"saved_attribute_attributes" : 									{
 										"valueof" : 										{
 											"parameter_enum" : [ "off", "on" ],
@@ -579,7 +579,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 826.30952672163653, 419.619042873382568, 89.0, 22.0 ],
+									"patching_rect" : [ 837.0, 517.619042873382568, 89.0, 22.0 ],
 									"text" : "show_ui $1"
 								}
 
@@ -639,7 +639,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 83.642860054969788, 412.0, 33.0, 22.0 ],
+									"patching_rect" : [ 91.642860054969788, 436.0, 33.0, 22.0 ],
 									"text" : "redo"
 								}
 
@@ -651,7 +651,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 131.642860054969788, 412.0, 35.0, 22.0 ],
+									"patching_rect" : [ 139.642860054969788, 436.0, 35.0, 22.0 ],
 									"text" : "undo"
 								}
 
@@ -1414,13 +1414,13 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-51::obj-1::obj-8" : [ "meshwarpjs[5]", "meshwarpjs[5]", 0 ],
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
 			"obj-51::obj-20" : [ "toggle[1]", "toggle[1]", 0 ],
 			"obj-51::obj-23::obj-28" : [ "number[1]", "number[1]", 0 ],
 			"obj-51::obj-23::obj-30" : [ "number[2]", "number[2]", 0 ],
 			"obj-51::obj-23::obj-53" : [ "number[3]", "number[3]", 0 ],
 			"obj-51::obj-23::obj-54" : [ "number[4]", "number[4]", 0 ],
-			"obj-51::obj-41::obj-8" : [ "meshwarpjs[4]", "meshwarpjs[4]", 0 ],
+			"obj-51::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
 			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-51::obj-46" : [ "toggle[4]", "toggle[1]", 0 ],
 			"obj-51::obj-50" : [ "number[5]", "number[5]", 0 ],
@@ -1450,8 +1450,8 @@
 			}
 , 			{
 				"name" : "change_vertex_pos_bpatcher.maxpat",
-				"bootpath" : "~/Desktop/Federico/Cycling74/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"patcherrelativepath" : "../../../../../Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}

@@ -128,6 +128,7 @@ function removeFromGlobalCtxMap() {
 	
 	if(gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
 		gGlobal.currentlySelected = -1;
+		gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh = false;
 	}
 	
 	gGlobal.meshCount--;
@@ -141,7 +142,6 @@ assignLatestActionToGlobal.local = 1;
 function setToGlobalIfMouseIsOnMesh(val) {
 	gGlobal.mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: layer};
 }
-setToGlobalIfMouseIsOnMesh.local = 1;
 
 
 
