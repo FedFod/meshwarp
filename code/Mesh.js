@@ -244,6 +244,7 @@ function Mesh(ID) {
         this.nurbs.drawto = drawto_;
         this.nurbs.enable = this.useNurbs * this.enableMesh;
         this.nurbs.order = this.nurbsOrder.slice();
+        this.nurbs.automatic = 0;
 
         this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbs.dim.slice());
 
