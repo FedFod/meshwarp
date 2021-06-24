@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 751.0, 84.0, 359.0, 702.0 ],
+		"rect" : [ 658.0, 115.0, 684.0, 702.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -57,7 +57,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 359.0, 676.0 ],
+						"rect" : [ 0.0, 26.0, 684.0, 676.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -351,7 +351,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 751.0, 110.0, 359.0, 676.0 ],
+						"rect" : [ 658.0, 141.0, 684.0, 676.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -396,7 +396,7 @@
 									"numoutlets" : 1,
 									"offset" : [ 0.0, 0.0 ],
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 21.0, 534.047614336013794, 315.0, 67.952385663986206 ],
+									"patching_rect" : [ 21.0, 534.047614336013794, 313.0, 86.952385663986206 ],
 									"viewvisibility" : 1
 								}
 
@@ -739,18 +739,6 @@
 									"outlettype" : [ "" ],
 									"patching_rect" : [ 796.142860054969788, 92.0, 81.0, 22.0 ],
 									"text" : "color 1 1 1 $1"
-								}
-
-							}
-, 							{
-								"box" : 								{
-									"bubble" : 1,
-									"id" : "obj-44",
-									"maxclass" : "comment",
-									"numinlets" : 1,
-									"numoutlets" : 0,
-									"patching_rect" : [ 342.142860054969788, 650.0, 170.0, 24.0 ],
-									"text" : "Move vertices with flonums"
 								}
 
 							}

@@ -140,7 +140,7 @@ function assignLatestActionToGlobal(latestAction) {
 assignLatestActionToGlobal.local = 1;
 
 function setToGlobalIfMouseIsOnMesh(val) {
-	gGlobal.mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: layer};
+	gGlobal.mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: videoplane.layer};
 }
 
 

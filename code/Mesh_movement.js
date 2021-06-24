@@ -10,7 +10,7 @@ Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {
     this.selectedVertexIndex = GUI_ELEMENTS.NEGATIVE_INDEX.slice();
     for (var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
-            var currVertexPos = this.positionMat.getcell(i,j);
+            var currVertexPos = this.getPositionMatCell([i,j]);
             var distFromMouse = calcDist2D(currVertexPos.slice(), mouseWorld.slice());
             if (distFromMouse <= gMinimumSelectionDist) {
                 gGraphics.drawCircle(currVertexPos);

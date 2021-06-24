@@ -37,6 +37,11 @@ function GraphicElements(nodectx) {
         }
     }
 
+    this.highlightCircle = function(cellIndex) {
+        var coordsWorld = gMesh.getPositionMatCell(cellIndex);
+        this.drawCircle(coordsWorld);
+    }
+
     this.resetSingleCircle = function() {
         this.sketch.reset();
     }

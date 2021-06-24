@@ -405,8 +405,12 @@ function Mesh(ID) {
         if (!val) {
             this.deselectVertices();
             this.latestAction = GUI_ELEMENTS.NOTHING;
-        }
+        } 
         this.showUI(val);
+    }
+
+    this.getPositionMatCell = function(index) {
+        return this.positionMat.getcell(index).slice();
     }
 }
 

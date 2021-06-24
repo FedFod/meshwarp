@@ -16,6 +16,7 @@ function reset() {
 }
 
 function move_vertex(indexX, indexY, posX, posY) {
+	gGraphics.highlightCircle([indexX, indexY]); 
 	gMesh.moveVertex([posX, posY], [indexX, indexY]);
 }
 

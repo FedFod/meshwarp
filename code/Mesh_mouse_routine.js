@@ -75,17 +75,19 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
 
     if (!mouseClicked && gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
         if (gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh) {
-            if (!gGlobal.mouseIsOnMesh[gGlobal.currentlySelected].isOnMesh) {
-                var foundLayers = [];
-                for (var mesh in gGlobal.mouseIsOnMesh) {
-                    if (gGlobal.mouseIsOnMesh[mesh].isOnMesh) {
-                        foundLayers.push(gGlobal.mouseIsOnMesh[mesh].layer)
-                    }
+            var foundLayers = [];
+            for (var mesh in gGlobal.mouseIsOnMesh) {
+                if (gGlobal.mouseIsOnMesh[mesh].isOnMesh) {
+                    foundLayers.push(gGlobal.mouseIsOnMesh[mesh].layer)
                 }
+            }
+            if (foundLayers.length > 1) {
                 if (foundLayers.max() == layer) {
                     assignThisAsCurrentlySelectedToGlobal();
-                }
-            }          
+                } 
+            } else {
+                assignThisAsCurrentlySelectedToGlobal();
+            }
         } else if (gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
             deselectThisFromGlobal();
             setToGlobalIfMouseIsOnMesh(false);  
