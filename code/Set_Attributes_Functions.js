@@ -16,8 +16,12 @@ function reset() {
 }
 
 function move_vertex(indexX, indexY, posX, posY) {
-	gGraphics.highlightCircle([indexX, indexY]); 
-	gMesh.moveVertex([posX, posY], [indexX, indexY]);
+	var tempPos = [posX, posY]; 
+	var tempIndex = [indexX, indexY];
+	if (checkIfVec2AreDifferent(tempIndex, gMesh.selectedVertexIndex)) {
+		var tempPos = gMesh.getPositionMatCell(tempIndex);
+	}
+	gMesh.moveVertex(tempPos, tempIndex);
 }
 
 function jit_gl_texture(texName) {

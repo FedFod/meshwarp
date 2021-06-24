@@ -21,10 +21,10 @@ function Mesh(ID) {
     this.meshGrid = null;
     this.meshFull = null;
     this.nurbs = null;
-    // this.physBody = null;
     this.textureProxy = null;
     this.nurbsDim = [40, 40];
     this.nurbsOrder = [1,1];
+    // this.physBody = null;
 
     this.posMatPlaneCount = 3;
     this.posMatType = "float32";
@@ -47,6 +47,7 @@ function Mesh(ID) {
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
     this.selectedVerticesIndices = [];
+    this.selectedVertexIndex = GUI_ELEMENTS.NEGATIVE_INDEX.slice();
     this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
     this.latestAction = GUI_ELEMENTS.NOTHING;
     this.textureRatio = 1;
@@ -410,7 +411,11 @@ function Mesh(ID) {
     }
 
     this.getPositionMatCell = function(index) {
-        return this.positionMat.getcell(index).slice();
+        if (this.checkIfIndexIsWithinPositionMat(index)) {
+            return this.positionMat.getcell(index).slice();
+        } else {
+            return GUI_ELEMENTS.NEGATIVE_INDEX;
+        }
     }
 }
 

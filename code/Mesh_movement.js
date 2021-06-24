@@ -105,19 +105,27 @@ Mesh.prototype.setMeshPosition = function(offset) {
 Mesh.prototype.moveVertexWithMouse = function(coordsWorld) {
     var newPos = sumVec2D(coordsWorld, this.mouseOffset);
     this.moveVertex(newPos, this.selectedVertexIndex);
-    this.outputSelectedVertex(coordsWorld);
 }
 
 Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
-    this.setVertexPosInMat(coordsWorld, cellIndex);
-    this.applyMeshTransformation();
-    this.latestAction = GUI_ELEMENTS.WAS_MOVED_SINGLE_VERTEX;
-    gGraphics.drawCircle(coordsWorld);
+    if (this.checkIfIndexIsWithinPositionMat(cellIndex)) {
+        this.selectedVertexIndex = cellIndex;
+        this.setVertexPosInMat(coordsWorld, cellIndex);
+        this.applyMeshTransformation();
+        this.latestAction = GUI_ELEMENTS.WAS_MOVED_SINGLE_VERTEX;
+        gGraphics.drawCircle(coordsWorld);
+        this.outputSelectedVertex(coordsWorld);
+    }
 }
 
 Mesh.prototype.applyMeshTransformation = function() {
     this.unscaledMatFromPosMat();
     this.assignPositionMatToMesh();
+}
+
+Mesh.prototype.checkIfIndexIsWithinPositionMat = function(index) {
+    return (index[0] >= 0 && index[0] < this.positionMat.dim[0] &&
+            index[1] >= 0 && index[1] < this.positionMat.dim[1]);
 }
 
 //-------------------------------------------
