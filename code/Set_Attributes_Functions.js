@@ -56,6 +56,7 @@ function setenable(val) {
 	nodeCTX.enable = enable;
 	videoplane.enable = enable;
 	showUI(val);
+	gMesh.setenable(val);
 }
 setenable.local = 1;
 

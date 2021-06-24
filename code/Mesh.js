@@ -67,8 +67,6 @@ function Mesh(ID) {
     this.boundingMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 10);
     this.adjacentCellsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 8);
 
-
-    // unused for now
     this.setenable = function(val) {
         if(this.meshFull) {
             this.meshPoints.enable = this.enableMesh && val;
