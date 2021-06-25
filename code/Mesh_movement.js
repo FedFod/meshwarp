@@ -115,6 +115,7 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
         this.latestAction = GUI_ELEMENTS.WAS_MOVED_SINGLE_VERTEX;
         gGraphics.drawCircle(coordsWorld);
         this.outputSelectedVertex(coordsWorld);
+        this.triggerNURBSOutput();
     }
 }
 

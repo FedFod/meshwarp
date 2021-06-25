@@ -98,6 +98,7 @@ function Mesh(ID) {
         
         this.assignPositionMatToMesh();
         this.initAndAssignTextureCoordMat(); // init texture coord mat
+        this.triggerNURBSOutput();
     }
 
     this.initState = function() {
@@ -353,6 +354,7 @@ function Mesh(ID) {
         if (this.useNurbs) {
             this.assignControlMatToNurbs(); // set the new position as the control matrix for nurbs
             this.hasNurbsMat = 0;
+            this.triggerNURBSOutput();
         } else {
             this.meshPoints.vertex_matrix(this.positionMat.name);
             this.meshGrid.vertex_matrix(this.positionMat.name);
@@ -415,6 +417,10 @@ function Mesh(ID) {
         } else {
             return GUI_ELEMENTS.NEGATIVE_INDEX;
         }
+    }
+
+    this.triggerNURBSOutput = function() {
+        this.nurbs.draw();
     }
 }
 

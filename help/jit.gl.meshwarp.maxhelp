@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 79.0, 1205.0, 720.0 ],
+		"rect" : [ 34.0, 76.0, 1207.0, 715.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -58,7 +58,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 1205.0, 694.0 ],
+						"rect" : [ 0.0, 26.0, 1207.0, 689.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -352,7 +352,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 34.0, 105.0, 1205.0, 694.0 ],
+						"rect" : [ 34.0, 102.0, 1207.0, 689.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -499,7 +499,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 202.0, 179.0, 24.0, 24.0 ]
+									"patching_rect" : [ 227.0, 186.738093018531799, 24.0, 24.0 ]
 								}
 
 							}
@@ -510,7 +510,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 202.0, 213.0, 64.0, 22.0 ],
+									"patching_rect" : [ 227.0, 220.738093018531799, 64.0, 22.0 ],
 									"text" : "floating $1"
 								}
 
@@ -595,7 +595,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 951.380953431129456, 491.619042873382568, 24.0, 24.0 ],
+									"patching_rect" : [ 976.380953431129456, 489.619042873382568, 24.0, 24.0 ],
 									"saved_attribute_attributes" : 									{
 										"valueof" : 										{
 											"parameter_enum" : [ "off", "on" ],
@@ -618,7 +618,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 951.380953431129456, 527.619042873382568, 89.0, 22.0 ],
+									"patching_rect" : [ 976.380953431129456, 525.619042873382568, 89.0, 22.0 ],
 									"text" : "show_ui $1"
 								}
 
@@ -910,7 +910,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 70.0, 516.0, 33.0 ],
+									"patching_rect" : [ 21.0, 70.0, 516.0, 34.0 ],
 									"text" : "The jit.gl.meshwarp allows to deform visual material projected on an arbitrary number of planes.\nIt can be used either for video-mapping or as a creative tool."
 								}
 
@@ -923,7 +923,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 19.0, 241.0, 42.0 ],
+									"patching_rect" : [ 21.0, 19.0, 241.0, 43.0 ],
 									"text" : "jit.gl.meshwarp"
 								}
 
@@ -1009,7 +1009,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 76.642860054969788, 220.738093018531799, 80.0, 35.0 ]
+									"patching_rect" : [ 76.642860054969788, 220.738093018531799, 80.0, 36.0 ]
 								}
 
 							}
@@ -1051,17 +1051,13 @@
 							}
 , 							{
 								"box" : 								{
-									"frozen_object_attributes" : 									{
-										"rect" : [ 1152, 45, 1792, 525 ]
-									}
-,
 									"id" : "obj-2",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "jit_matrix", "bang", "" ],
-									"patching_rect" : [ 37.642860054969788, 188.738093018531799, 97.0, 22.0 ],
-									"text" : "jit.world @fsaa 1"
+									"patching_rect" : [ 37.642860054969788, 188.738093018531799, 162.0, 22.0 ],
+									"text" : "jit.world @fsaa 1 @floating 1"
 								}
 
 							}
@@ -1468,10 +1464,10 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-51::obj-1::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
+			"obj-51::obj-1::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
 			"obj-51::obj-20" : [ "toggle[1]", "toggle[1]", 0 ],
 			"obj-51::obj-41::obj-8" : [ "meshwarpjs[1]", "meshwarpjs[1]", 0 ],
-			"obj-51::obj-43::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
+			"obj-51::obj-43::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-51::obj-46" : [ "toggle[4]", "toggle[1]", 0 ],
 			"obj-51::obj-50" : [ "number[5]", "number[5]", 0 ],
 			"obj-51::obj-52" : [ "swatch", "swatch", 0 ],
@@ -1485,30 +1481,23 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "jit.gl.meshwarp.maxhelp.maxsnap",
-				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
-				"type" : "mx@s",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"patcherrelativepath" : "../../../../../Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/code",
-				"patcherrelativepath" : "../code",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/code",
+				"patcherrelativepath" : "../../../../../Documents/Max 8/Packages/meshwarp/code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "change_vertex_pos_bpatcher.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"patcherrelativepath" : "../../../../../Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
