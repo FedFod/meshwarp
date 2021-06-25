@@ -69,12 +69,9 @@ function Mesh(ID) {
 
     this.setenable = function(val) {
         if(this.meshFull) {
-            this.meshPoints.enable = this.enableMesh && val;
-            this.meshGrid.enable = this.enableMesh && val;
-            this.meshFull.enable = val;
-            this.nurbs.enable = this.enableMesh && this.useNurbs && val;
-            this.moveHandle = this.enableMesh && val;
-            this.scaleHandles = this.enableMesh && val;
+            this.enableMesh = val;
+            this.meshFull.enable = this.enableMesh;
+            this.nurbs.enable = this.enableMesh && this.useNurbs;
             // this.physBody.enable = val;
         }
     }

@@ -129,6 +129,7 @@ setScale.local = 1;
 function setPosition(posX, posY, posZ) {
 	gMesh.setMeshPosition([posX, posY, posZ]);
 	gMesh.updateGUI();
+	gMesh.calcMeshBoundsMat();
 }
 setPosition.local = 1;
 
