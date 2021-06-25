@@ -32,6 +32,8 @@ var scale = [1, 1];
 declareattribute("scale", null, "setScale", 0);
 var position = [0,0,0];
 declareattribute("position", null, "setPosition", 0);
+var rotatez = 0;
+declareattribute("rotatez", null, "setRotatez", 0);
 
 var texture = [""];
 declareattribute("texture", null, "setTexturesMeshes", 0);

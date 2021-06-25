@@ -14,6 +14,7 @@ var gMinMaxMat = new JitterObject("jit.3m");
 var videoplane = new JitterObject("jit.gl.videoplane");
 videoplane.transform_reset = 2;
 videoplane.color = WHITE;
+videoplane.color[3] = 0;
 videoplane.texture = nodeCTX.out_name;
 videoplane.depth_enable = 0;
 videoplane.blend_enable = 1;

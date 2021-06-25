@@ -71,6 +71,11 @@ function setColor() {
 }
 setColor.local = 1;
 
+function setRotatez(rotZ) {
+	rotatez = rotZ;
+	gMesh.rotateZ(rotZ);
+}
+
 function setBlendEnable(val) {
 	gMesh.setBlendEnable(val);
 }

@@ -120,6 +120,18 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
     }
 }
 
+Mesh.prototype.rotateZ = function(rotZ) {
+    for(var i=0; i<this.positionMat.dim[0]; i++) {
+        for (var j=0; j<this.positionMat.dim[1]; j++) {
+            var cell = this.positionMat.getcell(i,j);
+            var x = cell[0]; var y = cell[1];
+            var rotatedCell = [x*Math.cos(rotZ)-y*Math.sin(rotZ), y*Math.cos(rotZ)+x*Math.sin(rotZ), cell[2]];
+            this.positionMat.setcell2d(i,j,rotatedCell[0], rotatedCell[1], rotatedCell[2]);
+        }
+    }
+    this.applyMeshTransformation();
+}
+
 Mesh.prototype.applyMeshTransformation = function() {
     this.unscaledMatFromPosMat();
     this.assignPositionMatToMesh();
