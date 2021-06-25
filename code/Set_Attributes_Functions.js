@@ -180,3 +180,11 @@ function showUI(show) {
 	}
 }
 showUI.local = 1;
+
+function show_position_handle(val) {
+	gMesh.showMoveHandle(val);
+}
+
+function show_scale_handles(val) {
+	gMesh.showScaleHandles(val);
+}

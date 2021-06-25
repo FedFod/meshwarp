@@ -11,18 +11,20 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
 }
 
 Mesh.prototype.scaleWithHandle = function(mouseWorld) {
-    var distFromInitial = subVec2D(mouseWorld, this.latestMousePos); //this.latestMousePos
-    if (this.scaleHandles.index == 0) {
-        distFromInitial[1] = distFromInitial[1]*-1;
-    } else if (this.scaleHandles.index == 1) {
-       distFromInitial[0] *= -1;
-       distFromInitial[1] *= -1;
-    } else if (this.scaleHandles.index == 2) {
-        distFromInitial[0] *= -1;
+    if (this.enableScaleHandles) {
+        var distFromInitial = subVec2D(mouseWorld, this.latestMousePos); //this.latestMousePos
+        if (this.scaleHandles.index == 0) {
+            distFromInitial[1] = distFromInitial[1]*-1;
+        } else if (this.scaleHandles.index == 1) {
+           distFromInitial[0] *= -1;
+           distFromInitial[1] *= -1;
+        } else if (this.scaleHandles.index == 2) {
+            distFromInitial[0] *= -1;
+        }
+    
+        distFromInitial = subVec2D(this.latestScale, distFromInitial);
+        this.scaleMesh(distFromInitial[0], distFromInitial[1]);
     }
-
-    distFromInitial = subVec2D(this.latestScale, distFromInitial);
-    this.scaleMesh(distFromInitial[0], distFromInitial[1]);
 }
 
 Mesh.prototype.scaleToTextureRatio = function(val) {

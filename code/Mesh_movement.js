@@ -84,9 +84,11 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
 }
 
 Mesh.prototype.moveMeshWithHandle = function(mouseWorld) {
-    gGraphics.resetSelected();
-    var offset = sumVec2D(mouseWorld, this.mouseOffset);
-    this.setMeshPosition(offset);
+    if (this.enableMoveHandle) {
+        gGraphics.resetSelected();
+        var offset = sumVec2D(mouseWorld, this.mouseOffset);
+        this.setMeshPosition(offset);
+    }
 }
 
 Mesh.prototype.setMeshPosition = function(offset) {
@@ -115,7 +117,6 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
         this.latestAction = GUI_ELEMENTS.WAS_MOVED_SINGLE_VERTEX;
         gGraphics.drawCircle(coordsWorld);
         this.outputSelectedVertex(coordsWorld);
-        this.triggerNURBSOutput();
     }
 }
 

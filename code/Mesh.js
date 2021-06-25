@@ -35,6 +35,8 @@ function Mesh(ID) {
 
     this.useNurbs = 1;
     this.showMeshUI = 1;
+    this.enableMoveHandle = 1;
+    this.enableScaleHandles = 1;
     this.currentScale = [1, 1];
     this.latestScale = this.currentScale.slice();
     this.meshRatio = 1;
@@ -341,8 +343,8 @@ function Mesh(ID) {
     this.showUI = function(show) {
         this.meshGrid.enable = show;
         this.meshPoints.enable = show;
-        this.scaleHandles.enable = show;
-        this.moveHandle.enable = show;
+        this.scaleHandles.enable = show && this.enableScaleHandles;
+        this.moveHandle.enable = show && this.enableMoveHandle;
         this.showMeshUI = show;
         //this.physBody.enable = show;
     }

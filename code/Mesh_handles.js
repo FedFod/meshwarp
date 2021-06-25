@@ -43,3 +43,13 @@ Mesh.prototype.updateGUI = function() {
     this.drawMoveHandleFull();
     this.drawScaleHandleFull();
 }
+
+Mesh.prototype.showMoveHandle = function(val) {
+    this.moveHandle.enable = val;
+    this.enableMoveHandle = val;
+}
+
+Mesh.prototype.showScaleHandles = function(val) {
+    this.scaleHandles.enable = val;
+    this.enableScaleHandles = val;
+}
