@@ -72,8 +72,9 @@ function setColor() {
 setColor.local = 1;
 
 function setRotatez(rotZ) {
-	rotatez = rotZ;
-	gMesh.rotateZ(rotZ);
+	var angleRad = (rotZ / 180) * 3.1459;
+	rotatez = angleRad;
+	gMesh.rotateZ(angleRad);
 }
 
 function setBlendEnable(val) {

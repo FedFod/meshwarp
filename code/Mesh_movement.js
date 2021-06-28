@@ -95,7 +95,6 @@ Mesh.prototype.setMeshPosition = function(offset) {
     var newPos = subVec2D(offset, this.currentPos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);
     this.currentPos = offset.slice();
-    // this.currentPos = newPos;
 
     gGraphics.resetSingleCircle();
     this.deselectVertices();
@@ -121,15 +120,21 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
 }
 
 Mesh.prototype.rotateZ = function(rotZ) {
+    var angle = rotZ - this.latestRotation;
+    this.positionMat.op("-", this.currentPos);  
+
     for(var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
-            var cell = this.positionMat.getcell(i,j);
-            var x = cell[0]; var y = cell[1];
-            var rotatedCell = [x*Math.cos(rotZ)-y*Math.sin(rotZ), y*Math.cos(rotZ)+x*Math.sin(rotZ), cell[2]];
+            var rotatedCell = rotate2D(this.positionMat.getcell(i,j), angle);
             this.positionMat.setcell2d(i,j,rotatedCell[0], rotatedCell[1], rotatedCell[2]);
         }
     }
+
+    this.latestRotation = rotZ;
+    this.positionMat.op("+", this.currentPos); 
+    // this.currentPos = rotate2D(this.currentPos, angle);
     this.applyMeshTransformation();
+    this.rotateScaleHandles(angle);
 }
 
 Mesh.prototype.applyMeshTransformation = function() {

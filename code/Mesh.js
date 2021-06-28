@@ -48,6 +48,7 @@ function Mesh(ID) {
     this.scaleHandles = null;
     this.mouseOffset = [0,0];
     this.latestMousePos = [0,0];
+    this.latestRotation = 0;
     this.selectedVerticesIndices = [];
     this.selectedVertexIndex = GUI_ELEMENTS.NEGATIVE_INDEX.slice();
     this.mouseIsCloseTo = GUI_ELEMENTS.NOTHING;
@@ -98,6 +99,7 @@ function Mesh(ID) {
         this.assignPositionMatToMesh();
         this.initAndAssignTextureCoordMat(); // init texture coord mat
         this.triggerNURBSOutput();
+        this.updateGUI();
     }
 
     this.initState = function() {
@@ -107,6 +109,7 @@ function Mesh(ID) {
         this.currentPos = [0,0];
         this.currentScale = [1, 1];
         this.latestScale = this.currentScale.slice();
+        this.latestRotation = 0;
         this.useNurbs = 1;
         this.useAspectRatio = 0;
         this.redoLevelIndex = 0;

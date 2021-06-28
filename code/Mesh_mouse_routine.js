@@ -8,7 +8,9 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
             this.checkIfMouseIsCloseToScaleHandles(mouseWorld);
             gGraphics.resetSingleCircle();
         }
-        this.updateGUI();
+        if (this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
+            this.updateGUI();
+        }
     }
 }
 

@@ -47,6 +47,12 @@ function checkIfVec2AreDifferent(vec1, vec2) {
 	return (vec1[0] != vec2[0] || vec1[1] != vec2[1]);
 }
 
+function rotate2D(vec, angle) {
+	var x = vec[0]; var y = vec[1];
+	return [x*Math.cos(angle)-y*Math.sin(angle), y*Math.cos(angle)+x*Math.sin(angle), 0];
+}
+rotate2D.local = 1;
+
 function subVec2D(vec1, vec2) {
 	return [vec1[0]-vec2[0], vec1[1]-vec2[1]];
 }
