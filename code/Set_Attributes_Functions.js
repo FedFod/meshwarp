@@ -53,10 +53,14 @@ function setvalueof(dict) {
 // ATTRIBUTES ----------------------------------
 function setenable(val) {
 	enable = val;
-	nodeCTX.enable = enable;
-	videoplane.enable = enable;
+	videoplane.automatic = val;;
+	nodeCTX.automatic = val;
 	showUI(val);
 	gMesh.setenable(val);
+	if(!enable) {
+		gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
+		setToGlobalIfMouseIsOnMesh(false);
+	}
 }
 setenable.local = 1;
 
@@ -70,6 +74,11 @@ function setColor() {
 	gMesh.setColor(color);
 }
 setColor.local = 1;
+
+function setUIGridColor() {
+	ui_grid_color = arrayfromargs(messagename, arguments).slice(1,5);
+	gMesh.setUIGridColor(ui_grid_color);
+}
 
 function setRotatez(rotZ) {
 	var angleRad = (rotZ / 180) * 3.1459;

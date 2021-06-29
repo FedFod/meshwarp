@@ -7,10 +7,10 @@ var LIGHT_BLUE= [0.1, 0.9, 1.0, 1];
 var YELLOW = [1,1,0,1];
 var ORANGE = [1,0.7,0,1];
 
-var BACKGROUND = 9;
-var MIDDLE = 10;
-var MIDDLE_1 = 11;
-var FRONT = 12;
+var BACKGROUND = 0;
+var MIDDLE = 1;
+var MIDDLE_1 = 2;
+var FRONT = 3;
 
 var GUI_ELEMENTS = {
 	NOTHING: -1,

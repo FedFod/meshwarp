@@ -72,6 +72,7 @@ function Mesh(ID) {
 
     this.setenable = function(val) {
         if(this.meshFull) {
+            print("set enable")
             this.enableMesh = val;
             this.meshFull.enable = this.enableMesh;
             this.nurbs.enable = this.enableMesh && this.useNurbs;
@@ -81,6 +82,7 @@ function Mesh(ID) {
 
     this.initMesh = function(drawto_) {
         this.initState();
+        print("init")
 
         this.setMeshDim(this.posMatDim);
         this.initPositionMat(); // fill vertex mat from scratch
@@ -137,6 +139,10 @@ function Mesh(ID) {
     this.setColor = function(color_) {
         this.meshFull.color = color_.slice();
         this.meshColor = color_.slice();
+    }
+
+    this.setUIGridColor = function(color_) {
+        this.meshGrid.color = color_.slice();
     }
 
     this.setBlendEnable = function(val_) {
@@ -221,7 +227,7 @@ function Mesh(ID) {
         this.meshGrid.draw_mode = "quad_grid";
         this.meshGrid.depth_enable = 0;
         this.meshGrid.layer = MIDDLE;
-        this.meshGrid.color = randomColor();
+        this.meshGrid.color = ui_grid_color;
         this.meshGrid.poly_mode = [1, 1];
         this.meshGrid.line_width = 3;
         this.meshGrid.drawto   = drawto_;
@@ -304,6 +310,7 @@ function Mesh(ID) {
         this.freeMeshShapes();
         this.freeMeshHandles();
         this.freeMeshNurbsLstnr();
+        this.textureProxy.freepeer();
         // this.freePhysBody();
     }
 
@@ -396,12 +403,14 @@ function Mesh(ID) {
     }
 
     this.assignTextureToMesh = function(textureName) {
-        this.textureName = textureName;
-        if (textureName != "noTexture") {
-            this.textureProxy.name = textureName;
-            var texDim = this.textureProxy.send("getdim");
-            this.textureRatio = texDim[0] / texDim[1];
-            this.meshFull.jit_gl_texture(this.textureName);
+        if (this.enableMesh) {
+            this.textureName = textureName;
+            if (textureName != "noTexture") {
+                this.textureProxy.name = textureName;
+                var texDim = this.textureProxy.send("getdim");
+                this.textureRatio = texDim[0] / texDim[1];
+                this.meshFull.jit_gl_texture(this.textureName);
+            }
         }
     }
 

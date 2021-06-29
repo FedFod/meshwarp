@@ -44,6 +44,9 @@ declareattribute("layer", null, "setMeshLayer", 0);
 var color = WHITE.slice();
 declareattribute("color", null, "setColor", 0);
 
+var ui_grid_color = randomColor();
+declareattribute("ui_grid_color", null, "setUIGridColor", 0);
+
 var blend_enable = 0;
 declareattribute("blend_enable", null, "setBlendEnable", 0);
 

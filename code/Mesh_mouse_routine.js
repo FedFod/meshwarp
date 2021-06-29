@@ -8,9 +8,7 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
             this.checkIfMouseIsCloseToScaleHandles(mouseWorld);
             gGraphics.resetSingleCircle();
         }
-        if (this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
-            this.updateGUI();
-        }
+        this.updateGUI();
     }
 }
 
@@ -70,9 +68,10 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     // SELECT MESH GLOBALLY
     if (mouseClicked) {
         if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
-            setToGlobalIfMouseIsOnMesh(true);        } 
-        else {
-            setToGlobalIfMouseIsOnMesh(false);        }
+            setToGlobalIfMouseIsOnMesh(true);        
+        } else {
+            setToGlobalIfMouseIsOnMesh(false);        
+        }
     }
 
     if (!mouseClicked && gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {

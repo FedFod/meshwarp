@@ -1,0 +1,233 @@
+<?xml version="1.0" encoding="utf-8" standalone="yes"?>
+<?xml-stylesheet href="./_c74_ref.xsl" type="text/xsl"?>
+
+<c74object name="jit.gl.meshwarp">
+
+    <digest>
+        Video mapping tool
+    </digest>
+
+    <description>
+        The jit.gl.meshwarp allows to deform visual material projected on a two-dimensional mesh.
+        It can be used either for video-mapping or as a creative tool.
+    </description>
+
+    <!--METADATA-->
+    <metadatalist>
+        <metadata name="author">Federico Foderaro, Rob Ramirez</metadata>
+        <metadata name="tag">meshwarp</metadata>
+        <metadata name="tag">Jitter</metadata>
+    </metadatalist>
+
+    <!--INLETS-->
+    <inletlist>
+        <inlet id="0" type="message">
+            <digest>Inlet 0</digest>
+            <description>Send messages to jit.gl.meshwarp</description>
+        </inlet>
+    </inletlist>
+
+    <!--OUTLETS-->
+    <outletlist>
+        <outlet id="0" type="message">
+            <digest>Outlet 0</digest>
+            <description>Send messages from jit.gl.meshwarp</description>
+        </outlet>
+    </outletlist>
+
+    <!--ARGUMENTS-->
+    <objarglist>
+        <objarg name="drawto" optional="" type="message">
+            <digest>The name drawing context in which to draw (default = none). A named drawing context is a named
+            instance of a jit.window, jit.pwindow, or jit.matrix object that has an instance of the jit.gl.render object associated to it.</digest>
+        </objarg>
+    </objarglist>
+
+    <!--MESSAGES-->
+    <methodlist>
+        <method name="jit_gl_texture">
+            <!--<arglist>
+                <arg name="parameter-settings" optional="0" type="float" />
+            </arglist>-->
+            <digest>
+            Bind a texture
+            </digest>
+            <description>
+                Binds the texture specified by texture-name to this object. Equivalent to setting the texture attribute to texture-name.
+            </description>
+        </method>
+        <method name="read">
+            <digest>
+                Read the complete current state of the jit.gl.meshwarp object from a JSON file (.json).
+            </digest>
+            <description>
+                Read the complete current state of the jit.gl.meshwarp object from a JSON file (.json).
+                If no filename is specified, a file dialog will open to let you choose a file.
+            </description>
+        </method>
+        <method name="redo">
+            <digest>
+                Redo latest undone UI changes. 
+            </digest>
+            <description>
+                Redo latest undone UI changes. Can be also called by pressing "ctrl/cmd + y" on the keyboard.
+            </description>
+        </method>
+        <method name="reset">
+            <digest>
+                Reset the jit.gl.meshwarp to the default state. 
+            </digest>
+            <description>
+                Reset the jit.gl.meshwarp to the default state. It will reset the scale, position, rotation and color attributes.
+            </description>
+        </method>
+        <method name="save">
+            <digest>
+                Save the complete current state of the jit.gl.meshwarp object to a JSON file (.json).
+            </digest>
+            <description>
+                Save the complete current state of the jit.gl.meshwarp object to a JSON file (.json).
+                If no filename is specified, a file dialog will open to let you choose a file.
+            </description>
+        </method>
+        <method name="undo">
+            <digest>
+                Undo latest UI changes. 
+            </digest>
+            <description>
+                Undo latest UI changes. Can be also called by pressing "ctrl/cmd + z" on the keyboard.
+            </description>
+        </method>
+</methodlist>
+
+<attributelist>
+    <attribute name="color">
+            <arglist />
+            <digest>
+                The color of the mesh (default = 1. 1. 1. 1.)
+            </digest>
+            <description>
+                The color of the mesh (default = 1. 1. 1. 1.)
+            </description>
+    </attribute>
+    <attribute name="enable">
+            <arglist />
+            <digest>
+                Enable flag (default = 1)
+            </digest>
+            <description>
+                Enable flag (default = 1) When the flag is set, drawing is enabled.
+            </description>
+    </attribute>
+    <attribute name="layer">
+            <arglist />
+            <digest>
+                Object layer number (default = 0)
+            </digest>
+            <description>
+                Object layer number (default = 0) When in automatic mode, the layer number determines
+                the rendering order (low to high). Objects in the same layer have no guarantee which will be rendered first.
+            </description>
+    </attribute>
+    <attribute name="lock_to_aspect">
+            <arglist />
+            <digest>
+                Lock scale to input texture ratio flag (default = 0)
+            </digest>
+            <description>
+                Locks the scale to match the proportions of the input texture (default = 0).
+                When set to active, the scale attribute will only respond to the second attribute argument (y scale).
+            </description>
+    </attribute>
+      <attribute name="meshdim">
+            <arglist />
+            <digest>
+                Dimension of UI mesh (default = 4 4)
+            </digest>
+            <description>
+                Dimension of the UI mesh. Sets the number of clickable vertices displayed (default = 4 4)
+            </description>
+    </attribute>
+    <attribute name="position">
+            <arglist />
+            <digest>
+                The 3D origin in the form x y z (default = 0. 0. 0.)
+            </digest>
+            <description>
+                The 3D origin in the form x y z (default = 0. 0. 0.)
+            </description>
+    </attribute>
+    <attribute name="rotatez">
+            <arglist />
+            <digest>
+                Sets the current rotation in degrees.
+            </digest>
+            <description>
+                Sets the current rotation about the positive z axes (default = 0.).
+                Angles are expressed in degrees.
+            </description>
+    </attribute>
+    <attribute name="scale">
+            <arglist />
+            <digest>
+                The 3D scaling factor in the form x y z (default = 1. 1. 1.)
+            </digest>
+            <description>
+                The 3D scaling factor in the form x y z (default = 1. 1. 1.)
+            </description>
+    </attribute>
+    <attribute name="show_position_handle">
+            <arglist />
+            <digest>
+                Show / Hide position handle circle flag (default = 1)
+            </digest>
+            <description>
+                Show / Hide position handle circle flag (default = 1)
+            </description>
+    </attribute>
+    <attribute name="show_scale_handles">
+            <arglist />
+            <digest>
+                Show / Hide scale handle circles flag (default = 1)
+            </digest>
+            <description>
+                Show / Hide scale handle circles flag (default = 1)
+            </description>
+    </attribute>
+    <attribute name="show_ui">
+            <arglist />
+            <digest>
+                Show / Hide user interface flag (default = 1)
+            </digest>
+            <description>
+                Show or hide the interactive user interface for the jit.gl.meshwarp (default = 1).
+                When the flaf is set, the object will be highlighted if not currently selected. 
+            </description>
+    </attribute>
+    <attribute name="texture">
+            <arglist />
+            <digest>
+                The name of the texture to be applied (default = none)
+            </digest>
+            <description>
+                The name of the texture to be applied (default = none). 
+            </description>
+    </attribute>
+    <attribute name="ui_grid_color">
+            <arglist />
+            <digest>
+                Set the color of the UI mesh grid (default = random);
+            </digest>
+            <description>
+                Set the color of the UI mesh grid (default = random);
+            </description>
+    </attribute>
+</attributelist>
+
+
+<!--SEEALSO-->
+    <seealsolist>
+        <seealso name="jit.gl.mesh"/>
+    </seealsolist>
+
+</c74object>
