@@ -2,7 +2,7 @@ function GraphicElements(nodectx) {
     this.sketch = new JitterObject("jit.gl.sketch");
     this.sketch.drawto = nodectx;
     this.sketch.depth_enable = 0;
-    this.sketch.layer = FRONT+1;
+    this.sketch.layer = FRONT+2;
     this.sketch.color = RED;
     this.sketch.line_width = 2;
 
@@ -77,7 +77,7 @@ function GraphicElements(nodectx) {
     }
 
     this.setLayer = function(val) {
-        this.sketch.layer = FRONT+val;
+        this.sketch.layer = FRONT+val+1;
         this.sketch2.layer = FRONT+val;
     }
 }
