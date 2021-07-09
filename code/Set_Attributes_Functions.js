@@ -141,8 +141,8 @@ function setScale(scaleX, scaleY) {
 }
 setScale.local = 1;
 
-function setPosition(posX, posY, posZ) {
-	gMesh.setMeshPosition([posX, posY, posZ]);
+function setPosition(posX, posY) {
+	gMesh.setMeshPosition([posX, posY]);
 	gMesh.updateGUI();
 	gMesh.calcMeshBoundsMat();
 }

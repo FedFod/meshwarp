@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 87.0, 882.0, 573.0 ],
+		"rect" : [ 42.0, 87.0, 882.0, 573.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -180,7 +180,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.5, 27.0, 609.0, 33.0 ],
+									"patching_rect" : [ 21.5, 27.0, 609.0, 34.0 ],
 									"text" : "You can use multiple \"jit.gl.meshwarp\" objects at the same time.\nTo select one click on the shape in the rendering window using the mouse. "
 								}
 
@@ -339,7 +339,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.5, 27.0, 609.0, 33.0 ],
+									"patching_rect" : [ 21.5, 27.0, 609.0, 34.0 ],
 									"text" : "Save all the parameters of a jit.gl.meshwarp on a JSON file using the \"save\" message.\nLoad the JSON file in the jit.gl.meshwarp object with the \"read\" message to bring the object back the saved state."
 								}
 
@@ -1056,7 +1056,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 37.166666666666515, 27.190485954284668, 557.0, 74.0 ],
+									"patching_rect" : [ 37.166666666666515, 27.190485954284668, 557.0, 75.0 ],
 									"text" : "- Blue Circle: move the mesh.\n- Yellow Circles: scale the mesh.\n- Move individual vertices with mouse when Red Circle appears.\n- Click and Drag: select multiple vertices. \nAfter selecting the vertices you can move them all in bulk by clicking and dragging on a selected vertex."
 								}
 
@@ -1068,7 +1068,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 592.357139945030212, 273.119050145149231, 199.0, 33.0 ],
+									"patching_rect" : [ 592.357139945030212, 273.119050145149231, 199.0, 34.0 ],
 									"text" : "Use this abstraction to move single vertices by index."
 								}
 
@@ -1447,7 +1447,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 34.0, 113.0, 882.0, 547.0 ],
+						"rect" : [ 42.0, 113.0, 882.0, 547.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1508,7 +1508,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 578.0, 139.119042873382568, 153.0, 37.0 ],
+									"patching_rect" : [ 578.0, 139.119042873382568, 153.0, 38.0 ],
 									"text" : "Undo latest GUI action. \nAlso with: ctrl/cmd + z"
 								}
 
@@ -1521,7 +1521,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 578.0, 180.738093018531799, 196.0, 37.0 ],
+									"patching_rect" : [ 578.0, 180.738093018531799, 196.0, 38.0 ],
 									"text" : "Redo latest undone GUI action. \nAlso with: ctrl/cmd + y"
 								}
 
@@ -1557,7 +1557,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 70.0, 516.0, 33.0 ],
+									"patching_rect" : [ 21.0, 70.0, 516.0, 34.0 ],
 									"text" : "The jit.gl.meshwarp allows to deform visual material projected on a two-dimensional mesh.\nIt can be used either for video-mapping or as a creative tool."
 								}
 
@@ -1570,7 +1570,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 19.0, 241.0, 42.0 ],
+									"patching_rect" : [ 21.0, 19.0, 241.0, 43.0 ],
 									"text" : "jit.gl.meshwarp"
 								}
 
@@ -1620,7 +1620,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 115.142860054969788, 222.738093018531799, 80.0, 35.0 ]
+									"patching_rect" : [ 115.142860054969788, 222.738093018531799, 80.0, 36.0 ]
 								}
 
 							}
@@ -1824,30 +1824,20 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "jit.gl.meshwarp.maxhelp[1].maxsnap",
-				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
-				"type" : "mx@s",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/code",
-				"patcherrelativepath" : "../code",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/code",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "change_vertex_pos_bpatcher.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -2017,92 +2007,6 @@
 							"filepath" : "~/Documents/Max 8/Snapshots",
 							"filepos" : -1,
 							"snapshotfileid" : "fc3a50681efa11820184747794183978"
-						}
-
-					}
-, 					{
-						"filetype" : "C74Snapshot",
-						"version" : 2,
-						"minorversion" : 0,
-						"name" : "jit.gl.meshwarp.maxhelp[1]",
-						"origin" : "jit.gl.meshwarp.maxhelp",
-						"type" : "patcher",
-						"subtype" : "Undefined",
-						"embed" : 0,
-						"snapshot" : 						{
-							"valuedictionary" : 							{
-								"parameter_values" : 								{
-									"number[5]" : 0.0,
-									"toggle" : 1.0,
-									"toggle[1]" : 0.0,
-									"blob" : 									{
-										"meshwarpjs" : [ 											{
-												"show_ui" : 0,
-												"windowRatio" : 1.333333333333333,
-												"use_nurbs" : 1,
-												"mesh_color" : [ 1, 1, 1, 1 ],
-												"positionMat" : 												{
-													"scale" : [ 0.566666603088379, 0.354166686534882 ],
-													"center" : [ 0.329166650772095, -0.10833340883255 ],
-													"planecount" : 3,
-													"type" : "float32",
-													"dimensions" : [ 5, 4 ],
-													"nurbs_order" : [ 1, 1 ],
-													"vertices" : "[[-0.23749986290931702,-0.46250009536743164,0],[-0.23749986290931702,-0.22638899087905884,0],[-0.23749986290931702,0.009722188115119934,0],[-0.23749986290931702,0.24583333730697632,0],[0.04583323001861572,-0.46250009536743164,0],[0.04583323001861572,-0.22638899087905884,0],[0.04583323001861572,0.009722188115119934,0],[0.04583323001861572,0.24583333730697632,0],[0.32916659116744995,-0.46250009536743164,0],[0.32916659116744995,-0.22638899087905884,0],[0.32916659116744995,0.009722188115119934,0],[0.32916659116744995,0.24583333730697632,0],[0.6124998927116394,-0.46250009536743164,0],[0.6124998927116394,-0.22638899087905884,0],[0.6124998927116394,0.009722188115119934,0],[0.6124998927116394,0.24583333730697632,0],[0.8958331942558289,-0.46250009536743164,0],[0.8958331942558289,-0.22638899087905884,0],[0.8958331942558289,0.009722188115119934,0],[0.8958331942558289,0.24583333730697632,0]]"
-												}
-
-											}
- ],
-										"meshwarpjs[1]" : [ 											{
-												"show_ui" : 0,
-												"windowRatio" : 1.333333333333333,
-												"use_nurbs" : 1,
-												"mesh_color" : [ 1, 1, 1, 1 ],
-												"positionMat" : 												{
-													"scale" : [ 0.495833218097687, 0.362500041723251 ],
-													"center" : [ -0.020833417773247, -0.479166684672236 ],
-													"planecount" : 3,
-													"type" : "float32",
-													"dimensions" : [ 5, 4 ],
-													"nurbs_order" : [ 1, 1 ],
-													"vertices" : "[[-0.516666829586029,-0.8416666984558105,0],[-0.516666829586029,-0.6000000238418579,0],[-0.516666829586029,-0.3583333492279053,0],[-0.516666829586029,-0.11666667461395264,0],[-0.26875001192092896,-0.8416666984558105,0],[-0.26875001192092896,-0.6000000238418579,0],[-0.26875001192092896,-0.3583333492279053,0],[-0.26875001192092896,-0.11666667461395264,0],[-0.020833391696214676,-0.8416666984558105,0],[-0.020833391696214676,-0.6000000238418579,0],[-0.020833391696214676,-0.3583333492279053,0],[-0.020833391696214676,-0.11666667461395264,0],[0.2270832061767578,-0.8416666984558105,0],[0.2270832061767578,-0.6000000238418579,0],[0.2270832061767578,-0.3583333492279053,0],[0.2270832061767578,-0.11666667461395264,0],[0.47499993443489075,-0.8416666984558105,0],[0.47499993443489075,-0.6000000238418579,0],[0.47499993443489075,-0.3583333492279053,0],[0.47499993443489075,-0.11666667461395264,0]]"
-												}
-
-											}
- ],
-										"meshwarpjs[2]" : [ 											{
-												"show_ui" : 0,
-												"windowRatio" : 1.333333333333333,
-												"use_nurbs" : 1,
-												"mesh_color" : [ 1, 1, 1, 1 ],
-												"positionMat" : 												{
-													"scale" : [ 0.491666495800018, 0.39166671782732 ],
-													"center" : [ 0.708333073183894, 0.416666597127914 ],
-													"planecount" : 3,
-													"type" : "float32",
-													"dimensions" : [ 5, 4 ],
-													"nurbs_order" : [ 1, 1 ],
-													"vertices" : "[[0.21666660904884338,0.024999886751174927,0],[0.21666660904884338,0.2861109972000122,0],[0.21666660904884338,0.5472222566604614,0],[0.21666660904884338,0.8083332777023315,0],[0.46249985694885254,0.024999886751174927,0],[0.46249985694885254,0.2861109972000122,0],[0.46249985694885254,0.5472222566604614,0],[0.46249985694885254,0.8083332777023315,0],[0.7083330750465393,0.024999886751174927,0],[0.7083330750465393,0.2861109972000122,0],[0.7083330750465393,0.5472222566604614,0],[0.7083330750465393,0.8083332777023315,0],[0.95416659116745,0.024999886751174927,0],[0.95416659116745,0.2861109972000122,0],[0.95416659116745,0.5472222566604614,0],[0.95416659116745,0.8083332777023315,0],[1.200000286102295,0.024999886751174927,0],[1.200000286102295,0.2861109972000122,0],[1.200000286102295,0.5472222566604614,0],[1.200000286102295,0.8083332777023315,0]]"
-												}
-
-											}
- ],
-										"swatch" : [ 1.0, 1.0, 1.0, 1.0, 0.0, 1.0, 1.0 ],
-										"swatch[1]" : [ 0.0, 1.0, 1.0, 1.0, 0.5, 1.0, 0.5 ]
-									}
-
-								}
-
-							}
-
-						}
-,
-						"fileref" : 						{
-							"name" : "jit.gl.meshwarp.maxhelp[1]",
-							"filename" : "jit.gl.meshwarp.maxhelp[1].maxsnap",
-							"filepath" : "~/Documents/Max 8/Snapshots",
-							"filepos" : -1,
-							"snapshotfileid" : "3db468a792351463a0ce5d4248d8284d"
 						}
 
 					}
