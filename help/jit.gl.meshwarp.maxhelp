@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 42.0, 87.0, 882.0, 573.0 ],
+		"rect" : [ 234.0, 177.0, 882.0, 573.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -984,7 +984,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 882.0, 547.0 ],
+						"rect" : [ 234.0, 203.0, 882.0, 547.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1447,7 +1447,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 42.0, 113.0, 882.0, 547.0 ],
+						"rect" : [ 0.0, 26.0, 882.0, 547.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
