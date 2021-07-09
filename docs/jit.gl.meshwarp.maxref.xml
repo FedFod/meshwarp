@@ -9,7 +9,7 @@
 
     <description>
         The jit.gl.meshwarp allows to deform visual material projected on a two-dimensional mesh.
-        It can be used either for video-mapping or as a creative tool.
+        It can be used for video-mapping or other creative applications.
     </description>
 
     <!--METADATA-->
@@ -38,8 +38,11 @@
     <!--ARGUMENTS-->
     <objarglist>
         <objarg name="drawto" optional="" type="message">
-            <digest>The name drawing context in which to draw (default = none). A named drawing context is a named
-            instance of a jit.window, jit.pwindow, or jit.matrix object that has an instance of the jit.gl.render object associated to it.</digest>
+            <digest>The name drawing context in which to draw (default = none). A named drawing context 
+                is a named instance of a <o>jit.world</o>, <o>jit.pworld</o> or <o>jit.gl.node</o> object. If no argument is 
+                provided the object will find a context 
+                <link module="core" name="jitter_gl_contexts" type="vignette">implicitly.</link>
+            </digest>
         </objarg>
     </objarglist>
 
@@ -201,7 +204,7 @@
             </digest>
             <description>
                 Show or hide the interactive user interface for the jit.gl.meshwarp (default = 1).
-                When the flaf is set, the object will be highlighted if not currently selected. 
+                When the flag is set, the object will be highlighted if not currently selected. 
             </description>
     </attribute>
     <attribute name="texture">
