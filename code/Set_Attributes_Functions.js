@@ -82,11 +82,12 @@ function setUIGridColor() {
 
 function setRotatez(rotZ) {
 	var angleRad = (rotZ / 180) * 3.1459;
-	rotatez = angleRad;
+	rotatez = rotZ;
 	gMesh.rotateZ(angleRad);
 }
 
 function setBlendEnable(val) {
+	blend_enable = val;
 	gMesh.setBlendEnable(val);
 }
 setBlendEnable.local = 1;
@@ -141,12 +142,22 @@ function setScale(scaleX, scaleY) {
 }
 setScale.local = 1;
 
+function getScale() {
+	return gMesh.currentScale.slice();
+}
+getScale.local = 1;
+
 function setPosition(posX, posY) {
 	gMesh.setMeshPosition([posX, posY]);
 	gMesh.updateGUI();
 	gMesh.calcMeshBoundsMat();
 }
 setPosition.local = 1;
+
+function getPosition() {
+	return gMesh.currentPos.slice();
+}
+getPosition.local = 1;
 
 function setMeshLayer(val) {
 	layer = val;

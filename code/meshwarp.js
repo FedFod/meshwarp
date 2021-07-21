@@ -28,10 +28,9 @@ declareattribute("enable", null, "setenable", 0);
 var drawto = "";
 declareattribute("drawto", null, "setdrawto", 0);
 
-var scale = [1, 1];
-declareattribute("scale", null, "setScale", 0);
-var position = [0,0,0];
-declareattribute("position", null, "setPosition", 0);
+declareattribute("scale", "getScale", "setScale", 0);
+declareattribute("position", "getPosition", "setPosition", 0);
+
 var rotatez = 0;
 declareattribute("rotatez", null, "setRotatez", 0);
 

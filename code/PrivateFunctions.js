@@ -39,6 +39,7 @@ nodeCamera.ortho = 2;
 // calculateBoundingCells.local = 1;
 
 function setScaleRelativeToAspect(val) {
+	lock_to_aspect = val;
 	gMesh.scaleToTextureRatio(val);
 }
 setScaleRelativeToAspect.local = 1;
