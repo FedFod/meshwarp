@@ -14,6 +14,7 @@ Mesh.prototype.saveDataIntoDict = function(dict) {
 Mesh.prototype.loadDict = function(saveDict_) {
     this.loadDataFromDict(saveDict_);
     this.loadMatrixFromDict(saveDict_);
+    this.setMeshDim(this.posMatDim);
     this.setColor(this.meshColor);
     this.applyMeshTransformation();
     this.calcMeshBoundsMat();
