@@ -1,5 +1,5 @@
 Mesh.prototype.saveDataIntoDict = function(dict) {
-    dict.replace("use_nurbs", this.useNurbs);
+    //dict.replace("use_nurbs", this.useNurbs);
     dict.replace("mesh_color", this.meshColor);
     dict.replace("positionMat"+"::scale", this.currentScale);
     dict.replace("positionMat"+"::center", this.currentPos);
@@ -23,7 +23,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
 }
 
 Mesh.prototype.loadDataFromDict = function(dict) {
-    this.useNurbs = dict.get("use_nurbs");
+    //this.useNurbs = dict.get("use_nurbs");
     this.meshColor = dict.get("mesh_color");
     this.posMatPlaneCount = dict.get("positionMat"+"::planecount");
     this.posMatType = dict.get("positionMat::type");

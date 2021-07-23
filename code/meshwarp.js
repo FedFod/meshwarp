@@ -51,8 +51,10 @@ declareattribute("blend_enable", null, "setBlendEnable", 0);
 
 var nurbs_order = 1;
 declareattribute("nurbs_order", null, "setNurbsOrder", 0);
-var use_nurbs = 0; // default: use NURBS
-declareattribute("use_nurbs", null, "setNurbsOrMeshMode", 0);
+
+//var use_nurbs = 0; // default: use NURBS
+//declareattribute("use_nurbs", null, "setNurbsOrMeshMode", 0);
+
 var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 

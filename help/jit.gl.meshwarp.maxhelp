@@ -2063,7 +2063,6 @@
 							"meshwarpjs" : [ 								{
 									"show_ui" : 0,
 									"windowRatio" : 1.54635761589404,
-									"use_nurbs" : 1,
 									"mesh_color" : [ 1, 1, 1, 1 ],
 									"positionMat" : 									{
 										"scale" : [ 1.1597255203459, 0.520309090614319 ],
@@ -2080,7 +2079,6 @@
 							"meshwarpjs[1]" : [ 								{
 									"show_ui" : 1,
 									"windowRatio" : 1.54635761589404,
-									"use_nurbs" : 1,
 									"mesh_color" : [ 1, 1, 1, 1 ],
 									"positionMat" : 									{
 										"scale" : [ 0.582781374454498, 0.139072716236115 ],
@@ -2097,7 +2095,6 @@
 							"meshwarpjs[2]" : [ 								{
 									"show_ui" : 1,
 									"windowRatio" : 1.54635761589404,
-									"use_nurbs" : 1,
 									"mesh_color" : [ 1, 1, 1, 1 ],
 									"positionMat" : 									{
 										"scale" : [ 0.413907110691071, 0.228476762771606 ],
@@ -2144,7 +2141,6 @@
 										"meshwarpjs" : [ 											{
 												"show_ui" : 1,
 												"windowRatio" : 1.333333333333333,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.566666603088379, 0.354166686534882 ],
@@ -2161,7 +2157,6 @@
 										"meshwarpjs[1]" : [ 											{
 												"show_ui" : 1,
 												"windowRatio" : 1.333333333333333,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.495833218097687, 0.362500041723251 ],
@@ -2178,7 +2173,6 @@
 										"meshwarpjs[2]" : [ 											{
 												"show_ui" : 1,
 												"windowRatio" : 1.333333333333333,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.491666495800018, 0.39166671782732 ],
@@ -2237,7 +2231,6 @@
 										"meshwarpjs" : [ 											{
 												"show_ui" : 0,
 												"windowRatio" : 1.54635761589404,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 1.1597255203459, 0.520309090614319 ],
@@ -2254,7 +2247,6 @@
 										"meshwarpjs[1]" : [ 											{
 												"show_ui" : 1,
 												"windowRatio" : 1.54635761589404,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.582781374454498, 0.139072716236115 ],
@@ -2271,7 +2263,6 @@
 										"meshwarpjs[2]" : [ 											{
 												"show_ui" : 1,
 												"windowRatio" : 1.54635761589404,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.413907110691071, 0.228476762771606 ],
@@ -2315,7 +2306,6 @@
 										"meshwarpjs" : [ 											{
 												"show_ui" : 0,
 												"windowRatio" : 1.333333333333333,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.812499804422259, 0.412500023841858 ],
@@ -2332,7 +2322,6 @@
 										"meshwarpjs[1]" : [ 											{
 												"show_ui" : 1,
 												"windowRatio" : 1,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.495833218097687, 0.362500041723251 ],
@@ -2349,7 +2338,6 @@
 										"meshwarpjs[2]" : [ 											{
 												"show_ui" : 1,
 												"windowRatio" : 1,
-												"use_nurbs" : 1,
 												"mesh_color" : [ 1, 1, 1, 1 ],
 												"positionMat" : 												{
 													"scale" : [ 0.491666495800018, 0.39166671782732 ],

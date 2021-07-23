@@ -116,7 +116,6 @@ function loadSaveDict(path) {
 loadSaveDict.local = 1;
 
 function loadFromDict(saveDict) {
-	use_nurbs = saveDict.get("use_nurbs");
 	gWindowRatio = saveDict.get("windowRatio");
 
 	gMesh.loadDict(saveDict); 
