@@ -129,3 +129,6 @@ function swapcallback(event){
 }
 swapcallback.local = 1
 
+function write_ctl_matrix(path) {
+	gMesh.positionMat.write(path);
+}

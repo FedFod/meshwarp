@@ -17,6 +17,8 @@ Mesh.prototype.setMeshDim = function(newDim) {
         this.textureCoordMat.dim = [4, 4];
     }
     this.unscaledPosMat.dim = this.positionMat.dim.slice();
+    meshdim[0] = newDim[0];
+    meshdim[1] = newDim[1];
 }
 
 Mesh.prototype.resizeMeshDim = function(dimensions) {
