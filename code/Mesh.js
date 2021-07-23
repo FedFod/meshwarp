@@ -43,7 +43,7 @@ function Mesh(ID) {
     this.currentPos = [0,0];
     this.nurbsLstnr = null;
     this.hasNurbsMat = 0;
-    this.textureName = "";
+    this.textureNames = [""];
     this.moveHandle = null;
     this.scaleHandles = null;
     this.mouseOffset = [0,0];
@@ -63,7 +63,7 @@ function Mesh(ID) {
     this.undoRedoLevels = [];
     //----------------------------------
 
-    this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbsDim.slice());
+    this.nurbsMat = new JitterMatrix(5, this.posMatType, this.nurbsDim.slice());
     this.textureCoordMat = new JitterMatrix(2, this.posMatType, this.posMatDim.slice());
     this.positionMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim.slice());
     this.unscaledPosMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.posMatDim.slice());
@@ -160,12 +160,12 @@ function Mesh(ID) {
     }
 
     this.initAndAssignTextureCoordMat = function() {   
-        var xStartingPoint = 1;
+        /*var xStartingPoint = 1;
         var xCoordTarget = xStartingPoint + 1; // 0 a 1. +0.25
         for (var i=0; i<this.textureCoordMat.dim[0]; i++) {
             for (var j=0; j<this.textureCoordMat.dim[1]; j++) {   
                 var xCoord;
-                if (gTextureNames.length > 1) {
+                if (this.textureNames.length > 1) {
                     xCoord = i/(this.textureCoordMat.dim[0]-1); // in case we have more textures, just map each of them to a mesh
                 } else {
                     xCoord = map(i, 0, this.textureCoordMat.dim[0]-1, xStartingPoint, xCoordTarget);
@@ -173,7 +173,7 @@ function Mesh(ID) {
                 this.textureCoordMat.setcell2d(i,j, xCoord, j/(this.textureCoordMat.dim[1]-1));
             }
         }
-        this.assignTextureCoordMatToMesh(); 
+        this.assignTextureCoordMatToMesh();*/ 
     }
 
     this.initPositionMat = function() {    
@@ -255,7 +255,7 @@ function Mesh(ID) {
         this.nurbs.order = this.nurbsOrder.slice();
         this.nurbs.automatic = 0;
 
-        this.nurbsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, this.nurbs.dim.slice());
+        this.nurbsMat = new JitterMatrix(5, this.posMatType, this.nurbs.dim.slice());
 
         this.nurbsLstnr = new JitterListener(this.nurbs.name, nurbscallback);
         nurbsmap[this.nurbs.name] = this;
@@ -387,7 +387,7 @@ function Mesh(ID) {
     }
 
     this.assignTextureCoordMatToMesh = function() {
-        this.meshFull.texcoord_matrix(this.textureCoordMat.name);
+        //this.meshFull.texcoord_matrix(this.textureCoordMat.name);
     }
 
     this.assignControlMatToNurbs = function() {
@@ -402,15 +402,13 @@ function Mesh(ID) {
         }
     }
 
-    this.assignTextureToMesh = function(textureName) {
-        if (this.enableMesh) {
-            this.textureName = textureName;
-            if (textureName != "noTexture") {
-                this.textureProxy.name = textureName;
-                var texDim = this.textureProxy.send("getdim");
-                this.textureRatio = texDim[0] / texDim[1];
-                this.meshFull.jit_gl_texture(this.textureName);
-            }
+    this.assignTextureToMesh = function(textureNames) {
+        if (this.enableMesh && validTexture(textureNames)) {
+            this.textureNames = textureNames;
+            this.textureProxy.name = textureNames[0];
+            var texDim = this.textureProxy.send("getdim");
+            this.textureRatio = texDim[0] / texDim[1];
+            this.meshFull.texture = this.textureNames;
         }
     }
 

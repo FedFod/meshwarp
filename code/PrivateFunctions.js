@@ -90,3 +90,8 @@ function checkZKeyCtrlKeyDown(zVal) {
 		}
 	}
 }
+
+function validTexture(texArray) {
+	return (texArray && texArray.length && texArray[0] != "")
+}
+validTexture.local = 1;

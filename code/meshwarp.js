@@ -62,7 +62,6 @@ var gMinimumSelectionDist = 0.06;
 var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
 var gWindowPrevRatio = gWindowRatio;
-var gTextureNames = "noTexture";
 var gIsMouseInsideWindow = false;
 var gKeysPressed = {
 	shiftPressed: false,

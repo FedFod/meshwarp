@@ -25,9 +25,7 @@ function move_vertex(indexX, indexY, posX, posY) {
 }
 
 function jit_gl_texture(texName) {
-	if (gMesh) {
-		gMesh.assignTextureToMesh(texName);
-	}
+	setTexturesMeshes(texName);
 }
 
 function write(path) {
@@ -129,10 +127,10 @@ loadFromDict.local = 1;
 
 function setTexturesMeshes() {
 	if (arguments.length > 0) {
-		gTextureNames = (arrayfromargs(arguments));
+		texture = (arrayfromargs(arguments));
 	}
-	gMesh.assignTextureToMesh(gTextureNames);
-	gMesh.initAndAssignTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
+	gMesh.assignTextureToMesh(texture);
+	//gMesh.initAndAssignTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
 }
 setTexturesMeshes.local = 1;
 
