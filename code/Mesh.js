@@ -70,7 +70,7 @@ function Mesh(ID) {
     this.boundingMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 10);
     this.adjacentCellsMat = new JitterMatrix(this.posMatPlaneCount, this.posMatType, 8);
 
-    this.setenable = function(val) {
+    this.setEnable = function(val) {
         if(this.meshFull) {
             print("set enable")
             this.enableMesh = val;

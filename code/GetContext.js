@@ -18,7 +18,7 @@ function implicit_callback(event) {
 }
 implicit_callback.local = 1;
 
-function setdrawto(val) {
+function setDrawto(val) {
 	explicitdrawto = true;
 	dosetdrawto(val);
 }

@@ -49,18 +49,18 @@ function setvalueof(dict) {
 }
 
 // ATTRIBUTES ----------------------------------
-function setenable(val) {
+function setEnable(val) {
 	enable = val;
 	videoplane.automatic = val;;
 	nodeCTX.automatic = val;
 	showUI(val);
-	gMesh.setenable(val);
+	gMesh.setEnable(val);
 	if(!enable) {
 		gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
 		setToGlobalIfMouseIsOnMesh(false);
 	}
 }
-setenable.local = 1;
+setEnable.local = 1;
 
 function scaleToTextureRatio() {
 	gMesh.scaleToTextureRatio();
