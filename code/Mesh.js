@@ -214,19 +214,19 @@ function Mesh(ID) {
         this.meshPoints.depth_enable = 0;
         this.meshPoints.layer = FRONT;
         this.meshPoints.color = WHITE;
-        this.meshPoints.point_size = 10;
+        this.meshPoints.point_size = point_size;
         this.meshPoints.drawto = drawto_;
     }
 
     this.initMeshGrid = function(drawto_) {
         this.meshGrid = new JitterObject("jit.gl.mesh");
-        this.meshGrid.enable = this.enableMesh;
+        this.meshGrid.enable = (this.enableMesh && (grid_size > 0));
         this.meshGrid.draw_mode = "quad_grid";
         this.meshGrid.depth_enable = 0;
         this.meshGrid.layer = MIDDLE;
         this.meshGrid.color = ui_grid_color;
         this.meshGrid.poly_mode = [1, 1];
-        this.meshGrid.line_width = 3;
+        this.meshGrid.line_width = grid_size;
         this.meshGrid.drawto   = drawto_;
     }
 
@@ -348,7 +348,7 @@ function Mesh(ID) {
     // }
 
     this.showUI = function(show) {
-        this.meshGrid.enable = show;
+        this.meshGrid.enable = (show && (grid_size > 0));
         this.meshPoints.enable = show;
         this.scaleHandles.enable = show && this.enableScaleHandles;
         this.moveHandle.enable = show && this.enableMoveHandle;

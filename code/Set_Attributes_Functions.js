@@ -101,6 +101,8 @@ function buildSaveDict() {
 	saveDict.replace("color", color);	
 	saveDict.replace("ui_grid_color", ui_grid_color);
 	saveDict.replace("show_ui", show_ui);
+	saveDict.replace("point_size", point_size);
+	saveDict.replace("grid_size", grid_size);
 
 	saveDict.replace("windowRatio", gWindowRatio);
 	
@@ -132,6 +134,8 @@ function loadFromDict(saveDict) {
 	color = saveDict.get("color");	
 	ui_grid_color = saveDict.get("ui_grid_color");
 	show_ui = saveDict.get("show_ui");
+	point_size = saveDict.get("point_size");
+	grid_size = saveDict.get("grid_size");
 
 	gWindowRatio = saveDict.get("windowRatio");
 
@@ -197,7 +201,6 @@ function setNurbsOrder(order) {
 }
 setNurbsOrder.local = 1;
 
-// Resize all the meshes
 function setMeshDim(meshSizeX, meshSizeY) {
 	var xSize = Math.max(meshSizeX, 2);
 	var ySize = Math.max(meshSizeY, 2);
@@ -228,3 +231,16 @@ function show_position_handle(val) {
 function show_scale_handles(val) {
 	gMesh.showScaleHandles(val);
 }
+
+function setPointSize(size) {
+	point_size = size;
+	gMesh.meshPoints.point_size = point_size;
+}
+setPointSize.local = 1;
+
+function setGridSize(size) {
+	grid_size = size;
+	gMesh.meshGrid.line_width = grid_size;
+	gMesh.meshGrid.enable = (gMesh.showMeshUI && grid_size > 0);
+}
+setGridSize.local = 1;

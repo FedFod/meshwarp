@@ -57,6 +57,12 @@ declareattribute("ui_grid_color", null, "setUIGridColor", 0);
 var show_ui = 1;
 declareattribute("show_ui", null, "showUI", 0);
 
+var grid_size = 3.;
+declareattribute("grid_size", null, "setGridSize", 0);
+
+var point_size = 10.;
+declareattribute("point_size", null, "setPointSize", 0);
+
 // saved in positionMat dict
 
 // mesh transform

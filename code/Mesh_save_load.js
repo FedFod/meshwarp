@@ -21,6 +21,8 @@ Mesh.prototype.loadDict = function(saveDict_) {
     gMesh.setColor(color);
     gMesh.setUIGridColor(ui_grid_color);
     showUI(show_ui);
+    setPointSize(point_size);
+    setGridSize(grid_size);
 
     this.updateGUI();
     assignThisAsCurrentlySelectedToGlobal()
