@@ -31,7 +31,6 @@ function Mesh(ID) {
     this.posMatDim = meshdim;
 
     this.enableMesh = 1;
-    this.meshColor = WHITE;
 
     this.useNurbs = 1;
     this.showMeshUI = 1;
@@ -119,7 +118,6 @@ function Mesh(ID) {
         this.saveUndoRedoLevelIndex = 0;
         this.latestAction = GUI_ELEMENTS.NOTHING;
         this.textureRatio = 1;
-        this.meshColor = WHITE;
         this.showMeshUI = 1;
     }
 
@@ -137,12 +135,11 @@ function Mesh(ID) {
     }
 
     this.setColor = function(color_) {
-        this.meshFull.color = color_.slice();
-        this.meshColor = color_.slice();
+        this.meshFull.color = color_;
     }
 
     this.setUIGridColor = function(color_) {
-        this.meshGrid.color = color_.slice();
+        this.meshGrid.color = color_;
     }
 
     this.setBlendEnable = function(val_) {

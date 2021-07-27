@@ -68,13 +68,13 @@ function scaleToTextureRatio() {
 scaleToTextureRatio.local = 1;
 
 function setColor() {
-	color = arrayfromargs(messagename, arguments).slice(1,5);
+	color = arrayfromargs(arguments);
 	gMesh.setColor(color);
 }
 setColor.local = 1;
 
 function setUIGridColor() {
-	ui_grid_color = arrayfromargs(messagename, arguments).slice(1,5);
+	ui_grid_color = arrayfromargs(arguments);
 	gMesh.setUIGridColor(ui_grid_color);
 }
 
@@ -93,9 +93,17 @@ setBlendEnable.local = 1;
 function buildSaveDict() {
 	var saveDict = new Dict();
 
-	// saveDict.replace("mode", mode);
+	saveDict.replace("meshdim", meshdim);
+	saveDict.replace("nurbs_order", nurbs_order);
+	saveDict.replace("layer", layer);
+	saveDict.replace("lock_to_aspect", lock_to_aspect);
+	saveDict.replace("blend_enable", blend_enable);
+	saveDict.replace("color", color);	
+	saveDict.replace("ui_grid_color", ui_grid_color);
 	saveDict.replace("show_ui", show_ui);
+
 	saveDict.replace("windowRatio", gWindowRatio);
+	
 	gMesh.saveDataIntoDict(saveDict);
 	return saveDict;
 }
@@ -116,6 +124,15 @@ function loadSaveDict(path) {
 loadSaveDict.local = 1;
 
 function loadFromDict(saveDict) {
+	meshdim = saveDict.get("meshdim");
+	nurbs_order = saveDict.get("nurbs_order");
+	layer = saveDict.get("layer");
+	lock_to_aspect = saveDict.get("lock_to_aspect");
+	blend_enable = saveDict.get("blend_enable");
+	color = saveDict.get("color");	
+	ui_grid_color = saveDict.get("ui_grid_color");
+	show_ui = saveDict.get("show_ui");
+
 	gWindowRatio = saveDict.get("windowRatio");
 
 	gMesh.loadDict(saveDict); 

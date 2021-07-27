@@ -16,47 +16,56 @@ include("Set_Attributes_Functions");
 include("Canvas.js"); // what's that??
 
 // ATTRIBUTES
-var meshdim = [4, 4];
-declareattribute("meshdim", null, "resizeAllMeshes", 0);
 
-var show_ui = 1;
-declareattribute("show_ui", null, "showUI", 0);
-
-var enable = 1;
-declareattribute("enable", null, "setenable", 0);
+// not saved in dict
 
 var drawto = "";
-declareattribute("drawto", null, "setdrawto", 0);
-
-declareattribute("scale", "getScale", "setScale", 0);
-declareattribute("position", "getPosition", "setPosition", 0);
-
-var rotatez = 0;
-declareattribute("rotatez", null, "setRotatez", 0);
+declareattribute("drawto", null, "setDrawto", 0);
 
 var texture = [""];
 declareattribute("texture", null, "setTexturesMeshes", 0);
 
+var enable = 1;
+declareattribute("enable", null, "setEnable", 0);
+
+// saved in dict
+
+// mesh structure
+var meshdim = [4, 4];
+declareattribute("meshdim", null, "resizeAllMeshes", 0);
+
+var nurbs_order = 1;
+declareattribute("nurbs_order", null, "setNurbsOrder", 0);
+
+// mesh behavior
 var layer = 0;
 declareattribute("layer", null, "setMeshLayer", 0);
 
-var color = WHITE.slice();
+var lock_to_aspect = 0;
+declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
+
+// mesh appearance
+var blend_enable = 0;
+declareattribute("blend_enable", null, "setBlendEnable", 0);
+
+var color = WHITE;
 declareattribute("color", null, "setColor", 0);
 
 var ui_grid_color = randomColor();
 declareattribute("ui_grid_color", null, "setUIGridColor", 0);
 
-var blend_enable = 0;
-declareattribute("blend_enable", null, "setBlendEnable", 0);
+var show_ui = 1;
+declareattribute("show_ui", null, "showUI", 0);
 
-var nurbs_order = 1;
-declareattribute("nurbs_order", null, "setNurbsOrder", 0);
+// saved in positionMat dict
 
-//var use_nurbs = 0; // default: use NURBS
-//declareattribute("use_nurbs", null, "setNurbsOrMeshMode", 0);
+// mesh transform
+declareattribute("scale", "getScale", "setScale", 0);
 
-var lock_to_aspect = 0;
-declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
+declareattribute("position", "getPosition", "setPosition", 0);
+
+var rotatez = 0;
+declareattribute("rotatez", null, "setRotatez", 0);
 
 // GLOBAL VARIABLES
 var gMousePosScreen = [];
