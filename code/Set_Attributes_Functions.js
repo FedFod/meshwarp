@@ -1,10 +1,14 @@
 //-----PUBLIC FUNCTIONS----------------
 function undo() {
-	gMesh.undo();
+	if(checkUndoRedo()) {
+		gMesh.undo();
+	}
 }
 
 function redo() {
-	gMesh.redo();
+	if(checkUndoRedo()) {
+		gMesh.redo();
+	}
 }
 
 function reset() {

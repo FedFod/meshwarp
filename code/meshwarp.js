@@ -80,12 +80,7 @@ var gWindowDim = [256, 256]; //nodeCTX.dim.slice();
 var gWindowRatio = 1; 
 var gWindowPrevRatio = gWindowRatio;
 var gIsMouseInsideWindow = false;
-var gKeysPressed = {
-	shiftPressed: false,
-	ctrlPressed: false,
-	mouseClicked: false,
-	zAndCtrlPressed: false
-};
+var gShiftPressed = false;
 
 var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);

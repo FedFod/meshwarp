@@ -1,7 +1,7 @@
 Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     this.deselectVertices();
     this.currentScale = [Math.max(scaleX, 0.01), Math.max(scaleY, 0.01)]; 
-    if (gKeysPressed.shiftPressed || this.useAspectRatio) {
+    if (gShiftPressed || this.useAspectRatio) {
         this.currentScale[0] = this.meshRatio * this.currentScale[1];
     }
     this.posMatFromUnscaledMat();

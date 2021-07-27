@@ -69,27 +69,21 @@ function setNodeDrawto() {
 setNodeDrawto.local = 1;
 
 function checkModifiersKeyDown() {
-	var tempShift = gKeysPressed.shiftPressed;
-	// var tempCtrl = gKeysPressed.ctrlPressed;
-	gKeysPressed.shiftPressed = max.shiftkeydown;
-	// gKeysPressed.ctrlPressed = max.ctrlkeydown * max.cmdkeydown;
-	if (gKeysPressed.shiftPressed != tempShift) {
+	if (gShiftPressed != max.shiftkeydown) {
+		gShiftPressed = max.shiftkeydown;
 		gMesh.setMeshRatio();
 	}
 }
 checkModifiersKeyDown.local = 1;
 
-function checkZKeyCtrlKeyDown(zVal) {
-	if (gMesh.showMeshUI && gIsMouseInsideWindow) {
+function checkUndoRedo() {
+	if (gIsMouseInsideWindow && gMesh.showMeshUI) {
 		gGraphics.resetSelected();
-		gKeysPressed.zPressed = zVal;
-		if (zVal == "undo") {
-			gMesh.undo();
-		} else if (zVal == "redo") {
-			gMesh.redo();
-		}
+		return true;
 	}
+	return false;
 }
+checkUndoRedo.local = 1;
 
 function validTexture(texArray) {
 	return (texArray && texArray.length && texArray[0] != "")
