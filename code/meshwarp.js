@@ -45,8 +45,8 @@ var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
 // mesh appearance
-var blend_enable = 0;
-declareattribute("blend_enable", null, "setBlendEnable", 0);
+//var blend_enable = 0;
+//declareattribute("blend_enable", null, "setBlendEnable", 0);
 
 var color = WHITE;
 declareattribute("color", null, "setColor", 0);

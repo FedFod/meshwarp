@@ -17,7 +17,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
     setNurbsOrder(nurbs_order);
     setMeshLayer(layer);
     setScaleRelativeToAspect(lock_to_aspect);
-    setBlendEnable(blend_enable);
+    //setBlendEnable(blend_enable);
     gMesh.setColor(color);
     gMesh.setUIGridColor(ui_grid_color);
     showUI(show_ui);

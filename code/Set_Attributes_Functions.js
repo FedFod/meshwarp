@@ -97,7 +97,7 @@ function buildSaveDict() {
 	saveDict.replace("nurbs_order", nurbs_order);
 	saveDict.replace("layer", layer);
 	saveDict.replace("lock_to_aspect", lock_to_aspect);
-	saveDict.replace("blend_enable", blend_enable);
+	//saveDict.replace("blend_enable", blend_enable);
 	saveDict.replace("color", color);	
 	saveDict.replace("ui_grid_color", ui_grid_color);
 	saveDict.replace("show_ui", show_ui);
@@ -128,7 +128,7 @@ function loadFromDict(saveDict) {
 	nurbs_order = saveDict.get("nurbs_order");
 	layer = saveDict.get("layer");
 	lock_to_aspect = saveDict.get("lock_to_aspect");
-	blend_enable = saveDict.get("blend_enable");
+	//blend_enable = saveDict.get("blend_enable");
 	color = saveDict.get("color");	
 	ui_grid_color = saveDict.get("ui_grid_color");
 	show_ui = saveDict.get("show_ui");
