@@ -32,7 +32,7 @@ declareattribute("enable", null, "setEnable", 0);
 
 // mesh structure
 var meshdim = [4, 4];
-declareattribute("meshdim", null, "resizeAllMeshes", 0);
+declareattribute("meshdim", null, "setMeshDim", 0);
 
 var nurbs_order = 1;
 declareattribute("nurbs_order", null, "setNurbsOrder", 0);

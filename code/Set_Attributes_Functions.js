@@ -198,7 +198,7 @@ function setNurbsOrder(order) {
 setNurbsOrder.local = 1;
 
 // Resize all the meshes
-function resizeAllMeshes(meshSizeX, meshSizeY) {
+function setMeshDim(meshSizeX, meshSizeY) {
 	var xSize = Math.max(meshSizeX, 2);
 	var ySize = Math.max(meshSizeY, 2);
 	meshdim = [xSize, ySize];
@@ -206,7 +206,7 @@ function resizeAllMeshes(meshSizeX, meshSizeY) {
 		gMesh.resizeMeshDim([xSize, ySize]);
 	}
 }
-resizeAllMeshes.local = 1;
+setMeshDim.local = 1;
 
 function showUI(show) {
 	show_ui = show;
