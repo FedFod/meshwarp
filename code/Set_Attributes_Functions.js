@@ -1,12 +1,14 @@
 //-----PUBLIC FUNCTIONS----------------
+
+// if undo or redo contain an arg, then we first check if this meshwarp is active
 function undo() {
-	if(checkUndoRedo()) {
+	if(!arguments.length || checkUndoRedo()) {
 		gMesh.undo();
 	}
 }
 
 function redo() {
-	if(checkUndoRedo()) {
+	if(!arguments.length || checkUndoRedo()) {
 		gMesh.redo();
 	}
 }
