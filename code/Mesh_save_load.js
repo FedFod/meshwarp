@@ -14,7 +14,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
     this.loadMatrixFromDict(saveDict_);
     
     setMeshDim(meshdim[0], meshdim[1]);
-    setNurbsOrder(nurbs_order);
+    setNurbsOrder(nurbs_order[0], nurbs_order[1]);
     setMeshLayer(layer);
     setScaleRelativeToAspect(lock_to_aspect);
     //setBlendEnable(blend_enable);
