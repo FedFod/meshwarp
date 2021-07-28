@@ -64,7 +64,8 @@ Mesh.prototype.saveUndoRedoPositionMat = function() {
     var newState = { 
         posMat: jitMatToArray(this.positionMat), 
         scale: this.currentScale.slice(),
-        position: this.currentPos.slice()
+        position: this.currentPos.slice(),
+        dim: this.posMatDim
     }
 
     // new undoable action, add at current undo pointer
@@ -86,9 +87,13 @@ Mesh.prototype.saveUndoRedoPositionMat = function() {
 }
 
 Mesh.prototype.applyHistory = function() {
-    arrayToJitMat(this.positionMat, this.undoRedoLevels[this.undoPointer].posMat);
-    this.currentScale = this.undoRedoLevels[this.undoPointer].scale.slice();
-    this.currentPos = this.undoRedoLevels[this.undoPointer].position.slice();
+    state = this.undoRedoLevels[this.undoPointer];
+    if(state.dim[0] != this.posMatDim[0] || state.dim[1] != this.posMatDim[1]) {
+        this.resizeMeshDim(state.dim);
+    }
+    arrayToJitMat(this.positionMat, state.posMat);
+    this.currentScale = state.scale.slice();
+    this.currentPos = state.position.slice();
     this.setLatestScale();
     this.applyMeshTransformation();
     this.calcMeshBoundsMat();
