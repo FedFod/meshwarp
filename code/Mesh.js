@@ -69,7 +69,7 @@ function Mesh(ID) {
 
     this.setEnable = function(val) {
         if(this.meshFull) {
-            print("set enable")
+            debug(DEBUG.GENERAL, "set enable")
             this.enableMesh = val;
             this.meshFull.enable = this.enableMesh;
             this.nurbs.enable = this.enableMesh && this.useNurbs;
@@ -79,7 +79,7 @@ function Mesh(ID) {
 
     this.initMesh = function(drawto_) {
         this.initState();
-        print("init")
+        debug(DEBUG.GENERAL, "init")
 
         this.setMeshDim(this.posMatDim);
         this.initPositionMat(); // fill vertex mat from scratch

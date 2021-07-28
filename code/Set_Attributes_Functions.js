@@ -33,22 +33,22 @@ function jit_gl_texture(texName) {
 }
 
 function write(path) {
-	postln("saveing to " + path);
+	debug(DEBUG.GENERAL, "saveing to " + path);
 	saveDictToPath(path);
 }
 
 function read(path) {
-	postln("loading to " + path);
+	debug(DEBUG.GENERAL, "loading to " + path);
 	loadSaveDict(path);
 }
 
 function getvalueof() {
-	postln("getvalueof");
+	debug(DEBUG.GENERAL, "getvalueof");
 	return buildSaveDict(null);
 }
 
 function setvalueof(dict) {
-	postln("setvalueof");
+	debug(DEBUG.GENERAL, "setvalueof");
 	loadFromDict(dict);
 }
 

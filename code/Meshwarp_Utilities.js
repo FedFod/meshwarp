@@ -28,12 +28,14 @@ var GUI_ELEMENTS = {
 
 // DEBUG --------------------
 var DEBUG = {
+	NONE: -1,
 	GLOBAL_SELECTION: 0,
 	REDO_UNDO: 1,
-	GRAPHICS: 2
+	GRAPHICS: 2,
+	GENERAL: 3
 }
 
-var gWhatToDebug = GUI_ELEMENTS.NOTHING; //DEBUG.GLOBAL_SELECTION;
+var gWhatToDebug = DEBUG.NONE;
 
 function debug(what, val) {
 	if (gWhatToDebug === what) {
@@ -147,13 +149,6 @@ function print()
 	post();
 }
 print.local = 1;
-// - - -
-
-function postln(arg) {
-	//if(verbose)
-		post(arg+"\n");
-}
-postln.local = 1;
 
 // - - -
 

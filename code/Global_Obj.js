@@ -82,12 +82,12 @@ checkContextObs.local = 1;
 
 // called when drawto set
 function addToGlobalCtxMap() {
-	print("Global MeshCount : "+gGlobal.meshCount);
-	print("addToGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
+	debug(DEBUG.GENERAL, "Global MeshCount : "+gGlobal.meshCount);
+	debug(DEBUG.GENERAL, "addToGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
 	// check if context in map, if not create it
 	var ctxOb = null;
 	if(gGlobal.contexts.drawto === undefined || gGlobal.contexts.drawto == null) {
-		print("create global context " + drawto);
+		debug(DEBUG.GENERAL, "create global context " + drawto);
 		gGlobal.contexts.drawto = {};
 		ctxOb = gGlobal.contexts.drawto;
 		ctxOb.objects = [];
@@ -105,17 +105,17 @@ function addToGlobalCtxMap() {
 
 // called by notifyDeleted
 function removeFromGlobalCtxMap() {
-	print("removeFromGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
+	debug(DEBUG.GENERAL, "removeFromGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
 	if(drawto !== "" && gGlobal.contexts.drawto !== undefined) {
 		var obs = gGlobal.contexts.drawto.objects;
 		var index = obs.indexOf(nodeCTX.name);
 		if (index != -1) {
 			obs.splice(index, 1);
-			print("ID "+ index + " REMOVED")
+			debug(DEBUG.GENERAL, "ID "+ index + " REMOVED")
 		}
-		print("Objects Length : "+obs.length)
+		debug(DEBUG.GENERAL, "Objects Length : "+obs.length)
 		if (obs.length == 0) {
-			print("freed global objects");
+			debug(DEBUG.GENERAL, "freed global objects");
 			gGlobal.contexts.drawto.ctxNode.freepeer();
 			// gGlobal.contexts.drawto.physDraw.freepeer();
 			// gGlobal.contexts.drawto.physWorld.freepeer();

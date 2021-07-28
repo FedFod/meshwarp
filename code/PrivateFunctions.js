@@ -50,7 +50,7 @@ function setWindowRatio(dims) {
 setWindowRatio.local = 1;
 
 function notifydeleted() {
-	postln("freebang");
+	debug(DEBUG.GENERAL, "freebang");
 	removeFromGlobalCtxMap(); // remove from global meshwarp array
 	gMesh.freeMesh();
 	gGraphics.free();
