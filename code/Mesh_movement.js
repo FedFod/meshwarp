@@ -19,7 +19,7 @@ Mesh.prototype.checkIfNeighborsCloser = function(i, j, dist, mouse) {
             var newI = i + x;
             var newJ = j + y;
             if(newI >= 0 && newI < maxI && newJ >= 0 && newJ < maxJ) {
-                var newDist = calcDist2D(this.getPositionMatCell([newI, newJ], mouse));
+                var newDist = calcDist2D(this.getPositionMatCell([newI, newJ]), mouse);
                 if(newDist < testDist) {
                     testDist = newDist;
                     coords = [newI, newJ];
