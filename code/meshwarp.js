@@ -81,6 +81,7 @@ var gWindowRatio = 1;
 var gWindowPrevRatio = gWindowRatio;
 var gIsMouseInsideWindow = false;
 var gShiftPressed = false;
+var gMaxUndo = 100;
 
 var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);

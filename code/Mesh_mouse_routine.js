@@ -21,9 +21,9 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
 
         if (mouseClicked) {
             // gGraphics.drawID(this.getMeshCenter(this.positionMat));
-            if (!oldMouseClicked && this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
-                this.saveUndoRedoPositionMat();
-            }
+            //if (!oldMouseClicked && this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
+                //this.saveUndoRedoPositionMat();
+            //}
             switch (this.mouseIsCloseTo) {
                 case (GUI_ELEMENTS.MOVE_HANDLE):
                     this.moveMeshWithHandle(mouseWorld);

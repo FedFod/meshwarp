@@ -26,6 +26,8 @@ Mesh.prototype.loadDict = function(saveDict_) {
 
     this.updateGUI();
     assignThisAsCurrentlySelectedToGlobal()
+    
+    this.saveUndoRedoPositionMat();
 }
 
 Mesh.prototype.loadDataFromDict = function(dict) {
@@ -57,42 +59,56 @@ Mesh.prototype.loadMatrixFromDict = function(dict) {
 
 // UNDO / REDO
 Mesh.prototype.saveUndoRedoPositionMat = function() {
-    this.undoRedoLevels.pop(); // remove last element in the array
+    debug(DEBUG.REDO_UNDO, "pre state save pointer "+ this.undoPointer);
+    debug(DEBUG.REDO_UNDO, "pre state save stack size "+ this.undoRedoLevels.length);
     var newState = { 
         posMat: jitMatToArray(this.positionMat), 
         scale: this.currentScale.slice(),
         position: this.currentPos.slice()
     }
-    this.undoRedoLevels.unshift(newState);
-    this.undoLevelIndex = 1;
+
+    // new undoable action, add at current undo pointer
+    if(this.undoPointer < this.undoRedoLevels.length - 1) {
+        this.undoRedoLevels.splice(this.undoPointer + 1, this.undoRedoLevels.length - (this.undoPointer + 1));
+    }
+
+    this.undoRedoLevels.push(newState);
+
+    // clamp to max undo
+    if(this.undoRedoLevels.length > gMaxUndo) {
+        this.undoRedoLevels.shift();
+    }
+    
+    this.undoPointer = this.undoRedoLevels.length - 1;
+
+    debug(DEBUG.REDO_UNDO, "post state save pointer "+ this.undoPointer);
+    debug(DEBUG.REDO_UNDO, "post state save stack size "+ this.undoRedoLevels.length);
+}
+
+Mesh.prototype.applyHistory = function() {
+    arrayToJitMat(this.positionMat, this.undoRedoLevels[this.undoPointer].posMat);
+    this.currentScale = this.undoRedoLevels[this.undoPointer].scale.slice();
+    this.currentPos = this.undoRedoLevels[this.undoPointer].position.slice();
+    this.setLatestScale();
+    this.applyMeshTransformation();
+    this.calcMeshBoundsMat();
+    this.updateGUI();
 }
 
 Mesh.prototype.undo = function() {
-    this.undoLevelIndex = clamp(this.undoLevelIndex, 0, this.amountOfUndoRedoLevels-1);
-    debug(DEBUG.REDO_UNDO, "undo level index "+this.undoLevelIndex)
-    arrayToJitMat(this.positionMat, this.undoRedoLevels[this.undoLevelIndex].posMat);
-    this.currentScale = this.undoRedoLevels[this.undoLevelIndex].scale.slice();
-    this.currentPos = this.undoRedoLevels[this.undoLevelIndex].position.slice();
-    this.redoLevelIndex = this.undoLevelIndex-1;
-    this.undoLevelIndex+=2;
-
-    this.setLatestScale();
-    this.applyMeshTransformation();
-    this.calcMeshBoundsMat();
-    this.updateGUI();
+    debug(DEBUG.REDO_UNDO, "undo pointer "+ this.undoPointer);
+    debug(DEBUG.REDO_UNDO, "undo stack size "+ this.undoRedoLevels.length);
+    if(this.undoPointer > 0) {
+        this.undoPointer--;
+        this.applyHistory();
+    }
 }
 
 Mesh.prototype.redo = function() {
-    this.redoLevelIndex = clamp(this.redoLevelIndex, 0, this.amountOfUndoRedoLevels-1);
-    debug(DEBUG.REDO_UNDO, "redo level index "+this.redoLevelIndex)
-    arrayToJitMat(this.positionMat, this.undoRedoLevels[this.redoLevelIndex].posMat);
-    this.currentScale = this.undoRedoLevels[this.redoLevelIndex].scale.slice();
-    this.currentPos = this.undoRedoLevels[this.redoLevelIndex].position.slice();
-    this.undoLevelIndex = this.redoLevelIndex+1;
-    this.redoLevelIndex-=2;
-
-    this.setLatestScale();
-    this.applyMeshTransformation();
-    this.calcMeshBoundsMat();
-    this.updateGUI();
+    debug(DEBUG.REDO_UNDO, "redo pointer "+ this.undoPointer);
+    debug(DEBUG.REDO_UNDO, "redo stack size "+ this.undoRedoLevels.length);
+    if(this.undoPointer < this.undoRedoLevels.length - 1) {
+        this.undoPointer++;
+        this.applyHistory();
+    }
 }

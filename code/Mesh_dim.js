@@ -31,6 +31,5 @@ Mesh.prototype.resizeMeshDim = function(dimensions) {
     tempMat.freepeer();
     this.applyMeshTransformation();
     this.initAndAssignTextureCoordMat();
-    this.initUndoRedoLevelsFromPositionMat();
     this.calcMeshBoundsMat();
 }

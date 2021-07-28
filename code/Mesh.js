@@ -56,9 +56,7 @@ function Mesh(ID) {
     this.useAspectRatio = 0;
 
     // UNDO REDO
-    this.amountOfUndoRedoLevels = 20;
-    this.redoLevelIndex = 0;
-    this.undoLevelIndex = 0;
+    this.undoPointer = 0;
     this.undoRedoLevels = [];
     //----------------------------------
 
@@ -85,7 +83,6 @@ function Mesh(ID) {
 
         this.setMeshDim(this.posMatDim);
         this.initPositionMat(); // fill vertex mat from scratch
-        this.initUndoRedoLevelsFromPositionMat(); 
 
         this.initMeshPoints(drawto_);
         this.initMeshGrid(drawto_);
@@ -101,6 +98,8 @@ function Mesh(ID) {
         this.initAndAssignTextureCoordMat(); // init texture coord mat
         this.triggerNURBSOutput();
         this.updateGUI();
+        
+        this.saveUndoRedoPositionMat();
     }
 
     this.initState = function() {
@@ -113,9 +112,8 @@ function Mesh(ID) {
         this.latestRotation = 0;
         this.useNurbs = 1;
         this.useAspectRatio = 0;
-        this.redoLevelIndex = 0;
-        this.undoLevelIndex = 0;
-        this.saveUndoRedoLevelIndex = 0;
+        this.undoRedoLevels = [];
+        this.undoPointer = 0;
         this.latestAction = GUI_ELEMENTS.NOTHING;
         this.textureRatio = 1;
         this.showMeshUI = 1;
@@ -196,15 +194,6 @@ function Mesh(ID) {
         this.unscaledPosMat.planecount = this.posMatPlaneCount;
         this.unscaledPosMat.type = this.posMatType;
         this.unscaledPosMat.dim = this.posMatDim.slice();
-    }
-
-    this.initUndoRedoLevelsFromPositionMat = function() {
-        this.undoRedoLevels = [];
-        for (var i=0; i<this.amountOfUndoRedoLevels; i++) {
-            this.undoRedoLevels.push( { posMat: jitMatToArray(this.positionMat), 
-                                        scale: this.currentScale.slice(),
-                                        position: this.currentPos.slice() } );
-        }
     }
 
     this.initMeshPoints = function(drawto_) {
