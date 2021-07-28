@@ -200,10 +200,22 @@ function setNurbsOrMeshMode(arg) {
 }
 setNurbsOrMeshMode.local = 1;
 
-function setNurbsOrder(order) {
-	gMesh.changeNurbsOrder(order);
+function setNurbsOrder(x, y) {
+	nurbs_order[0] = Math.min(Math.max(x, 1), gMesh.posMatDim[0] - 1);
+	nurbs_order[1] = Math.min(Math.max(y, 1), gMesh.posMatDim[1] - 1);
+	gMesh.changeNurbsOrder(nurbs_order[0], nurbs_order[1]);
 }
 setNurbsOrder.local = 1;
+
+function setCurvature(curve) {
+	curvature = Math.min(Math.max(curve, 0.), 0.9999);
+	orderx = Math.floor(curvature * gMesh.posMatDim[0]);
+	ordery = Math.floor(curvature * gMesh.posMatDim[1]);
+	if(nurbs_order[0] != orderx || nurbs_order[1] != ordery) {
+		setNurbsOrder(orderx, ordery);
+	}
+}
+setCurvature.local = 1;
 
 function setMeshDim(meshSizeX, meshSizeY) {
 	var xSize = Math.max(meshSizeX, 2);

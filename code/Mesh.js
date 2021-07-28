@@ -23,7 +23,6 @@ function Mesh(ID) {
     this.nurbs = null;
     this.textureProxy = null;
     this.nurbsDim = [40, 40];
-    this.nurbsOrder = [1,1];
     // this.physBody = null;
 
     this.posMatPlaneCount = 3;
@@ -144,13 +143,10 @@ function Mesh(ID) {
         this.meshFull.blend_enable = val_;
     }
 
-    this.changeNurbsOrder = function(order) {
-        if (order < this.positionMat.dim[0] && order < this.positionMat.dim[1] && order > 0) {
-            this.nurbs.order = order;
-            this.nurbsOrder = this.nurbs.order.slice();
-            if (this.useNurbs) {
-                this.assignPositionMatToMesh();
-            }
+    this.changeNurbsOrder = function(x, y) {
+        this.nurbs.order = [x, y];
+        if (this.useNurbs) {
+            this.assignPositionMatToMesh();
         }
     }
 
@@ -238,7 +234,7 @@ function Mesh(ID) {
         this.nurbs.matrixoutput = 1;
         this.nurbs.drawto = drawto_;
         this.nurbs.enable = this.useNurbs * this.enableMesh;
-        this.nurbs.order = this.nurbsOrder.slice();
+        this.nurbs.order = [1, 1];
         this.nurbs.automatic = 0;
 
         this.nurbsMat = new JitterMatrix(5, this.posMatType, this.nurbs.dim.slice());

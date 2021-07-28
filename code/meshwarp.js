@@ -34,8 +34,11 @@ declareattribute("enable", null, "setEnable", 0);
 var meshdim = [4, 4];
 declareattribute("meshdim", null, "setMeshDim", 0);
 
-var nurbs_order = 1;
+var nurbs_order = [1, 1];
 declareattribute("nurbs_order", null, "setNurbsOrder", 0);
+
+var curvature = 0.;
+declareattribute("curvature", null, "setCurvature", 0);
 
 // mesh behavior
 var layer = 0;

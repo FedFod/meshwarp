@@ -29,6 +29,10 @@ Mesh.prototype.resizeMeshDim = function(dimensions) {
     this.setMeshDim(newDim);
     this.positionMat.frommatrix(tempMat);
     tempMat.freepeer();
+
+    // conform nurbs order to new mesh dim
+    setNurbsOrder(nurbs_order[0], nurbs_order[1]);
+
     this.applyMeshTransformation();
     this.initAndAssignTextureCoordMat();
     this.calcMeshBoundsMat();
