@@ -6,20 +6,50 @@ Mesh.prototype.checkIfMouseIsInsideMesh = function(mouseWorld) {
     }
 }
 
+Mesh.prototype.checkIfNeighborsCloser = function(i, j, dist, mouse) {
+    var testDist = dist;
+    var maxI = this.positionMat.dim[0];
+    var maxJ = this.positionMat.dim[1];
+    var coords = [i, j];
+    for(var x = -1; x <= 1; x++) {
+        for(var y = -1; y <= 1; y++) {
+            if(x == 0 && y == 0) 
+                continue;
+
+            var newI = i + x;
+            var newJ = j + y;
+            if(newI >= 0 && newI < maxI && newJ >= 0 && newJ < maxJ) {
+                var newDist = calcDist2D(this.getPositionMatCell([newI, newJ], mouse));
+                if(newDist < testDist) {
+                    testDist = newDist;
+                    coords = [newI, newJ];
+                }
+            }
+        }
+    }
+    return coords;
+}
+
 Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {   
-    this.selectedVertexIndex = GUI_ELEMENTS.NEGATIVE_INDEX.slice();
+    this.selectedVertexIndex = GUI_ELEMENTS.NEGATIVE_INDEX;
     for (var i=0; i<this.positionMat.dim[0]; i++) {
         for (var j=0; j<this.positionMat.dim[1]; j++) {
             var currVertexPos = this.getPositionMatCell([i,j]);
-            var distFromMouse = calcDist2D(currVertexPos.slice(), mouseWorld.slice());
+            var distFromMouse = calcDist2D(currVertexPos, mouseWorld);
             if (distFromMouse <= gMinimumSelectionDist) {
+                var coords = this.checkIfNeighborsCloser(i, j, distFromMouse, mouseWorld);
+                currVertexPos = this.getPositionMatCell(coords);
+                i = coords[0];
+                j = coords[1];
+
                 gGraphics.drawCircle(currVertexPos);
                 var cell = this.positionMat.getcell(i,j);
                 this.mouseOffset = subVec2D(cell, mouseWorld);
-                this.selectedVertexIndex = [i, j];
+                this.selectedVertexIndex = coords;
                 this.mouseIsCloseTo = GUI_ELEMENTS.VERTEX;
                 this.outputSelectedVertex(cell);
-                break;
+
+                return this.mouseIsCloseTo;
             }
         }
     } 
