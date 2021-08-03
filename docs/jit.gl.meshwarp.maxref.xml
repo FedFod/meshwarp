@@ -113,6 +113,15 @@
                 The color of the mesh (default = 1. 1. 1. 1.)
             </description>
     </attribute>
+    <attribute name="curvature">
+            <arglist />
+            <digest>
+                Set both the x and y NURBS order. 
+            </digest>
+            <description>
+                A quick way to set both the X and y NURBS order, which determines the curvature of the underlying canvas mesh (range 0. to 1.)
+            </description>
+    </attribute>
     <attribute name="enable">
             <arglist />
             <digest>
@@ -142,13 +151,23 @@
                 When set to active, the scale attribute will only respond to the second attribute argument (y scale).
             </description>
     </attribute>
-      <attribute name="meshdim">
+    <attribute name="meshdim">
             <arglist />
             <digest>
                 Dimension of UI mesh (default = 4 4)
             </digest>
             <description>
                 Dimension of the UI mesh. Sets the number of clickable vertices displayed (default = 4 4)
+            </description>
+    </attribute>
+    <attribute name="nurbs_order">
+            <arglist />
+            <digest>
+                Set the X and Y order of the NURBS canvas mesh (default = 1 1).
+            </digest>
+            <description>
+                Set the X and Y order of the underlying NURBS canvas mesh. 
+                The order determines the curvature of the canvas mesh (default = 1 1). 
             </description>
     </attribute>
     <attribute name="position">

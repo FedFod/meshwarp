@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 87.0, 882.0, 573.0 ],
+		"rect" : [ 164.0, 262.0, 882.0, 573.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -94,7 +94,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 538.0, 121.0, 202.0, 33.0 ],
+									"patching_rect" : [ 538.0, 121.0, 202.0, 34.0 ],
 									"text" : "use layer to control the drawing order when shapes are unselected"
 								}
 
@@ -252,7 +252,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.5, 27.0, 417.0, 33.0 ],
+									"patching_rect" : [ 21.5, 27.0, 417.0, 34.0 ],
 									"text" : "You can use multiple \"jit.gl.meshwarp\" objects at the same time.\nTo select one click on the shape in the rendering window using the mouse. "
 								}
 
@@ -459,7 +459,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.5, 27.0, 609.0, 33.0 ],
+									"patching_rect" : [ 21.5, 27.0, 609.0, 34.0 ],
 									"text" : "Save all the parameters of a jit.gl.meshwarp on a JSON file using the \"save\" message.\nLoad the JSON file in the jit.gl.meshwarp object with the \"read\" message to bring the object back the saved state."
 								}
 
@@ -629,7 +629,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 882.0, 547.0 ],
+						"rect" : [ 164.0, 288.0, 882.0, 547.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1340,7 +1340,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 43.666666666666515, 32.190485954284668, 557.0, 74.0 ],
+									"patching_rect" : [ 43.666666666666515, 32.190485954284668, 557.0, 75.0 ],
 									"text" : "- Blue Circle: move the mesh.\n- Yellow Circles: scale the mesh.\n- Move individual vertices with mouse when Red Circle appears.\n- Click and Drag: select multiple vertices. \nAfter selecting the vertices you can move them all in bulk by clicking and dragging on a selected vertex."
 								}
 
@@ -1352,7 +1352,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 552.857139945030212, 276.119050145149231, 199.0, 33.0 ],
+									"patching_rect" : [ 552.857139945030212, 276.119050145149231, 199.0, 34.0 ],
 									"text" : "Use this abstraction to move single vertices by index."
 								}
 
@@ -1628,7 +1628,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 34.0, 113.0, 882.0, 547.0 ],
+						"rect" : [ 0.0, 26.0, 882.0, 547.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1664,7 +1664,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 569.238093376159668, 201.619042873382568, 169.0, 60.0 ],
+									"patching_rect" : [ 569.238093376159668, 201.619042873382568, 169.0, 62.0 ],
 									"text" : "Also undo via cmd+z or ctl+z  and redo via shift+cmd+z or ctl+y when interacting in the render window"
 								}
 
@@ -1760,7 +1760,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 69.0, 516.0, 33.0 ],
+									"patching_rect" : [ 21.0, 69.0, 516.0, 34.0 ],
 									"text" : "The jit.gl.meshwarp allows to deform visual material projected on a two-dimensional mesh.\nIt can be used either for video-mapping or as a creative tool."
 								}
 
@@ -1773,7 +1773,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.0, 19.0, 241.0, 42.0 ],
+									"patching_rect" : [ 21.0, 19.0, 241.0, 43.0 ],
 									"text" : "jit.gl.meshwarp"
 								}
 
@@ -1823,7 +1823,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 115.142860054969788, 222.738093018531799, 80.0, 35.0 ]
+									"patching_rect" : [ 115.142860054969788, 222.738093018531799, 80.0, 36.0 ]
 								}
 
 							}
@@ -2040,34 +2040,34 @@
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxhelp.maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "Aspect[1].maxsnap",
+				"name" : "jit.gl.meshwarp.maxhelp[2].maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/code",
-				"patcherrelativepath" : "../code",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/javascript",
+				"patcherrelativepath" : "../javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.vertex.edit.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
@@ -2764,6 +2764,42 @@
 							"filepath" : "~/Documents/Max 8/Snapshots",
 							"filepos" : -1,
 							"snapshotfileid" : "bf78636150be0ed0ab4db74ac8f937c4"
+						}
+
+					}
+, 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "jit.gl.meshwarp.maxhelp[2]",
+						"origin" : "jit.gl.meshwarp.maxhelp",
+						"type" : "patcher",
+						"subtype" : "Undefined",
+						"embed" : 0,
+						"fileref" : 						{
+							"name" : "jit.gl.meshwarp.maxhelp[2]",
+							"filename" : "jit.gl.meshwarp.maxhelp[2].maxsnap",
+							"filepath" : "~/Documents/Max 8/Snapshots",
+							"filepos" : -1,
+							"snapshotfileid" : "4082200465cf287508e1e68d1bb2e6d2"
+						}
+
+					}
+, 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "jit.gl.meshwarp.maxhelp",
+						"origin" : "jit.gl.meshwarp.maxhelp",
+						"type" : "patcher",
+						"subtype" : "Undefined",
+						"embed" : 0,
+						"fileref" : 						{
+							"name" : "jit.gl.meshwarp.maxhelp",
+							"filename" : "jit.gl.meshwarp.maxhelp.maxsnap",
+							"filepath" : "~/Documents/Max 8/Snapshots",
+							"filepos" : -1,
+							"snapshotfileid" : "0e9c7d4d0916d1bebe103ade4eaffa6d"
 						}
 
 					}
