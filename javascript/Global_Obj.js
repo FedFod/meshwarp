@@ -1,8 +1,8 @@
 // GLOBAL OBJECT
 gGlobal = new Global("gMeshwarp");
-gGlobal.mouseIsOnMesh = {};
 
 if(gGlobal.inited === undefined) {
+	gGlobal.mouseIsOnMesh = {};
 	gGlobal.inited = true;
 	gGlobal.currentlySelected = -1;
 	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;

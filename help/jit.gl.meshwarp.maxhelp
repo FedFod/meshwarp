@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 164.0, 262.0, 882.0, 573.0 ],
+		"rect" : [ 124.0, 347.0, 882.0, 573.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -629,7 +629,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 164.0, 288.0, 882.0, 547.0 ],
+						"rect" : [ 124.0, 373.0, 882.0, 547.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2040,35 +2040,30 @@
 		"dependency_cache" : [ 			{
 				"name" : "jit.gl.meshwarp.maxhelp.maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jit.gl.meshwarp.maxhelp[2].maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "jit.gl.meshwarp.maxpat",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.js",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/javascript",
-				"patcherrelativepath" : "../javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.vertex.edit.maxpat",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
