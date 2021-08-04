@@ -80,4 +80,12 @@ function GraphicElements(nodectx) {
         this.sketch.layer = FRONT+val+1;
         this.sketch2.layer = FRONT+val;
     }
+
+    this.setSingleSelectionCircleColor = function(color) {
+        this.sketch.color = color;
+    }
+
+    this.setMultipleSelectionCirclesColor = function(color) {
+        this.sketch2.color = color;
+    }
 }

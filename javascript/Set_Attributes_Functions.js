@@ -83,6 +83,17 @@ function setUIGridColor() {
 	ui_grid_color = arrayfromargs(arguments);
 	gMesh.setUIGridColor(ui_grid_color);
 }
+setUIGridColor.local = 1;
+
+function setSingleCircleColor() {
+	gGraphics.setSingleSelectionCircleColor(arrayfromargs(arguments));
+}
+setSingleCircleColor.local = 1;
+
+function setMultipleCirclesColor() {
+	gGraphics.setMultipleSelectionCirclesColor(arrayfromargs(arguments));
+}
+setSingleCircleColor.local = 1;
 
 function setRotatez(rotZ) {
 	var angleRad = (rotZ / 180) * 3.1459;
