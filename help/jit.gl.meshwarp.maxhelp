@@ -2161,8 +2161,8 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-4::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[1]", 0 ],
-			"obj-4::obj-43::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
+			"obj-4::obj-41::obj-8" : [ "meshwarpjs[1]", "meshwarpjs[1]", 0 ],
+			"obj-4::obj-43::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[3]", 0 ],
 			"obj-51::obj-1::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-51::obj-9" : [ "toggle", "toggle", 0 ],
 			"parameterbanks" : 			{

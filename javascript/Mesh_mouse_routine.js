@@ -17,7 +17,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     var mouseClicked = mouseState[2];
 
     if (this.showMeshUI) {
-        var oldMouseClicked = oldMouseState_[2];
+        // var oldMouseClicked = oldMouseState_[2];
 
         if (mouseClicked) {
             // gGraphics.drawID(this.getMeshCenter(this.positionMat));
@@ -50,7 +50,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
         }
         else { // mouse is released
             if (this.latestAction == GUI_ELEMENTS.WAS_SCALED) {
-                this.setLatestScale();
+                this.setLatestScale_calcBoundsMat();
             }
             else if (this.latestAction == GUI_ELEMENTS.WAS_MOVED_VERTICES) {
                 this.deselectVertices();

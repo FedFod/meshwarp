@@ -94,9 +94,8 @@ Mesh.prototype.applyHistory = function() {
     arrayToJitMat(this.positionMat, state.posMat);
     this.currentScale = state.scale.slice();
     this.currentPos = state.position.slice();
-    this.setLatestScale();
+    this.setLatestScale_calcBoundsMat_calcBoundsMat();
     this.applyMeshTransformation();
-    this.calcMeshBoundsMat();
     this.updateGUI();
 }
 

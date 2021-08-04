@@ -166,6 +166,12 @@ function loadFromDict(saveDict) {
 }
 loadFromDict.local = 1;
 
+function setScaleRelativeToAspect(val) {
+	lock_to_aspect = val;
+	gMesh.scaleToTextureRatio(val);
+}
+setScaleRelativeToAspect.local = 1;
+
 function setTexturesMeshes() {
 	if (arguments.length > 0) {
 		texture = (arrayfromargs(arguments));
@@ -177,7 +183,7 @@ setTexturesMeshes.local = 1;
 
 function setScale(scaleX, scaleY) {
 	gMesh.scaleMesh(scaleX, scaleY);
-	gMesh.setLatestScale();
+	gMesh.setLatestScale_calcBoundsMat();
 }
 setScale.local = 1;
 
