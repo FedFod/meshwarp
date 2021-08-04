@@ -83,6 +83,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                 }
             }
             if (foundLayers.length > 1) {
+                print("test "+getMaxFromArray(foundLayers))
                 if (getMaxFromArray(foundLayers) == layer) {
                     assignThisAsCurrentlySelectedToGlobal();
                 } 

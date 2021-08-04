@@ -86,7 +86,7 @@ function setUIGridColor() {
 setUIGridColor.local = 1;
 
 function setSingleCircleColor() {
-	gGraphics.setSingleSelectionCircleColor(arrayfromargs(arguments));
+	gGraphics.setSingleCircleAndFrameColor(arrayfromargs(arguments));
 }
 setSingleCircleColor.local = 1;
 
@@ -94,6 +94,10 @@ function setMultipleCirclesColor() {
 	gGraphics.setMultipleSelectionCirclesColor(arrayfromargs(arguments));
 }
 setSingleCircleColor.local = 1;
+
+function setCirclesAndFrameLineSize(val) {
+	gGraphics.setCirclesAndFrameSize(val);
+}
 
 function setRotatez(rotZ) {
 	var angleRad = (rotZ / 180) * 3.1459;

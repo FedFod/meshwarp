@@ -59,6 +59,7 @@ declareattribute("ui_grid_color", null, "setUIGridColor", 0);
 
 declareattribute("selection_color", null, "setSingleCircleColor", 0);
 declareattribute("multiple_selection_color", null, "setMultipleCirclesColor", 0);
+declareattribute("circles_size", null, "setCirclesAndFrameLineSize", 0);
 
 var show_ui = 1;
 declareattribute("show_ui", null, "showUI", 0);
