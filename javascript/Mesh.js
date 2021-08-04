@@ -91,8 +91,8 @@ function Mesh(ID) {
         this.initScaleHandles(drawto_);
         // this.initPhysBody();
         this.initTextureProxy();
-        this.calcMeshBoundsMat();
         
+        this.calcMeshBoundsMat();
         this.assignPositionMatToMesh();
         this.initAndAssignTextureCoordMat(); // init texture coord mat
         this.triggerNURBSOutput();
@@ -110,7 +110,7 @@ function Mesh(ID) {
         this.latestScale = this.currentScale.slice();
         this.latestRotation = 0;
         this.useNurbs = 1;
-        this.useAspectRatio = 0;
+        // this.useAspectRatio = 0;
         this.undoRedoLevels = [];
         this.undoPointer = 0;
         this.latestAction = GUI_ELEMENTS.NOTHING;

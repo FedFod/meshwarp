@@ -18,6 +18,7 @@ function reset() {
 	gGraphics.resetSingleCircle();
 	gGraphics.resetSelected();
 	gMesh.initMesh(nodeCTX.name);
+	gMesh.scaleMesh(gMesh.currentScale[0], gMesh.currentScale[1]);
 	assignThisAsCurrentlySelectedToGlobal();
 }
 
