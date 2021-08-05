@@ -314,6 +314,6 @@ Mesh.prototype.getSelectedVertexIndex = function() {
 }
 
 Mesh.prototype.outputSelectedVertex = function(vertexPos) {
-    outlet(0, "selected_vertex", this.selectedVertexIndex[0], this.selectedVertexIndex[1], vertexPos[0], vertexPos[1]);
+    outlet(0, "selected_vertex", this.selectedVertexIndex[0], (this.positionMat.dim[1]-1)-this.selectedVertexIndex[1], vertexPos[0], vertexPos[1]);
 }
 

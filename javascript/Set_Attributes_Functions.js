@@ -24,7 +24,7 @@ function reset() {
 
 function move_vertex(indexX, indexY, posX, posY) {
 	var tempPos = [posX, posY]; 
-	var tempIndex = [indexX, indexY];
+	var tempIndex = [indexX, (gMesh.positionMat.dim[1]-1)-indexY];
 	if (checkIfVec2AreDifferent(tempIndex, gMesh.selectedVertexIndex)) {
 		var tempPos = gMesh.getPositionMatCell(tempIndex);
 	}
