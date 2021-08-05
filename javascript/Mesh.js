@@ -39,6 +39,7 @@ function Mesh(ID) {
     this.latestScale = this.currentScale.slice();
     this.meshRatio = 1;
     this.currentPos = [0,0];
+    this.latestCurrentPos = this.currentPos.slice();
     this.nurbsLstnr = null;
     this.hasNurbsMat = 0;
     this.textureNames = [""];
@@ -106,6 +107,7 @@ function Mesh(ID) {
         this.latestMousePos = [0, 0];
         this.mouseOffset = [0,0];
         this.currentPos = [0,0];
+        this.latestCurrentPos = [0,0];
         this.currentScale = [1, 1];
         this.latestScale = this.currentScale.slice();
         this.latestRotation = 0;

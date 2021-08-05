@@ -67,6 +67,7 @@ function checkModifiersKeyDown() {
 		gShiftPressed = max.shiftkeydown;
 		gMesh.setMeshRatio();
 	}
+	gCTRLPressed = max.cmdkeydown;
 }
 checkModifiersKeyDown.local = 1;
 

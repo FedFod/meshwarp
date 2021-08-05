@@ -47,6 +47,9 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                 default: 
                     break;
             }
+            if (gCTRLPressed) {
+                this.moveMeshWithCtrl(mouseWorld);
+            }   
         }
         else { // mouse is released
             if (this.latestAction == GUI_ELEMENTS.WAS_SCALED) {
@@ -55,7 +58,10 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
             else if (this.latestAction == GUI_ELEMENTS.WAS_MOVED_VERTICES) {
                 this.deselectVertices();
             }
-            if (this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
+            else if (this.latestAction == GUI_ELEMENTS.WAS_MOVED_MESH) {
+                this.storeLatestMeshPos();
+            }
+            if (this.latestAction != GUI_ELEMENTS.NOTHING) {
                 this.saveUndoRedoPositionMat();
                 this.calcMeshBoundsMat();
             }
@@ -68,7 +74,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     // SELECT MESH GLOBALLY
     if (mouseClicked) {
         if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
-            setToGlobalIfMouseIsOnMesh(true);        
+            setToGlobalIfMouseIsOnMesh(true);     
         } else {
             setToGlobalIfMouseIsOnMesh(false);        
         }
@@ -83,7 +89,6 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                 }
             }
             if (foundLayers.length > 1) {
-                print("test "+getMaxFromArray(foundLayers))
                 if (getMaxFromArray(foundLayers) == layer) {
                     assignThisAsCurrentlySelectedToGlobal();
                 } 

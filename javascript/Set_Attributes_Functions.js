@@ -36,7 +36,7 @@ function jit_gl_texture(texName) {
 }
 
 function write(path) {
-	debug(DEBUG.GENERAL, "saveing to " + path);
+	debug(DEBUG.GENERAL, "saving to " + path);
 	saveDictToPath(path);
 }
 

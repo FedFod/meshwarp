@@ -36,6 +36,7 @@ Mesh.prototype.loadDataFromDict = function(dict) {
     this.posMatDim = dict.get("positionMat::dimensions");
     this.currentScale = dict.get("positionMat::scale");
     this.currentPos = dict.get("positionMat::center");
+    this.latestCurrentPos = this.currentPos.slice();
     setRotatez(dict.get("positionMat::rotatez"));
 
     this.latestScale = this.currentScale.slice();
@@ -94,7 +95,7 @@ Mesh.prototype.applyHistory = function() {
     arrayToJitMat(this.positionMat, state.posMat);
     this.currentScale = state.scale.slice();
     this.currentPos = state.position.slice();
-    this.setLatestScale_calcBoundsMat_calcBoundsMat();
+    this.setLatestScale_calcBoundsMat();
     this.applyMeshTransformation();
     this.updateGUI();
 }

@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 160.0, 245.0, 964.0, 573.0 ],
+		"rect" : [ 151.0, 174.0, 964.0, 573.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -1227,7 +1227,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 160.0, 271.0, 964.0, 547.0 ],
+						"rect" : [ 151.0, 200.0, 964.0, 547.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2009,7 +2009,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 51.642860054969788, 446.047614336013794, 300.0, 22.0 ],
+									"patching_rect" : [ 51.642860054969788, 450.047614336013794, 300.0, 22.0 ],
 									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 10 4 @layer 0",
 									"varname" : "jit.gl.meshwarp"
 								}
@@ -2149,8 +2149,8 @@
  ],
 		"lines" : [  ],
 		"parameters" : 		{
-			"obj-4::obj-41::obj-8" : [ "meshwarpjs[1]", "meshwarpjs[1]", 0 ],
-			"obj-4::obj-43::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[3]", 0 ],
+			"obj-4::obj-41::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[1]", 0 ],
+			"obj-4::obj-43::obj-8" : [ "meshwarpjs[3]", "meshwarpjs[3]", 0 ],
 			"obj-51::obj-1::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-51::obj-9" : [ "toggle", "toggle", 0 ],
 			"parameterbanks" : 			{
