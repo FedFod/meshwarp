@@ -665,7 +665,7 @@
 			}
 , 			{
 				"box" : 				{
-					"attr" : "ui_grid_color",
+					"attr" : "grid_color",
 					"displaymode" : 6,
 					"id" : "obj-33",
 					"maxclass" : "attrui",

@@ -54,8 +54,8 @@ declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 var color = WHITE;
 declareattribute("color", null, "setColor", 0);
 
-var ui_grid_color = randomColor();
-declareattribute("ui_grid_color", null, "setUIGridColor", 0);
+var grid_color = randomColor();
+declareattribute("grid_color", null, "setUIGridColor", 0);
 
 declareattribute("selection_color", null, "setSingleCircleColor", 0);
 declareattribute("multiple_selection_color", null, "setMultipleCirclesColor", 0);

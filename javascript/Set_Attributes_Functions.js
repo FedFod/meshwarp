@@ -81,8 +81,8 @@ function setColor() {
 setColor.local = 1;
 
 function setUIGridColor() {
-	ui_grid_color = arrayfromargs(arguments);
-	gMesh.setUIGridColor(ui_grid_color);
+	grid_color = arrayfromargs(arguments);
+	gMesh.setUIGridColor(grid_color);
 }
 setUIGridColor.local = 1;
 
@@ -121,7 +121,7 @@ function buildSaveDict() {
 	saveDict.replace("lock_to_aspect", lock_to_aspect);
 	//saveDict.replace("blend_enable", blend_enable);
 	saveDict.replace("color", color);	
-	saveDict.replace("ui_grid_color", ui_grid_color);
+	saveDict.replace("grid_color", grid_color);
 	saveDict.replace("show_ui", show_ui);
 	saveDict.replace("point_size", point_size);
 	saveDict.replace("grid_size", grid_size);
@@ -154,7 +154,7 @@ function loadFromDict(saveDict) {
 	lock_to_aspect = saveDict.get("lock_to_aspect");
 	//blend_enable = saveDict.get("blend_enable");
 	color = saveDict.get("color");	
-	ui_grid_color = saveDict.get("ui_grid_color");
+	grid_color = saveDict.get("grid_color");
 	show_ui = saveDict.get("show_ui");
 	point_size = saveDict.get("point_size");
 	grid_size = saveDict.get("grid_size");

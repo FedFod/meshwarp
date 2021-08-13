@@ -235,7 +235,7 @@
                 The name of the texture to be applied (default = none). 
             </description>
     </attribute>
-    <attribute name="ui_grid_color">
+    <attribute name="grid_color">
             <arglist />
             <digest>
                 Set the color of the UI mesh grid (default = random);

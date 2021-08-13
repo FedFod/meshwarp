@@ -211,7 +211,7 @@ function Mesh(ID) {
         this.meshGrid.draw_mode = "quad_grid";
         this.meshGrid.depth_enable = 0;
         this.meshGrid.layer = MIDDLE;
-        this.meshGrid.color = ui_grid_color;
+        this.meshGrid.color = grid_color;
         this.meshGrid.poly_mode = [1, 1];
         this.meshGrid.line_width = grid_size;
         this.meshGrid.drawto   = drawto_;
