@@ -8,7 +8,7 @@
     </digest>
 
     <description>
-        The jit.gl.meshwarp allows to deform visual material projected on a two-dimensional mesh.
+        The jit.gl.meshwarp object deforms visual material projected on a two-dimensional mesh.
         It can be used for video-mapping or other creative applications.
     </description>
 
@@ -73,7 +73,7 @@
                 Redo latest undone UI changes. 
             </digest>
             <description>
-                Redo latest undone UI changes. Can be also called by pressing "ctrl/cmd + y" on the keyboard.
+                Redo latest undone UI changes. Can be also called by pressing "ctrl + y/cmd + shift + z" on the keyboard.
             </description>
         </method>
         <method name="reset">
@@ -120,6 +120,8 @@
             </digest>
             <description>
                 A quick way to set both the X and y NURBS order, which determines the curvature of the underlying canvas mesh (range 0. to 1.)
+                Sets both dims of <at>nurbs_order</at>, based on the current <at>mesh_dim</at>. The attribute is float type, however 
+                output is clamped to int values and therefore may look choppy when adjusting. 
             </description>
     </attribute>
     <attribute name="enable">
