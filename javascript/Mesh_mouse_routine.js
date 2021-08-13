@@ -1,5 +1,6 @@
 Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
     if (this.showMeshUI) {
+        print(" showMeshUI mouse idle " + drawto);
         this.latestAction = GUI_ELEMENTS.NOTHING;
         this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
         this.setLatestMousePos(mouseWorld);
@@ -20,6 +21,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
         // var oldMouseClicked = oldMouseState_[2];
 
         if (mouseClicked) {
+            print(" showMeshUI mouse clicked");
             // gGraphics.drawID(this.getMeshCenter(this.positionMat));
             //if (!oldMouseClicked && this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
                 //this.saveUndoRedoPositionMat();
@@ -73,15 +75,19 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
 
     // SELECT MESH GLOBALLY
     if (mouseClicked) {
+        
         if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
+            print("mouse clicked true")
             setToGlobalIfMouseIsOnMesh(true);     
         } else {
+            print("mouse clicked false")
             setToGlobalIfMouseIsOnMesh(false);        
         }
     }
 
     if (!mouseClicked && gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
         if (gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh) {
+            print("mouse clicked mouseIsOnMesh")
             var foundLayers = [];
             for (var mesh in gGlobal.mouseIsOnMesh) {
                 if (gGlobal.mouseIsOnMesh[mesh].isOnMesh) {
@@ -96,6 +102,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                 assignThisAsCurrentlySelectedToGlobal();
             }
         } else if (gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
+            print("mouse clicked deselectThisFromGlobal")
             deselectThisFromGlobal();
             setToGlobalIfMouseIsOnMesh(false);  
         }

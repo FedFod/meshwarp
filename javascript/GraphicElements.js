@@ -30,11 +30,9 @@ function GraphicElements(nodectx) {
     }
 
     this.drawCircle = function(coordsWorld) {   
-        if (gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
-            this.sketch.reset();
-            this.sketch.moveto(coordsWorld);
-            this.sketch.framecircle(this.circleRadius);
-        }
+        this.sketch.reset();
+        this.sketch.moveto(coordsWorld);
+        this.sketch.framecircle(this.circleRadius);
     }
 
     this.highlightCircle = function(cellIndex) {

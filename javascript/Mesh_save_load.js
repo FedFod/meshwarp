@@ -25,7 +25,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
     setGridSize(grid_size);
 
     this.updateGUI();
-    assignThisAsCurrentlySelectedToGlobal()
+    //assignThisAsCurrentlySelectedToGlobal()
     
     this.saveUndoRedoPositionMat();
 }

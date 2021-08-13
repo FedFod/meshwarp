@@ -41,7 +41,7 @@ Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {
                 currVertexPos = this.getPositionMatCell(coords);
                 i = coords[0];
                 j = coords[1];
-
+                print("gGraphics.drawCircle(currVertexPos)");
                 gGraphics.drawCircle(currVertexPos);
                 var cell = this.positionMat.getcell(i,j);
                 this.mouseOffset = subVec2D(cell, mouseWorld);
@@ -151,7 +151,9 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
         this.setVertexPosInMat(coordsWorld, cellIndex);
         this.applyMeshTransformation();
         this.latestAction = GUI_ELEMENTS.WAS_MOVED_SINGLE_VERTEX;
-        gGraphics.drawCircle(coordsWorld);
+        if (this.showMeshUI) {
+            gGraphics.drawCircle(coordsWorld);
+        }
         this.outputSelectedVertex(coordsWorld);
     }
 }
