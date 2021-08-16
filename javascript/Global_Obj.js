@@ -136,12 +136,11 @@ function removeFromGlobalCtxMap() {
 			gGlobal.contexts[drawto].ctxCamera.freepeer();
 			deleteCtxOb = true;
 		}
-	}
-	removeFromGlobalCtxMap.local = 1;
 	
-	if(gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
-		gGlobal.contexts[drawto].currentlySelected = -1;
-		gGlobal.contexts[drawto].mouseIsOnMesh[nodeCTX.name].isOnMesh = false;
+		if(gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
+			gGlobal.contexts[drawto].currentlySelected = -1;
+			gGlobal.contexts[drawto].mouseIsOnMesh[nodeCTX.name].isOnMesh = false;
+		}
 	}
 	
 	if(deleteCtxOb) {
@@ -151,14 +150,19 @@ function removeFromGlobalCtxMap() {
 
 	gGlobal.meshCount--;
 }
+removeFromGlobalCtxMap.local = 1;
 
 function assignLatestActionToGlobal(latestAction) {
-	gGlobal.contexts[drawto].latestAction = latestAction;
+	if(ctxInGlobal()) {
+		gGlobal.contexts[drawto].latestAction = latestAction;
+	}
 }
 assignLatestActionToGlobal.local = 1;
 
 function setToGlobalIfMouseIsOnMesh(val) {
-	gGlobal.contexts[drawto].mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: videoplane.layer};
+	if(ctxInGlobal()) {
+		gGlobal.contexts[drawto].mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: videoplane.layer};
+	}
 }
 
 
