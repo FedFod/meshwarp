@@ -31,7 +31,13 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                     break;
                 case (GUI_ELEMENTS.VERTEX):
                     if (this.selectedVerticesIndices.length > 1) {
-                        this.moveSelectedVertices(mouseWorld);
+                        if(this.isCurVertexInSelected()) {
+                            this.moveSelectedVertices(mouseWorld);
+                        }
+                        else {
+                            this.deselectVertices();
+                            this.moveVertexWithMouse(mouseWorld);                           
+                        }
                     } else {
                         this.moveVertexWithMouse(mouseWorld);
                         gGraphics.resetSelected();
@@ -54,7 +60,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                 this.setLatestScale_calcBoundsMat();
             }
             else if (this.latestAction == GUI_ELEMENTS.WAS_MOVED_VERTICES) {
-                this.deselectVertices();
+                //this.deselectVertices();
             }
             else if (this.latestAction == GUI_ELEMENTS.WAS_MOVED_MESH) {
                 this.storeLatestMeshPos();

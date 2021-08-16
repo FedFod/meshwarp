@@ -329,3 +329,14 @@ Mesh.prototype.outputSelectedVertex = function(vertexPos) {
     outlet(0, "selected_vertex", this.selectedVertexIndex[0], (this.positionMat.dim[1]-1)-this.selectedVertexIndex[1], vertexPos[0], vertexPos[1]);
 }
 
+Mesh.prototype.isCurVertexInSelected = function() {
+    for(var i = 0; i < this.selectedVerticesIndices.length; i++) {
+        if(
+            (this.selectedVertexIndex[0] == this.selectedVerticesIndices[i][0]) &&
+            (this.selectedVertexIndex[1] == this.selectedVerticesIndices[i][1])
+        ) {
+           return true; 
+        }
+    }
+    return false;
+}
