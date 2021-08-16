@@ -18,12 +18,13 @@ function reset() {
 	gGraphics.resetSingleCircle();
 	gGraphics.resetSelected();
 	gMesh.initMesh(nodeCTX.name);
+	gMesh.scaleMesh(gMesh.currentScale[0], gMesh.currentScale[1]);
 	assignThisAsCurrentlySelectedToGlobal();
 }
 
 function move_vertex(indexX, indexY, posX, posY) {
 	var tempPos = [posX, posY]; 
-	var tempIndex = [indexX, indexY];
+	var tempIndex = [indexX, (gMesh.positionMat.dim[1]-1)-indexY];
 	if (checkIfVec2AreDifferent(tempIndex, gMesh.selectedVertexIndex)) {
 		var tempPos = gMesh.getPositionMatCell(tempIndex);
 	}
@@ -35,7 +36,7 @@ function jit_gl_texture(texName) {
 }
 
 function write(path) {
-	debug(DEBUG.GENERAL, "saveing to " + path);
+	debug(DEBUG.GENERAL, "saving to " + path);
 	saveDictToPath(path);
 }
 
@@ -62,7 +63,7 @@ function setEnable(val) {
 	showUI(val);
 	gMesh.setEnable(val);
 	if(!enable) {
-		gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
+		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
 		setToGlobalIfMouseIsOnMesh(false);
 	}
 }
@@ -80,8 +81,23 @@ function setColor() {
 setColor.local = 1;
 
 function setUIGridColor() {
-	ui_grid_color = arrayfromargs(arguments);
-	gMesh.setUIGridColor(ui_grid_color);
+	grid_color = arrayfromargs(arguments);
+	gMesh.setUIGridColor(grid_color);
+}
+setUIGridColor.local = 1;
+
+function setSingleCircleColor() {
+	gGraphics.setSingleCircleAndFrameColor(arrayfromargs(arguments));
+}
+setSingleCircleColor.local = 1;
+
+function setMultipleCirclesColor() {
+	gGraphics.setMultipleSelectionCirclesColor(arrayfromargs(arguments));
+}
+setSingleCircleColor.local = 1;
+
+function setCirclesAndFrameLineSize(val) {
+	gGraphics.setCirclesAndFrameSize(val);
 }
 
 function setRotatez(rotZ) {
@@ -105,7 +121,7 @@ function buildSaveDict() {
 	saveDict.replace("lock_to_aspect", lock_to_aspect);
 	//saveDict.replace("blend_enable", blend_enable);
 	saveDict.replace("color", color);	
-	saveDict.replace("ui_grid_color", ui_grid_color);
+	saveDict.replace("grid_color", grid_color);
 	saveDict.replace("show_ui", show_ui);
 	saveDict.replace("point_size", point_size);
 	saveDict.replace("grid_size", grid_size);
@@ -138,7 +154,7 @@ function loadFromDict(saveDict) {
 	lock_to_aspect = saveDict.get("lock_to_aspect");
 	//blend_enable = saveDict.get("blend_enable");
 	color = saveDict.get("color");	
-	ui_grid_color = saveDict.get("ui_grid_color");
+	grid_color = saveDict.get("grid_color");
 	show_ui = saveDict.get("show_ui");
 	point_size = saveDict.get("point_size");
 	grid_size = saveDict.get("grid_size");
@@ -151,6 +167,12 @@ function loadFromDict(saveDict) {
 }
 loadFromDict.local = 1;
 
+function setScaleRelativeToAspect(val) {
+	lock_to_aspect = val;
+	gMesh.scaleToTextureRatio(val);
+}
+setScaleRelativeToAspect.local = 1;
+
 function setTexturesMeshes() {
 	if (arguments.length > 0) {
 		texture = (arrayfromargs(arguments));
@@ -162,7 +184,7 @@ setTexturesMeshes.local = 1;
 
 function setScale(scaleX, scaleY) {
 	gMesh.scaleMesh(scaleX, scaleY);
-	gMesh.setLatestScale();
+	gMesh.setLatestScale_calcBoundsMat();
 }
 setScale.local = 1;
 

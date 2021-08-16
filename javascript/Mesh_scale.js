@@ -31,13 +31,14 @@ Mesh.prototype.scaleToTextureRatio = function(val) {
     this.useAspectRatio = val;
     this.meshRatio = this.textureRatio;
     this.scaleMesh(this.currentScale[0], this.currentScale[1]);
-    this.setLatestScale();
+    this.setLatestScale_calcBoundsMat();
     this.updateGUI();
 }
 
-Mesh.prototype.setLatestScale = function() {
+Mesh.prototype.setLatestScale_calcBoundsMat = function() {
     this.latestScale = this.currentScale.slice();
     this.setMeshRatio();
+    this.calcMeshBoundsMat();
 }
 
 Mesh.prototype.setMeshRatio = function() {

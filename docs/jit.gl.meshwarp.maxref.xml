@@ -8,7 +8,7 @@
     </digest>
 
     <description>
-        The jit.gl.meshwarp allows to deform visual material projected on a two-dimensional mesh.
+        The jit.gl.meshwarp object deforms visual material projected on a two-dimensional mesh.
         It can be used for video-mapping or other creative applications.
     </description>
 
@@ -38,7 +38,7 @@
     <!--ARGUMENTS-->
     <objarglist>
         <objarg name="drawto" optional="" type="message">
-            <digest>The name drawing context in which to draw (default = none). A named drawing context 
+            <digest>The named drawing context in which to draw (default = none). A named drawing context 
                 is a named instance of a <o>jit.world</o>, <o>jit.pworld</o> or <o>jit.gl.node</o> object. If no argument is 
                 provided the object will find a context 
                 <link module="core" name="jitter_gl_contexts" type="vignette">implicitly.</link>
@@ -73,7 +73,7 @@
                 Redo latest undone UI changes. 
             </digest>
             <description>
-                Redo latest undone UI changes. Can be also called by pressing "ctrl/cmd + y" on the keyboard.
+                Redo latest undone UI changes. Can be also called by pressing "ctrl + y/cmd + shift + z" on the keyboard.
             </description>
         </method>
         <method name="reset">
@@ -113,6 +113,17 @@
                 The color of the mesh (default = 1. 1. 1. 1.)
             </description>
     </attribute>
+    <attribute name="curvature">
+            <arglist />
+            <digest>
+                Set both the x and y NURBS order. 
+            </digest>
+            <description>
+                A quick way to set both the X and y NURBS order, which determines the curvature of the underlying canvas mesh (range 0. to 1.)
+                Sets both dims of <at>nurbs_order</at>, based on the current <at>mesh_dim</at>. The attribute is float type, however 
+                output is clamped to int values and therefore may look choppy when adjusting. 
+            </description>
+    </attribute>
     <attribute name="enable">
             <arglist />
             <digest>
@@ -142,13 +153,23 @@
                 When set to active, the scale attribute will only respond to the second attribute argument (y scale).
             </description>
     </attribute>
-      <attribute name="meshdim">
+    <attribute name="meshdim">
             <arglist />
             <digest>
                 Dimension of UI mesh (default = 4 4)
             </digest>
             <description>
                 Dimension of the UI mesh. Sets the number of clickable vertices displayed (default = 4 4)
+            </description>
+    </attribute>
+    <attribute name="nurbs_order">
+            <arglist />
+            <digest>
+                Set the X and Y order of the NURBS canvas mesh (default = 1 1).
+            </digest>
+            <description>
+                Set the X and Y order of the underlying NURBS canvas mesh. 
+                The order determines the curvature of the canvas mesh (default = 1 1). 
             </description>
     </attribute>
     <attribute name="position">
@@ -216,7 +237,7 @@
                 The name of the texture to be applied (default = none). 
             </description>
     </attribute>
-    <attribute name="ui_grid_color">
+    <attribute name="grid_color">
             <arglist />
             <digest>
                 Set the color of the UI mesh grid (default = random);

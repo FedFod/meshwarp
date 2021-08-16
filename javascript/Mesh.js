@@ -39,6 +39,7 @@ function Mesh(ID) {
     this.latestScale = this.currentScale.slice();
     this.meshRatio = 1;
     this.currentPos = [0,0];
+    this.latestCurrentPos = this.currentPos.slice();
     this.nurbsLstnr = null;
     this.hasNurbsMat = 0;
     this.textureNames = [""];
@@ -91,8 +92,8 @@ function Mesh(ID) {
         this.initScaleHandles(drawto_);
         // this.initPhysBody();
         this.initTextureProxy();
-        this.calcMeshBoundsMat();
         
+        this.calcMeshBoundsMat();
         this.assignPositionMatToMesh();
         this.initAndAssignTextureCoordMat(); // init texture coord mat
         this.triggerNURBSOutput();
@@ -106,11 +107,12 @@ function Mesh(ID) {
         this.latestMousePos = [0, 0];
         this.mouseOffset = [0,0];
         this.currentPos = [0,0];
+        this.latestCurrentPos = [0,0];
         this.currentScale = [1, 1];
         this.latestScale = this.currentScale.slice();
         this.latestRotation = 0;
         this.useNurbs = 1;
-        this.useAspectRatio = 0;
+        // this.useAspectRatio = 0;
         this.undoRedoLevels = [];
         this.undoPointer = 0;
         this.latestAction = GUI_ELEMENTS.NOTHING;
@@ -209,7 +211,7 @@ function Mesh(ID) {
         this.meshGrid.draw_mode = "quad_grid";
         this.meshGrid.depth_enable = 0;
         this.meshGrid.layer = MIDDLE;
-        this.meshGrid.color = ui_grid_color;
+        this.meshGrid.color = grid_color;
         this.meshGrid.poly_mode = [1, 1];
         this.meshGrid.line_width = grid_size;
         this.meshGrid.drawto   = drawto_;

@@ -54,8 +54,12 @@ declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 var color = WHITE;
 declareattribute("color", null, "setColor", 0);
 
-var ui_grid_color = randomColor();
-declareattribute("ui_grid_color", null, "setUIGridColor", 0);
+var grid_color = randomColor();
+declareattribute("grid_color", null, "setUIGridColor", 0);
+
+declareattribute("selection_color", null, "setSingleCircleColor", 0);
+declareattribute("multiple_selection_color", null, "setMultipleCirclesColor", 0);
+declareattribute("circles_size", null, "setCirclesAndFrameLineSize", 0);
 
 var show_ui = 1;
 declareattribute("show_ui", null, "showUI", 0);
@@ -84,6 +88,7 @@ var gWindowRatio = 1;
 var gWindowPrevRatio = gWindowRatio;
 var gIsMouseInsideWindow = false;
 var gShiftPressed = false;
+var gCTRLPressed = false;
 var gMaxUndo = 100;
 
 var gMesh = new Mesh(gGlobal.meshCount++);

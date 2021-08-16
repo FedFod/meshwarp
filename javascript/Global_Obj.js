@@ -1,11 +1,8 @@
 // GLOBAL OBJECT
 gGlobal = new Global("gMeshwarp");
-gGlobal.mouseIsOnMesh = {};
 
 if(gGlobal.inited === undefined) {
 	gGlobal.inited = true;
-	gGlobal.currentlySelected = -1;
-	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
 	gGlobal.contexts = {};
 	gGlobal.meshCount = 0;
 	if(max.version >= 820) {
@@ -13,35 +10,48 @@ if(gGlobal.inited === undefined) {
 	}
 }
 
-function notify_selected_meshwarp(currentlySelected) {
-    if (nodeCTX.name != currentlySelected) {
+function initGlobalContextOb(ctxOb) {
+	ctxOb.objects = [];
+	ctxOb.requestInit = true;
+	ctxOb.currentlySelected = -1;
+	ctxOb.latestAction = GUI_ELEMENTS.NOTHING;
+	ctxOb.mouseIsOnMesh = {};
+	ctxOb.ctxNode = null;
+	ctxOb.ctxCamera = null;
+}
+
+function notify_selected_meshwarp(currentlySelected, selectedContext) {
+    if (drawto == selectedContext && nodeCTX.name != currentlySelected) {
         deselectThisFromGlobal();
     }
 }
 
-gGlobal.checkIfItIsGloballySelected = function(nodeName) {
-	return (gGlobal.currentlySelected == nodeName);
+function ctxInGlobal() {
+	return (gGlobal.contexts[drawto] !== undefined && gGlobal.contexts[drawto] !== null);
 }
 
-gGlobal.getMaxLayer = function() {
-	var maxLayer = -1000;
-	for (var meshwarp in gGlobal.mouseIsOnMesh) {
-		if (gGlobal.mouseIsOnMesh[meshwarp].layer > maxLayer) {
-			maxLayer = gGlobal.mouseIsOnMesh[meshwarp].layer;
-		}
-	}
-	return maxLayer;
+gGlobal.checkIfItIsGloballySelected = function(nodeName) {
+	return (ctxInGlobal() && gGlobal.contexts[drawto].currentlySelected == nodeName);
 }
 
 function assignThisAsCurrentlySelectedToGlobal() {
-		gGlobal.currentlySelected = nodeCTX.name;
+	if(ctxInGlobal()) {
+		gGlobal.contexts[drawto].currentlySelected = nodeCTX.name;
 		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
 		gMesh.setMeshAsSelected(true);
-		var maxLayer = gGlobal.getMaxLayer();
+
+		var maxLayer = -1000;
+		var ctxOb = gGlobal.contexts[drawto];
+		for (var m in ctxOb.mouseIsOnMesh) {
+			if (ctxOb.mouseIsOnMesh[m].layer > maxLayer) {
+				maxLayer = ctxOb.mouseIsOnMesh[m].layer;
+			}
+		}		
 		setVideoplaneLayer(maxLayer+1);
 		gGraphics.setLayer(maxLayer+2);
 		
-		outlet(0, "notify_selected_meshwarp",nodeCTX.name);
+		outlet(0, "notify_selected_meshwarp", nodeCTX.name, drawto);
+	}
 }
 assignThisAsCurrentlySelectedToGlobal.local = 1;
 
@@ -86,28 +96,34 @@ function addToGlobalCtxMap() {
 	debug(DEBUG.GENERAL, "addToGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
 	// check if context in map, if not create it
 	var ctxOb = null;
-	if(gGlobal.contexts.drawto === undefined || gGlobal.contexts.drawto == null) {
+	if(gGlobal.contexts[drawto] === undefined || gGlobal.contexts[drawto] == null) {
 		debug(DEBUG.GENERAL, "create global context " + drawto);
-		gGlobal.contexts.drawto = {};
-		ctxOb = gGlobal.contexts.drawto;
-		ctxOb.objects = [];
-		ctxOb.requestInit = true;
+		gGlobal.contexts[drawto] = {};
+		ctxOb = gGlobal.contexts[drawto];
+		initGlobalContextOb(ctxOb);
 		// ctxOb.physWorldName = drawto + "_physworld";
 	}
 	else {
-		ctxOb = gGlobal.contexts.drawto;
+		ctxOb = gGlobal.contexts[drawto];
 		// gMesh.setPhysWorldNameToMeshBody(ctxOb.physWorldName);
 	}
 	ctxOb.objects.push(nodeCTX.name);
 	setToGlobalIfMouseIsOnMesh(false);
 	assignThisAsCurrentlySelectedToGlobal();
+
+	// print("addToGlobalCtxMap")
+	// for (var c in gGlobal.contexts) {
+	// 	print (c);
+	// 	print(gGlobal.contexts[c]);
+	// }
 }
 
 // called by notifyDeleted
 function removeFromGlobalCtxMap() {
 	debug(DEBUG.GENERAL, "removeFromGlobalCtxMap : " + drawto + ", " + nodeCTX.name);
-	if(drawto !== "" && gGlobal.contexts.drawto !== undefined) {
-		var obs = gGlobal.contexts.drawto.objects;
+	var deleteCtxOb = false;
+	if(drawto !== "" && gGlobal.contexts[drawto] !== undefined) {
+		var obs = gGlobal.contexts[drawto].objects;
 		var index = obs.indexOf(nodeCTX.name);
 		if (index != -1) {
 			obs.splice(index, 1);
@@ -116,31 +132,37 @@ function removeFromGlobalCtxMap() {
 		debug(DEBUG.GENERAL, "Objects Length : "+obs.length)
 		if (obs.length == 0) {
 			debug(DEBUG.GENERAL, "freed global objects");
-			gGlobal.contexts.drawto.ctxNode.freepeer();
-			// gGlobal.contexts.drawto.physDraw.freepeer();
-			// gGlobal.contexts.drawto.physWorld.freepeer();
-			gGlobal.contexts.drawto.ctxCamera.freepeer();
-			gGlobal.inited = null;
-			gGlobal.contexts.drawto = null;
+			gGlobal.contexts[drawto].ctxNode.freepeer();
+			gGlobal.contexts[drawto].ctxCamera.freepeer();
+			deleteCtxOb = true;
+		}
+	
+		if(gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
+			gGlobal.contexts[drawto].currentlySelected = -1;
+			gGlobal.contexts[drawto].mouseIsOnMesh[nodeCTX.name].isOnMesh = false;
 		}
 	}
-	removeFromGlobalCtxMap.local = 1;
 	
-	if(gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
-		gGlobal.currentlySelected = -1;
-		gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh = false;
+	if(deleteCtxOb) {
+		debug(DEBUG.GENERAL, "delete Context Ob : " + drawto);
+		delete gGlobal.contexts[drawto];
 	}
-	
+
 	gGlobal.meshCount--;
 }
+removeFromGlobalCtxMap.local = 1;
 
 function assignLatestActionToGlobal(latestAction) {
-	gGlobal.latestAction = latestAction;
+	if(ctxInGlobal()) {
+		gGlobal.contexts[drawto].latestAction = latestAction;
+	}
 }
 assignLatestActionToGlobal.local = 1;
 
 function setToGlobalIfMouseIsOnMesh(val) {
-	gGlobal.mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: videoplane.layer};
+	if(ctxInGlobal()) {
+		gGlobal.contexts[drawto].mouseIsOnMesh[nodeCTX.name] = {isOnMesh: val, layer: videoplane.layer};
+	}
 }
 
 

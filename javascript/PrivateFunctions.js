@@ -38,12 +38,6 @@ nodeCamera.ortho = 2;
 // }
 // calculateBoundingCells.local = 1;
 
-function setScaleRelativeToAspect(val) {
-	lock_to_aspect = val;
-	gMesh.scaleToTextureRatio(val);
-}
-setScaleRelativeToAspect.local = 1;
-
 function setWindowRatio(dims) {
 	gWindowRatio = dims[0] / dims[1];
 } 
@@ -73,6 +67,7 @@ function checkModifiersKeyDown() {
 		gShiftPressed = max.shiftkeydown;
 		gMesh.setMeshRatio();
 	}
+	gCTRLPressed = max.cmdkeydown;
 }
 checkModifiersKeyDown.local = 1;
 

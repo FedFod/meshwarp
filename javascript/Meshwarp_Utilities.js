@@ -186,10 +186,10 @@ if (!Math.sign) {
     }
 }
 
-Array.prototype.max = function() {
-	return Math.max.apply(null, this);
-  };
+function getMaxFromArray(arr) {
+	return Math.max.apply(Math, arr);
+};
   
-  Array.prototype.min = function() {
-	return Math.min.apply(null, this);
-  };
+function getMinFromArray(arr) {
+return Math.min.apply(Math, arr);
+};

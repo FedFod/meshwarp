@@ -4,7 +4,7 @@ function GraphicElements(nodectx) {
     this.sketch.depth_enable = 0;
     this.sketch.layer = FRONT+2;
     this.sketch.color = RED;
-    this.sketch.line_width = 2;
+    this.sketch.line_width = 3;
 
     this.circleRadius = 0.03;
 
@@ -30,11 +30,9 @@ function GraphicElements(nodectx) {
     }
 
     this.drawCircle = function(coordsWorld) {   
-        if (gGlobal.checkIfItIsGloballySelected(nodeCTX.name)) {
-            this.sketch.reset();
-            this.sketch.moveto(coordsWorld);
-            this.sketch.framecircle(this.circleRadius);
-        }
+        this.sketch.reset();
+        this.sketch.moveto(coordsWorld);
+        this.sketch.framecircle(this.circleRadius);
     }
 
     this.highlightCircle = function(cellIndex) {
@@ -79,5 +77,20 @@ function GraphicElements(nodectx) {
     this.setLayer = function(val) {
         this.sketch.layer = FRONT+val+1;
         this.sketch2.layer = FRONT+val;
+    }
+
+    this.setSingleCircleAndFrameColor = function(color) {
+        this.sketch.color = color;
+    }
+
+    this.setMultipleSelectionCirclesColor = function(color) {
+        this.sketch2.color = color;
+    }
+
+    this.setCirclesAndFrameSize = function(val) {
+        this.sketch.shapeslice(val*50);
+        this.circleRadius = val*0.06;
+        this.sketch.line_width = val*3;
+        this.sketch2.line_width = val*3;
     }
 }

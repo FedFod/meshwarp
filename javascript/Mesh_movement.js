@@ -41,13 +41,12 @@ Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {
                 currVertexPos = this.getPositionMatCell(coords);
                 i = coords[0];
                 j = coords[1];
-
                 gGraphics.drawCircle(currVertexPos);
                 var cell = this.positionMat.getcell(i,j);
                 this.mouseOffset = subVec2D(cell, mouseWorld);
                 this.selectedVertexIndex = coords;
                 this.mouseIsCloseTo = GUI_ELEMENTS.VERTEX;
-                this.outputSelectedVertex(cell);
+                // this.outputSelectedVertex(cell);
 
                 return this.mouseIsCloseTo;
             }
@@ -108,7 +107,7 @@ Mesh.prototype.moveSelectedVertices = function(mouseWorld) {
         this.setVertexPosInMat(newPos, this.selectedVerticesIndices[i]);
         gGraphics.drawSelectedCircles(newPos);
     }
-    this.latestMousePos = mouseWorld.slice();
+    this.setLatestMousePos(mouseWorld);
     this.applyMeshTransformation();
     this.latestAction = GUI_ELEMENTS.WAS_MOVED_VERTICES;
 }
@@ -119,6 +118,13 @@ Mesh.prototype.moveMeshWithHandle = function(mouseWorld) {
         var offset = sumVec2D(mouseWorld, this.mouseOffset);
         this.setMeshPosition(offset);
     }
+}
+
+Mesh.prototype.moveMeshWithCtrl = function(mouseWorld) {
+    this.mouseOffset = subVec2D(this.latestCurrentPos, this.latestMousePos);
+    var offset = sumVec2D(mouseWorld, this.mouseOffset);
+    this.setMeshPosition(offset);
+    // this.mouseIsCloseTo = GUI_ELEMENTS.MOVE_HANDLE;
 }
 
 Mesh.prototype.setMeshPosition = function(offset) {
@@ -144,7 +150,9 @@ Mesh.prototype.moveVertex = function(coordsWorld, cellIndex) {
         this.setVertexPosInMat(coordsWorld, cellIndex);
         this.applyMeshTransformation();
         this.latestAction = GUI_ELEMENTS.WAS_MOVED_SINGLE_VERTEX;
-        gGraphics.drawCircle(coordsWorld);
+        if (this.showMeshUI) {
+            gGraphics.drawCircle(coordsWorld);
+        }
         this.outputSelectedVertex(coordsWorld);
     }
 }
@@ -309,11 +317,26 @@ Mesh.prototype.getLatestMousePos = function() {
     return this.latestMousePos.slice();
 }
 
+Mesh.prototype.storeLatestMeshPos = function() {
+    this.latestCurrentPos = this.currentPos;
+}
+
 Mesh.prototype.getSelectedVertexIndex = function() {
     return this.selectedVertexIndex;
 }
 
 Mesh.prototype.outputSelectedVertex = function(vertexPos) {
-    outlet(0, "selected_vertex", this.selectedVertexIndex[0], this.selectedVertexIndex[1], vertexPos[0], vertexPos[1]);
+    outlet(0, "selected_vertex", this.selectedVertexIndex[0], (this.positionMat.dim[1]-1)-this.selectedVertexIndex[1], vertexPos[0], vertexPos[1]);
 }
 
+Mesh.prototype.isCurVertexInSelected = function() {
+    for(var i = 0; i < this.selectedVerticesIndices.length; i++) {
+        if(
+            (this.selectedVertexIndex[0] == this.selectedVerticesIndices[i][0]) &&
+            (this.selectedVertexIndex[1] == this.selectedVerticesIndices[i][1])
+        ) {
+           return true; 
+        }
+    }
+    return false;
+}

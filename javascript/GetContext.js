@@ -33,8 +33,12 @@ function dosetdrawto(newdrawto) {
 		gGlobal.proxy.name = newdrawto;
 		//postln("drawto class " + proxy.class);
 		if(gGlobal.proxy.class !== undefined) {
-			if(gGlobal.proxy.class != "jit_gl_context_view") { // what class is that?
+			// drawto may be root render or sub-node
+			// if root the class will return jit_gl_context_view
+			if(gGlobal.proxy.class != "jit_gl_context_view") {
+				// class is a sub-node, get the drawto on that
 				proxydrawto = gGlobal.proxy.send("getdrawto");
+				// recurse until we get root
 				// important! drawto is an array so get first element
 				return dosetdrawto(proxydrawto[0]);
 			}
