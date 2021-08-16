@@ -41,7 +41,6 @@ Mesh.prototype.checkIfMouseIsCloseToVertex = function(mouseWorld) {
                 currVertexPos = this.getPositionMatCell(coords);
                 i = coords[0];
                 j = coords[1];
-                print("gGraphics.drawCircle(currVertexPos)");
                 gGraphics.drawCircle(currVertexPos);
                 var cell = this.positionMat.getcell(i,j);
                 this.mouseOffset = subVec2D(cell, mouseWorld);

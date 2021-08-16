@@ -1,6 +1,6 @@
 Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
     if (this.showMeshUI) {
-        print(" showMeshUI mouse idle " + drawto);
+        //print(" showMeshUI mouse idle " + drawto);
         this.latestAction = GUI_ELEMENTS.NOTHING;
         this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
         this.setLatestMousePos(mouseWorld);
@@ -21,7 +21,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
         // var oldMouseClicked = oldMouseState_[2];
 
         if (mouseClicked) {
-            print(" showMeshUI mouse clicked");
+            debug(DEBUG.GLOBAL_SELECTION + "showMeshUI mouse clicked");
             // gGraphics.drawID(this.getMeshCenter(this.positionMat));
             //if (!oldMouseClicked && this.mouseIsCloseTo != GUI_ELEMENTS.NOTHING) {
                 //this.saveUndoRedoPositionMat();
@@ -77,17 +77,17 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     if (mouseClicked) {
         
         if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
-            print("mouse clicked true")
+            debug(DEBUG.GLOBAL_SELECTION + "mouse clicked true")
             setToGlobalIfMouseIsOnMesh(true);     
         } else {
-            print("mouse clicked false")
+            debug(DEBUG.GLOBAL_SELECTION + "mouse clicked false")
             setToGlobalIfMouseIsOnMesh(false);        
         }
     }
 
-    if (!mouseClicked && gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
+    if (!mouseClicked && gGlobal.contexts[drawto].latestAction === GUI_ELEMENTS.NOTHING) {
         if (gGlobal.mouseIsOnMesh[nodeCTX.name].isOnMesh) {
-            print("mouse clicked mouseIsOnMesh")
+            debug(DEBUG.GLOBAL_SELECTION + "mouse clicked mouseIsOnMesh")
             var foundLayers = [];
             for (var mesh in gGlobal.mouseIsOnMesh) {
                 if (gGlobal.mouseIsOnMesh[mesh].isOnMesh) {
@@ -101,8 +101,8 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
             } else {
                 assignThisAsCurrentlySelectedToGlobal();
             }
-        } else if (gGlobal.latestAction === GUI_ELEMENTS.NOTHING) {
-            print("mouse clicked deselectThisFromGlobal")
+        } else if (gGlobal.contexts[drawto].latestAction === GUI_ELEMENTS.NOTHING) {
+            debug(DEBUG.GLOBAL_SELECTION + "mouse clicked deselectThisFromGlobal")
             deselectThisFromGlobal();
             setToGlobalIfMouseIsOnMesh(false);  
         }

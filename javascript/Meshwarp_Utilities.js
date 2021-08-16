@@ -35,7 +35,7 @@ var DEBUG = {
 	GENERAL: 3
 }
 
-var gWhatToDebug = DEBUG.GENERAL;
+var gWhatToDebug = DEBUG.NONE;
 
 function debug(what, val) {
 	if (gWhatToDebug === what) {

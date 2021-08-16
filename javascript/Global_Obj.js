@@ -4,12 +4,18 @@ gGlobal = new Global("gMeshwarp");
 if(gGlobal.inited === undefined) {
 	gGlobal.mouseIsOnMesh = {};
 	gGlobal.inited = true;
-	gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
 	gGlobal.contexts = {};
 	gGlobal.meshCount = 0;
 	if(max.version >= 820) {
 		gGlobal.proxy = new JitterObject("jit.proxy");
 	}
+}
+
+function initGlobalContextOb(ctxOb) {
+	ctxOb.objects = [];
+	ctxOb.requestInit = true;
+	ctxOb.currentlySelected = -1;
+	ctxOb.latestAction = GUI_ELEMENTS.NOTHING;
 }
 
 function notify_selected_meshwarp(currentlySelected, selectedContext) {
@@ -95,9 +101,7 @@ function addToGlobalCtxMap() {
 		debug(DEBUG.GENERAL, "create global context " + drawto);
 		gGlobal.contexts[drawto] = {};
 		ctxOb = gGlobal.contexts[drawto];
-		ctxOb.objects = [];
-		ctxOb.requestInit = true;
-		ctxOb.currentlySelected = -1;
+		initGlobalContextOb(ctxOb);
 		// ctxOb.physWorldName = drawto + "_physworld";
 	}
 	else {
@@ -147,7 +151,7 @@ function removeFromGlobalCtxMap() {
 }
 
 function assignLatestActionToGlobal(latestAction) {
-	gGlobal.latestAction = latestAction;
+	gGlobal.contexts[drawto].latestAction = latestAction;
 }
 assignLatestActionToGlobal.local = 1;
 

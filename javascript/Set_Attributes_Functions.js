@@ -63,7 +63,7 @@ function setEnable(val) {
 	showUI(val);
 	gMesh.setEnable(val);
 	if(!enable) {
-		gGlobal.latestAction = GUI_ELEMENTS.NOTHING;
+		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
 		setToGlobalIfMouseIsOnMesh(false);
 	}
 }
