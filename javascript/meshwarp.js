@@ -1,19 +1,18 @@
 autowatch = 1;
 outlets = 2;
 include("Meshwarp_Utilities.js");
-include("Global_Obj.js");
-include("GetContext.js");
-include("Mesh.js");
-include("Mesh_scale.js");
-include("Mesh_save_load.js");
-include("Mesh_dim.js");
-include("Mesh_movement.js");
-include("Mesh_handles.js");
-include("Mesh_mouse_routine.js");
-include("GraphicElements.js");
-include("PrivateFunctions.js");
-include("Set_Attributes_Functions");
-include("Canvas.js"); // what's that??
+include("Meshwarp_Global_Obj.js");
+include("Meshwarp_GetContext.js");
+include("Meshwarp_Mesh.js");
+include("Meshwarp_Mesh_scale.js");
+include("Meshwarp_Mesh_save_load.js");
+include("Meshwarp_Mesh_dim.js");
+include("Meshwarp_Mesh_movement.js");
+include("Meshwarp_Mesh_handles.js");
+include("Meshwarp_Mesh_mouse_routine.js");
+include("Meshwarp_GraphicElements.js");
+include("Meshwarp_PrivateFunctions.js");
+include("Meshwarp_Set_Attributes_Functions");
 
 // ATTRIBUTES
 
