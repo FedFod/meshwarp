@@ -6,6 +6,10 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     }
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
+    
+    // this.mask_mat_from_unscaled_mat();
+    // this.assign_mask_mat_to_mesh();
+
     this.latestAction = GUI_ELEMENTS.WAS_SCALED;
     this.updateGUI();
 }

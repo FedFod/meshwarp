@@ -11,6 +11,7 @@ var BACKGROUND = 0;
 var MIDDLE = 1;
 var MIDDLE_1 = 2;
 var FRONT = 3;
+var FRONT_1 = 4;
 
 var GUI_ELEMENTS = {
 	NOTHING: -1,
@@ -32,15 +33,19 @@ var DEBUG = {
 	GLOBAL_SELECTION: 0,
 	REDO_UNDO: 1,
 	GRAPHICS: 2,
-	GENERAL: 3
+	GENERAL: 3,
+	MASK: 4
 }
 
-var gWhatToDebug = DEBUG.NONE;
+var gWhatToDebug = DEBUG.MASK;
 
 function debug(what, val) {
-	if (gWhatToDebug === what) {
-		print("MESH_ID: "+gMesh.ID+" "+val);
-	} 
+	if (gMesh != null)
+	{
+		if (gWhatToDebug === what) {
+			print("MESH_ID: "+gMesh.ID+" "+val);
+		} 
+	}
 }
 
 // ------------------------------------------
@@ -85,10 +90,18 @@ jitMatToArray.local = 1;
 
 function arrayToJitMat(mat, arr) {
 	var index = 0;
-	for (var i=0; i<mat.dim[0]; i++) {
-		for (var j=0; j<mat.dim[1]; j++) {
-			mat.setcell2d(i,j, arr[index]);
-			index++;
+	if (Array.isArray(mat.dim)) {
+		for (var i=0; i<mat.dim[0]; i++) {
+			for (var j=0; j<mat.dim[1]; j++) {
+				mat.setcell2d(i,j, arr[index]);
+				index++;
+			}
+		}
+	}
+	else
+	{
+		for (var i=0; i<arr.length; i++) {
+			mat.setcell1d(i, arr[i]);
 		}
 	}
 }

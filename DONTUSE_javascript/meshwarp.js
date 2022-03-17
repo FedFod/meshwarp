@@ -1,9 +1,10 @@
 autowatch = 1;
 outlets = 2;
+include("Meshwarp_Mesh.js");
+include("Meshwarp_Mesh_Mask.js");
 include("Meshwarp_Utilities.js");
 include("Meshwarp_Global_Obj.js");
 include("Meshwarp_GetContext.js");
-include("Meshwarp_Mesh.js");
 include("Meshwarp_Mesh_scale.js");
 include("Meshwarp_Mesh_save_load.js");
 include("Meshwarp_Mesh_dim.js");
@@ -12,7 +13,7 @@ include("Meshwarp_Mesh_handles.js");
 include("Meshwarp_Mesh_mouse_routine.js");
 include("Meshwarp_GraphicElements.js");
 include("Meshwarp_PrivateFunctions.js");
-include("Meshwarp_Set_Attributes_Functions");
+include("Meshwarp_Set_Attributes_Functions.js");
 
 // ATTRIBUTES
 
@@ -46,10 +47,10 @@ declareattribute("layer", null, "setMeshLayer", 0);
 var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
-// mesh appearance
-//var blend_enable = 0;
-//declareattribute("blend_enable", null, "setBlendEnable", 0);
+var use_mask = 0;
+declareattribute("use_mask", null, "setUseMask", 0);
 
+// mesh appearance
 var color = WHITE;
 declareattribute("color", null, "setColor", 0);
 
@@ -90,6 +91,7 @@ var gShiftPressed = false;
 var gCTRLPressed = false;
 var gMaxUndo = 100;
 
+// var gMesh = null;
 var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);
 setTexturesMeshes();
@@ -116,7 +118,10 @@ function swapcallback(event){
 			if (enable) {
 				var oldMouseState = gMousePosScreen.slice();
 				gMousePosScreen = event.args.slice();
-				gMesh.mouseClickedRoutine(gMousePosScreen, oldMouseState);
+				if (gMesh != null)
+				{
+					gMesh.mouseClickedRoutine(gMousePosScreen, oldMouseState);
+				}
 			}
 			break;
 		
@@ -132,8 +137,10 @@ function swapcallback(event){
 				// if(result) {
 				// 	print("raytest " + result[0]);
 				// }
-
-				gMesh.mouseIdleRoutine(mouseWorld);
+				if (gMesh != null)
+				{
+					gMesh.mouseIdleRoutine(mouseWorld);
+				}
 			}
 			break;
 
@@ -150,5 +157,8 @@ function swapcallback(event){
 swapcallback.local = 1
 
 function write_ctl_matrix(path) {
-	gMesh.positionMat.write(path);
+	if (gMesh != null)
+	{
+		gMesh.positionMat.write(path);
+	}
 }

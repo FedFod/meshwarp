@@ -19,7 +19,6 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     var ctxOb = gGlobal.contexts[drawto];
 
     if (this.showMeshUI) {
-
         if (mouseClicked) {
             debug(DEBUG.GLOBAL_SELECTION, "showMeshUI mouse clicked");
             switch (this.mouseIsCloseTo) {
@@ -79,7 +78,12 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     if (mouseClicked) {
         if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
             debug(DEBUG.GLOBAL_SELECTION, "mouse clicked true")
-            setToGlobalIfMouseIsOnMesh(true);     
+            setToGlobalIfMouseIsOnMesh(true);    
+            if (use_mask && gShiftPressed)
+            {   
+                debug(DEBUG.MASK, use_mask)
+                this.addVertexToMask(mouseWorld);
+            } 
         } else {
             debug(DEBUG.GLOBAL_SELECTION, "mouse clicked false")
             setToGlobalIfMouseIsOnMesh(false);        

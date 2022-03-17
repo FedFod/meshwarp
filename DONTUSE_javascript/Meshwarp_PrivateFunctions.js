@@ -46,7 +46,10 @@ setWindowRatio.local = 1;
 function notifydeleted() {
 	debug(DEBUG.GENERAL, "freebang");
 	removeFromGlobalCtxMap(); // remove from global meshwarp array
-	gMesh.freeMesh();
+	if (gMesh != null)
+	{
+		gMesh.freeMesh();
+	}
 	gGraphics.free();
 	nodeCTX.freepeer();
 	videoplane.freepeer();
@@ -65,7 +68,10 @@ setNodeDrawto.local = 1;
 function checkModifiersKeyDown() {
 	if (gShiftPressed != max.shiftkeydown) {
 		gShiftPressed = max.shiftkeydown;
-		gMesh.setMeshRatio();
+		if (gMesh != null)
+		{
+			gMesh.setMeshRatio();
+		}
 	}
 	gCTRLPressed = max.cmdkeydown;
 }

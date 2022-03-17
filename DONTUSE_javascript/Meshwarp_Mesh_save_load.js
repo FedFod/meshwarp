@@ -18,8 +18,11 @@ Mesh.prototype.loadDict = function(saveDict_) {
     setMeshLayer(layer);
     setScaleRelativeToAspect(lock_to_aspect);
     //setBlendEnable(blend_enable);
-    gMesh.setColor(color);
-    gMesh.setUIGridColor(grid_color);
+    if (gMesh != null)
+    {
+        gMesh.setColor(color);
+        gMesh.setUIGridColor(grid_color);
+    }
     showUI(show_ui);
     setPointSize(point_size);
     setGridSize(grid_size);

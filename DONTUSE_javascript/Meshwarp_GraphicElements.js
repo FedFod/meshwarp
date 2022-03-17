@@ -36,8 +36,11 @@ function GraphicElements(nodectx) {
     }
 
     this.highlightCircle = function(cellIndex) {
-        var coordsWorld = gMesh.getPositionMatCell(cellIndex);
-        this.drawCircle(coordsWorld);
+        if (gMesh != null)
+		{
+            var coordsWorld = gMesh.getPositionMatCell(cellIndex);
+            this.drawCircle(coordsWorld);
+        }
     }
 
     this.resetSingleCircle = function() {
@@ -71,7 +74,10 @@ function GraphicElements(nodectx) {
 
     this.drawID = function(position) {
         this.text.position = position;
-        this.text.text(gMesh.ID);
+        if (gMesh != null)
+		{
+            this.text.text(gMesh.ID);
+        }
     }
 
     this.setLayer = function(val) {

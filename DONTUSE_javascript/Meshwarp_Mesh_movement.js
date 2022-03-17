@@ -130,6 +130,9 @@ Mesh.prototype.moveMeshWithCtrl = function(mouseWorld) {
 Mesh.prototype.setMeshPosition = function(offset) {
     var newPos = subVec2D(offset, this.currentPos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);
+
+    // this.maskMat.op("+", [newPos[0], newPos[1]]);
+
     this.currentPos = offset.slice();
 
     gGraphics.resetSingleCircle();
@@ -178,6 +181,9 @@ Mesh.prototype.rotateZ = function(rotZ) {
 Mesh.prototype.applyMeshTransformation = function() {
     this.unscaledMatFromPosMat();
     this.assignPositionMatToMesh();
+
+    // this.unscaled_mask_mat_from_unscaled_mat();
+    // this.assign_mask_mat_to_mesh();
 }
 
 Mesh.prototype.checkIfIndexIsWithinPositionMat = function(index) {
