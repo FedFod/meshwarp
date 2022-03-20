@@ -53,6 +53,7 @@ function dosetdrawto(newdrawto) {
 	// postln("setdrawto " + newdrawto);
 	drawto = newdrawto;	
 	setNodeDrawto();
+	gGraphics.setDrawto(drawto);
 	addToGlobalCtxMap();
 	gMesh.setMaskNodeDrawto();
 

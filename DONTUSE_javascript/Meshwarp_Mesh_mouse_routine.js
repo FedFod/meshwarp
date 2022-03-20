@@ -11,7 +11,7 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
         }
         this.updateGUI();
     }
-    else if (use_mask)
+    else if (create_mask)
     {
         this.checkIfMouseCloseToFirstMaskVertex(mouseWorld);
     }
@@ -84,9 +84,8 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
             debug(DEBUG.GLOBAL_SELECTION, "mouse clicked true")
             setToGlobalIfMouseIsOnMesh(true);  
 
-            if (use_mask && gShiftPressed)
+            if (create_mask && gShiftPressed)
             {   
-                // debug(DEBUG.MASK, use_mask)
                 if (gTimer > 30)
                 {
                     gTimer = 0;	

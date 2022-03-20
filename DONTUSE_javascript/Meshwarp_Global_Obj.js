@@ -38,9 +38,11 @@ function assignThisAsCurrentlySelectedToGlobal() {
 	if(ctxInGlobal()) {
 		gGlobal.contexts[drawto].currentlySelected = nodeCTX.name;
 		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
+		// show_ui = 1;
 		if (gMesh != null)
 		{
-			gMesh.setMeshAsSelected(show_ui);
+			// gMesh.setMeshAsSelected(show_ui);
+			gMesh.setMeshAsSelected(1)
 		}
 
 		var maxLayer = -1000;
@@ -50,8 +52,6 @@ function assignThisAsCurrentlySelectedToGlobal() {
 				maxLayer = ctxOb.mouseIsOnMesh[m].layer;
 			}
 		}		
-		FF_Utils.Print("LAYER "+layer)
-		FF_Utils.Print("MAX LAYER "+maxLayer)
 		setVideoplaneLayer(maxLayer);
 		gMesh.setMaskLayer(maxLayer+1);
 		gGraphics.setLayer(maxLayer+3);
@@ -66,7 +66,7 @@ function deselectThisFromGlobal() {
 	assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
 	if (gMesh != null)
 	{
-		gMesh.setMeshAsSelected(false);
+		gMesh.setMeshAsSelected(0);
 	}
 }
 deselectThisFromGlobal.local = 1;

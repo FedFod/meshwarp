@@ -7,7 +7,7 @@ nodeCTX.erase_color = [0, 0, 0, 0];
 nodeCTX.fsaa = 1;
 
 // OBJECTS INSTANCES USED GLOBALLY 
-var gGraphics = new GraphicElements(nodeCTX.name);
+var gGraphics = new GraphicElements();
 var gMinMaxMat = new JitterObject("jit.3m");
 
 var gMaskPix = new JitterObject("jit.gl.pix");

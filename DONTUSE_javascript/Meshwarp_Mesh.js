@@ -16,7 +16,6 @@ var nurbsmap = {};
 
 function Mesh(ID) {
     this.ID = ID;
-
 }
 
 Mesh.prototype.initMeshProperties = function()
@@ -121,7 +120,7 @@ Mesh.prototype.setEnable = function(val) {
     }
 }
 
-Mesh.prototype.initMesh = function(drawto_) {
+Mesh.prototype.initMesh = function(drawto_, drawtoHandles_) {
     if (this.meshFull)
     {
         this.freeMesh();
@@ -133,12 +132,12 @@ Mesh.prototype.initMesh = function(drawto_) {
     this.setMeshDim(this.posMatDim);
     this.initPositionMat(); // fill vertex mat from scratch
 
-    this.initMeshPoints(drawto_);
-    this.initMeshGrid(drawto_);
+    this.initMeshPoints(drawtoHandles_);
+    this.initMeshGrid(drawtoHandles_);
     this.initMeshFull(drawto_);
     this.initNurbs(drawto_);
-    this.initMvmtHandle(drawto_);
-    this.initScaleHandles(drawto_);
+    this.initMvmtHandle(drawtoHandles_);
+    this.initScaleHandles(drawtoHandles_);
     this.initTextureProxy();
     
     this.calcMeshBoundsMat();
@@ -147,7 +146,7 @@ Mesh.prototype.initMesh = function(drawto_) {
     this.triggerNURBSOutput();
     this.updateGUI();
 
-    this.initMask(drawto_);
+    this.initMask(drawtoHandles_);
     
     this.saveUndoRedoPositionMat();
 }
@@ -271,31 +270,6 @@ Mesh.prototype.initNurbs = function(drawto_) {
     nurbsmap[this.nurbs.name] = this;
 }
 
-Mesh.prototype.initMvmtHandle = function(drawto_) {
-    this.moveHandle = new JitterObject("jit.gl.sketch", drawto_);
-    this.moveHandle.layer = FRONT;
-    this.moveHandle.color = LIGHT_BLUE;
-    this.moveHandle.line_width = 2;
-    this.moveHandle.handlePos = [];
-    this.moveHandle.handleSize = 0.08;
-    this.moveHandle.blend_enable = 1;
-    this.moveHandle.depth_enable = 0;
-    this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
-}
-
-Mesh.prototype.initScaleHandles = function(drawto_) {
-    this.scaleHandles = new JitterObject("jit.gl.sketch", drawto_);
-    this.scaleHandles.layer = FRONT;
-    this.scaleHandles.color = ORANGE;
-    this.scaleHandles.line_width = 2;
-    this.scaleHandles.blend_enable = 1;
-    this.scaleHandles.depth_enable = 0;
-    this.scaleHandles.handleSize = 0.1;
-    this.scaleHandles.handlesPositions = [];
-    this.scaleHandles.index = -1;
-    this.drawScaleHandles();
-}
-
 Mesh.prototype.initTextureProxy = function() {
     this.textureProxy = new JitterObject("jit.proxy");
 }
@@ -346,11 +320,23 @@ Mesh.prototype.freeMeshNurbsLstnr = function() {
 }
 
 Mesh.prototype.showUI = function(show) {
-    this.meshGrid.enable = (show && (grid_size > 0));
-    this.meshPoints.enable = show;
-    this.scaleHandles.enable = show && this.enableScaleHandles;
-    this.moveHandle.enable = show && this.enableMoveHandle;
-    this.showMeshUI = show;
+    if (!create_mask && show)
+    {
+        this.meshGrid.enable = (grid_size > 0);
+        this.meshPoints.enable = 1;
+        this.showMeshUI = 1;
+        this.scaleHandles.enable = this.enableScaleHandles;
+        this.moveHandle.enable = this.enableMoveHandle;
+    }
+    else if (create_mask || !show)
+    {
+        this.meshGrid.enable = 0;
+        this.meshPoints.enable = 0;
+        this.showMeshUI = 0;
+        this.scaleHandles.enable = 0;
+        this.moveHandle.enable = 0;
+    }
+    
 }
 
 Mesh.prototype.assignNurbsMatToMesh = function() {

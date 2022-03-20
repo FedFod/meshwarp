@@ -1,6 +1,8 @@
 autowatch = 1;
 outlets = 2;
 include("Meshwarp_Mesh.js");
+include("Meshwarp_Mesh_handles.js");
+include("Meshwarp_Mesh_movement.js");
 include("Meshwarp_Mesh_Mask.js");
 include("Meshwarp_Utilities.js");
 include("Meshwarp_Global_Obj.js");
@@ -8,8 +10,6 @@ include("Meshwarp_GetContext.js");
 include("Meshwarp_Mesh_scale.js");
 include("Meshwarp_Mesh_save_load.js");
 include("Meshwarp_Mesh_dim.js");
-include("Meshwarp_Mesh_movement.js");
-include("Meshwarp_Mesh_handles.js");
 include("Meshwarp_Mesh_mouse_routine.js");
 include("Meshwarp_GraphicElements.js");
 include("Meshwarp_PrivateFunctions.js");
@@ -47,8 +47,11 @@ declareattribute("layer", null, "setMeshLayer", 0);
 var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
-var use_mask = 0;
-declareattribute("use_mask", null, "setUseMask", 0);
+var create_mask = 0;
+declareattribute("create_mask", null, "setCreateMask", 0);
+
+var apply_mask = 0;
+declareattribute("apply_mask", null, "setApplyMask", 0);
 
 // mesh appearance
 var color = WHITE;
@@ -93,7 +96,7 @@ var gMaxUndo = 100;
 
 // var gMesh = null;
 var gMesh = new Mesh(gGlobal.meshCount++);
-gMesh.initMesh(nodeCTX.name);
+gMesh.initMesh(nodeCTX.name, gGraphics.getGraphicsNodeName());
 setTexturesMeshes();
 
 
@@ -101,36 +104,35 @@ setTexturesMeshes();
 
 var gTimer = 0;
 function swapcallback(event){
-	//post("callback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
-	switch (event.eventname) {
-		// if context is root we use swap, if jit.gl.node use draw
-		case ("swap" || "draw"):
-		// RENDER BANG
-			if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
-				setWindowRatio(nodeCTX.dim);
-				gWindowDim = nodeCTX.dim.slice();
-				gWindowPrevRatio = gWindowRatio;
-				gGraphics.changeSelectionCirclesRadius(gWindowDim);
-			}
-			checkContextObs();
-			checkModifiersKeyDown();
-			multiplyMaskTexture();
-			gTimer++;
-			break;
+	if (enable)
+	{
+		//post("callback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
+		switch (event.eventname) {
+			// if context is root we use swap, if jit.gl.node use draw
+			case ("swap" || "draw"):
+			// RENDER BANG
+				if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
+					setWindowRatio(nodeCTX.dim);
+					gWindowDim = nodeCTX.dim.slice();
+					gWindowPrevRatio = gWindowRatio;
+					gGraphics.changeSelectionCirclesRadius(gWindowDim);
+				}
+				checkContextObs();
+				checkModifiersKeyDown();
+				multiplyMaskTexture();
+				gTimer++;
+				break;
 
-		case "mouse": 
-			if (enable) {
+			case "mouse": 
 				var oldMouseState = gMousePosScreen.slice();
 				gMousePosScreen = event.args.slice();
 				if (gMesh != null)
 				{	
 					gMesh.mouseClickedRoutine(gMousePosScreen, oldMouseState);
 				}
-			}
-			break;
-		
-		case "mouseidle":  // Check if mouse is close to vertices to highlight them
-			if (enable) {
+				break;
+			
+			case "mouseidle":  // Check if mouse is close to vertices to highlight them
 				gMousePosScreen = (event.args);
 				gIsMouseInsideWindow = true;
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
@@ -138,18 +140,18 @@ function swapcallback(event){
 				{
 					gMesh.mouseIdleRoutine(mouseWorld);
 				}
-			}
-			break;
+				break;
 
-		case "mouseidleout":
-			gIsMouseInsideWindow = false;
-			break;
-		
-		case "keydown": 
-			// print(event.args)
-			// print("case")
-			break;
-	}
+			case "mouseidleout":
+				gIsMouseInsideWindow = false;
+				break;
+			
+			case "keydown": 
+				// print(event.args)
+				// print("case")
+				break;
+		}
+	}	
 }
 swapcallback.local = 1
 

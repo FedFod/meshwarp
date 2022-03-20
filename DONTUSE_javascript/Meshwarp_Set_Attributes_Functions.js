@@ -17,7 +17,7 @@ function reset() {
 	gGraphics.resetSelected();
 	if (gMesh != null)
 	{		
-		gMesh.initMesh(nodeCTX.name);
+		gMesh.initMesh(nodeCTX.name, gGraphics.getGraphicsNodeName());
 		gMesh.scaleMesh(gMesh.currentScale[0], gMesh.currentScale[1]);
 	}
 	assignThisAsCurrentlySelectedToGlobal();
@@ -144,15 +144,23 @@ function setBlendEnable(val) {
 }
 setBlendEnable.local = 1;
 
-function setUseMask(val)
+function setCreateMask(val)
 {
-	use_mask = val;
+	create_mask = val;
 	if (gMesh != null)
 	{
 		showUI(1-val);
+		gMesh.setCreateMask(val);
 	}
 }
-setUseMask.local = 1;
+setCreateMask.local = 1;
+
+function setApplyMask(val)
+{
+	apply_mask = val;
+	gMesh.setApplyMask(val);
+}
+setApplyMask.local = 1;
 
 // SAVE / LOAD -----------------------------------
 function buildSaveDict() {
@@ -288,6 +296,7 @@ setMeshLayer.local = 1;
 
 function setVideoplaneLayer(val) {
 	videoplane.layer = val;
+	gGraphics.setGraphicsVidPlaneLayer(val+1);
 }
 setVideoplaneLayer.local = 1;
 
