@@ -96,8 +96,10 @@ var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name);
 setTexturesMeshes();
 
+
 //--------------------------------------------
 
+var gTimer = 0;
 function swapcallback(event){
 	//post("callback: " + event.subjectname + " sent "+ event.eventname + " with (" + event.args + ")\n");			
 	switch (event.eventname) {
@@ -112,6 +114,8 @@ function swapcallback(event){
 			}
 			checkContextObs();
 			checkModifiersKeyDown();
+			multiplyMaskTexture();
+			gTimer++;
 			break;
 
 		case "mouse": 
@@ -119,7 +123,7 @@ function swapcallback(event){
 				var oldMouseState = gMousePosScreen.slice();
 				gMousePosScreen = event.args.slice();
 				if (gMesh != null)
-				{
+				{	
 					gMesh.mouseClickedRoutine(gMousePosScreen, oldMouseState);
 				}
 			}
@@ -130,13 +134,6 @@ function swapcallback(event){
 				gMousePosScreen = (event.args);
 				gIsMouseInsideWindow = true;
 				var mouseWorld = gGraphics.transformMouseToWorld(gMousePosScreen); //transformMouseFromScreenToWorld2D(gMousePosScreen); 
-				// we are using default cam position and far_clip distance for our ray z points
-				// var ray = [mouseWorld[0], mouseWorld[1], 2, mouseWorld[0], mouseWorld[1], -98 ];
-				// var result = gGlobal.contexts.drawto.physWorld.raytest(ray);
-				// print(gMesh.physBody.enable + " " + gMesh.ID)
-				// if(result) {
-				// 	print("raytest " + result[0]);
-				// }
 				if (gMesh != null)
 				{
 					gMesh.mouseIdleRoutine(mouseWorld);

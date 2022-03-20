@@ -13,7 +13,6 @@ function redo() {
 }
 
 function reset() {
-	show_mesh = 1;
 	gGraphics.resetSingleCircle();
 	gGraphics.resetSelected();
 	if (gMesh != null)
@@ -150,7 +149,7 @@ function setUseMask(val)
 	use_mask = val;
 	if (gMesh != null)
 	{
-		gMesh.showUI(1-val);
+		showUI(1-val);
 	}
 }
 setUseMask.local = 1;
@@ -235,7 +234,6 @@ function setTexturesMeshes() {
 	
 		gMesh.assignTextureToMesh(texture);
 	}
-	//gMesh.initAndAssignTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
 }
 setTexturesMeshes.local = 1;
 

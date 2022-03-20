@@ -10,12 +10,16 @@ nodeCTX.fsaa = 1;
 var gGraphics = new GraphicElements(nodeCTX.name);
 var gMinMaxMat = new JitterObject("jit.3m");
 
+var gMaskPix = new JitterObject("jit.gl.pix");
+gMaskPix.drawto = nodeCTX.name;
+gMaskPix.gen = "gen_multi.genjit";
+
 // VIDEOPLANE
 var videoplane = new JitterObject("jit.gl.videoplane");
 videoplane.transform_reset = 2;
 videoplane.color = WHITE;
 videoplane.color[3] = 0;
-videoplane.texture = nodeCTX.out_name;
+// videoplane.texture = nodeCTX.out_name;
 videoplane.depth_enable = 0;
 videoplane.blend_enable = 1;
 videoplane.layer = layer;
@@ -38,6 +42,17 @@ nodeCamera.ortho = 2;
 // }
 // calculateBoundingCells.local = 1;
 
+function multiplyMaskTexture()
+{	
+	gMaskPix.activeinput = 0;
+	gMaskPix.jit_gl_texture(nodeCTX.out_name);
+	gMaskPix.activeinput = 1;
+	gMaskPix.jit_gl_texture(gMesh.getMaskTexName());
+	gMaskPix.draw();
+	videoplane.texture = gMaskPix.out_name;
+	// FF_Utils.Print(gMesh.getMaskTexName());
+}
+
 function setWindowRatio(dims) {
 	gWindowRatio = dims[0] / dims[1];
 } 
@@ -54,6 +69,7 @@ function notifydeleted() {
 	nodeCTX.freepeer();
 	videoplane.freepeer();
 	nodeCamera.freepeer();
+	gMaskPix.freepeer();
 	implicit_lstnr.subjectname = ""
 	implicit_tracker.freepeer();
 	// what else?

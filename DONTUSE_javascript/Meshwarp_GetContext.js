@@ -54,6 +54,7 @@ function dosetdrawto(newdrawto) {
 	drawto = newdrawto;	
 	setNodeDrawto();
 	addToGlobalCtxMap();
+	gMesh.setMaskNodeDrawto();
 
 	if(swaplisten)
 		swaplisten.subjectname = "";

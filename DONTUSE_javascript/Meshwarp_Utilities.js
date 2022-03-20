@@ -11,7 +11,7 @@ var BACKGROUND = 0;
 var MIDDLE = 1;
 var MIDDLE_1 = 2;
 var FRONT = 3;
-var FRONT_1 = 4;
+var FRONT_1 = 5;
 
 var GUI_ELEMENTS = {
 	NOTHING: -1,
@@ -29,12 +29,12 @@ var GUI_ELEMENTS = {
 
 // DEBUG --------------------
 var DEBUG = {
-	NONE: -1,
-	GLOBAL_SELECTION: 0,
-	REDO_UNDO: 1,
-	GRAPHICS: 2,
-	GENERAL: 3,
-	MASK: 4
+	NONE: 0,
+	GLOBAL_SELECTION: 1,
+	REDO_UNDO: 2,
+	GRAPHICS: 3,
+	GENERAL: 4,
+	MASK: 5
 }
 
 var gWhatToDebug = DEBUG.MASK;
@@ -43,7 +43,8 @@ function debug(what, val) {
 	if (gMesh != null)
 	{
 		if (gWhatToDebug === what) {
-			print("MESH_ID: "+gMesh.ID+" "+val);
+			var keys = Object.keys(DEBUG);
+			print("Debug "+ keys[what] + " - MESH_ID: "+gMesh.ID+" --- "+val);
 		} 
 	}
 }

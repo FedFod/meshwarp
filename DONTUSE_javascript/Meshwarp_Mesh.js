@@ -122,9 +122,12 @@ Mesh.prototype.setEnable = function(val) {
 }
 
 Mesh.prototype.initMesh = function(drawto_) {
+    if (this.meshFull)
+    {
+        this.freeMesh();
+    }
     this.initMeshProperties();
     this.initState();
-    this.initMask();
     debug(DEBUG.GENERAL, "init")
 
     this.setMeshDim(this.posMatDim);
@@ -143,6 +146,8 @@ Mesh.prototype.initMesh = function(drawto_) {
     this.initAndAssignTextureCoordMat(); // init texture coord mat
     this.triggerNURBSOutput();
     this.updateGUI();
+
+    this.initMask(drawto_);
     
     this.saveUndoRedoPositionMat();
 }
@@ -227,6 +232,7 @@ Mesh.prototype.initMeshGrid = function(drawto_) {
 }
 
 Mesh.prototype.initMeshFull = function(drawto_) {
+    FF_Utils.Print("INIT MESH FULL")
     this.meshFull = new JitterObject("jit.gl.mesh");
     this.meshFull.draw_mode = "quad_grid";
     this.meshFull.depth_enable = 0;
@@ -295,13 +301,14 @@ Mesh.prototype.initTextureProxy = function() {
 }
 
 Mesh.prototype.freeMesh = function() {
+    FF_Utils.Print("FREE MESH")
     this.freeMeshMatrices();
     this.freeMeshShapes();
     // this.free_mesh_mask();
     this.freeMeshHandles();
     this.freeMeshNurbsLstnr();
     this.textureProxy.freepeer();
-    this.destroyMask();
+    this.freeMask();
     // this.freePhysBody();
 }
 
