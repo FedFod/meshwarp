@@ -47,8 +47,8 @@ declareattribute("layer", null, "setMeshLayer", 0);
 var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
-var create_mask = 0;
-declareattribute("create_mask", null, "setCreateMask", 0);
+var mask_mode = 0;
+declareattribute("mask_mode", null, "setCreateMask", 0);
 
 var apply_mask = 0;
 declareattribute("apply_mask", null, "setApplyMask", 0);

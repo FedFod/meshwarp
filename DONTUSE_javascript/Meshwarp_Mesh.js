@@ -320,7 +320,7 @@ Mesh.prototype.freeMeshNurbsLstnr = function() {
 }
 
 Mesh.prototype.showUI = function(show) {
-    if (!create_mask && show)
+    if (!mask_mode && show)
     {
         this.meshGrid.enable = (grid_size > 0);
         this.meshPoints.enable = 1;
@@ -328,7 +328,7 @@ Mesh.prototype.showUI = function(show) {
         this.scaleHandles.enable = this.enableScaleHandles;
         this.moveHandle.enable = this.enableMoveHandle;
     }
-    else if (create_mask || !show)
+    else if (mask_mode || !show)
     {
         this.meshGrid.enable = 0;
         this.meshPoints.enable = 0;

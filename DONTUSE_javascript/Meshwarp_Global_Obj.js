@@ -53,7 +53,7 @@ function assignThisAsCurrentlySelectedToGlobal() {
 			}
 		}		
 		setVideoplaneLayer(maxLayer);
-		gMesh.setMaskLayer(maxLayer+1);
+		// gMesh.setMaskLayer(maxLayer+1);
 		gGraphics.setLayer(maxLayer+3);
 		
 		outlet(0, "notify_selected_meshwarp", nodeCTX.name, drawto);

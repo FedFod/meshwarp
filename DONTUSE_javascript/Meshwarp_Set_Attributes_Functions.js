@@ -146,7 +146,7 @@ setBlendEnable.local = 1;
 
 function setCreateMask(val)
 {
-	create_mask = val;
+	mask_mode = val;
 	if (gMesh != null)
 	{
 		showUI(1-val);
