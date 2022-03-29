@@ -62,7 +62,15 @@ function rotate2D(vec, angle) {
 rotate2D.local = 1;
 
 function subVec2D(vec1, vec2) {
-	return [vec1[0]-vec2[0], vec1[1]-vec2[1]];
+	if (vec1.length >= 2 && vec2.length >= 2)
+	{
+		return [vec1[0]-vec2[0], vec1[1]-vec2[1]];
+	}
+	else 
+	{	
+		FF_Utils.Print("Error: not a vec2");
+		return -1;
+	}
 }
 subVec2D.local = 1;
 
@@ -101,7 +109,7 @@ function arrayToJitMat(mat, arr) {
 	}
 	else
 	{
-		for (var i=0; i<arr.length; i++) {
+		for (var i=0; i<mat.dim; i++) {
 			mat.setcell1d(i, arr[i]);
 		}
 	}
@@ -137,6 +145,39 @@ function isPointInsidePolygon(coords, matrix) {
 } 
 isPointInsidePolygon.local = 1;
 //-------------------------------------------------------------------
+
+checkIfPointIsBetweenTwoPoints2D = function(a, b, c)
+{
+	// var crossproduct = (c[1] - a[1]) * (b[0] - a[0]) - (c[0] - a[0]) * (b[1] - a[1]);
+
+	// // compare versus epsilon for floating point values, or != 0 if using integers
+	// // FF_Utils.Print(crossproduct);
+    // if (Math.abs(crossproduct) > 0.01)
+	// {
+    //     return false;
+	// }
+
+    // var dotproduct = (c[0] - a[0]) * (b[0] - a[0]) + (c[1] - a[1])*(b[1] - a[1]);
+    // if (dotproduct < 0)
+	// {
+    //     return false;
+	// }
+
+    // var squaredlengthba = (b[0] - a[0])*(b[0] - a[0]) + (b[1] - a[1])*(b[1] - a[1]);
+    // if (dotproduct > squaredlengthba)
+	// {
+	// 	return false;
+	// }
+
+    // return true;
+
+	if (calcDist2D(a, c)+calcDist2D(b,c) - calcDist2D(a,b) < 0.05)
+	{
+		return true;
+	}
+	return false;
+}
+checkIfPointIsBetweenTwoPoints2D.local = 1;
 
 function mod(n, m) {
 	return ((n % m) + m) % m;

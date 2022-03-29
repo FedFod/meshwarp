@@ -132,10 +132,9 @@ Mesh.prototype.setMeshPosition = function(offset) {
     var newPos = subVec2D(offset, this.currentPos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);
 
-    this.moveMaskMeshes(newPos);
-    // this.maskMat.op("+", [newPos[0], newPos[1]]);
-
     this.currentPos = offset.slice();
+
+    this.moveMaskMeshes(newPos);
 
     gGraphics.resetSingleCircle();
     this.deselectVertices();

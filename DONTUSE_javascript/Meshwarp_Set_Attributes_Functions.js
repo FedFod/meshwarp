@@ -12,6 +12,11 @@ function redo() {
 	}
 }
 
+function time(val)
+{	
+	gTime.newTime = val;
+}
+
 function reset() {
 	gGraphics.resetSingleCircle();
 	gGraphics.resetSelected();
@@ -144,16 +149,16 @@ function setBlendEnable(val) {
 }
 setBlendEnable.local = 1;
 
-function setCreateMask(val)
+function setMaskMode(val)
 {
 	mask_mode = val;
 	if (gMesh != null)
 	{
-		showUI(1-val);
-		gMesh.setCreateMask(val);
+		showUI((1-val));
+		gMesh.setMaskMode(val);
 	}
 }
-setCreateMask.local = 1;
+setMaskMode.local = 1;
 
 function setApplyMask(val)
 {

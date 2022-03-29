@@ -1,9 +1,7 @@
 Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
     if (this.showMeshUI) {
         //print(" showMeshUI mouse idle " + drawto);
-        this.latestAction = GUI_ELEMENTS.NOTHING;
         this.checkIfMouseIsCloseToMoveHandle(mouseWorld);
-        this.setLatestMousePos(mouseWorld);
         this.checkIfMouseIsCloseToVertex(mouseWorld);
         if (this.mouseIsCloseTo != GUI_ELEMENTS.VERTEX) {
             this.checkIfMouseIsCloseToScaleHandles(mouseWorld);
@@ -16,6 +14,11 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
         // this.checkIfMouseCloseToFirstMaskVertex(mouseWorld);
         this.checkIfMouseCloseToAnyMaskVertex(mouseWorld);
     }
+    if (mask_mode || this.showMeshUI)
+    {
+        this.latestAction = GUI_ELEMENTS.NOTHING;
+        this.setLatestMousePos(mouseWorld);
+    }
 }
 
 Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
@@ -24,7 +27,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     var ctxOb = gGlobal.contexts[drawto];
 
     if (this.showMeshUI) {
-        if (mouseClicked) {
+        if (mouseClicked != 0) {
             debug(DEBUG.GLOBAL_SELECTION, "showMeshUI mouse clicked");
             switch (this.mouseIsCloseTo) {
                 case (GUI_ELEMENTS.MOVE_HANDLE):
@@ -80,21 +83,22 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     }
 
     // SELECT MESH GLOBALLY
-    if (mouseClicked) {
+    if (mouseClicked > 0) {
+        var tempMouse = [mouseWorld[0], mouseWorld[1], 0];
+
         if (this.checkIfMouseIsInsideMesh(mouseWorld) == this.ID) {
             debug(DEBUG.GLOBAL_SELECTION, "mouse clicked true")
             setToGlobalIfMouseIsOnMesh(true);  
 
-            if (mask_mode)
+            // debug(DEBUG.MASK, "this Mesh Selected")
+            if (mask_mode && gGlobal.checkIfItIsGloballySelected(nodeCTX.name))
             {   
-                if (gTimer > 30 && gShiftPressed)
-                {
-                    gTimer = 0;	
-                    this.createOrDeleteNewMaskMesh(mouseWorld);
-                }
-                else
-                {
-                    gMesh.moveSelectedMaskVertex(mouseWorld);
+                if (mouseClicked == 2 && gShiftPressed)
+                {   
+                    if (!this.addVertexToMaskMesh(tempMouse))
+                    {
+                        this.createNewMaskMesh(tempMouse);
+                    }
                 }
             } 
         } 
@@ -102,6 +106,19 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
         {
             debug(DEBUG.GLOBAL_SELECTION, "mouse clicked false")
             setToGlobalIfMouseIsOnMesh(false);        
+        }
+
+        if (gGlobal.checkIfItIsGloballySelected(nodeCTX.name) && mask_mode)
+        {
+            if (mouseClicked == 2 && gShiftPressed)
+            {   
+                this.deleteMaskMesh();
+            }
+            else if (mouseClicked == 1)
+            {   
+                // Move Mask vertices or whole Mask
+                this.moveSelectedMaskVertex(tempMouse);
+            }
         }
     }
 

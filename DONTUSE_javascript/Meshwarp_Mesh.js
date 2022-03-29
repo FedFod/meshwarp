@@ -116,7 +116,7 @@ Mesh.prototype.setEnable = function(val) {
         this.enableMesh = val;
         this.meshFull.enable = this.enableMesh;
         this.nurbs.enable = this.enableMesh && this.useNurbs;
-        // this.physBody.enable = val;
+        this.setEnableMask(val);
     }
 }
 
@@ -320,7 +320,7 @@ Mesh.prototype.freeMeshNurbsLstnr = function() {
 }
 
 Mesh.prototype.showUI = function(show) {
-    if (!mask_mode && show)
+    if (!mask_mode && show && show_ui)
     {
         this.meshGrid.enable = (grid_size > 0);
         this.meshPoints.enable = 1;
@@ -328,7 +328,7 @@ Mesh.prototype.showUI = function(show) {
         this.scaleHandles.enable = this.enableScaleHandles;
         this.moveHandle.enable = this.enableMoveHandle;
     }
-    else if (mask_mode || !show)
+    else if (mask_mode || !show || !show_ui)
     {
         this.meshGrid.enable = 0;
         this.meshPoints.enable = 0;

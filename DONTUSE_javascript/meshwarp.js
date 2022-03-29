@@ -48,7 +48,7 @@ var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
 var mask_mode = 0;
-declareattribute("mask_mode", null, "setCreateMask", 0);
+declareattribute("mask_mode", null, "setMaskMode", 0);
 
 var apply_mask = 0;
 declareattribute("apply_mask", null, "setApplyMask", 0);
@@ -94,6 +94,16 @@ var gShiftPressed = false;
 var gCTRLPressed = false;
 var gMaxUndo = 100;
 
+var gTime = 
+{ 
+	oldTime: 0, newTime: 0, deltaTime: 0,
+	calcDelta: function() 
+	{ 
+		this.deltaTime = this.newTime - this.oldTime; 
+		this.oldTime = this.newTime;
+	} 
+};
+
 // var gMesh = null;
 var gMesh = new Mesh(gGlobal.meshCount++);
 gMesh.initMesh(nodeCTX.name, gGraphics.getGraphicsNodeName());
@@ -102,7 +112,6 @@ setTexturesMeshes();
 
 //--------------------------------------------
 
-var gTimer = 0;
 function swapcallback(event){
 	if (enable)
 	{
@@ -110,7 +119,7 @@ function swapcallback(event){
 		switch (event.eventname) {
 			// if context is root we use swap, if jit.gl.node use draw
 			case ("swap" || "draw"):
-			// RENDER BANG
+				// RENDER BANG
 				if (gWindowDim[0] != nodeCTX.dim[0] || gWindowDim[1] != nodeCTX.dim[1]) {
 					setWindowRatio(nodeCTX.dim);
 					gWindowDim = nodeCTX.dim.slice();
@@ -120,7 +129,6 @@ function swapcallback(event){
 				checkContextObs();
 				checkModifiersKeyDown();
 				multiplyMaskTexture();
-				gTimer++;
 				break;
 
 			case "mouse": 
@@ -128,6 +136,14 @@ function swapcallback(event){
 				gMousePosScreen = event.args.slice();
 				if (gMesh != null)
 				{	
+					if (gMousePosScreen[2])
+					{
+						gTime.calcDelta();
+						if (gTime.deltaTime > 0.07 && gTime.deltaTime < 0.2)
+						{
+							gMousePosScreen[2] = 2;
+						}
+					}
 					gMesh.mouseClickedRoutine(gMousePosScreen, oldMouseState);
 				}
 				break;
@@ -149,6 +165,8 @@ function swapcallback(event){
 			case "keydown": 
 				// print(event.args)
 				// print("case")
+				break;
+			default:
 				break;
 		}
 	}	
