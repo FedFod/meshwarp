@@ -1,13 +1,13 @@
 //-----PUBLIC FUNCTIONS----------------
 // if undo or redo contain an arg, then we first check if this meshwarp is active
 function undo() {
-	if(!arguments.length || checkUndoRedo()) {
+	if((!arguments.length || checkUndoRedo()) && !mask_mode) {
 		gMesh.undo();
 	}
 }
 
 function redo() {
-	if(!arguments.length || checkUndoRedo()) {
+	if((!arguments.length || checkUndoRedo()) && !mask_mode) {
 		gMesh.redo();
 	}
 }
@@ -26,6 +26,7 @@ function reset() {
 		gMesh.scaleMesh(gMesh.currentScale[0], gMesh.currentScale[1]);
 	}
 	assignThisAsCurrentlySelectedToGlobal();
+	gMaskPix.param("invert", 0);
 }
 
 function move_vertex(indexX, indexY, posX, posY) {
@@ -171,6 +172,13 @@ function setApplyMask(val)
 	gMesh.setApplyMask(val);
 }
 setApplyMask.local = 1;
+
+function setInvertMask(val)
+{
+	invert_mask = val;
+	gMesh.setInvertMask(val);
+}
+setInvertMask.local = 1;
 
 // SAVE / LOAD -----------------------------------
 function buildSaveDict() {

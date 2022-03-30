@@ -11,12 +11,12 @@ Mesh.prototype.mouseIdleRoutine = function(mouseWorld) {
     }
     else if (mask_mode)
     {
-        // this.checkIfMouseCloseToFirstMaskVertex(mouseWorld);
         this.checkIfMouseCloseToAnyMaskVertex(mouseWorld);
     }
     if (mask_mode || this.showMeshUI)
     {
         this.latestAction = GUI_ELEMENTS.NOTHING;
+        this.resetMaskLatestAction();
         this.setLatestMousePos(mouseWorld);
     }
 }
@@ -119,6 +119,13 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
                 // Move Mask vertices or whole Mask
                 this.moveSelectedMaskVertex(tempMouse);
             }
+        }
+    }
+    else if (mask_mode && gGlobal.checkIfItIsGloballySelected(nodeCTX.name))
+    {
+        if (this.maskLatestAction.action != "NOTHING")
+        {
+            this.saveUndoRedoMaskState();
         }
     }
 

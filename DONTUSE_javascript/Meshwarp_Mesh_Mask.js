@@ -2,6 +2,10 @@ Mesh.prototype.initMask = function(drawto_)
 {   
     this.selectedMaskIndex = { maskIndex: -1, toDelete: 0 };
     this.maskMeshesFullArray = [];
+    this.mask_mode = 0;
+    this.lastMaskState = "NOTHING";
+    this.maskLatestAction = { maskIndex: -1, action: "NOTHING" };
+    this.maskUndoRedoLevels = [];
     this.initMaskNode();
 }
 
@@ -89,14 +93,30 @@ Mesh.prototype.resetMask = function()
     }
 }
 
+Mesh.prototype.setInvertMask = function(val)
+{
+    if (val && apply_mask && this.lastMaskState === "APPLY_MASK")
+    {   
+        FF_Utils.Print("INVERT")
+        this.setMaskNodeToBlack();
+        gMaskPix.param("invert", 1);
+    } 
+    else if (!val)
+    {
+        gMaskPix.param("invert", 0);
+    }
+}
+
 Mesh.prototype.setMaskMode = function(val)
 {   
     debug(DEBUG.MASK, "SET CREATE MASK")
-   
+
     if (val)
     {
         this.setMaskNodeToGrey();
         this.setEnableMask(1);
+        this.showMaskUI(1);
+        gMaskPix.param("invert", 0);
     }
     else if (apply_mask && !val)
     {   
@@ -109,6 +129,8 @@ Mesh.prototype.setMaskMode = function(val)
         this.setEnableMask(0);
         this.setMaskNodeToWhite();
     }
+    this.mask_mode = val;
+    this.lastMaskState = "MASK_MODE";
 }
 
 Mesh.prototype.setApplyMask = function(val)
@@ -116,35 +138,51 @@ Mesh.prototype.setApplyMask = function(val)
     if (val)
     {   
         this.setMaskNodeToBlack();
+        if (invert_mask)
+        {   
+            this.setEnableMask(1);
+            gMaskPix.param("invert", 1);
+        }
     }
     else if (!mask_mode && !val)
     {  
         this.setMaskNodeToWhite();
+        gMaskPix.param("invert", 0);
     }
     else if (mask_mode)
     {   
         this.setEnableMask(1);
         this.setMaskNodeToGrey();
+        gMaskPix.param("invert", 0);
     }
     if (!mask_mode && val)
     {
         this.setEnableMask(1);
         this.showMaskUI(0);
+        if (invert_mask)
+        {
+            gMaskPix.param("invert", 1);
+        }
     }
+
+    this.lastMaskState = "APPLY_MASK";
 }
 
 Mesh.prototype.setMaskNodeToBlack = function()
-{
+{   
+    debug(DEBUG.MASK, "SET MASK NODE TO BLACK");
     this.maskNode.erase_color = [0,0,0,0];
 }
 
 Mesh.prototype.setMaskNodeToWhite = function()
-{
+{   
+    debug(DEBUG.MASK, "SET MASK NODE TO WHITE");
     this.maskNode.erase_color = [1,1,1,1];
 }
 
 Mesh.prototype.setMaskNodeToGrey = function()
-{
+{   
+    debug(DEBUG.MASK, "SET MASK NODE TO GREY");
     this.maskNode.erase_color = [0.5,0.5,0.5,1];
 }
 
@@ -172,11 +210,15 @@ Mesh.prototype.addVertexToMaskMesh = function(mouseWorld)
         if (maskMesh.selectedVertexIndex != -1)
         {
             maskMesh.deleteVertex();
+            this.maskLatestAction.maskIndex = mask;
+            this.maskLatestAction.action = "DELETED_VERTEX";
             return 1;
         }
         else if (maskMesh.checkIfMouseIsInsideMaskMesh(mouseWorld))
         {   
             maskMesh.addVertexToMaskMesh(mouseWorld);
+            this.maskLatestAction.maskIndex = mask;
+            this.maskLatestAction.action = "ADDED_VERTEX";
             return 1;
         }
     }
@@ -211,6 +253,8 @@ Mesh.prototype.moveSelectedMaskVertex = function(mouseWorld)
     if (this.selectedMaskIndex.maskIndex != -1)
     {
         this.maskMeshesFullArray[this.selectedMaskIndex.maskIndex].moveVertexMaskMesh(mouseWorld);
+        this.maskLatestAction.maskIndex = this.selectedMaskIndex.maskIndex;
+        this.maskLatestAction.action = "MOVED_VERTEX";
     }
 }
 
@@ -220,7 +264,7 @@ Mesh.prototype.saveMasksInDict = function(saveDict)
     for (var mask in this.maskMeshesFullArray)
     {
         var currMask = this.maskMeshesFullArray[mask];
-        saveDict.replace("maskMatrices::maskMat_"+mask, currMask.getMaskMatAsArray());
+        saveDict.replace("maskMatrices::maskMat_"+mask, JSON.stringify(currMask.getMaskMatAsArray()));
     }
 }
 
@@ -241,7 +285,24 @@ Mesh.prototype.loadMasksFromDict = function(dict)
             this.maskMeshesFullArray.push(new MaskMesh(this.maskNode.name, maskVertices[0], this.currentScale, this.currentPos, maskVertices));
         }
         
+        this.showMaskUI(mask_mode);
+
         tempDict.freepeer();
+    }
+}
+
+Mesh.prototype.resetMaskLatestAction = function()
+{
+    this.maskLatestAction.maskIndex = -1;
+    this.maskLatestAction.action = "NOTHING";
+}
+
+Mesh.prototype.saveUndoRedoMaskState = function()
+{
+    if (this.maskLatestAction.maskIndex != -1)
+    {   
+        debug(DEBUG.MASK, "SAVE UNDO REDO MASK")
+        //this.maskUndoRedoLevels.push(jitMatToArray(this.maskMeshesFullArray[this.maskLatestAction.maskIndex]));
     }
 }
 
@@ -553,7 +614,7 @@ function MaskMesh(ctxName, center, currentScale, motherMeshCenter, vArray)
 
     this.getMaskMatAsArray = function()
     {
-        return JSON.stringify(jitMatToArray(this.vertMat));
+        return (jitMatToArray(this.vertMat));
     }
 
     this.initMask(center, vArray);

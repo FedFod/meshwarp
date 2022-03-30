@@ -53,6 +53,9 @@ declareattribute("mask_mode", null, "setMaskMode", 0);
 var apply_mask = 0;
 declareattribute("apply_mask", null, "setApplyMask", 0);
 
+var invert_mask = 0;
+declareattribute("invert_mask", null, "setInvertMask", 0);
+
 // mesh appearance
 var color = WHITE;
 declareattribute("color", null, "setColor", 0);

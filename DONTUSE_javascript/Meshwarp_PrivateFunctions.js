@@ -46,7 +46,7 @@ function outputTexture()
 {	
 	if (output_texture)
 	{
-		outlet(0, "jit_gl_texture",gMaskPix.out_name);
+		outlet(0, "jit_gl_texture", gMaskPix.out_name);
 	}
 }
 

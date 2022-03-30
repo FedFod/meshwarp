@@ -45,7 +45,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
-					"patching_rect" : [ 281.0, 325.0, 79.0, 22.0 ],
+					"patching_rect" : [ 243.0, 304.0, 79.0, 22.0 ],
 					"text" : "prepend time"
 				}
 
@@ -57,7 +57,7 @@
 					"numinlets" : 1,
 					"numoutlets" : 2,
 					"outlettype" : [ "", "" ],
-					"patching_rect" : [ 281.0, 293.0, 43.0, 22.0 ],
+					"patching_rect" : [ 243.0, 271.0, 43.0, 22.0 ],
 					"text" : "jit.time"
 				}
 
@@ -784,11 +784,11 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-19",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 279.0, 462.0, 30.0, 30.0 ]
+					"patching_rect" : [ 281.5, 470.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -924,11 +924,11 @@
 				"box" : 				{
 					"comment" : "",
 					"id" : "obj-5",
-					"index" : 1,
+					"index" : 0,
 					"maxclass" : "inlet",
 					"numinlets" : 0,
 					"numoutlets" : 1,
-					"outlettype" : [ "jit_gl_texture" ],
+					"outlettype" : [ "" ],
 					"patching_rect" : [ 111.0, 36.0, 30.0, 30.0 ]
 				}
 
@@ -1253,7 +1253,28 @@
 				}
 
 			}
- ]
+ ],
+		"parameters" : 		{
+			"obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
+			"parameterbanks" : 			{
+
+			}
+,
+			"inherited_shortname" : 1
+		}
+,
+		"dependency_cache" : [ 			{
+				"name" : "jit.mo.time.mxe64",
+				"type" : "mx64"
+			}
+, 			{
+				"name" : "meshwarp.js",
+				"bootpath" : "C74:/packages/Jitter Tools/javascript/meshwarp",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+ ],
+		"autosave" : 0
 	}
 
 }
