@@ -73,6 +73,9 @@ declareattribute("grid_size", null, "setGridSize", 0);
 var point_size = 10.;
 declareattribute("point_size", null, "setPointSize", 0);
 
+var output_texture = 0;
+declareattribute("output_texture", null, "setOutputTexture", 0);
+
 // saved in positionMat dict
 
 // mesh transform
@@ -129,6 +132,7 @@ function swapcallback(event){
 				checkContextObs();
 				checkModifiersKeyDown();
 				multiplyMaskTexture();
+				outputTexture();
 				break;
 
 			case "mouse": 

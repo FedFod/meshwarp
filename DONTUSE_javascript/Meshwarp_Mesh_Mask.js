@@ -214,6 +214,38 @@ Mesh.prototype.moveSelectedMaskVertex = function(mouseWorld)
     }
 }
 
+// SAVE / LOAD --------------------------------------
+Mesh.prototype.saveMasksInDict = function(saveDict)
+{   
+    for (var mask in this.maskMeshesFullArray)
+    {
+        var currMask = this.maskMeshesFullArray[mask];
+        saveDict.replace("maskMatrices::maskMat_"+mask, currMask.getMaskMatAsArray());
+    }
+}
+
+Mesh.prototype.loadMasksFromDict = function(dict)
+{   
+    if (dict.contains("maskMatrices::maskMat_0"))
+    {   
+        // Free existing masks if present
+        this.freeMaskMeshArray();
+
+        var tempDict = dict.get("maskMatrices");
+        // FF_Utils.Print("Stringified dict "+JSON.stringify(dict))
+        var maskArrays = tempDict.getkeys();
+
+        for (var arr in maskArrays)
+        {   
+            var maskVertices = (JSON.parse(tempDict.get(maskArrays[arr])));
+            this.maskMeshesFullArray.push(new MaskMesh(this.maskNode.name, maskVertices[0], this.currentScale, this.currentPos, maskVertices));
+        }
+        
+        tempDict.freepeer();
+    }
+}
+
+// FREE MEMORY -------------------------------------
 Mesh.prototype.freeMask = function()
 {   
     this.freeMaskMeshArray();
@@ -230,7 +262,7 @@ Mesh.prototype.freeMaskMeshArray = function()
 }
 
 // MASK MESH -------------------------- 
-function MaskMesh(ctxName, center, currentScale, motherMeshCenter)
+function MaskMesh(ctxName, center, currentScale, motherMeshCenter, vArray)
 {
     this.maskMesh = new JitterObject("jit.gl.mesh");
     this.maskMesh.draw_mode = "tri_fan";
@@ -268,21 +300,36 @@ function MaskMesh(ctxName, center, currentScale, motherMeshCenter)
 
     this.jit3m = new JitterObject("jit.3m");
 
-    this.initMask = function(center)
+    this.initMask = function(center, vArray)
     {   
-        FF_Utils.Print("DEFAULT MASK SCALE "+this.currentMaskScale)
-        this.vertMat.setcell1d(0, center);
-        this.vertMat.setcell1d(1, center[0]-this.defaultMaskSize*this.currentMaskScale[0], center[1]+this.defaultMaskSize*this.currentMaskScale[1], 0);
-        this.vertMat.setcell1d(2, center[0]+this.defaultMaskSize*this.currentMaskScale[0], center[1]+this.defaultMaskSize*this.currentMaskScale[1], 0);
-        this.vertMat.setcell1d(3, center[0]+this.defaultMaskSize*this.currentMaskScale[0], center[1]-this.defaultMaskSize*this.currentMaskScale[1], 0);
-        this.vertMat.setcell1d(4, center[0]-this.defaultMaskSize*this.currentMaskScale[0], center[1]-this.defaultMaskSize*this.currentMaskScale[1], 0);
-        this.vertMat.setcell1d(5, center[0]-this.defaultMaskSize*this.currentMaskScale[0], center[1]+this.defaultMaskSize*this.currentMaskScale[1], 0);
+        if (!vArray)
+        {
+            this.vertMat.setcell1d(0, center);
+            this.vertMat.setcell1d(1, center[0]-this.defaultMaskSize*this.currentMaskScale[0], center[1]+this.defaultMaskSize*this.currentMaskScale[1], 0);
+            this.vertMat.setcell1d(2, center[0]+this.defaultMaskSize*this.currentMaskScale[0], center[1]+this.defaultMaskSize*this.currentMaskScale[1], 0);
+            this.vertMat.setcell1d(3, center[0]+this.defaultMaskSize*this.currentMaskScale[0], center[1]-this.defaultMaskSize*this.currentMaskScale[1], 0);
+            this.vertMat.setcell1d(4, center[0]-this.defaultMaskSize*this.currentMaskScale[0], center[1]-this.defaultMaskSize*this.currentMaskScale[1], 0);
+            this.vertMat.setcell1d(5, center[0]-this.defaultMaskSize*this.currentMaskScale[0], center[1]+this.defaultMaskSize*this.currentMaskScale[1], 0);
+        }
+        else 
+        {
+            this.initMaskFromVerticesArray(vArray);
+        }
 
         this.initColorMat();
         this.assignVertexMatToMaskMesh();
         this.assignColorMatToMaskPointsMesh();
         this.unscaledMatFromVertMat();
     }
+
+    this.initMaskFromVerticesArray = function(vArray)
+    {
+        this.vertMat.dim = vArray.length;
+        for (var vert in vArray)
+        {
+            this.vertMat.setcell1d(vert, vArray[vert]);
+        }
+    }   
 
     this.initColorMat = function()
     {   
@@ -504,7 +551,12 @@ function MaskMesh(ctxName, center, currentScale, motherMeshCenter)
         this.scaleMatrixFromCenter(this.vertMat, this.motherMeshCenter, this.currentMaskScale, '*');
     }
 
-    this.initMask(center);
+    this.getMaskMatAsArray = function()
+    {
+        return JSON.stringify(jitMatToArray(this.vertMat));
+    }
+
+    this.initMask(center, vArray);
 
     this.freeMaskMesh = function()
     {   

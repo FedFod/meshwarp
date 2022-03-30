@@ -7,6 +7,8 @@ Mesh.prototype.saveDataIntoDict = function(dict) {
     dict.append("positionMat"+"::dimensions", this.positionMat.dim);
     var posMatArray = jitMatToArray(this.positionMat);
     dict.replace("positionMat"+"::vertices", JSON.stringify(posMatArray));
+
+    this.saveMasksInDict(dict);
 }
 
 Mesh.prototype.loadDict = function(saveDict_) {
@@ -29,7 +31,10 @@ Mesh.prototype.loadDict = function(saveDict_) {
 
     this.updateGUI();
     //assignThisAsCurrentlySelectedToGlobal()
-    
+
+    // MASK
+    this.loadMasksFromDict(saveDict_);
+
     this.saveUndoRedoPositionMat();
 }
 

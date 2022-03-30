@@ -74,6 +74,11 @@ function setvalueof(dict) {
 }
 
 // ATTRIBUTES ----------------------------------
+function setOutputTexture(val)
+{
+	output_texture = val;
+}
+
 function setEnable(val) {
 	enable = val;
 	videoplane.automatic = val;;
@@ -181,6 +186,7 @@ function buildSaveDict() {
 	saveDict.replace("show_ui", show_ui);
 	saveDict.replace("point_size", point_size);
 	saveDict.replace("grid_size", grid_size);
+	// saveDict.replace("output_texture", output_texture);
 
 	saveDict.replace("windowRatio", gWindowRatio);
 	
@@ -217,6 +223,7 @@ function loadFromDict(saveDict) {
 	show_ui = saveDict.get("show_ui");
 	point_size = saveDict.get("point_size");
 	grid_size = saveDict.get("grid_size");
+	// output_texture = saveDict.get("output_texture");
 
 	gWindowRatio = saveDict.get("windowRatio");
 

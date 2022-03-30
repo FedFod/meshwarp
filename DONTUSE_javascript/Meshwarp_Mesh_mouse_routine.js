@@ -94,7 +94,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
             if (mask_mode && gGlobal.checkIfItIsGloballySelected(nodeCTX.name))
             {   
                 if (mouseClicked == 2 && gShiftPressed)
-                {   
+                {       
                     if (!this.addVertexToMaskMesh(tempMouse))
                     {
                         this.createNewMaskMesh(tempMouse);

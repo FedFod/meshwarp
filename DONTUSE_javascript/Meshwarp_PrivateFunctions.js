@@ -42,6 +42,14 @@ nodeCamera.ortho = 2;
 // }
 // calculateBoundingCells.local = 1;
 
+function outputTexture()
+{	
+	if (output_texture)
+	{
+		outlet(0, "jit_gl_texture",gMaskPix.out_name);
+	}
+}
+
 function multiplyMaskTexture()
 {	
 	gMaskPix.activeinput = 0;

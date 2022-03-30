@@ -788,7 +788,7 @@
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 281.5, 470.0, 30.0, 30.0 ]
+					"patching_rect" : [ 279.0, 462.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -796,11 +796,11 @@
 				"box" : 				{
 					"id" : "obj-11",
 					"maxclass" : "newobj",
-					"numinlets" : 3,
-					"numoutlets" : 3,
-					"outlettype" : [ "", "", "" ],
-					"patching_rect" : [ 144.0, 407.875, 294.0, 22.0 ],
-					"text" : "routepass notify_selected_meshwarp selected_vertex"
+					"numinlets" : 4,
+					"numoutlets" : 4,
+					"outlettype" : [ "", "", "", "" ],
+					"patching_rect" : [ 144.0, 407.875, 365.0, 22.0 ],
+					"text" : "routepass notify_selected_meshwarp selected_vertex jit_gl_texture"
 				}
 
 			}
@@ -994,6 +994,13 @@
 					"destination" : [ "obj-8", 0 ],
 					"midpoints" : [ 530.5, 217.0, 153.5, 217.0 ],
 					"source" : [ "obj-10", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"source" : [ "obj-11", 2 ]
 				}
 
 			}
