@@ -58,7 +58,6 @@ function multiplyMaskTexture()
 	gMaskPix.jit_gl_texture(gMesh.getMaskTexName());
 	gMaskPix.draw();
 	videoplane.texture = gMaskPix.out_name;
-	// FF_Utils.Print(gMesh.getMaskTexName());
 }
 
 function setWindowRatio(dims) {

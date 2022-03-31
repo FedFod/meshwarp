@@ -231,7 +231,6 @@ Mesh.prototype.initMeshGrid = function(drawto_) {
 }
 
 Mesh.prototype.initMeshFull = function(drawto_) {
-    FF_Utils.Print("INIT MESH FULL")
     this.meshFull = new JitterObject("jit.gl.mesh");
     this.meshFull.draw_mode = "quad_grid";
     this.meshFull.depth_enable = 0;
@@ -275,7 +274,6 @@ Mesh.prototype.initTextureProxy = function() {
 }
 
 Mesh.prototype.freeMesh = function() {
-    FF_Utils.Print("FREE MESH")
     this.freeMeshMatrices();
     this.freeMeshShapes();
     // this.free_mesh_mask();

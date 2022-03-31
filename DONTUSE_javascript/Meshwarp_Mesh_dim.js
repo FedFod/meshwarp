@@ -35,7 +35,7 @@ Mesh.prototype.setMeshDim = function(newDim) {
 }
 
 Mesh.prototype.resizeMeshDim = function(dimensions) {
-    FF_Utils.Print("resizeMeshDim", dimensions);
+    // FF_Utils.Print("resizeMeshDim", dimensions);
     var tempMat = new JitterMatrix(this.positionMat.planecount, this.positionMat.type, dimensions);
     tempMat.interp = 1;
     tempMat.frommatrix(this.positionMat);

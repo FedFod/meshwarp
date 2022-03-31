@@ -37,7 +37,7 @@ var DEBUG = {
 	MASK: 5
 }
 
-var gWhatToDebug = DEBUG.MASK;
+var gWhatToDebug = DEBUG.NONE;
 
 function debug(what, val) {
 	if (gMesh != null)

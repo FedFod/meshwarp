@@ -97,7 +97,6 @@ Mesh.prototype.setInvertMask = function(val)
 {
     if (val && apply_mask && this.lastMaskState === "APPLY_MASK")
     {   
-        FF_Utils.Print("INVERT")
         this.setMaskNodeToBlack();
         gMaskPix.param("invert", 1);
     } 

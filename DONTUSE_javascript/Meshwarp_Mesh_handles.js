@@ -11,7 +11,7 @@ Mesh.prototype.initMvmtHandle = function(drawto_) {
 }
 
 Mesh.prototype.initScaleHandles = function(drawto_) {
-    FF_Utils.Print("INIT SCALE  HANDLES");
+    // FF_Utils.Print("INIT SCALE  HANDLES");
     this.scaleHandles = new JitterObject("jit.gl.sketch", drawto_);
     this.scaleHandles.layer = FRONT;
     this.scaleHandles.color = ORANGE;
