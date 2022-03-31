@@ -1,3 +1,29 @@
+Mesh.prototype.initMvmtHandle = function(drawto_) {
+    this.moveHandle = new JitterObject("jit.gl.sketch", drawto_);
+    this.moveHandle.layer = FRONT;
+    this.moveHandle.color = LIGHT_BLUE;
+    this.moveHandle.line_width = 2;
+    this.moveHandle.handlePos = [];
+    this.moveHandle.handleSize = 0.08;
+    this.moveHandle.blend_enable = 1;
+    this.moveHandle.depth_enable = 0;
+    this.drawMoveHandleInPos(this.getMeshCenter(this.positionMat));
+}
+
+Mesh.prototype.initScaleHandles = function(drawto_) {
+    // FF_Utils.Print("INIT SCALE  HANDLES");
+    this.scaleHandles = new JitterObject("jit.gl.sketch", drawto_);
+    this.scaleHandles.layer = FRONT;
+    this.scaleHandles.color = ORANGE;
+    this.scaleHandles.line_width = 2;
+    this.scaleHandles.blend_enable = 1;
+    this.scaleHandles.depth_enable = 0;
+    this.scaleHandles.handleSize = 0.1;
+    this.scaleHandles.handlesPositions = [];
+    this.scaleHandles.index = -1;
+    this.drawScaleHandles();
+}
+
 Mesh.prototype.drawMoveHandleInPos = function() {
     this.moveHandle.reset();
     

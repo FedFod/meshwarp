@@ -7,6 +7,8 @@ Mesh.prototype.saveDataIntoDict = function(dict) {
     dict.append("positionMat"+"::dimensions", this.positionMat.dim);
     var posMatArray = jitMatToArray(this.positionMat);
     dict.replace("positionMat"+"::vertices", JSON.stringify(posMatArray));
+
+    this.saveMasksInDict(dict);
 }
 
 Mesh.prototype.loadDict = function(saveDict_) {
@@ -18,15 +20,21 @@ Mesh.prototype.loadDict = function(saveDict_) {
     setMeshLayer(layer);
     setScaleRelativeToAspect(lock_to_aspect);
     //setBlendEnable(blend_enable);
-    gMesh.setColor(color);
-    gMesh.setUIGridColor(grid_color);
+    if (gMesh != null)
+    {
+        gMesh.setColor(color);
+        gMesh.setUIGridColor(grid_color);
+    }
     showUI(show_ui);
     setPointSize(point_size);
     setGridSize(grid_size);
 
     this.updateGUI();
     //assignThisAsCurrentlySelectedToGlobal()
-    
+
+    // MASK
+    this.loadMasksFromDict(saveDict_);
+
     this.saveUndoRedoPositionMat();
 }
 

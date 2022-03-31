@@ -38,7 +38,12 @@ function assignThisAsCurrentlySelectedToGlobal() {
 	if(ctxInGlobal()) {
 		gGlobal.contexts[drawto].currentlySelected = nodeCTX.name;
 		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
-		gMesh.setMeshAsSelected(true);
+		// show_ui = 1;
+		if (gMesh != null)
+		{
+			// gMesh.setMeshAsSelected(show_ui);
+			gMesh.setMeshAsSelected(1)
+		}
 
 		var maxLayer = -1000;
 		var ctxOb = gGlobal.contexts[drawto];
@@ -47,8 +52,9 @@ function assignThisAsCurrentlySelectedToGlobal() {
 				maxLayer = ctxOb.mouseIsOnMesh[m].layer;
 			}
 		}		
-		setVideoplaneLayer(maxLayer+1);
-		gGraphics.setLayer(maxLayer+2);
+		setVideoplaneLayer(maxLayer);
+		// gMesh.setMaskLayer(maxLayer+1);
+		gGraphics.setLayer(maxLayer+3);
 		
 		outlet(0, "notify_selected_meshwarp", nodeCTX.name, drawto);
 	}
@@ -58,7 +64,10 @@ assignThisAsCurrentlySelectedToGlobal.local = 1;
 function deselectThisFromGlobal() {
 	setVideoplaneLayer(layer); 
 	assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
-	gMesh.setMeshAsSelected(false);
+	if (gMesh != null)
+	{
+		gMesh.setMeshAsSelected(0);
+	}
 }
 deselectThisFromGlobal.local = 1;
 
@@ -70,21 +79,10 @@ function checkContextObs() {
 			ctxOb.ctxNode.drawto = nodeCTX.drawto;
 
 			ctxOb.requestInit = false;
-			// ctxOb.physWorld = new JitterObject("jit.phys.world");
-			// ctxOb.physWorld.name = ctxOb.physWorldName;
-			// ctxOb.physWorld.drawto = ctxOb.ctxNode.name;
-			// ctxOb.physWorld.worldbox = 0;
-			// ctxOb.physWorld.dynamics = 0;
-
-			// ctxOb.physDraw = new JitterObject("jit.gl.physdraw");
-			// ctxOb.physDraw.drawto = ctxOb.ctxNode.name;
-			// ctxOb.physDraw.worldname = ctxOb.physWorld.name;
 
 			ctxOb.ctxCamera = new JitterObject("jit.gl.camera");
 			ctxOb.ctxCamera.drawto = ctxOb.ctxNode.name;
 			ctxOb.ctxCamera.ortho = 2;
-
-			// gMesh.setPhysWorldNameToMeshBody(ctxOb.physWorld.name);
 		}
 	}
 }

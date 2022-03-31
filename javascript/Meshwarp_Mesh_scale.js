@@ -6,6 +6,9 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
     }
     this.posMatFromUnscaledMat();
     this.assignPositionMatToMesh();
+
+    this.scaleMasks(this.currentScale);
+
     this.latestAction = GUI_ELEMENTS.WAS_SCALED;
     this.updateGUI();
 }
@@ -13,6 +16,7 @@ Mesh.prototype.scaleMesh = function(scaleX, scaleY) {
 Mesh.prototype.scaleWithHandle = function(mouseWorld) {
     if (this.enableScaleHandles) {
         var distFromInitial = subVec2D(mouseWorld, this.latestMousePos); //this.latestMousePos
+        
         if (this.scaleHandles.index == 0) {
             distFromInitial[1] = distFromInitial[1]*-1;
         } else if (this.scaleHandles.index == 1) {
@@ -22,8 +26,8 @@ Mesh.prototype.scaleWithHandle = function(mouseWorld) {
             distFromInitial[0] *= -1;
         }
     
-        distFromInitial = subVec2D(this.latestScale, distFromInitial);
-        this.scaleMesh(distFromInitial[0], distFromInitial[1]);
+        var scaleDiff = subVec2D(this.latestScale, distFromInitial);
+        this.scaleMesh(scaleDiff[0], scaleDiff[1]);
     }
 }
 
@@ -37,6 +41,7 @@ Mesh.prototype.scaleToTextureRatio = function(val) {
 
 Mesh.prototype.setLatestScale_calcBoundsMat = function() {
     this.latestScale = this.currentScale.slice();
+    this.setLatestScaleMask(this.latestScale);
     this.setMeshRatio();
     this.calcMeshBoundsMat();
 }

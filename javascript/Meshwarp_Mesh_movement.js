@@ -11,6 +11,7 @@ Mesh.prototype.checkIfNeighborsCloser = function(i, j, dist, mouse) {
     var maxI = this.positionMat.dim[0];
     var maxJ = this.positionMat.dim[1];
     var coords = [i, j];
+    
     for(var x = -1; x <= 1; x++) {
         for(var y = -1; y <= 1; y++) {
             if(x == 0 && y == 0) 
@@ -130,7 +131,10 @@ Mesh.prototype.moveMeshWithCtrl = function(mouseWorld) {
 Mesh.prototype.setMeshPosition = function(offset) {
     var newPos = subVec2D(offset, this.currentPos);
     this.positionMat.op("+", [newPos[0], newPos[1]]);
+
     this.currentPos = offset.slice();
+
+    this.moveMaskMeshes(newPos);
 
     gGraphics.resetSingleCircle();
     this.deselectVertices();
@@ -178,6 +182,9 @@ Mesh.prototype.rotateZ = function(rotZ) {
 Mesh.prototype.applyMeshTransformation = function() {
     this.unscaledMatFromPosMat();
     this.assignPositionMatToMesh();
+
+    // this.unscaled_mask_mat_from_unscaled_mat();
+    // this.assign_mask_mat_to_mesh();
 }
 
 Mesh.prototype.checkIfIndexIsWithinPositionMat = function(index) {

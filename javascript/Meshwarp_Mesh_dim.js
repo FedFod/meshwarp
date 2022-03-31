@@ -1,9 +1,23 @@
+Mesh.prototype.setPositionMatDim = function(newDim)
+{
+    if (Array.isArray(newDim))
+    {
+        this.positionMat.dim = newDim.slice();
+        this.unscaledPosMat.dim = newDim.slice();
+    } 
+    else 
+    {
+        this.positionMat.dim = newDim;
+        this.unscaledPosMat.dim = newDim;
+    }
+}
+
 Mesh.prototype.setMeshDim = function(newDim) {   
     gGraphics.resetSelected();
     gGraphics.resetSingleCircle();
     if (newDim[0] > 0 && newDim[1] > 0) {
         this.posMatDim = newDim.slice();
-        this.positionMat.dim = newDim.slice();
+        this.setPositionMatDim(newDim);
         this.boundingMat.dim = newDim[0]*2 + (newDim[1] * 2) - 4;
         if (this.useNurbs) {
             this.textureCoordMat.dim = this.nurbsDim.slice();
@@ -12,21 +26,20 @@ Mesh.prototype.setMeshDim = function(newDim) {
         }
     } 
     else { // default dim
-        this.positionMat.dim = [4,4];
+        this.setPositionMatDim(this.defaultMeshDim);
         this.boundingMat.dim = 4*2 + (4 * 2) - 4;
         this.textureCoordMat.dim = [4, 4];
     }
-    this.unscaledPosMat.dim = this.positionMat.dim.slice();
     meshdim[0] = newDim[0];
     meshdim[1] = newDim[1];
 }
 
 Mesh.prototype.resizeMeshDim = function(dimensions) {
-    var newDim = dimensions;
-    var tempMat = new JitterMatrix(this.positionMat.planecount, this.positionMat.type, newDim);
+    // FF_Utils.Print("resizeMeshDim", dimensions);
+    var tempMat = new JitterMatrix(this.positionMat.planecount, this.positionMat.type, dimensions);
     tempMat.interp = 1;
     tempMat.frommatrix(this.positionMat);
-    this.setMeshDim(newDim);
+    this.setMeshDim(dimensions);
     this.positionMat.frommatrix(tempMat);
     tempMat.freepeer();
 

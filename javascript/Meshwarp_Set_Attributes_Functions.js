@@ -1,36 +1,55 @@
 //-----PUBLIC FUNCTIONS----------------
-
 // if undo or redo contain an arg, then we first check if this meshwarp is active
 function undo() {
-	if(!arguments.length || checkUndoRedo()) {
+	if((!arguments.length || checkUndoRedo()) && !mask_mode) {
 		gMesh.undo();
 	}
 }
 
 function redo() {
-	if(!arguments.length || checkUndoRedo()) {
+	if((!arguments.length || checkUndoRedo()) && !mask_mode) {
 		gMesh.redo();
 	}
 }
 
+function time(val)
+{	
+	gTime.newTime = val;
+}
+
 function reset() {
-	show_mesh = 1;
 	gGraphics.resetSingleCircle();
 	gGraphics.resetSelected();
-	gMesh.initMesh(nodeCTX.name);
-	gMesh.scaleMesh(gMesh.currentScale[0], gMesh.currentScale[1]);
+	if (gMesh != null)
+	{		
+		gMesh.initMesh(nodeCTX.name, gGraphics.getGraphicsNodeName());
+		gMesh.scaleMesh(gMesh.currentScale[0], gMesh.currentScale[1]);
+	}
 	assignThisAsCurrentlySelectedToGlobal();
+	gMaskPix.param("invert", 0);
 }
 
 function move_vertex(indexX, indexY, posX, posY) {
-	var tempPos = [posX, posY]; 
-	var tempIndex = [indexX, (gMesh.positionMat.dim[1]-1)-indexY];
-	if (checkIfVec2AreDifferent(tempIndex, gMesh.selectedVertexIndex)) {
-		var tempPos = gMesh.getPositionMatCell(tempIndex);
+	if (gMesh != null)
+	{
+		var tempPos = [posX, posY]; 
+		var tempIndex = [indexX, (gMesh.positionMat.dim[1]-1)-indexY];
+		if (checkIfVec2AreDifferent(tempIndex, gMesh.selectedVertexIndex)) {
+			var tempPos = gMesh.getPositionMatCell(tempIndex);
+		}
+		gMesh.moveVertex(tempPos, tempIndex);
 	}
-	gMesh.moveVertex(tempPos, tempIndex);
 }
 
+function reset_mask()
+{
+	if (gMesh != null)
+	{
+		gMesh.resetMask();
+	}
+}
+
+//--------------------------
 function jit_gl_texture(texName) {
 	setTexturesMeshes(texName);
 }
@@ -56,12 +75,20 @@ function setvalueof(dict) {
 }
 
 // ATTRIBUTES ----------------------------------
+function setOutputTexture(val)
+{
+	output_texture = val;
+}
+
 function setEnable(val) {
 	enable = val;
 	videoplane.automatic = val;;
 	nodeCTX.automatic = val;
 	showUI(val);
-	gMesh.setEnable(val);
+	if (gMesh != null)
+	{
+		gMesh.setEnable(val);
+	}
 	if(!enable) {
 		assignLatestActionToGlobal(GUI_ELEMENTS.NOTHING);
 		setToGlobalIfMouseIsOnMesh(false);
@@ -70,19 +97,28 @@ function setEnable(val) {
 setEnable.local = 1;
 
 function scaleToTextureRatio() {
-	gMesh.scaleToTextureRatio();
+	if (gMesh != null)
+	{
+		gMesh.scaleToTextureRatio();
+	}
 }
 scaleToTextureRatio.local = 1;
 
 function setColor() {
 	color = arrayfromargs(arguments);
-	gMesh.setColor(color);
+	if (gMesh != null)
+	{
+		gMesh.setColor(color);
+	}
 }
 setColor.local = 1;
 
 function setUIGridColor() {
 	grid_color = arrayfromargs(arguments);
-	gMesh.setUIGridColor(grid_color);
+	if (gMesh != null)
+	{
+		gMesh.setUIGridColor(grid_color);
+	}
 }
 setUIGridColor.local = 1;
 
@@ -103,15 +139,48 @@ function setCirclesAndFrameLineSize(val) {
 function setRotatez(rotZ) {
 	var angleRad = (rotZ / 180) * 3.1459;
 	rotatez = rotZ;
-	gMesh.rotateZ(angleRad);
+	if (gMesh != null)
+	{
+		gMesh.rotateZ(angleRad);
+	}
 }
+setRotatez.local = 1;
 
 function setBlendEnable(val) {
 	blend_enable = val;
-	gMesh.setBlendEnable(val);
+	if (gMesh != null)
+	{
+		gMesh.setBlendEnable(val);
+	}
 }
 setBlendEnable.local = 1;
 
+function setMaskMode(val)
+{
+	mask_mode = val;
+	if (gMesh != null)
+	{
+		showUI((1-val));
+		gMesh.setMaskMode(val);
+	}
+}
+setMaskMode.local = 1;
+
+function setApplyMask(val)
+{
+	apply_mask = val;
+	gMesh.setApplyMask(val);
+}
+setApplyMask.local = 1;
+
+function setInvertMask(val)
+{
+	invert_mask = val;
+	gMesh.setInvertMask(val);
+}
+setInvertMask.local = 1;
+
+// SAVE / LOAD -----------------------------------
 function buildSaveDict() {
 	var saveDict = new Dict();
 
@@ -125,10 +194,14 @@ function buildSaveDict() {
 	saveDict.replace("show_ui", show_ui);
 	saveDict.replace("point_size", point_size);
 	saveDict.replace("grid_size", grid_size);
+	// saveDict.replace("output_texture", output_texture);
 
 	saveDict.replace("windowRatio", gWindowRatio);
 	
-	gMesh.saveDataIntoDict(saveDict);
+	if (gMesh != null)
+	{
+		gMesh.saveDataIntoDict(saveDict);
+	}
 	return saveDict;
 }
 buildSaveDict.local = 1;
@@ -158,10 +231,14 @@ function loadFromDict(saveDict) {
 	show_ui = saveDict.get("show_ui");
 	point_size = saveDict.get("point_size");
 	grid_size = saveDict.get("grid_size");
+	// output_texture = saveDict.get("output_texture");
 
 	gWindowRatio = saveDict.get("windowRatio");
 
-	gMesh.loadDict(saveDict); 
+	if (gMesh != null)
+	{
+		gMesh.loadDict(saveDict); 
+	}
 	// gMesh.changeMode(mode);
 	setTexturesMeshes();
 }
@@ -169,39 +246,65 @@ loadFromDict.local = 1;
 
 function setScaleRelativeToAspect(val) {
 	lock_to_aspect = val;
-	gMesh.scaleToTextureRatio(val);
+	if (gMesh != null)
+	{
+		gMesh.scaleToTextureRatio(val);
+	}
 }
 setScaleRelativeToAspect.local = 1;
 
 function setTexturesMeshes() {
-	if (arguments.length > 0) {
-		texture = (arrayfromargs(arguments));
+	if (gMesh != null)
+	{
+		if (arguments.length > 0) {
+			texture = (arrayfromargs(arguments));
+		}
+	
+		gMesh.assignTextureToMesh(texture);
 	}
-	gMesh.assignTextureToMesh(texture);
-	//gMesh.initAndAssignTextureCoordMat(); // in case there are more than one textures, update the coordinates to put a texture in every mesh
 }
 setTexturesMeshes.local = 1;
 
 function setScale(scaleX, scaleY) {
-	gMesh.scaleMesh(scaleX, scaleY);
-	gMesh.setLatestScale_calcBoundsMat();
+	if (gMesh != null)
+	{
+		gMesh.scaleMesh(scaleX, scaleY);
+		gMesh.setLatestScale_calcBoundsMat();
+	}
 }
 setScale.local = 1;
 
 function getScale() {
-	return gMesh.currentScale.slice();
+	if (gMesh != null)
+	{
+		return gMesh.currentScale.slice();
+	}
+	else 
+	{
+		return -1;
+	}
 }
 getScale.local = 1;
 
 function setPosition(posX, posY) {
-	gMesh.setMeshPosition([posX, posY]);
-	gMesh.updateGUI();
-	gMesh.calcMeshBoundsMat();
+	if (gMesh != null)
+	{
+		gMesh.setMeshPosition([posX, posY]);
+		gMesh.updateGUI();
+		gMesh.calcMeshBoundsMat();
+	}
 }
 setPosition.local = 1;
 
 function getPosition() {
-	return gMesh.currentPos.slice();
+	if (gMesh != null)
+	{
+		return gMesh.currentPos.slice();
+	}
+	else 
+	{
+		return -1;
+	}
 }
 getPosition.local = 1;
 
@@ -213,13 +316,17 @@ setMeshLayer.local = 1;
 
 function setVideoplaneLayer(val) {
 	videoplane.layer = val;
+	gGraphics.setGraphicsVidPlaneLayer(val+1);
 }
 setVideoplaneLayer.local = 1;
 
 function setNurbsOrMeshMode(arg) {
 	if (arg == 0 || arg == 1) {
 		use_nurbs = arg;
-		gMesh.setNurbsOrMeshMode(use_nurbs);
+		if (gMesh != null)
+		{
+			gMesh.setNurbsOrMeshMode(use_nurbs);
+		}
 	}
 }
 setNurbsOrMeshMode.local = 1;
@@ -227,16 +334,22 @@ setNurbsOrMeshMode.local = 1;
 function setNurbsOrder(x, y) {
 	nurbs_order[0] = Math.min(Math.max(x, 1), gMesh.posMatDim[0] - 1);
 	nurbs_order[1] = Math.min(Math.max(y, 1), gMesh.posMatDim[1] - 1);
-	gMesh.changeNurbsOrder(nurbs_order[0], nurbs_order[1]);
+	if (gMesh != null)
+	{
+		gMesh.changeNurbsOrder(nurbs_order[0], nurbs_order[1]);
+	}
 }
 setNurbsOrder.local = 1;
 
 function setCurvature(curve) {
 	curvature = Math.min(Math.max(curve, 0.), 0.9999);
-	orderx = Math.floor(curvature * gMesh.posMatDim[0]);
-	ordery = Math.floor(curvature * gMesh.posMatDim[1]);
-	if(nurbs_order[0] != orderx || nurbs_order[1] != ordery) {
-		setNurbsOrder(orderx, ordery);
+	if (gMesh != null)
+	{
+		orderx = Math.floor(curvature * gMesh.posMatDim[0]);
+		ordery = Math.floor(curvature * gMesh.posMatDim[1]);
+		if(nurbs_order[0] != orderx || nurbs_order[1] != ordery) {
+			setNurbsOrder(orderx, ordery);
+		}
 	}
 }
 setCurvature.local = 1;
@@ -265,22 +378,34 @@ function showUI(show) {
 showUI.local = 1;
 
 function show_position_handle(val) {
-	gMesh.showMoveHandle(val);
+	if (gMesh != null)
+	{
+		gMesh.showMoveHandle(val);
+	}
 }
 
 function show_scale_handles(val) {
-	gMesh.showScaleHandles(val);
+	if (gMesh != null)
+	{
+		gMesh.showScaleHandles(val);
+	}
 }
 
 function setPointSize(size) {
 	point_size = size;
-	gMesh.meshPoints.point_size = point_size;
+	if (gMesh != null)
+	{
+		gMesh.meshPoints.point_size = point_size;
+	}
 }
 setPointSize.local = 1;
 
 function setGridSize(size) {
 	grid_size = size;
-	gMesh.meshGrid.line_width = grid_size;
-	gMesh.meshGrid.enable = (gMesh.showMeshUI && grid_size > 0);
+	if (gMesh != null)
+	{
+		gMesh.meshGrid.line_width = grid_size;
+		gMesh.meshGrid.enable = (gMesh.showMeshUI && grid_size > 0);
+	}
 }
 setGridSize.local = 1;

@@ -3,14 +3,14 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 8,
-			"minor" : 2,
+			"minor" : 3,
 			"revision" : 0,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 79.0, 882.0, 581.0 ],
+		"rect" : [ 1232.0, 584.0, 896.0, 639.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -43,6 +43,437 @@
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
 				"box" : 				{
+					"id" : "obj-8",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 8,
+							"minor" : 3,
+							"revision" : 0,
+							"architecture" : "x64",
+							"modernui" : 1
+						}
+,
+						"classnamespace" : "box",
+						"rect" : [ 1232.0, 610.0, 896.0, 613.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 2,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 1,
+						"objectsnaponopen" : 1,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"lefttoolbarpinned" : 0,
+						"toptoolbarpinned" : 0,
+						"righttoolbarpinned" : 0,
+						"bottomtoolbarpinned" : 0,
+						"toolbars_unpinned_last_save" : 0,
+						"tallnewobj" : 0,
+						"boxanimatetime" : 200,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"style" : "",
+						"subpatcher_template" : "Template_Grid",
+						"showontab" : 1,
+						"assistshowspatchername" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-8",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 25.0, 41.0, 383.0, 34.0 ],
+									"text" : "jit.gl.meshwarp supports texture output. \nIt will output the whole scene in which a jit.gl.meshwarp plane resides."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-6",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 66.0, 134.0, 24.0, 24.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-4",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 66.0, 165.0, 102.0, 22.0 ],
+									"text" : "output_texture $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-2",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 66.0, 198.0, 90.0, 22.0 ],
+									"text" : "s to_meshwarp"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-12",
+									"maxclass" : "newobj",
+									"numinlets" : 0,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 240.142860054969788, 134.0, 110.0, 22.0 ],
+									"text" : "r from_meshwarp"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-32",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 240.142860054969788, 168.095228672027588, 143.0, 22.0 ],
+									"text" : "routepass jit_gl_texture"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-31",
+									"maxclass" : "jit.pwindow",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "jit_matrix", "" ],
+									"patching_rect" : [ 240.142860054969788, 204.0, 244.857139945030212, 175.0 ],
+									"sync" : 1
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-32", 0 ],
+									"source" : [ "obj-12", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-31", 0 ],
+									"source" : [ "obj-32", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-2", 0 ],
+									"source" : [ "obj-4", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-4", 0 ],
+									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+ ],
+						"styles" : [ 							{
+								"name" : "AudioStatus_Menu",
+								"default" : 								{
+									"bgfillcolor" : 									{
+										"type" : "color",
+										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
+										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
+										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
+										"angle" : 270.0,
+										"proportion" : 0.39,
+										"autogradient" : 0
+									}
+
+								}
+,
+								"parentstyle" : "",
+								"multi" : 0
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 196.0, 85.0, 104.0, 22.0 ],
+					"presentation_linecount" : 2,
+					"saved_object_attributes" : 					{
+						"description" : "",
+						"digest" : "",
+						"globalpatchername" : "",
+						"tags" : ""
+					}
+,
+					"text" : "p \"texture output\""
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"id" : "obj-6",
+					"maxclass" : "newobj",
+					"numinlets" : 0,
+					"numoutlets" : 0,
+					"patcher" : 					{
+						"fileversion" : 1,
+						"appversion" : 						{
+							"major" : 8,
+							"minor" : 3,
+							"revision" : 0,
+							"architecture" : "x64",
+							"modernui" : 1
+						}
+,
+						"classnamespace" : "box",
+						"rect" : [ 0.0, 26.0, 896.0, 613.0 ],
+						"bglocked" : 0,
+						"openinpresentation" : 0,
+						"default_fontsize" : 12.0,
+						"default_fontface" : 0,
+						"default_fontname" : "Arial",
+						"gridonopen" : 2,
+						"gridsize" : [ 15.0, 15.0 ],
+						"gridsnaponopen" : 1,
+						"objectsnaponopen" : 1,
+						"statusbarvisible" : 2,
+						"toolbarvisible" : 1,
+						"lefttoolbarpinned" : 0,
+						"toptoolbarpinned" : 0,
+						"righttoolbarpinned" : 0,
+						"bottomtoolbarpinned" : 0,
+						"toolbars_unpinned_last_save" : 0,
+						"tallnewobj" : 0,
+						"boxanimatetime" : 200,
+						"enablehscroll" : 1,
+						"enablevscroll" : 1,
+						"devicewidth" : 0.0,
+						"description" : "",
+						"digest" : "",
+						"tags" : "",
+						"style" : "",
+						"subpatcher_template" : "Template_Grid",
+						"showontab" : 1,
+						"assistshowspatchername" : 0,
+						"boxes" : [ 							{
+								"box" : 								{
+									"id" : "obj-1",
+									"linecount" : 19,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 36.574074268341064, 22.851852118968964, 549.0, 269.0 ],
+									"presentation_linecount" : 23,
+									"text" : "You can use masks to mask portions of the jit.gl.meshwarp plane.\n\nTo use Masks: \n\n1 - Enable \"mask_mode\" \n2 - Press \"shift\" and double click inside the plane.  \n3 - Click and drag with the mouse on the yellow dots to move masks vertices. \n4 - Press \"ctrl / cmd\" + drag the blue dot to move the mask around in the scene.\n5 - Press \"shift\" and double click on the edges of the masks to create new vertices.\n6 - Press \"shift\" and double click on a yellow dot to delete a mask vertex. \n7 - Press \"shift\" and double click on the blue dot to delete a whole mask.\n\n8 - Enable \"apply_mask\" to apply the mask to the plane.\n9 - You can invert the mask so it will only show what you masked with the \"invert_mask 1/0\" message.\n10 - Send the \"reset_mask\" message to reset all masks.\n11 - Disable \"mask_mode\" to go back editing the jit.gl.meshwarp mesh.\n\nDANGER\nUndo / Redo for masks not working at the moment."
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-33",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 320.259252071380615, 313.928568184375763, 24.0, 24.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-23",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 320.259252071380615, 344.928568184375763, 97.0, 22.0 ],
+									"text" : "invert_mask $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-20",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 193.111115992069244, 314.928568184375763, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-22",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 193.111115992069244, 344.928568184375763, 96.0, 22.0 ],
+									"text" : "apply_mask $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-12",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 445.333330273628235, 344.928568184375763, 76.0, 22.0 ],
+									"text" : "reset_mask"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-17",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 76.957679629325867, 314.928568184375763, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-18",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 76.957679629325867, 344.928568184375763, 97.0, 22.0 ],
+									"text" : "mask_mode $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-19",
+									"maxclass" : "newobj",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 129.629628658294678, 422.547611057758331, 97.0, 22.0 ],
+									"text" : "s to_meshwarp"
+								}
+
+							}
+ ],
+						"lines" : [ 							{
+								"patchline" : 								{
+									"destination" : [ "obj-19", 0 ],
+									"source" : [ "obj-12", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-18", 0 ],
+									"source" : [ "obj-17", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-19", 0 ],
+									"source" : [ "obj-18", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-22", 0 ],
+									"source" : [ "obj-20", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-19", 0 ],
+									"source" : [ "obj-22", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-19", 0 ],
+									"source" : [ "obj-23", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-23", 0 ],
+									"source" : [ "obj-33", 0 ]
+								}
+
+							}
+ ],
+						"styles" : [ 							{
+								"name" : "AudioStatus_Menu",
+								"default" : 								{
+									"bgfillcolor" : 									{
+										"type" : "color",
+										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
+										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
+										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
+										"angle" : 270.0,
+										"proportion" : 0.39,
+										"autogradient" : 0
+									}
+
+								}
+,
+								"parentstyle" : "",
+								"multi" : 0
+							}
+ ]
+					}
+,
+					"patching_rect" : [ 326.0, 85.0, 89.0, 22.0 ],
+					"saved_object_attributes" : 					{
+						"description" : "",
+						"digest" : "",
+						"globalpatchername" : "",
+						"tags" : ""
+					}
+,
+					"text" : "p \"mask mode\""
+				}
+
+			}
+, 			{
+				"box" : 				{
 					"id" : "obj-5",
 					"maxclass" : "newobj",
 					"numinlets" : 1,
@@ -68,14 +499,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 2,
+							"minor" : 3,
 							"revision" : 0,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 882.0, 555.0 ],
+						"rect" : [ 0.0, 26.0, 896.0, 613.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -106,6 +537,138 @@
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
 								"box" : 								{
+									"id" : "obj-33",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 404.0, 425.928571462631226, 24.0, 24.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-23",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 404.0, 456.928571462631226, 97.0, 22.0 ],
+									"text" : "invert_mask $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-16",
+									"maxclass" : "jit.pwindow",
+									"numinlets" : 1,
+									"numoutlets" : 2,
+									"outlettype" : [ "jit_matrix", "" ],
+									"patching_rect" : [ 36.5, 396.928571462631226, 198.0, 178.0 ],
+									"sync" : 1
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-15",
+									"maxclass" : "newobj",
+									"numinlets" : 2,
+									"numoutlets" : 2,
+									"outlettype" : [ "", "" ],
+									"patching_rect" : [ 36.5, 338.0, 133.0, 22.0 ],
+									"text" : "routepass jit_gl_texture"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-30",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 264.857139945030212, 413.928571462631226, 24.0, 24.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-26",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 264.857139945030212, 440.0, 110.0, 22.0 ],
+									"text" : "output_texture $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-20",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 485.0, 350.928571462631226, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-11",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 485.0, 380.928571462631226, 96.0, 22.0 ],
+									"text" : "apply_mask $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-7",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 379.857139945030212, 380.928571462631226, 76.0, 22.0 ],
+									"text" : "reset_mask"
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-17",
+									"maxclass" : "toggle",
+									"numinlets" : 1,
+									"numoutlets" : 1,
+									"outlettype" : [ "int" ],
+									"parameter_enable" : 0,
+									"patching_rect" : [ 265.0, 350.928571462631226, 25.0, 25.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-18",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 265.0, 380.928571462631226, 91.0, 22.0 ],
+									"text" : "mask_mode $1"
+								}
+
+							}
+, 							{
+								"box" : 								{
 									"id" : "obj-1",
 									"maxclass" : "newobj",
 									"numinlets" : 0,
@@ -135,7 +698,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 553.0, 121.0, 202.0, 33.0 ],
+									"patching_rect" : [ 553.0, 121.0, 202.0, 34.0 ],
 									"text" : "use layer to control the drawing order when shapes are unselected"
 								}
 
@@ -293,7 +856,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 36.5, 27.0, 417.0, 33.0 ],
+									"patching_rect" : [ 36.5, 27.0, 417.0, 34.0 ],
 									"text" : "You can use multiple \"jit.gl.meshwarp\" objects at the same time.\nTo select one click on the shape in the rendering window using the mouse. "
 								}
 
@@ -317,7 +880,35 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-11", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
 									"source" : [ "obj-14", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-16", 0 ],
+									"source" : [ "obj-15", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-18", 0 ],
+									"source" : [ "obj-17", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-18", 0 ]
 								}
 
 							}
@@ -341,8 +932,29 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-11", 0 ],
+									"source" : [ "obj-20", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-41", 0 ],
 									"source" : [ "obj-22", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-23", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-26", 0 ]
 								}
 
 							}
@@ -361,6 +973,20 @@
 									"midpoints" : [ 209.5, 180.0, 460.0, 180.0, 460.0, 219.0, 479.0, 219.0 ],
 									"order" : 0,
 									"source" : [ "obj-3", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-26", 0 ],
+									"source" : [ "obj-30", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-23", 0 ],
+									"source" : [ "obj-33", 0 ]
 								}
 
 							}
@@ -389,6 +1015,13 @@
 							}
 , 							{
 								"patchline" : 								{
+									"destination" : [ "obj-15", 0 ],
+									"source" : [ "obj-41", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
 									"destination" : [ "obj-41", 0 ],
 									"midpoints" : [ 139.0, 179.0, 23.119046568870544, 179.0, 23.119046568870544, 221.0, 46.0, 221.0 ],
 									"order" : 1,
@@ -410,6 +1043,13 @@
 									"destination" : [ "obj-41", 0 ],
 									"midpoints" : [ 274.5, 180.0, 21.0, 180.0, 21.0, 222.0, 46.0, 222.0 ],
 									"source" : [ "obj-6", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-41", 0 ],
+									"source" : [ "obj-7", 0 ]
 								}
 
 							}
@@ -449,7 +1089,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 204.0, 84.0, 133.0, 22.0 ],
+					"patching_rect" : [ 421.0, 85.0, 133.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -471,14 +1111,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 2,
+							"minor" : 3,
 							"revision" : 0,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 882.0, 555.0 ],
+						"rect" : [ 0.0, 26.0, 896.0, 613.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -517,8 +1157,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 669.0, 301.619042873382568, 207.0, 64.0 ],
-									"presentation_linecount" : 3,
+									"patching_rect" : [ 670.0, 256.619042873382568, 207.0, 66.0 ],
 									"text" : "An alternative approach is to use Snapshots to save and restore multiple meshwarp configurations for all the objects in your patch"
 								}
 
@@ -530,7 +1169,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 236.642860054969788, 310.119042873382568, 349.0, 47.0 ],
+									"patching_rect" : [ 236.642860054969788, 310.119042873382568, 349.0, 48.0 ],
 									"text" : "Each json file describes a single jit.gl.meshwarp configuration. These messages referencing meshwarpA and meshwarpB are sent to the meshwarp objects in the \"multiple meshwarps\" tab"
 								}
 
@@ -612,7 +1251,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.5, 27.0, 609.0, 33.0 ],
+									"patching_rect" : [ 21.5, 27.0, 609.0, 34.0 ],
 									"text" : "Save all the parameters of a jit.gl.meshwarp in a JSON file using the \"save\" message.\nLoad the JSON file in the jit.gl.meshwarp object with the \"read\" message to bring the object back the saved state."
 								}
 
@@ -782,7 +1421,7 @@
  ]
 					}
 ,
-					"patching_rect" : [ 359.0, 84.0, 102.0, 22.0 ],
+					"patching_rect" : [ 576.0, 85.0, 102.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -804,14 +1443,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 2,
+							"minor" : 3,
 							"revision" : 0,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 882.0, 555.0 ],
+						"rect" : [ 0.0, 26.0, 896.0, 613.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -847,7 +1486,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 713.0, 344.619035601615906, 150.0, 33.0 ],
+									"patching_rect" : [ 713.0, 344.619035601615906, 150.0, 34.0 ],
 									"text" : "when scaling, preserve original aspect ratio"
 								}
 
@@ -869,7 +1508,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 657.0, 88.0, 67.0, 20.0 ],
+									"patching_rect" : [ 657.0, 122.0, 67.0, 20.0 ],
 									"text" : "mesh color"
 								}
 
@@ -880,7 +1519,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 198.0, 56.0, 150.0, 20.0 ],
+									"patching_rect" : [ 183.0, 113.0, 150.0, 20.0 ],
 									"text" : "mesh transform attributes "
 								}
 
@@ -1428,14 +2067,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 2,
+							"minor" : 3,
 							"revision" : 0,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 882.0, 555.0 ],
+						"rect" : [ 0.0, 26.0, 896.0, 613.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1625,7 +2264,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 43.666666666666515, 32.190485954284668, 557.0, 74.0 ],
+									"patching_rect" : [ 43.666666666666515, 32.190485954284668, 557.0, 75.0 ],
 									"text" : "- Blue Circle: move the mesh.\n- Yellow Circles: scale the mesh.\n- Move individual vertices with mouse when Red Circle appears.\n- Click and Drag: select multiple vertices. \nAfter selecting the vertices you can move them all in bulk by clicking and dragging on a selected vertex."
 								}
 
@@ -1637,7 +2276,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 615.857139945030212, 296.0, 199.0, 33.0 ],
+									"patching_rect" : [ 615.857139945030212, 296.0, 199.0, 34.0 ],
 									"text" : "Use this abstraction to move single vertices by index."
 								}
 
@@ -1664,6 +2303,7 @@
 									"frozen_box_attributes" : [ "name" ],
 									"id" : "obj-4",
 									"lockeddragscroll" : 0,
+									"lockedsize" : 0,
 									"maxclass" : "bpatcher",
 									"name" : "meshwarp.vertex.edit.maxpat",
 									"numinlets" : 5,
@@ -1953,14 +2593,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 2,
+							"minor" : 3,
 							"revision" : 0,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 34.0, 105.0, 882.0, 555.0 ],
+						"rect" : [ 0.0, 26.0, 896.0, 613.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -1992,11 +2632,11 @@
 						"boxes" : [ 							{
 								"box" : 								{
 									"id" : "obj-4",
-									"linecount" : 3,
+									"linecount" : 2,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 389.642860054969788, 436.547614336013794, 146.0, 50.0 ],
+									"patching_rect" : [ 392.642860054969788, 462.547614336013794, 197.5, 36.0 ],
 									"text" : "Open abstraction (double-click) to view current attribute state"
 								}
 
@@ -2008,7 +2648,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 569.238093376159668, 219.619042873382568, 182.0, 65.0 ],
+									"patching_rect" : [ 591.382830262184143, 254.829569220542908, 182.0, 66.0 ],
 									"text" : "Also undo via cmd+z or ctl+z  and redo via shift+cmd+z or ctl+y when interacting in the render window"
 								}
 
@@ -2021,7 +2661,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "int" ],
 									"parameter_enable" : 1,
-									"patching_rect" : [ 219.666666666666742, 368.0, 24.0, 24.0 ],
+									"patching_rect" : [ 228.642860054969788, 396.928571462631226, 24.0, 24.0 ],
 									"saved_attribute_attributes" : 									{
 										"valueof" : 										{
 											"parameter_enum" : [ "off", "on" ],
@@ -2047,7 +2687,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 219.666666666666742, 394.0, 66.0, 23.0 ],
+									"patching_rect" : [ 228.642860054969788, 424.0, 66.0, 23.0 ],
 									"text" : "enable $1"
 								}
 
@@ -2061,7 +2701,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 800.0, 268.619042873382568, 84.0, 40.0 ],
+									"patching_rect" : [ 804.0, 298.619042873382568, 84.0, 40.0 ],
 									"text" : "Snapshot support"
 								}
 
@@ -2072,7 +2712,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 51.642860054969788, 497.095228672027588, 112.0, 23.0 ],
+									"patching_rect" : [ 49.642860054969788, 527.095228672027588, 112.0, 23.0 ],
 									"text" : "s from_meshwarp"
 								}
 
@@ -2084,7 +2724,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 567.238093376159668, 168.619042873382568, 200.0, 25.0 ],
+									"patching_rect" : [ 595.988093376159668, 207.119042873382568, 200.0, 25.0 ],
 									"text" : "Undo / redo mesh GUI actions"
 								}
 
@@ -2096,7 +2736,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 526.238093376159668, 169.619042873382568, 35.0, 23.0 ],
+									"patching_rect" : [ 554.988093376159668, 208.119042873382568, 35.0, 23.0 ],
 									"text" : "redo"
 								}
 
@@ -2108,7 +2748,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 484.238093376159668, 169.619042873382568, 37.0, 23.0 ],
+									"patching_rect" : [ 512.988093376159668, 208.119042873382568, 37.0, 23.0 ],
 									"text" : "undo"
 								}
 
@@ -2120,7 +2760,7 @@
 									"numinlets" : 0,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 90.642860054969788, 394.0, 94.0, 23.0 ],
+									"patching_rect" : [ 89.642860054969788, 409.0, 94.0, 23.0 ],
 									"text" : "r to_meshwarp"
 								}
 
@@ -2131,7 +2771,7 @@
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 414.142860054969788, 268.619042873382568, 97.0, 23.0 ],
+									"patching_rect" : [ 442.892860054969788, 290.119042873382568, 97.0, 23.0 ],
 									"text" : "s to_meshwarp"
 								}
 
@@ -2143,7 +2783,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "jit_gl_texture", "" ],
-									"patching_rect" : [ 51.642860054969788, 330.619042873382568, 362.0, 23.0 ],
+									"patching_rect" : [ 49.642860054969788, 340.619042873382568, 362.0, 23.0 ],
 									"text" : "jit.movie @output_texture 1 @vol 0 @moviefile chickens.mp4"
 								}
 
@@ -2158,7 +2798,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 115.142860054969788, 222.738093018531799, 80.0, 35.0 ]
+									"patching_rect" : [ 115.142860054969788, 222.738093018531799, 80.0, 36.0 ]
 								}
 
 							}
@@ -2169,7 +2809,7 @@
 									"numinlets" : 2,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 414.142860054969788, 169.619042873382568, 37.0, 23.0 ],
+									"patching_rect" : [ 442.892860054969788, 208.119042873382568, 37.0, 23.0 ],
 									"text" : "reset"
 								}
 
@@ -2200,17 +2840,13 @@
 							}
 , 							{
 								"box" : 								{
-									"frozen_object_attributes" : 									{
-										"rect" : [ 952, 53, 1592, 533 ]
-									}
-,
 									"id" : "obj-15",
 									"maxclass" : "newobj",
 									"numinlets" : 1,
 									"numoutlets" : 3,
 									"outlettype" : [ "jit_matrix", "bang", "" ],
-									"patching_rect" : [ 43.642860054969788, 191.738093018531799, 162.0, 23.0 ],
-									"text" : "jit.world @fsaa 1"
+									"patching_rect" : [ 43.642860054969788, 191.738093018531799, 313.0, 23.0 ],
+									"text" : "jit.world @fsaa 1 @fps 1000 @displaylink 0 @sync 0"
 								}
 
 							}
@@ -2221,7 +2857,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
-									"patching_rect" : [ 51.642860054969788, 450.047614336013794, 325.0, 23.0 ],
+									"patching_rect" : [ 49.642860054969788, 469.047614336013794, 325.0, 23.0 ],
 									"text" : "jit.gl.meshwarp @show_ui 1 @meshdim 10 4 @layer 0",
 									"varname" : "jit.gl.meshwarp"
 								}
@@ -2296,7 +2932,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"midpoints" : [ 493.738093376159668, 229.619042873382568, 423.642860054969788, 229.619042873382568 ],
+									"midpoints" : [ 522.488093376159668, 268.119042873382568, 452.392860054969788, 268.119042873382568 ],
 									"source" : [ "obj-21", 0 ]
 								}
 
@@ -2304,7 +2940,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"midpoints" : [ 535.738093376159668, 229.619042873382568, 423.642860054969788, 229.619042873382568 ],
+									"midpoints" : [ 564.488093376159668, 268.119042873382568, 452.392860054969788, 268.119042873382568 ],
 									"source" : [ "obj-27", 0 ]
 								}
 
@@ -2312,7 +2948,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-1", 0 ],
-									"midpoints" : [ 229.166666666666742, 437.619042873382568, 61.142860054969788, 437.619042873382568 ],
+									"midpoints" : [ 238.142860054969788, 452.619042873382568, 59.142860054969788, 452.619042873382568 ],
 									"source" : [ "obj-60", 0 ]
 								}
 
@@ -2334,7 +2970,7 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
-									"midpoints" : [ 423.642860054969788, 253.0, 423.642860054969788, 253.0 ],
+									"midpoints" : [ 452.392860054969788, 291.5, 452.392860054969788, 291.5 ],
 									"source" : [ "obj-9", 0 ]
 								}
 
@@ -2387,7 +3023,7 @@
 					"numoutlets" : 1,
 					"outlettype" : [ "" ],
 					"parameter_enable" : 0,
-					"patching_rect" : [ 10.0, 10.0, 322.232025146484375, 57.599853515625 ]
+					"patching_rect" : [ 10.0, 10.0, 323.57598876953125, 57.600002288818359 ]
 				}
 
 			}
@@ -2401,14 +3037,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 2,
+							"minor" : 3,
 							"revision" : 0,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 882.0, 555.0 ],
+						"rect" : [ 0.0, 26.0, 896.0, 613.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2441,7 +3077,7 @@
 						"lines" : [  ]
 					}
 ,
-					"patching_rect" : [ 514.0, 86.0, 50.0, 22.0 ],
+					"patching_rect" : [ 689.0, 85.0, 50.0, 22.0 ],
 					"saved_object_attributes" : 					{
 						"description" : "",
 						"digest" : "",
@@ -2461,7 +3097,7 @@
 			"obj-10::obj-1::obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"obj-10::obj-62" : [ "toggle[1]", "toggle[1]", 0 ],
 			"obj-4::obj-41::obj-8" : [ "meshwarpjs[1]", "meshwarpjs[1]", 0 ],
-			"obj-4::obj-43::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[3]", 0 ],
+			"obj-4::obj-43::obj-8" : [ "meshwarpjs[2]", "meshwarpjs[2]", 0 ],
 			"parameterbanks" : 			{
 
 			}
@@ -2470,23 +3106,17 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "Aspect[1].maxsnap",
+				"name" : "Aspect[1]_20210728.maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../../../../Users/Federico Foderaro/Documents/Max 8/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "Aspect[1]_20210728_1.maxsnap",
+				"name" : "Zigzag[1].maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../../../../../Users/Federico Foderaro/Documents/Max 8/Snapshots",
 				"type" : "mx@s",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "helpname.js",
-				"bootpath" : "C74:/help/resources",
-				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
@@ -2496,30 +3126,37 @@
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
-				"type" : "JSON",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/javascript",
-				"patcherrelativepath" : "../javascript",
+				"name" : "helpname.js",
+				"bootpath" : "C74:/help/resources",
 				"type" : "TEXT",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "meshwarp.vertex.edit.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
-				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "helpstarter.js",
 				"bootpath" : "C74:/help/resources",
 				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jit.gl.meshwarp.maxpat",
+				"bootpath" : "C74:/packages/Jitter Tools/patchers",
+				"type" : "JSON",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "jit.mo.time.mxe64",
+				"type" : "mx64"
+			}
+, 			{
+				"name" : "meshwarp.js",
+				"bootpath" : "C74:/packages/Jitter Tools/javascript/meshwarp",
+				"type" : "TEXT",
+				"implicit" : 1
+			}
+, 			{
+				"name" : "meshwarp.vertex.edit.maxpat",
+				"bootpath" : "C74:/packages/Jitter Tools/patchers",
+				"type" : "JSON",
 				"implicit" : 1
 			}
  ],
@@ -3114,6 +3751,42 @@
 							"filepath" : "~/Documents/Max 8/Snapshots",
 							"filepos" : -1,
 							"snapshotfileid" : "bf78636150be0ed0ab4db74ac8f937c4"
+						}
+
+					}
+, 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "Zigzag",
+						"origin" : "jit.gl.meshwarp.maxhelp",
+						"type" : "patcher",
+						"subtype" : "Undefined",
+						"embed" : 0,
+						"fileref" : 						{
+							"name" : "Zigzag",
+							"filename" : "Aspect[1]_20210728.maxsnap",
+							"filepath" : "~/Documents/Max 8/Snapshots",
+							"filepos" : -1,
+							"snapshotfileid" : "702c95b617335e4d15f13ce0bbcfdf15"
+						}
+
+					}
+, 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "Squares",
+						"origin" : "jit.gl.meshwarp.maxhelp",
+						"type" : "patcher",
+						"subtype" : "Undefined",
+						"embed" : 0,
+						"fileref" : 						{
+							"name" : "Squares",
+							"filename" : "Zigzag[1].maxsnap",
+							"filepath" : "~/Documents/Max 8/Snapshots",
+							"filepos" : -1,
+							"snapshotfileid" : "594b9a14dc7b2604ba9a24d306a1d169"
 						}
 
 					}
