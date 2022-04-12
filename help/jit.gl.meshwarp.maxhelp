@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 1172.0, 286.0, 884.0, 626.0 ],
+		"rect" : [ 2647.0, 871.0, 884.0, 626.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -58,7 +58,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
+						"rect" : [ 2647.0, 897.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2428,7 +2428,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 1172.0, 312.0, 884.0, 600.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -2959,12 +2959,14 @@
 		"dependency_cache" : [ 			{
 				"name" : "Aspect[1]_20210728.maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "Zigzag[1].maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
+				"patcherrelativepath" : "../../../Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
@@ -2989,6 +2991,7 @@
 , 			{
 				"name" : "jit.gl.meshwarp.maxpat",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -2999,12 +3002,14 @@
 , 			{
 				"name" : "meshwarp.js",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/javascript",
+				"patcherrelativepath" : "../javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.vertex.edit.maxpat",
 				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}

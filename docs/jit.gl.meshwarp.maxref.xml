@@ -222,6 +222,17 @@
                 The order determines the curvature of the canvas mesh (default = 1 1). 
             </description>
     </attribute>
+    <attribute name="output_texture">
+        <arglist />
+        <digest>
+            Capture to internal texture
+        </digest>
+        <description>
+            Capture to internal texture (default = 0).
+            When enabled, the rendering of this meshwarp is captured to texture and the texture name is output out the left outlet. 
+            The dimensions of the texture are equal to the dimensions of the rendering window. 
+        </description>
+    </attribute>
     <attribute name="position">
             <arglist />
             <digest>
