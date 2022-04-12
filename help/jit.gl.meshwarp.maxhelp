@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 79.0, 883.0, 624.0 ],
+		"rect" : [ 1172.0, 286.0, 884.0, 626.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -58,7 +58,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -94,7 +94,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 25.0, 41.0, 383.0, 33.0 ],
+									"patching_rect" : [ 25.0, 41.0, 383.0, 34.0 ],
 									"text" : "jit.gl.meshwarp supports texture output. \nIt will output the whole scene in which a jit.gl.meshwarp plane resides."
 								}
 
@@ -185,13 +185,13 @@
 								"name" : "AudioStatus_Menu",
 								"default" : 								{
 									"bgfillcolor" : 									{
-										"type" : "color",
+										"angle" : 270.0,
+										"autogradient" : 0,
 										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
 										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
 										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
-										"angle" : 270.0,
 										"proportion" : 0.39,
-										"autogradient" : 0
+										"type" : "color"
 									}
 
 								}
@@ -231,7 +231,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -267,7 +267,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 36.574074268341064, 22.851852118968964, 549.0, 261.0 ],
+									"patching_rect" : [ 36.574074268341064, 22.851852118968964, 549.0, 269.0 ],
 									"text" : "You can use masks to mask portions of the jit.gl.meshwarp plane.\n\nTo use Masks: \n\n1 - Enable \"mask_mode\" \n2 - Press \"shift\" and double click inside the plane.  \n3 - Click and drag with the mouse on the yellow dots to move masks vertices. \n4 - Press \"ctrl / cmd\" + drag the blue dot to move the mask around in the scene.\n5 - Press \"shift\" and double click on the edges of the masks to create new vertices.\n6 - Press \"shift\" and double click on a yellow dot to delete a mask vertex. \n7 - Press \"shift\" and double click on the blue dot to delete a whole mask.\n\n8 - Enable \"apply_mask\" to apply the mask to the plane.\n9 - You can invert the mask so it will only show what you masked with the \"invert_mask 1/0\" message.\n10 - Send the \"reset_mask\" message to reset all masks.\n11 - Disable \"mask_mode\" to go back editing the jit.gl.meshwarp mesh.\n\nDANGER\nUndo / Redo for masks not working at the moment."
 								}
 
@@ -422,13 +422,13 @@
 								"name" : "AudioStatus_Menu",
 								"default" : 								{
 									"bgfillcolor" : 									{
-										"type" : "color",
+										"angle" : 270.0,
+										"autogradient" : 0,
 										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
 										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
 										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
-										"angle" : 270.0,
 										"proportion" : 0.39,
-										"autogradient" : 0
+										"type" : "color"
 									}
 
 								}
@@ -485,7 +485,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -581,7 +581,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 553.0, 121.0, 202.0, 33.0 ],
+									"patching_rect" : [ 553.0, 121.0, 202.0, 34.0 ],
 									"text" : "use layer to control the drawing order when shapes are unselected"
 								}
 
@@ -739,7 +739,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 36.5, 27.0, 417.0, 33.0 ],
+									"patching_rect" : [ 36.5, 27.0, 417.0, 34.0 ],
 									"text" : "You can use multiple \"jit.gl.meshwarp\" objects at the same time.\nTo select one click on the shape in the rendering window using the mouse. "
 								}
 
@@ -900,13 +900,13 @@
 								"name" : "AudioStatus_Menu",
 								"default" : 								{
 									"bgfillcolor" : 									{
-										"type" : "color",
+										"angle" : 270.0,
+										"autogradient" : 0,
 										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
 										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
 										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
-										"angle" : 270.0,
 										"proportion" : 0.39,
-										"autogradient" : 0
+										"type" : "color"
 									}
 
 								}
@@ -946,7 +946,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -985,7 +985,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 674.0, 279.619042873382568, 207.0, 64.0 ],
+									"patching_rect" : [ 674.0, 279.619042873382568, 207.0, 66.0 ],
 									"text" : "An alternative approach is to use Snapshots to save and restore multiple meshwarp configurations for all the objects in your patch"
 								}
 
@@ -997,7 +997,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 236.642860054969788, 310.119042873382568, 349.0, 47.0 ],
+									"patching_rect" : [ 236.642860054969788, 310.119042873382568, 349.0, 48.0 ],
 									"text" : "Each json file describes a single jit.gl.meshwarp configuration. These messages referencing meshwarpA and meshwarpB are sent to the meshwarp objects in the \"multiple meshwarps\" tab"
 								}
 
@@ -1079,7 +1079,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 21.5, 27.0, 609.0, 33.0 ],
+									"patching_rect" : [ 21.5, 27.0, 609.0, 34.0 ],
 									"text" : "Save all the parameters of a jit.gl.meshwarp in a JSON file using the \"save\" message.\nLoad the JSON file in the jit.gl.meshwarp object with the \"read\" message to bring the object back the saved state."
 								}
 
@@ -1232,13 +1232,13 @@
 								"name" : "AudioStatus_Menu",
 								"default" : 								{
 									"bgfillcolor" : 									{
-										"type" : "color",
+										"angle" : 270.0,
+										"autogradient" : 0,
 										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
 										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
 										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
-										"angle" : 270.0,
 										"proportion" : 0.39,
-										"autogradient" : 0
+										"type" : "color"
 									}
 
 								}
@@ -1278,7 +1278,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1314,7 +1314,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 713.0, 344.619035601615906, 150.0, 33.0 ],
+									"patching_rect" : [ 713.0, 344.619035601615906, 150.0, 34.0 ],
 									"text" : "when scaling, preserve original aspect ratio"
 								}
 
@@ -1856,13 +1856,13 @@
 								"name" : "AudioStatus_Menu",
 								"default" : 								{
 									"bgfillcolor" : 									{
-										"type" : "color",
+										"angle" : 270.0,
+										"autogradient" : 0,
 										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
 										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
 										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
-										"angle" : 270.0,
 										"proportion" : 0.39,
-										"autogradient" : 0
+										"type" : "color"
 									}
 
 								}
@@ -1902,7 +1902,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2092,7 +2092,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 43.666666666666515, 32.190485954284668, 557.0, 74.0 ],
+									"patching_rect" : [ 43.666666666666515, 32.190485954284668, 557.0, 75.0 ],
 									"text" : "- Blue Circle: move the mesh.\n- Yellow Circles: scale the mesh.\n- Move individual vertices with mouse when Red Circle appears.\n- Click and Drag: select multiple vertices. \nAfter selecting the vertices you can move them all in bulk by clicking and dragging on a selected vertex."
 								}
 
@@ -2104,7 +2104,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 615.857139945030212, 296.0, 199.0, 33.0 ],
+									"patching_rect" : [ 615.857139945030212, 296.0, 199.0, 34.0 ],
 									"text" : "Use this abstraction to move single vertices by index."
 								}
 
@@ -2382,13 +2382,13 @@
 								"name" : "AudioStatus_Menu",
 								"default" : 								{
 									"bgfillcolor" : 									{
-										"type" : "color",
+										"angle" : 270.0,
+										"autogradient" : 0,
 										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
 										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
 										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
-										"angle" : 270.0,
 										"proportion" : 0.39,
-										"autogradient" : 0
+										"type" : "color"
 									}
 
 								}
@@ -2428,7 +2428,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 34.0, 105.0, 883.0, 598.0 ],
+						"rect" : [ 1172.0, 312.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -2478,7 +2478,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 121.142860054969788, 224.738093018531799, 80.0, 35.0 ]
+									"patching_rect" : [ 121.142860054969788, 224.738093018531799, 80.0, 36.0 ]
 								}
 
 							}
@@ -2541,7 +2541,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 591.382830262184143, 254.829569220542908, 182.0, 65.0 ],
+									"patching_rect" : [ 591.382830262184143, 254.829569220542908, 182.0, 66.0 ],
 									"text" : "Also undo via cmd+z or ctl+z  and redo via shift+cmd+z or ctl+y when interacting in the render window"
 								}
 
@@ -2831,13 +2831,13 @@
 								"name" : "AudioStatus_Menu",
 								"default" : 								{
 									"bgfillcolor" : 									{
-										"type" : "color",
+										"angle" : 270.0,
+										"autogradient" : 0,
 										"color" : [ 0.294118, 0.313726, 0.337255, 1 ],
 										"color1" : [ 0.454902, 0.462745, 0.482353, 0.0 ],
 										"color2" : [ 0.290196, 0.309804, 0.301961, 1.0 ],
-										"angle" : 270.0,
 										"proportion" : 0.39,
-										"autogradient" : 0
+										"type" : "color"
 									}
 
 								}
@@ -2895,7 +2895,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 884.0, 600.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2957,16 +2957,14 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "Aspect[1].maxsnap",
+				"name" : "Aspect[1]_20210728.maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "Aspect[1]_20210728_1.maxsnap",
+				"name" : "Zigzag[1].maxsnap",
 				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Snapshots",
 				"type" : "mx@s",
 				"implicit" : 1
 			}
@@ -2990,26 +2988,23 @@
 			}
 , 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jit.mo.time.mxo",
-				"type" : "iLaX"
+				"name" : "jit.mo.time.mxe64",
+				"type" : "mx64"
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/javascript",
-				"patcherrelativepath" : "../javascript",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.vertex.edit.maxpat",
-				"bootpath" : "~/dev/cycling/meshwarp/patchers",
-				"patcherrelativepath" : "../patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -3605,6 +3600,42 @@
 							"filepath" : "~/Documents/Max 8/Snapshots",
 							"filepos" : -1,
 							"snapshotfileid" : "bf78636150be0ed0ab4db74ac8f937c4"
+						}
+
+					}
+, 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "Zigzag",
+						"origin" : "jit.gl.meshwarp.maxhelp",
+						"type" : "patcher",
+						"subtype" : "Undefined",
+						"embed" : 0,
+						"fileref" : 						{
+							"name" : "Zigzag",
+							"filename" : "Aspect[1]_20210728.maxsnap",
+							"filepath" : "~/Documents/Max 8/Snapshots",
+							"filepos" : -1,
+							"snapshotfileid" : "702c95b617335e4d15f13ce0bbcfdf15"
+						}
+
+					}
+, 					{
+						"filetype" : "C74Snapshot",
+						"version" : 2,
+						"minorversion" : 0,
+						"name" : "Squares",
+						"origin" : "jit.gl.meshwarp.maxhelp",
+						"type" : "patcher",
+						"subtype" : "Undefined",
+						"embed" : 0,
+						"fileref" : 						{
+							"name" : "Squares",
+							"filename" : "Zigzag[1].maxsnap",
+							"filepath" : "~/Documents/Max 8/Snapshots",
+							"filepos" : -1,
+							"snapshotfileid" : "594b9a14dc7b2604ba9a24d306a1d169"
 						}
 
 					}

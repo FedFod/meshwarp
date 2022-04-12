@@ -84,6 +84,14 @@
                 Reset the jit.gl.meshwarp to the default state. It will reset the scale, position, rotation and color attributes.
             </description>
         </method>
+           <method name="reset_mask">
+            <digest>
+                Deletes all the masks.
+            </digest>
+            <description>
+                Deletes all the existing masks.
+            </description>
+        </method>
         <method name="save">
             <digest>
                 Save the complete current state of the jit.gl.meshwarp object to a JSON file (.json).
@@ -111,7 +119,7 @@
                 Hide or show meshwarp plane using existing masks. 
             </digest>
             <description>
-                Hide or show meshwarp plane using existing masks.  (default = 0)
+                Hide or show meshwarp plane using existing masks (default = 0)
             </description>
     </attribute>
     <attribute name="color">
@@ -142,6 +150,16 @@
             <description>
                 Enable flag (default = 1) When the flag is set, drawing is enabled.
             </description>
+    </attribute>
+        <attribute name="invert_mask">
+        <arglist />
+        <digest>
+            Invert mask (default = 0)
+        </digest>
+        <description>
+            When the flag is set, the mask is inverted. 
+            Only what is contained inside the masks will be shown in the meshwarp plane. 
+        </description>
     </attribute>
     <attribute name="layer">
             <arglist />
