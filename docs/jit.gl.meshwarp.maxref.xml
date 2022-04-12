@@ -103,7 +103,17 @@
         </method>
 </methodlist>
 
+<!--ARGUMENTS-->
 <attributelist>
+    <attribute name="apply_mask">
+            <arglist />
+            <digest>
+                Hide or show meshwarp plane using existing masks. 
+            </digest>
+            <description>
+                Hide or show meshwarp plane using existing masks.  (default = 0)
+            </description>
+    </attribute>
     <attribute name="color">
             <arglist />
             <digest>
@@ -152,6 +162,28 @@
                 Locks the scale to match the proportions of the input texture (default = 0).
                 When set to active, the scale attribute will only respond to the second attribute argument (y scale).
             </description>
+    </attribute>
+    <attribute name="mask_mode">
+        <arglist />
+        <digest>
+            Enable masking mode (default = 0)
+        </digest>
+        <description>
+            When the flag is set, masking mode is enabled. 
+
+            To create a new mask: 
+                - shift + double click on meshwarp plane. 
+            To move a mask: 
+                - ctrl/cmd + drag on blue mask dot.
+            To remove a mask: 
+                - shift + double click on blue mask dot. 
+            To modify mask: 
+                - click and drag on yellow mask dots.
+            To create new mask vertex: 
+                - shift + double click on mask edge line.
+            To remove mask vertex: 
+                - shift + double click on yellow mask dot. 
+        </description>
     </attribute>
     <attribute name="meshdim">
             <arglist />

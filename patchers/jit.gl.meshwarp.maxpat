@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 425.0, 88.0, 720.0, 547.0 ],
+		"rect" : [ 152.0, 90.0, 720.0, 547.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -39,6 +39,30 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-25",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 2,
+					"outlettype" : [ "jit_gl_texture", "" ],
+					"patching_rect" : [ 275.0, 437.0, 70.0, 22.0 ],
+					"text" : "jit.gl.texture"
+				}
+
+			}
+, 			{
+				"box" : 				{
+					"comment" : "messages from meshwarp",
+					"id" : "obj-20",
+					"index" : 0,
+					"maxclass" : "outlet",
+					"numinlets" : 1,
+					"numoutlets" : 0,
+					"patching_rect" : [ 374.666666666666629, 470.0, 30.0, 30.0 ]
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-17",
 					"maxclass" : "newobj",
@@ -782,13 +806,13 @@
 			}
 , 			{
 				"box" : 				{
-					"comment" : "",
+					"comment" : "texture output",
 					"id" : "obj-19",
 					"index" : 0,
 					"maxclass" : "outlet",
 					"numinlets" : 1,
 					"numoutlets" : 0,
-					"patching_rect" : [ 281.5, 470.0, 30.0, 30.0 ]
+					"patching_rect" : [ 259.333333333333314, 470.0, 30.0, 30.0 ]
 				}
 
 			}
@@ -800,7 +824,7 @@
 					"numoutlets" : 4,
 					"outlettype" : [ "", "", "", "" ],
 					"patching_rect" : [ 144.0, 407.875, 365.0, 22.0 ],
-					"text" : "routepass notify_selected_meshwarp selected_vertex jit_gl_texture"
+					"text" : "routepass notify_selected_meshwarp jit_gl_texture selected_vertex"
 				}
 
 			}
@@ -1000,14 +1024,14 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-19", 0 ],
-					"source" : [ "obj-11", 2 ]
+					"source" : [ "obj-11", 1 ]
 				}
 
 			}
 , 			{
 				"patchline" : 				{
-					"destination" : [ "obj-19", 0 ],
-					"source" : [ "obj-11", 1 ]
+					"destination" : [ "obj-20", 0 ],
+					"source" : [ "obj-11", 2 ]
 				}
 
 			}
@@ -1110,6 +1134,13 @@
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
 					"source" : [ "obj-24", 0 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-19", 0 ],
+					"source" : [ "obj-25", 0 ]
 				}
 
 			}
@@ -1264,12 +1295,13 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "jit.mo.time.mxe64",
-				"type" : "mx64"
+				"name" : "jit.mo.time.mxo",
+				"type" : "iLaX"
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "C74:/packages/Jitter Tools/javascript/meshwarp",
+				"bootpath" : "~/dev/cycling/meshwarp/javascript",
+				"patcherrelativepath" : "../javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
