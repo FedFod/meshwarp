@@ -278,11 +278,16 @@ Mesh.prototype.loadMasksFromDict = function(dict)
         // FF_Utils.Print("Stringified dict "+JSON.stringify(dict))
         var maskArrays = tempDict.getkeys();
 
-        for (var arr in maskArrays)
-        {   
-            var maskVertices = (JSON.parse(tempDict.get(maskArrays[arr])));
+        if (Array.isArray(maskArrays)) {
+            for (var arr in maskArrays)
+            {   
+                var maskVertices = (JSON.parse(tempDict.get(maskArrays[arr])));
+                this.maskMeshesFullArray.push(new MaskMesh(this.maskNode.name, maskVertices[0], this.currentScale, this.currentPos, maskVertices));
+            }
+        } else {
+            var maskVertices = (JSON.parse(tempDict.get(maskArrays)));
             this.maskMeshesFullArray.push(new MaskMesh(this.maskNode.name, maskVertices[0], this.currentScale, this.currentPos, maskVertices));
-        }
+        }       
         
         this.showMaskUI(mask_mode);
 

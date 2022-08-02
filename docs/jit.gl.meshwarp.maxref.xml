@@ -187,20 +187,16 @@
             Enable masking mode (default = 0)
         </digest>
         <description>
-            When the flag is set, masking mode is enabled. 
-
-            To create a new mask: 
-                - shift + double click on meshwarp plane. 
-            To move a mask: 
-                - ctrl/cmd + drag on blue mask dot.
-            To remove a mask: 
-                - shift + double click on blue mask dot. 
-            To modify mask: 
-                - click and drag on yellow mask dots.
-            To create new mask vertex: 
-                - shift + double click on mask edge line.
-            To remove mask vertex: 
-                - shift + double click on yellow mask dot. 
+            When the flag is set, masking mode is enabled and the following editing operations are supported:
+						<br/>
+						<ul>
+            <li>Create new mask: <i><b> shift + double click </b></i> on meshwarp plane</li>
+            <li>Move mask: <i><b> ctrl/cmd + drag </b></i> on blue mask dot</li>
+            <li>Delete mask: <i><b> shift + double click </b></i> on blue mask dot </li>
+            <li>Modify mask shape: <i><b> click and drag </b></i> on yellow mask dots</li>
+            <li>Add mask vertex: <i><b> shift + double click </b></i> on mask edge line</li>
+            <li>Delete mask vertex: <i><b> shift + double click </b></i> on yellow mask dot </li>
+            </ul>
         </description>
     </attribute>
     <attribute name="meshdim">

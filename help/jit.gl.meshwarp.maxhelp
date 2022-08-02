@@ -10,7 +10,7 @@
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 3216.0, 975.0, 823.0, 624.0 ],
+		"rect" : [ 34.0, 87.0, 883.0, 624.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -58,7 +58,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 823.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -284,7 +284,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 823.0, 598.0 ],
+						"rect" : [ 34.0, 113.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -405,7 +405,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 323.57598876953125, 57.600002288818359 ]
+									"patching_rect" : [ 10.0, 10.0, 322.232025146484375, 57.599853515625 ]
 								}
 
 							}
@@ -413,12 +413,12 @@
 								"box" : 								{
 									"fontsize" : 13.0,
 									"id" : "obj-1",
-									"linecount" : 15,
+									"linecount" : 12,
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 84.957679629325867, 134.851852118968964, 594.0, 231.0 ],
-									"text" : "1 - Enable \"mask_mode\".\n2 - Press \"shift\" and double click inside the plane.  \n3 - Click and drag with the mouse on the yellow dots to move masks vertices. \n4 - Press \"ctrl (win) / cmd (mac)\" + drag the blue dot to move the mask around the scene.\n5 - Press \"shift\" and double click on the edges of the masks to create new vertices.\n6 - Press \"shift\" and double click on a yellow dot to delete a mask vertex. \n7 - Press \"shift\" and double click on the blue dot to delete a whole mask.\n\n8 - Enable \"apply_mask\" to apply the mask to the plane.\n9 - You can invert the mask with the \"invert_mask 1/0\" message.\n10 - Send the \"reset_mask\" message to reset all masks.\n11 - Disable \"mask_mode\" to go back to editing the jit.gl.meshwarp mesh.\n\nDANGER\nUndo / Redo for masks is not working at the moment.",
+									"patching_rect" : [ 84.957679629325867, 134.851852118968964, 594.0, 181.0 ],
+									"text" : "1 - Enable \"mask_mode\".\n2 - Press \"shift\" and double click inside the plane.  \n3 - Click and drag with the mouse on the yellow dots to move masks vertices. \n4 - Press \"ctrl (win) / cmd (mac)\" + drag the blue dot to move the mask around the scene.\n5 - Press \"shift\" and double click on the edges of the masks to create new vertices.\n6 - Press \"shift\" and double click on a yellow dot to delete a mask vertex. \n7 - Press \"shift\" and double click on the blue dot to delete a whole mask.\n\n8 - Enable \"apply_mask\" to apply the mask to the plane.\n9 - You can invert the mask with the \"invert_mask 1/0\" message.\n10 - Send the \"reset_mask\" message to reset all masks.\n11 - Disable \"mask_mode\" to go back to editing the jit.gl.meshwarp mesh.",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
 
@@ -720,7 +720,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 823.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -862,7 +862,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 527.0, 169.0, 201.0, 55.0 ],
+									"patching_rect" : [ 527.0, 169.0, 201.0, 54.0 ],
 									"text" : "use the \"layer\" message to control the rendering order when shapes are not selected"
 								}
 
@@ -1261,7 +1261,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 823.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1360,7 +1360,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 659.0, 276.619042873382568, 222.0, 70.0 ],
+									"patching_rect" : [ 659.0, 276.619042873382568, 222.0, 69.0 ],
 									"text" : "An alternative approach is to use Snapshots to save and restore multiple meshwarp configurations for all the objects in your patch"
 								}
 
@@ -1373,7 +1373,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 258.642860054969788, 397.119042873382568, 378.0, 51.0 ],
+									"patching_rect" : [ 258.642860054969788, 397.119042873382568, 378.0, 50.0 ],
 									"text" : "Each json file describes a single jit.gl.meshwarp configuration. These messages referencing meshwarpA and meshwarpB are sent to the meshwarp objects in the \"multiple meshwarps\" tab.",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
@@ -1677,7 +1677,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 823.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1741,7 +1741,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 544.232025146484375, 409.119050145149231, 175.0, 81.0 ],
+									"patching_rect" : [ 544.232025146484375, 409.119050145149231, 175.0, 79.0 ],
 									"text" : "Set the X and Y order of the underlying NURBS canvas mesh. The order determines the curvature of the canvas mesh.",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
@@ -1799,7 +1799,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 323.57598876953125, 57.600002288818359 ]
+									"patching_rect" : [ 10.0, 10.0, 322.232025146484375, 57.599853515625 ]
 								}
 
 							}
@@ -1825,7 +1825,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 327.232025146484375, 409.119050145149231, 169.0, 51.0 ],
+									"patching_rect" : [ 327.232025146484375, 409.119050145149231, 169.0, 50.0 ],
 									"text" : "Dimension of the UI mesh. Sets the number of clickable vertices displayed",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
@@ -2410,7 +2410,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 823.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -2501,7 +2501,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 87.5, 471.523807168006897, 107.0, 51.0 ],
+									"patching_rect" : [ 87.5, 471.523807168006897, 107.0, 50.0 ],
 									"text" : "Change the size of the vertex points",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
@@ -2515,7 +2515,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 210.5, 471.523807168006897, 107.0, 51.0 ],
+									"patching_rect" : [ 210.5, 471.523807168006897, 107.0, 50.0 ],
 									"text" : "Change the thickness of the grid",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
@@ -2573,7 +2573,7 @@
 									"numoutlets" : 1,
 									"outlettype" : [ "" ],
 									"parameter_enable" : 0,
-									"patching_rect" : [ 10.0, 10.0, 323.57598876953125, 57.600002288818359 ]
+									"patching_rect" : [ 10.0, 10.0, 322.232025146484375, 57.599853515625 ]
 								}
 
 							}
@@ -2739,7 +2739,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 59.666666666666515, 129.190485954284668, 765.0, 81.0 ],
+									"patching_rect" : [ 59.666666666666515, 129.190485954284668, 765.0, 79.0 ],
 									"text" : "- Blue Circle: click and drag the blue circle in the center of the mesh to move the entire mesh.\n- Yellow Circles: click and drag the yellow circles at the edges of the mesh to scale it. \n- Red Circles: When you hover over an individual vertex a red dot appears. Click and drag a red circle to move an individual vertex.\n- Click and Drag: select multiple vertices by clicking and dragging over an area of the mesh. After selecting the vertices you can move them all in bulk by clicking and dragging on a selected vertex.",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
@@ -3120,7 +3120,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 3216.0, 1001.0, 823.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 13.0,
@@ -3182,7 +3182,7 @@
 									"numinlets" : 1,
 									"numoutlets" : 2,
 									"outlettype" : [ "", "" ],
-									"patching_rect" : [ 121.142860054969788, 253.999999642372131, 80.0, 36.0 ]
+									"patching_rect" : [ 121.142860054969788, 253.999999642372131, 80.0, 35.0 ]
 								}
 
 							}
@@ -3246,7 +3246,7 @@
 									"maxclass" : "comment",
 									"numinlets" : 1,
 									"numoutlets" : 0,
-									"patching_rect" : [ 557.988093376159668, 230.119042873382568, 182.0, 66.0 ],
+									"patching_rect" : [ 557.988093376159668, 230.119042873382568, 182.0, 65.0 ],
 									"text" : "Also undo via cmd+z or ctl+z  and redo via shift+cmd+z or ctl+y when interacting in the render window",
 									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
 								}
@@ -3622,7 +3622,7 @@
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 823.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -3688,18 +3688,6 @@
 		}
 ,
 		"dependency_cache" : [ 			{
-				"name" : "Aspect[1]_20210728.maxsnap",
-				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"type" : "mx@s",
-				"implicit" : 1
-			}
-, 			{
-				"name" : "Zigzag[1].maxsnap",
-				"bootpath" : "~/Documents/Max 8/Snapshots",
-				"type" : "mx@s",
-				"implicit" : 1
-			}
-, 			{
 				"name" : "helpdetails.js",
 				"bootpath" : "C74:/help/resources",
 				"type" : "TEXT",
@@ -3719,23 +3707,26 @@
 			}
 , 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/Jitter Tools/patchers",
+				"patcherrelativepath" : "../../../../Documents/Max 8/Packages/Jitter Tools/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
 , 			{
-				"name" : "jit.mo.time.mxe64",
-				"type" : "mx64"
+				"name" : "jit.mo.time.mxo",
+				"type" : "iLaX"
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/javascript",
+				"bootpath" : "~/Documents/Max 8/Packages/Jitter Tools/javascript/meshwarp",
+				"patcherrelativepath" : "../../../../Documents/Max 8/Packages/Jitter Tools/javascript/meshwarp",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.vertex.edit.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/meshwarp/patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/Jitter Tools/patchers",
+				"patcherrelativepath" : "../../../../Documents/Max 8/Packages/Jitter Tools/patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -4331,42 +4322,6 @@
 							"filepath" : "~/Documents/Max 8/Snapshots",
 							"filepos" : -1,
 							"snapshotfileid" : "bf78636150be0ed0ab4db74ac8f937c4"
-						}
-
-					}
-, 					{
-						"filetype" : "C74Snapshot",
-						"version" : 2,
-						"minorversion" : 0,
-						"name" : "Zigzag",
-						"origin" : "jit.gl.meshwarp.maxhelp",
-						"type" : "patcher",
-						"subtype" : "Undefined",
-						"embed" : 0,
-						"fileref" : 						{
-							"name" : "Zigzag",
-							"filename" : "Aspect[1]_20210728.maxsnap",
-							"filepath" : "~/Documents/Max 8/Snapshots",
-							"filepos" : -1,
-							"snapshotfileid" : "702c95b617335e4d15f13ce0bbcfdf15"
-						}
-
-					}
-, 					{
-						"filetype" : "C74Snapshot",
-						"version" : 2,
-						"minorversion" : 0,
-						"name" : "Squares",
-						"origin" : "jit.gl.meshwarp.maxhelp",
-						"type" : "patcher",
-						"subtype" : "Undefined",
-						"embed" : 0,
-						"fileref" : 						{
-							"name" : "Squares",
-							"filename" : "Zigzag[1].maxsnap",
-							"filepath" : "~/Documents/Max 8/Snapshots",
-							"filepos" : -1,
-							"snapshotfileid" : "594b9a14dc7b2604ba9a24d306a1d169"
 						}
 
 					}

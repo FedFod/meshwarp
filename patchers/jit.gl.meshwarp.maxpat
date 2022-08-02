@@ -4,7 +4,7 @@
 		"appversion" : 		{
 			"major" : 8,
 			"minor" : 3,
-			"revision" : 0,
+			"revision" : 1,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
@@ -39,6 +39,47 @@
 		"subpatcher_template" : "",
 		"assistshowspatchername" : 0,
 		"boxes" : [ 			{
+				"box" : 				{
+					"id" : "obj-28",
+					"maxclass" : "newobj",
+					"numinlets" : 1,
+					"numoutlets" : 3,
+					"outlettype" : [ "", "", "" ],
+					"patching_rect" : [ 243.0, 350.0, 141.0, 22.0 ],
+					"restore" : [ 						{
+							"meshdim" : [ 4, 4 ],
+							"nurbs_order" : [ 1, 1 ],
+							"layer" : 0,
+							"lock_to_aspect" : 0,
+							"color" : [ 1, 1, 1, 1 ],
+							"grid_color" : [ 0.994658879901539, 0.372239458171369, 0.008338693917735, 1 ],
+							"show_ui" : 1,
+							"point_size" : 10,
+							"grid_size" : 3,
+							"windowRatio" : 1,
+							"positionMat" : 							{
+								"scale" : [ 1, 1 ],
+								"center" : [ 0, 0 ],
+								"rotatez" : 0,
+								"planecount" : 3,
+								"type" : "float32",
+								"dimensions" : [ 4, 4 ],
+								"vertices" : "[[-1,-1,0],[-1,-0.3333333432674408,0],[-1,0.3333333432674408,0],[-1,1,0],[-0.3333333432674408,-1,0],[-0.3333333432674408,-0.3333333432674408,0],[-0.3333333432674408,0.3333333432674408,0],[-0.3333333432674408,1,0],[0.3333333432674408,-1,0],[0.3333333432674408,-0.3333333432674408,0],[0.3333333432674408,0.3333333432674408,0],[0.3333333432674408,1,0],[1,-1,0],[1,-0.3333333432674408,0],[1,0.3333333432674408,0],[1,1,0]]"
+							}
+
+						}
+ ],
+					"saved_object_attributes" : 					{
+						"parameter_enable" : 0,
+						"parameter_mappable" : 0
+					}
+,
+					"text" : "pattr mw @autorestore 0",
+					"varname" : "mw"
+				}
+
+			}
+, 			{
 				"box" : 				{
 					"id" : "obj-25",
 					"maxclass" : "newobj",
@@ -128,7 +169,7 @@
 						"appversion" : 						{
 							"major" : 8,
 							"minor" : 3,
-							"revision" : 0,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -520,7 +561,7 @@
 						"appversion" : 						{
 							"major" : 8,
 							"minor" : 3,
-							"revision" : 0,
+							"revision" : 1,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -1163,6 +1204,13 @@
 , 			{
 				"patchline" : 				{
 					"destination" : [ "obj-8", 0 ],
+					"source" : [ "obj-28", 1 ]
+				}
+
+			}
+, 			{
+				"patchline" : 				{
+					"destination" : [ "obj-8", 0 ],
 					"midpoints" : [ 530.5, 325.0, 153.5, 325.0 ],
 					"source" : [ "obj-29", 0 ]
 				}
@@ -1288,6 +1336,11 @@
 		"parameters" : 		{
 			"obj-8" : [ "meshwarpjs", "meshwarpjs", 0 ],
 			"parameterbanks" : 			{
+				"0" : 				{
+					"index" : 0,
+					"name" : "",
+					"parameters" : [ "-", "-", "-", "-", "-", "-", "-", "-" ]
+				}
 
 			}
 ,
@@ -1300,8 +1353,8 @@
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/dev/cycling/meshwarp/javascript",
-				"patcherrelativepath" : "../javascript",
+				"bootpath" : "~/dev/cycling/max6-git/max/packages/Jitter Tools/javascript/meshwarp",
+				"patcherrelativepath" : "../javascript/meshwarp",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
