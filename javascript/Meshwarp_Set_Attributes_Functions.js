@@ -1,15 +1,23 @@
 //-----PUBLIC FUNCTIONS----------------
 // if undo or redo contain an arg, then we first check if this meshwarp is active
 function undo() {
-	if((!arguments.length || checkUndoRedo()) && !mask_mode) {
-		gMesh.undo();
+	if(!arguments.length || checkUndoRedo()) {
+		if (!mask_mode) {
+			gMesh.undo();
+		} else {
+			gMesh.maskUndo();
+		}
 	}
 }
 
 function redo() {
-	if((!arguments.length || checkUndoRedo()) && !mask_mode) {
-		gMesh.redo();
-	}
+	if((!arguments.length || checkUndoRedo())) {
+		if (!mask_mode) {
+			gMesh.redo();
+		} else {
+			gMesh.maskRedo();
+		}
+	} 
 }
 
 function time(val)

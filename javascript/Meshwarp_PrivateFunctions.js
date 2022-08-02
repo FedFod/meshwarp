@@ -101,7 +101,7 @@ function checkModifiersKeyDown() {
 checkModifiersKeyDown.local = 1;
 
 function checkUndoRedo() {
-	if (gIsMouseInsideWindow && gMesh.showMeshUI) {
+	if (gIsMouseInsideWindow && (gMesh.showMeshUI || mask_mode)) {
 		gGraphics.resetSelected();
 		return true;
 	}

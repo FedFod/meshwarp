@@ -1,22 +1,28 @@
 {
-	"name" : "meshwarp",
-	"version" : "0.0.1",
-	"author" : "Cycling '74",
-	"description" : "Deform visual material projected on an arbitrary number of planes",
-	"max_version_min" : "8.2.0",
-	"max_version_max" : "none",
-	"os" : 	{
-		"macintosh" : 		{
-			"min_version" : "none",
-			"platform" : [ "x64" ]
-		}
+    "author" : "Cycling '74",
+    "authors" : [  ],
+    "description" : "Jitter Tools - utilities and abstractions to extend Jitter",
+    "displayname" : "",
+    "extends" : "",
+    "extensible" : 0,
+    "homepatcher" : "",
+    "max_version_max" : "none",
+    "max_version_min" : "8.2",
+    "name" : "Jitter Tools",
+    "os" :  {
+        "macintosh" :       {
+            "platform" : [ "x64", "aarch64" ],
+            "min_version" : "none"
+        }
 ,
-		"windows" : 		{
-			"min_version" : "none",
-			"platform" : [ "x64" ]
-		}
+        "windows" :         {
+            "platform" : [ "x64" ],
+            "min_version" : "none"
+        }
 
-	}
+    }
 ,
-	"homepatcher" : "meshwarp-launcher.maxpat"
+    "tags" : [  ],  
+    "version" : "1.0.4",
+    "website" : "http://www.cycling74.com"
 }

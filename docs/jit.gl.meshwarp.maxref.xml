@@ -84,6 +84,14 @@
                 Reset the jit.gl.meshwarp to the default state. It will reset the scale, position, rotation and color attributes.
             </description>
         </method>
+           <method name="reset_mask">
+            <digest>
+                Deletes any existing masks.
+            </digest>
+            <description>
+                Deletes any existing masks.
+            </description>
+        </method>
         <method name="save">
             <digest>
                 Save the complete current state of the jit.gl.meshwarp object to a JSON file (.json).
@@ -103,7 +111,17 @@
         </method>
 </methodlist>
 
+<!--ARGUMENTS-->
 <attributelist>
+    <attribute name="apply_mask">
+            <arglist />
+            <digest>
+                Hide or show meshwarp plane using existing masks. 
+            </digest>
+            <description>
+                Hide or show meshwarp plane using existing masks (default = 0)
+            </description>
+    </attribute>
     <attribute name="color">
             <arglist />
             <digest>
@@ -116,10 +134,10 @@
     <attribute name="curvature">
             <arglist />
             <digest>
-                Set both the x and y NURBS order. 
+                Set both the X and Y NURBS order. 
             </digest>
             <description>
-                A quick way to set both the X and y NURBS order, which determines the curvature of the underlying canvas mesh (range 0. to 1.)
+                A quick way to set both the X and Y NURBS order, which determines the curvature of the underlying canvas mesh (range 0. to 1.)
                 Sets both dims of <at>nurbs_order</at>, based on the current <at>mesh_dim</at>. The attribute is float type, however 
                 output is clamped to int values and therefore may look choppy when adjusting. 
             </description>
@@ -133,13 +151,23 @@
                 Enable flag (default = 1) When the flag is set, drawing is enabled.
             </description>
     </attribute>
+        <attribute name="invert_mask">
+        <arglist />
+        <digest>
+            Invert mask (default = 0)
+        </digest>
+        <description>
+            When the flag is set, the mask is inverted. 
+            Only what is contained inside the masks will be shown in the meshwarp plane. 
+        </description>
+    </attribute>
     <attribute name="layer">
             <arglist />
             <digest>
                 Object layer number (default = 0)
             </digest>
             <description>
-                Object layer number (default = 0) When in automatic mode, the layer number determines
+                Object layer number (default = 0). When in automatic mode, the layer number determines
                 the rendering order (low to high). Objects in the same layer have no guarantee which will be rendered first.
             </description>
     </attribute>
@@ -152,6 +180,24 @@
                 Locks the scale to match the proportions of the input texture (default = 0).
                 When set to active, the scale attribute will only respond to the second attribute argument (y scale).
             </description>
+    </attribute>
+    <attribute name="mask_mode">
+        <arglist />
+        <digest>
+            Enable masking mode (default = 0)
+        </digest>
+        <description>
+            When the flag is set, masking mode is enabled and the following editing operations are supported:
+						<br/>
+						<ul>
+            <li>Create new mask: <i><b> shift + double click </b></i> on meshwarp plane</li>
+            <li>Move mask: <i><b> ctrl/cmd + drag </b></i> on blue mask dot</li>
+            <li>Delete mask: <i><b> shift + double click </b></i> on blue mask dot </li>
+            <li>Modify mask shape: <i><b> click and drag </b></i> on yellow mask dots</li>
+            <li>Add mask vertex: <i><b> shift + double click </b></i> on mask edge line</li>
+            <li>Delete mask vertex: <i><b> shift + double click </b></i> on yellow mask dot </li>
+            </ul>
+        </description>
     </attribute>
     <attribute name="meshdim">
             <arglist />
@@ -171,6 +217,17 @@
                 Set the X and Y order of the underlying NURBS canvas mesh. 
                 The order determines the curvature of the canvas mesh (default = 1 1). 
             </description>
+    </attribute>
+    <attribute name="output_texture">
+        <arglist />
+        <digest>
+            Capture to internal texture
+        </digest>
+        <description>
+            Capture to internal texture (default = 0).
+            When enabled, the rendering of this meshwarp is captured to texture and the texture name is output out the left outlet. 
+            The dimensions of the texture are equal to the dimensions of the rendering window. 
+        </description>
     </attribute>
     <attribute name="position">
             <arglist />
@@ -252,6 +309,7 @@
 <!--SEEALSO-->
     <seealsolist>
         <seealso name="jit.gl.mesh"/>
+        <seealso name="jit.gl.videoplane"/>
     </seealsolist>
 
 </c74object>

@@ -123,7 +123,7 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     }
     else if (mask_mode && gGlobal.checkIfItIsGloballySelected(nodeCTX.name))
     {
-        if (this.maskLatestAction.action != "NOTHING")
+        if (this.maskLatestAction.action != GUI_ELEMENTS.NOTHING)
         {
             this.saveUndoRedoMaskState();
         }

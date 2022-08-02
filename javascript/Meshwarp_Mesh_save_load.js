@@ -96,7 +96,7 @@ Mesh.prototype.saveUndoRedoPositionMat = function() {
 }
 
 Mesh.prototype.applyHistory = function() {
-    state = this.undoRedoLevels[this.undoPointer];
+    var state = this.undoRedoLevels[this.undoPointer];
     if(state.dim[0] != this.posMatDim[0] || state.dim[1] != this.posMatDim[1]) {
         this.resizeMeshDim(state.dim);
     }

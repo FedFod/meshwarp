@@ -3,8 +3,8 @@ Mesh.prototype.initMask = function(drawto_)
     this.selectedMaskIndex = { maskIndex: -1, toDelete: 0 };
     this.maskMeshesFullArray = [];
     this.mask_mode = 0;
-    this.lastMaskState = "NOTHING";
-    this.maskLatestAction = { maskIndex: -1, action: "NOTHING" };
+    this.lastMaskState = GUI_ELEMENTS.NOTHING;
+    this.maskLatestAction = { maskIndex: -1, action: GUI_ELEMENTS.NOTHING };
     this.maskUndoRedoLevels = [];
     this.initMaskNode();
 }
@@ -210,14 +210,14 @@ Mesh.prototype.addVertexToMaskMesh = function(mouseWorld)
         {
             maskMesh.deleteVertex();
             this.maskLatestAction.maskIndex = mask;
-            this.maskLatestAction.action = "DELETED_VERTEX";
+            this.maskLatestAction.action = GUI_ELEMENTS.DELETED_MASK_VERTEX;
             return 1;
         }
         else if (maskMesh.checkIfMouseIsInsideMaskMesh(mouseWorld))
         {   
             maskMesh.addVertexToMaskMesh(mouseWorld);
             this.maskLatestAction.maskIndex = mask;
-            this.maskLatestAction.action = "ADDED_VERTEX";
+            this.maskLatestAction.action = GUI_ELEMENTS.ADDED_MASK_VERTEX;
             return 1;
         }
     }
@@ -253,7 +253,7 @@ Mesh.prototype.moveSelectedMaskVertex = function(mouseWorld)
     {
         this.maskMeshesFullArray[this.selectedMaskIndex.maskIndex].moveVertexMaskMesh(mouseWorld);
         this.maskLatestAction.maskIndex = this.selectedMaskIndex.maskIndex;
-        this.maskLatestAction.action = "MOVED_VERTEX";
+        this.maskLatestAction.action = GUI_ELEMENTS.MOVED_MASK_VERTEX;
     }
 }
 
@@ -278,11 +278,16 @@ Mesh.prototype.loadMasksFromDict = function(dict)
         // FF_Utils.Print("Stringified dict "+JSON.stringify(dict))
         var maskArrays = tempDict.getkeys();
 
-        for (var arr in maskArrays)
-        {   
-            var maskVertices = (JSON.parse(tempDict.get(maskArrays[arr])));
+        if (Array.isArray(maskArrays)) {
+            for (var arr in maskArrays)
+            {   
+                var maskVertices = (JSON.parse(tempDict.get(maskArrays[arr])));
+                this.maskMeshesFullArray.push(new MaskMesh(this.maskNode.name, maskVertices[0], this.currentScale, this.currentPos, maskVertices));
+            }
+        } else {
+            var maskVertices = (JSON.parse(tempDict.get(maskArrays)));
             this.maskMeshesFullArray.push(new MaskMesh(this.maskNode.name, maskVertices[0], this.currentScale, this.currentPos, maskVertices));
-        }
+        }       
         
         this.showMaskUI(mask_mode);
 
@@ -292,16 +297,39 @@ Mesh.prototype.loadMasksFromDict = function(dict)
 
 Mesh.prototype.resetMaskLatestAction = function()
 {
-    this.maskLatestAction.maskIndex = -1;
-    this.maskLatestAction.action = "NOTHING";
+    // this.maskLatestAction.maskIndex = -1;
+    this.maskLatestAction.action = GUI_ELEMENTS.NOTHING;
 }
 
+// UNDO REDO -------------------------------------
 Mesh.prototype.saveUndoRedoMaskState = function()
 {
+    if (this.maskLatestAction.maskIndex != -1 && this.maskMeshesFullArray.length > 0)
+    {   
+        debug(DEBUG.MASK, "SAVE UNDO REDO MASK");
+        debug(DEBUG.MASK, "MSK LATEST ACTION INDEX: " + this.maskLatestAction.maskIndex);
+        // for (var mask in this.maskMeshesFullArray) {
+        //     this.maskMeshesFullArray[mask].saveUndoRedoMaskState();
+        // }
+        this.maskMeshesFullArray[this.maskLatestAction.maskIndex].saveUndoRedoMaskState();
+        // this.maskUndoRedoLevels.push(this.maskMeshesFullArray[this.maskLatestAction.maskIndex]);
+    }
+}
+
+Mesh.prototype.maskUndo = function()
+{   
     if (this.maskLatestAction.maskIndex != -1)
     {   
-        debug(DEBUG.MASK, "SAVE UNDO REDO MASK")
-        //this.maskUndoRedoLevels.push(jitMatToArray(this.maskMeshesFullArray[this.maskLatestAction.maskIndex]));
+        debug(DEBUG.MASK, "MSK LATEST ACTION INDEX: " + this.maskLatestAction.maskIndex);
+        this.maskMeshesFullArray[this.maskLatestAction.maskIndex].maskInstanceUndo();
+    }
+}
+
+Mesh.prototype.maskRedo = function()
+{   
+    if (this.maskLatestAction.maskIndex != -1)
+    {   
+        this.maskMeshesFullArray[this.maskLatestAction.maskIndex].maskInstanceRedo();
     }
 }
 
@@ -321,7 +349,7 @@ Mesh.prototype.freeMaskMeshArray = function()
     this.maskMeshesFullArray = [];
 }
 
-// MASK MESH -------------------------- 
+// MASK MESH -------------------------------------------------
 function MaskMesh(ctxName, center, currentScale, motherMeshCenter, vArray)
 {
     this.maskMesh = new JitterObject("jit.gl.mesh");
@@ -360,7 +388,9 @@ function MaskMesh(ctxName, center, currentScale, motherMeshCenter, vArray)
 
     this.jit3m = new JitterObject("jit.3m");
 
-    this.initMask = function(center, vArray)
+    this.maskUndoRedoLevels = [];
+
+    this.initMaskInstance = function(center, vArray)
     {   
         if (!vArray)
         {
@@ -380,6 +410,7 @@ function MaskMesh(ctxName, center, currentScale, motherMeshCenter, vArray)
         this.assignVertexMatToMaskMesh();
         this.assignColorMatToMaskPointsMesh();
         this.unscaledMatFromVertMat();
+        this.saveUndoRedoMaskState();
     }
 
     this.initMaskFromVerticesArray = function(vArray)
@@ -455,7 +486,6 @@ function MaskMesh(ctxName, center, currentScale, motherMeshCenter, vArray)
 
             if (checkIfPointIsBetweenTwoPoints2D(vert, vertRight, mouseWorld))
             {   
-                FF_Utils.Print("i = "+i)
                 vertIndex = i+1;
                 break;
             }
@@ -616,8 +646,59 @@ function MaskMesh(ctxName, center, currentScale, motherMeshCenter, vArray)
         return (jitMatToArray(this.vertMat));
     }
 
-    this.initMask(center, vArray);
+    // UNDO REDO MASK CLASS ----------------------
+    this.saveUndoRedoMaskState = function()
+    {   
+        var state = { vertMat: null, unscaledVertMat: null };
+        state.vertMat =         jitMatToArray(this.vertMat);
+        state.unscaledVertMat = jitMatToArray(this.unscaledVertMat);
 
+        if(this.maskUndoPointer < this.maskUndoRedoLevels.length - 1) {
+            this.maskUndoRedoLevels.splice(this.maskUndoPointer + 1, this.maskUndoRedoLevels.length - (this.maskUndoPointer + 1));
+        }
+
+        this.maskUndoRedoLevels.push(state);
+
+        if(this.maskUndoRedoLevels.length > gMaxUndo) {
+            debug(DEBUG.MASK, "Shifting Mask Undo");
+            this.maskUndoRedoLevels.shift();
+        }
+
+        this.maskUndoPointer = this.maskUndoRedoLevels.length - 1;
+    }
+
+    this.applyMaskHistory = function()
+    {
+        var state = this.maskUndoRedoLevels[this.maskUndoPointer];
+        this.vertMat.dim = state.vertMat.length;
+        this.unscaledVertMat.dim = state.unscaledVertMat.length;
+        
+        arrayToJitMat(this.vertMat,         state.vertMat);
+        arrayToJitMat(this.unscaledVertMat, state.unscaledVertMat);
+        
+        this.assignVertexMatToMaskMesh();
+    }
+    
+    this.maskInstanceUndo = function()
+    {   
+        debug(DEBUG.MASK, "Mask UNDO pointer from \"maskUndo\": "+this.maskUndoPointer);
+        if(this.maskUndoPointer > 0) {
+            this.maskUndoPointer--;
+            this.applyMaskHistory();
+        }
+    }
+
+    this.maskInstanceRedo = function() {
+        if(this.maskUndoPointer < this.maskUndoRedoLevels.length - 1) {
+            this.maskUndoPointer++;
+            this.applyMaskHistory();
+        }
+    }
+
+    // INIT MASK INSTANCE -------------------
+    this.initMaskInstance(center, vArray);
+
+    //-------------------------------------
     this.freeMaskMesh = function()
     {   
         debug(DEBUG.MASK, "Free Mask Mesh");
