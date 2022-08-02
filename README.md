@@ -1,6 +1,6 @@
 # meshwarp
 
-Federico's Branch
+Udated from Max's codebase
 
 ## Changes
 - show_ui: now if deactivated and user clicks on the video the UI will not appear (requested, think it makes sense).
