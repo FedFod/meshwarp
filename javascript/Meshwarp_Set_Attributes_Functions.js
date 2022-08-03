@@ -259,7 +259,7 @@ function loadFromDict(saveDict) {
 	meshdim = saveDict.get("meshdim");
 	nurbs_order = saveDict.get("nurbs_order");
 	layer = saveDict.get("layer");
-	
+
 	blend = saveDict.get("blend");
 	// check if blend was already stored else default
 	blend = (typeof blend === 'object')? "alphablend" : blend;
@@ -423,6 +423,14 @@ function showUI(show) {
 	}
 }
 showUI.local = 1;
+
+function lockUI(lock) {
+	lock_ui = lock;
+	if (gMesh !== null){
+		gMesh.meshLock = lock;
+	}
+}
+lockUI.local = 1;
 
 function show_position_handle(val) {
 	if (gMesh != null)

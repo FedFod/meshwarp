@@ -36,6 +36,7 @@ Mesh.prototype.initMeshProperties = function()
     this.posMatDim = this.defaultMeshDim;
 
     this.enableMesh = 1;
+    this.meshLock = 0;
 
     this.useNurbs = 1;
     this.showMeshUI = 1;

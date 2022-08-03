@@ -73,6 +73,9 @@ declareattribute("circles_size", null, "setCirclesAndFrameLineSize", 0);
 var show_ui = 1;
 declareattribute("show_ui", null, "showUI", 0);
 
+var lock_ui = 0;
+declareattribute("lock_ui", null, "lockUI", 0);
+
 var grid_size = 3.;
 declareattribute("grid_size", null, "setGridSize", 0);
 

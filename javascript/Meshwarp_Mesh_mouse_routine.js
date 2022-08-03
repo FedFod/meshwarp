@@ -27,6 +27,10 @@ Mesh.prototype.mouseClickedRoutine = function(mouseState, oldMouseState_) {
     var ctxOb = gGlobal.contexts[drawto];
 
     if (this.showMeshUI) {
+        if (this.meshLock){
+            post('jit.gl.meshwarp is locked \n');
+            return;
+        }
         if (mouseClicked != 0) {
             debug(DEBUG.GLOBAL_SELECTION, "showMeshUI mouse clicked");
             switch (this.mouseIsCloseTo) {
