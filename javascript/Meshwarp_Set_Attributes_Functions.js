@@ -67,6 +67,14 @@ function write(path) {
 	saveDictToPath(path);
 }
 
+// write the current settings again to the last loaded
+// .json file. If no file was loaded or written yet 
+// prompt user with saving location
+// 
+function writeagain() {
+	resaveDictToPath();
+}
+
 function read(path) {
 	debug(DEBUG.GENERAL, "loading to " + path);
 	loadSaveDict(path);
@@ -217,6 +225,8 @@ buildSaveDict.local = 1;
 function saveDictToPath(path) {
 	var saveDict = buildSaveDict();
 	saveDict.export_json(path);
+
+	rewriteDict = saveDict;
 }
 saveDictToPath.local = 1;
 
@@ -225,8 +235,24 @@ function loadSaveDict(path) {
 	saveDict.import_json(path);
 	
 	loadFromDict(saveDict);
+	rewriteDict = saveDict;
 }
 loadSaveDict.local = 1;
+
+// var to store path to last loaded or written dict
+var rewriteDict = null;
+// rewrite current settings to last loaded or saved json
+function resaveDictToPath(){
+	// if rewriteDict is not null write again, else prompt
+	if (rewriteDict !== null){
+		var saveDict = buildSaveDict();
+		rewriteDict.clone(saveDict.name);
+		rewriteDict.writeagain();
+	} else {
+		saveDictToPath();
+	}
+}
+resaveDictToPath.local = 1;
 
 function loadFromDict(saveDict) {
 	meshdim = saveDict.get("meshdim");

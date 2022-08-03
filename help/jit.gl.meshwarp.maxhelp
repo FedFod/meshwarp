@@ -3,14 +3,14 @@
 		"fileversion" : 1,
 		"appversion" : 		{
 			"major" : 8,
-			"minor" : 3,
-			"revision" : 0,
+			"minor" : 2,
+			"revision" : 2,
 			"architecture" : "x64",
 			"modernui" : 1
 		}
 ,
 		"classnamespace" : "box",
-		"rect" : [ 34.0, 87.0, 883.0, 624.0 ],
+		"rect" : [ 97.0, 133.0, 883.0, 624.0 ],
 		"bglocked" : 0,
 		"openinpresentation" : 0,
 		"default_fontsize" : 12.0,
@@ -51,8 +51,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -277,14 +277,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 34.0, 113.0, 883.0, 598.0 ],
+						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -713,8 +713,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -1240,7 +1240,8 @@
 						"tags" : ""
 					}
 ,
-					"text" : "p \"multiple meshwarps\""
+					"text" : "p \"multiple meshwarps\"",
+					"varname" : "multiple meshwarps"
 				}
 
 			}
@@ -1254,14 +1255,14 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
 ,
 						"classnamespace" : "box",
-						"rect" : [ 0.0, 26.0, 883.0, 598.0 ],
+						"rect" : [ 97.0, 159.0, 883.0, 598.0 ],
 						"bglocked" : 0,
 						"openinpresentation" : 0,
 						"default_fontsize" : 12.0,
@@ -1291,6 +1292,33 @@
 						"showontab" : 1,
 						"assistshowspatchername" : 0,
 						"boxes" : [ 							{
+								"box" : 								{
+									"fontsize" : 13.0,
+									"id" : "obj-4",
+									"linecount" : 2,
+									"maxclass" : "comment",
+									"numinlets" : 1,
+									"numoutlets" : 0,
+									"patching_rect" : [ 346.642860054969788, 254.119050145149231, 227.0, 36.0 ],
+									"presentation_linecount" : 3,
+									"text" : "overwrite the last loaded or stored .json with the current settings",
+									"textcolor" : [ 0.5, 0.5, 0.5, 1.0 ]
+								}
+
+							}
+, 							{
+								"box" : 								{
+									"id" : "obj-2",
+									"maxclass" : "message",
+									"numinlets" : 2,
+									"numoutlets" : 1,
+									"outlettype" : [ "" ],
+									"patching_rect" : [ 281.642860054969788, 254.119050145149231, 63.0, 22.0 ],
+									"text" : "writeagain"
+								}
+
+							}
+, 							{
 								"box" : 								{
 									"fontsize" : 13.0,
 									"id" : "obj-22",
@@ -1606,6 +1634,14 @@
 , 							{
 								"patchline" : 								{
 									"destination" : [ "obj-3", 0 ],
+									"midpoints" : [ 291.142860054969788, 286.119050145149231, 187.142860054969788, 286.119050145149231, 187.142860054969788, 243.119050145149231, 83.142860054969788, 243.119050145149231 ],
+									"source" : [ "obj-2", 0 ]
+								}
+
+							}
+, 							{
+								"patchline" : 								{
+									"destination" : [ "obj-3", 0 ],
 									"source" : [ "obj-6", 0 ]
 								}
 
@@ -1670,8 +1706,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -2403,8 +2439,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -3113,8 +3149,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -3615,8 +3651,8 @@
 						"fileversion" : 1,
 						"appversion" : 						{
 							"major" : 8,
-							"minor" : 3,
-							"revision" : 0,
+							"minor" : 2,
+							"revision" : 2,
 							"architecture" : "x64",
 							"modernui" : 1
 						}
@@ -3707,8 +3743,8 @@
 			}
 , 			{
 				"name" : "jit.gl.meshwarp.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/Jitter Tools/patchers",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Packages/Jitter Tools/patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/jit.gl.meshwarp/patchers",
+				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
@@ -3718,15 +3754,15 @@
 			}
 , 			{
 				"name" : "meshwarp.js",
-				"bootpath" : "~/Documents/Max 8/Packages/Jitter Tools/javascript/meshwarp",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Packages/Jitter Tools/javascript/meshwarp",
+				"bootpath" : "~/Documents/Max 8/Packages/jit.gl.meshwarp/javascript",
+				"patcherrelativepath" : "../javascript",
 				"type" : "TEXT",
 				"implicit" : 1
 			}
 , 			{
 				"name" : "meshwarp.vertex.edit.maxpat",
-				"bootpath" : "~/Documents/Max 8/Packages/Jitter Tools/patchers",
-				"patcherrelativepath" : "../../../../Documents/Max 8/Packages/Jitter Tools/patchers",
+				"bootpath" : "~/Documents/Max 8/Packages/jit.gl.meshwarp/patchers",
+				"patcherrelativepath" : "../patchers",
 				"type" : "JSON",
 				"implicit" : 1
 			}
