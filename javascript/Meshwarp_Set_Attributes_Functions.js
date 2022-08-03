@@ -203,6 +203,7 @@ function buildSaveDict() {
 	saveDict.replace("meshdim", meshdim);
 	saveDict.replace("nurbs_order", nurbs_order);
 	saveDict.replace("layer", layer);
+	saveDict.replace("blend", blend);
 	saveDict.replace("lock_to_aspect", lock_to_aspect);
 	//saveDict.replace("blend_enable", blend_enable);
 	saveDict.replace("color", color);	
@@ -258,6 +259,11 @@ function loadFromDict(saveDict) {
 	meshdim = saveDict.get("meshdim");
 	nurbs_order = saveDict.get("nurbs_order");
 	layer = saveDict.get("layer");
+	
+	blend = saveDict.get("blend");
+	// check if blend was already stored else default
+	blend = (typeof blend === 'object')? "alphablend" : blend;
+
 	lock_to_aspect = saveDict.get("lock_to_aspect");
 	//blend_enable = saveDict.get("blend_enable");
 	color = saveDict.get("color");	
@@ -341,6 +347,13 @@ function getPosition() {
 	}
 }
 getPosition.local = 1;
+
+// set the blending mode for the mesh
+function setMeshBlend(val){
+	blend = val;
+	videoplane.blend = val;
+}
+setMeshBlend.local = 1;
 
 function setMeshLayer(val) {
 	layer = val;

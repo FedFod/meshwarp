@@ -44,6 +44,9 @@ declareattribute("curvature", null, "setCurvature", 0);
 var layer = 0;
 declareattribute("layer", null, "setMeshLayer", 0);
 
+var blend = "alphablend";
+declareattribute("blend", null, "setMeshBlend", 0);
+
 var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
