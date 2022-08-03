@@ -464,3 +464,15 @@ function setGridSize(size) {
 	}
 }
 setGridSize.local = 1;
+
+function setLineWidth(width){
+	grid_size = width;
+	if (gMesh !== null){
+		gMesh.meshGrid.line_width = grid_size;
+		gMesh.meshGrid.enable = (gMesh.showMeshUI && grid_size > 0);
+		gMesh.moveHandle.line_width = width;
+		gMesh.scaleHandles.line_width = width;
+		gGraphics.setCirclesAndFrameLineWidth(width);
+	}
+}
+setLineWidth.local = 1;

@@ -28,7 +28,8 @@ Mesh.prototype.loadDict = function(saveDict_) {
     }
     showUI(show_ui);
     setPointSize(point_size);
-    setGridSize(grid_size);
+    // setGridSize(grid_size);
+    setLineWidth(grid_size);
 
     this.updateGUI();
     //assignThisAsCurrentlySelectedToGlobal()
