@@ -18,6 +18,7 @@ Mesh.prototype.loadDict = function(saveDict_) {
     setMeshDim(meshdim[0], meshdim[1]);
     setNurbsOrder(nurbs_order[0], nurbs_order[1]);
     setMeshLayer(layer);
+    setMeshBlend(blend);
     setScaleRelativeToAspect(lock_to_aspect);
     //setBlendEnable(blend_enable);
     if (gMesh != null)
@@ -27,7 +28,8 @@ Mesh.prototype.loadDict = function(saveDict_) {
     }
     showUI(show_ui);
     setPointSize(point_size);
-    setGridSize(grid_size);
+    // setGridSize(grid_size);
+    setLineWidth(grid_size);
 
     this.updateGUI();
     //assignThisAsCurrentlySelectedToGlobal()

@@ -136,7 +136,10 @@ function GraphicElements() {
     this.setCirclesAndFrameSize = function(val) {
         this.sketch.shapeslice(val*50);
         this.circleRadius = val*0.06;
-        this.sketch.line_width = val*3;
-        this.sketch2.line_width = val*3;
+    }
+
+    this.setCirclesAndFrameLineWidth = function(val){
+        this.sketch.line_width = val;
+        this.sketch2.line_width = val;
     }
 }

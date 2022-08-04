@@ -44,6 +44,9 @@ declareattribute("curvature", null, "setCurvature", 0);
 var layer = 0;
 declareattribute("layer", null, "setMeshLayer", 0);
 
+var blend = "alphablend";
+declareattribute("blend", null, "setMeshBlend", 0);
+
 var lock_to_aspect = 0;
 declareattribute("lock_to_aspect", null, "setScaleRelativeToAspect", 0);
 
@@ -70,11 +73,17 @@ declareattribute("circles_size", null, "setCirclesAndFrameLineSize", 0);
 var show_ui = 1;
 declareattribute("show_ui", null, "showUI", 0);
 
+var lock_ui = 0;
+declareattribute("lock_ui", null, "lockUI", 0);
+
 var grid_size = 3.;
 declareattribute("grid_size", null, "setGridSize", 0);
 
 var point_size = 10.;
 declareattribute("point_size", null, "setPointSize", 0);
+
+var line_width = 1;
+declareattribute("line_width", null, "setLineWidth", 0);
 
 var output_texture = 0;
 declareattribute("output_texture", null, "setOutputTexture", 0);

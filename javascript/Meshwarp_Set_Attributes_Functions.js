@@ -67,6 +67,14 @@ function write(path) {
 	saveDictToPath(path);
 }
 
+// write the current settings again to the last loaded
+// .json file. If no file was loaded or written yet 
+// prompt user with saving location
+// 
+function writeagain() {
+	resaveDictToPath();
+}
+
 function read(path) {
 	debug(DEBUG.GENERAL, "loading to " + path);
 	loadSaveDict(path);
@@ -195,6 +203,7 @@ function buildSaveDict() {
 	saveDict.replace("meshdim", meshdim);
 	saveDict.replace("nurbs_order", nurbs_order);
 	saveDict.replace("layer", layer);
+	saveDict.replace("blend", blend);
 	saveDict.replace("lock_to_aspect", lock_to_aspect);
 	//saveDict.replace("blend_enable", blend_enable);
 	saveDict.replace("color", color);	
@@ -217,6 +226,8 @@ buildSaveDict.local = 1;
 function saveDictToPath(path) {
 	var saveDict = buildSaveDict();
 	saveDict.export_json(path);
+
+	rewriteDict = saveDict;
 }
 saveDictToPath.local = 1;
 
@@ -225,13 +236,34 @@ function loadSaveDict(path) {
 	saveDict.import_json(path);
 	
 	loadFromDict(saveDict);
+	rewriteDict = saveDict;
 }
 loadSaveDict.local = 1;
+
+// var to store path to last loaded or written dict
+var rewriteDict = null;
+// rewrite current settings to last loaded or saved json
+function resaveDictToPath(){
+	// if rewriteDict is not null write again, else prompt
+	if (rewriteDict !== null){
+		var saveDict = buildSaveDict();
+		rewriteDict.clone(saveDict.name);
+		rewriteDict.writeagain();
+	} else {
+		saveDictToPath();
+	}
+}
+resaveDictToPath.local = 1;
 
 function loadFromDict(saveDict) {
 	meshdim = saveDict.get("meshdim");
 	nurbs_order = saveDict.get("nurbs_order");
 	layer = saveDict.get("layer");
+
+	blend = saveDict.get("blend");
+	// check if blend was already stored else default
+	blend = (typeof blend === 'object')? "alphablend" : blend;
+
 	lock_to_aspect = saveDict.get("lock_to_aspect");
 	//blend_enable = saveDict.get("blend_enable");
 	color = saveDict.get("color");	
@@ -316,6 +348,13 @@ function getPosition() {
 }
 getPosition.local = 1;
 
+// set the blending mode for the mesh
+function setMeshBlend(val){
+	blend = val;
+	videoplane.blend = val;
+}
+setMeshBlend.local = 1;
+
 function setMeshLayer(val) {
 	layer = val;
 	setVideoplaneLayer(val);
@@ -385,6 +424,14 @@ function showUI(show) {
 }
 showUI.local = 1;
 
+function lockUI(lock) {
+	lock_ui = lock;
+	if (gMesh !== null){
+		gMesh.meshLock = lock;
+	}
+}
+lockUI.local = 1;
+
 function show_position_handle(val) {
 	if (gMesh != null)
 	{
@@ -417,3 +464,15 @@ function setGridSize(size) {
 	}
 }
 setGridSize.local = 1;
+
+function setLineWidth(width){
+	grid_size = width;
+	if (gMesh !== null){
+		gMesh.meshGrid.line_width = grid_size;
+		gMesh.meshGrid.enable = (gMesh.showMeshUI && grid_size > 0);
+		gMesh.moveHandle.line_width = width;
+		gMesh.scaleHandles.line_width = width;
+		gGraphics.setCirclesAndFrameLineWidth(width);
+	}
+}
+setLineWidth.local = 1;
